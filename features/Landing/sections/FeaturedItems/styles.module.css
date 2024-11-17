@@ -1,0 +1,30 @@
+.content__Wrap {
+    padding: 5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: #fafafa;
+}
+
+.header__Row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header {
+    font-family: var(--mako-font);
+}
+
+.items__Wrap {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: 0.3s all ease-in-out;
+    flex-wrap: wrap;
+}
+
+.items__Wrap > * {
+    flex: 1;
+    max-width: calc(calc(100% / 4) - 1rem);
+}

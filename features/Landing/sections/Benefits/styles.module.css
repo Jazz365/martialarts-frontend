@@ -1,0 +1,17 @@
+.content__Wrap {
+    padding: 5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.header {
+    font-family: var(--mako-font);
+    text-align: center;
+}
+
+.benefits__Wrap {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}

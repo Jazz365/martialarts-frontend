@@ -1,0 +1,43 @@
+.hero__Wrap {
+    display: flex;
+    align-items: center;
+    padding: 4rem;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.hero__Content__Wrap,
+.header__Content {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero__Content__Wrap {
+    gap: 3rem;
+}
+
+.header__Content {
+    gap: 1rem;
+}
+
+.header {
+    font-family: var(--mako-font);
+    font-size: 3.4rem;
+    font-weight: 900;
+    position: relative;
+    animation: fadeInFromTop 1.4s ease-in-out;
+}
+
+.subtitle__Header {
+    color: #808080;
+}
+
+@keyframes fadeInFromTop {
+    from {
+        opacity: 0;
+        top: -120px;
+    } to {
+        opacity: 1;
+        top: 0;
+    }
+}

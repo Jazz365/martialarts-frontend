@@ -1,0 +1,75 @@
+.search__Bar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    border-radius: 12px;
+    position: relative;
+    transition: 0.2s all ease-in-out;
+}
+
+.search__ICon__Wrap {
+    background-color: var(--primary-app-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem;
+}
+
+.search__Bar input {
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.search__Bar input:focus-within ~ .category__Listing {
+    display: block;
+}
+
+.search__Bar:focus-within {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.category__Listing {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px -5px;
+    width: 100%;
+    padding: 0.5rem 0;
+    list-style: none;
+    display: none;
+    animation: fadeIn 0.35s ease-in-out;
+    border-radius: 12px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    max-height: 12rem;
+    overflow-y: auto;
+}
+
+.category__Listing li a {
+    padding: 1rem;
+    width: 100%;
+    display: block;
+    text-transform: capitalize;
+}
+
+.category__Listing li:hover,
+.category__Listing li:focus {
+    background-color: var(--primary-app-color);
+    color: #fff;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
