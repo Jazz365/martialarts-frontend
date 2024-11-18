@@ -61,3 +61,22 @@
     text-transform: capitalize;
     letter-spacing: 0.05em;
 }
+
+@media screen and (max-width: 767px) {
+    .content__Wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .style__Image {
+        width: 400px;
+        height: 280px;
+    }
+}
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .content__Wrap {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}

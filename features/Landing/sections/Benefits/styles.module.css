@@ -15,3 +15,22 @@
     align-items: center;
     gap: 2rem;
 }
+
+@media screen and (max-width: 767px) {
+    .content__Wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .benefits__Wrap {
+        flex-direction: column;
+        gap: 5rem;
+    }
+}
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .content__Wrap {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}

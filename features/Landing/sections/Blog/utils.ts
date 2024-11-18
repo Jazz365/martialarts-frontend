@@ -31,4 +31,25 @@ export const dummyBlogArticles: {
         image: sampleImage3,
         link: '',
     },
+    {
+        name: '5 Key Factors to Consider When Choosing a Martial Arts School Near You',
+        createdAt: new Date(),
+        lengthOfReadInMinutes: 5,
+        image: sampleImage1,
+        link: '',
+    },
+    {
+        name: 'The Ultimate Guide to Understanding the Differences Between Karate, Taekwondo, and Kung Fu',
+        createdAt: new Date(),
+        lengthOfReadInMinutes: 10,
+        image: sampleImage2,
+        link: '',
+    },
+    {
+        name: "Why Martial Arts Training is More Than Just Physical—The Mental Benefits You Didn't Know About",
+        createdAt: new Date(),
+        lengthOfReadInMinutes: 7,
+        image: sampleImage3,
+        link: '',
+    },
 ]

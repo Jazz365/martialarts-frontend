@@ -108,3 +108,29 @@
         right: 0;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .images__Wrap {
+        flex-direction: column;
+    }
+
+    .banner__Wrap,
+    .banner__Wrap.main {
+        width: 100%;
+        height: 20rem;
+    }
+    
+    .banner__Text {
+        transform: rotate(0deg);
+    }
+}
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .banner__Wrap.main {
+        width: 54vw;
+    }
+
+    .banner__Wrap {
+        width: 18vw;
+    }
+}

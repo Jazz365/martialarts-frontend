@@ -28,3 +28,31 @@
     flex: 1;
     max-width: calc(calc(100% / 4) - 1rem);
 }
+
+@media screen and (max-width: 767px) {
+    .content__Wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .items__Wrap {
+        flex-direction: column;
+    }
+
+    .items__Wrap > * {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .content__Wrap {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .items__Wrap > * {
+        width: calc(calc(100% / 2) - 1rem);
+        flex: unset;
+        max-width: unset;
+    }
+}

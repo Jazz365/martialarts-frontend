@@ -47,3 +47,25 @@
     gap: 0.35rem;
     font-size: 0.875rem;
 }
+
+@media screen and (max-width: 767px) {
+    .content__Wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .location__Item {
+        width: 100%;
+    }
+}
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .content__Wrap {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .location__Item {
+        width: calc(calc(100% / 2) - 1rem);
+    }
+}

@@ -54,3 +54,33 @@
     align-items: center;
     gap: 1rem;
 }
+
+@media screen and (max-width: 767px) {
+    .footer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .footer__Content {
+        flex-direction: column;
+        flex: 1;
+        gap: 3rem;
+    }
+}
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .footer__Content {
+        flex: 1;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

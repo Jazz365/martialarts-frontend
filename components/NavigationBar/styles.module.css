@@ -27,3 +27,17 @@
     border-radius: 8px;
     color: #fff;
 }
+
+@media screen and (max-width: 767px) {
+    .nav__Wrapper {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .nav__Wrapper {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
