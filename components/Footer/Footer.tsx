@@ -2,9 +2,10 @@ import React from 'react'
 import styles from './styles.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { IoLogoInstagram } from 'react-icons/io'
-import { IoLogoFacebook } from 'react-icons/io5'
 import { dummyMartialStyles } from '@/utils/utils'
+import facebookIcon from '../../assets/icons/facebook.png'
+import instagramIcon from '../../assets/icons/instagram.png'
+import tiktokIcon from '../../assets/icons/tiktok.png'
 
 const Footer = () => {
     return <>
@@ -17,7 +18,9 @@ const Footer = () => {
                     height={25}
                     className={styles.logo}
                 />
-                <p className={styles.logo__Subtitle}>Discover the best martial places tailored to your preferences</p>
+                <p className={styles.logo__Subtitle}>
+                    Bringing You the Best Martial Arts Studios and Classes Near You
+                </p>
             </section>
 
             <section className={styles.footer__Content}>
@@ -67,9 +70,23 @@ const Footer = () => {
                     </ul>
 
                     <section className={styles.footer__Icons}>
-                        <IoLogoInstagram size={'2rem'} />
+                        <Image 
+                            src={facebookIcon}
+                            alt='facebook'
+                            className={styles.footer__Icon}
+                        />
 
-                        <IoLogoFacebook size={'2rem'} />
+                        <Image 
+                            src={instagramIcon}
+                            alt='instagram'
+                            className={styles.footer__Icon}
+                        />
+
+                        <Image 
+                            src={tiktokIcon}
+                            alt='tiktok'
+                            className={styles.footer__Icon}
+                        />
                     </section>
                 </section>
             </section>

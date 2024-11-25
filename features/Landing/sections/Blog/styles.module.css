@@ -9,6 +9,7 @@
 .header {
     font-family: var(--mako-font);
     color: #fff;
+    text-transform: capitalize;
 }
 
 .blog__Wrap {

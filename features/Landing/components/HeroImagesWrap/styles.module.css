@@ -1,136 +1,70 @@
-.images__Wrap {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.banner__Wrap {
-    position: relative;
-    width: 150px;
-    height: 650px;
-    overflow: hidden;
-    border-radius: 24px;
-    transition: 0.5s ease-in-out;
-}
-
-.banner__Wrap.main {
-    width: 450px;
-}
-
-.banner__Wrap:first-child {
-    animation: fadeInFromRight1 2s ease-in-out;
-}
-
-.banner__Wrap:nth-child(2) {
-    animation: fadeInFromRight2 1.5s ease-in-out;
-}
-
-.banner__Wrap:nth-child(3) {
-    animation: fadeInFromRight3 1s ease-in-out;
-}
-
-.banner__Wrap.main:focus > .banner__Image, 
-.banner__Wrap.main:hover > .banner__Image {
-    transform: scale(1.2);
-    width: 450px;
-}
-
-.banner__Image {
-    border-radius: 24px;
-    object-fit: cover;
-    transition: 0.3s ease-in-out;
-    display: block;
+.content__Wrap {
+    padding: 12rem 3rem;
     position: relative;
     width: 100%;
-    height: 100%;
+}
+
+.img__Content {
     max-width: 100%;
-}
-
-.mask {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    border-radius: 50%;
     position: absolute;
-    bottom: 0;
+    object-fit: cover;
+}
+
+.img__Content.i_main {
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    height: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-direction: column;
-    padding-bottom: 4rem;
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
+    transform: translate(-90%, -50%);
+    width: 20rem;
+    height: 20rem;
 }
 
-.banner__Text {
-    color: #fff;
-    transform: rotate(270deg);
-    font-size: 2rem;
-    text-transform: uppercase;
-    transition: 0.3s ease-in-out;
-    font-family: var(--mako-font);
-    font-weight: 700;
+.img__Content.i_1 {
+    left: 0;
+    top: 5%;
+    width: 8rem;
+    height: 8rem;
 }
 
-.banner__Wrap.main > .mask > .banner__Text,
-.banner__Wrap:hover > .banner__Image ~ .mask > .banner__Text,
-.banner__Wrap:focus > .banner__Image ~ .mask > .banner__Text {
-    transform: rotate(0deg);
+.img__Content.i_2 {
+    left: 12%;
+    top: 30%;
+    width: 10rem;
+    height: 10rem;
 }
 
-@keyframes fadeInFromRight1 {
-    from {
-        opacity: 0;
-        right: -90px;
-    } to {
-        opacity: 1;
-        right: 0;
-    }
+
+.img__Content.i_3 {
+    right: 26%;
+    top: 30%;
+    width: 14rem;
+    height: 14rem;
 }
 
-@keyframes fadeInFromRight2 {
-    from {
-        opacity: 0;
-        right: -60px;
-    } to {
-        opacity: 1;
-        right: 0;
-    }
+.img__Content.i_4 {
+    right: 11%;
+    top: 6%;
+    width: 10rem;
+    height: 10rem;
 }
 
-@keyframes fadeInFromRight3 {
-    from {
-        opacity: 0;
-        right: -30px;
-    } to {
-        opacity: 1;
-        right: 0;
-    }
+.img__Content.i_5 {
+    right: 0;
+    top: 50%;
+    width: 8rem;
+    height: 8rem;
 }
 
 @media screen and (max-width: 767px) {
-    .images__Wrap {
-        flex-direction: column;
+    .img__Content.i_main {
+        transform: translate(-50%, -50%);
     }
 
-    .banner__Wrap,
-    .banner__Wrap.main {
-        width: 100%;
-        height: 20rem;
-    }
-    
-    .banner__Text {
-        transform: rotate(0deg);
-    }
-}
-
-@media (min-width: 767.98px) and (max-width: 1200px) {
-    .banner__Wrap.main {
-        width: 54vw;
-    }
-
-    .banner__Wrap {
-        width: 18vw;
+    .img__Content.i_1,
+    .img__Content.i_2,
+    .img__Content.i_3,
+    .img__Content.i_4,
+    .img__Content.i_5 {
+        display: none;
     }
 }

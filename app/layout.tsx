@@ -32,8 +32,8 @@ const poppins = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Martial Arts Guru",
-  description: "Martial arts directory listing site",
+  title: "Martial Arts Guru: Explore Top Martial Arts Schools and Book Your Class Now!",
+  description: "Explore Top Martial Arts Schools and Book Your Class",
   authors: [
     { 
       name: 'Ayoola Oloyede', 

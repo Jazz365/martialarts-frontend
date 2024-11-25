@@ -62,8 +62,8 @@ const FeatureCard = ({
 
                 <section className={styles.bottom__Row}>
                     <p className={styles.content__Detail}>
-                        <IoPricetagsOutline size={'1.2rem'} />
-                        <span>${featuredPlace?.price}/month</span>
+                        {/* <IoPricetagsOutline size={'1.2rem'} /> */}
+                        <span className={styles.price}>${featuredPlace?.price}/month</span>
                     </p>
 
                     <p className={`${styles.content__Detail} ${styles.mini}`}>

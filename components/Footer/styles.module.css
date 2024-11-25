@@ -13,6 +13,7 @@
 
 .logo__Subtitle {
     font-size: 0.85rem;
+    text-transform: capitalize;
 }
 
 .logo__Wrap,
@@ -53,6 +54,13 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.footer__Icon {
+    width: 2rem;
+    height: 2rem;
+    max-width: 100%;
+    object-fit: cover;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,56 +1,57 @@
-'use client';
-
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './styles.module.css'
-import Image from 'next/image';
-import Link from 'next/link';
-import { bannerImgsInfo } from '../../sections/HeroBanner/utils';
+import mainHeroImg from '../../../../assets/heros/main.webp'
+import teensImg1 from '../../../../assets/heros/teens-1.webp'
+import teensImg2 from '../../../../assets/heros/teens-2.webp'
+import teensImg3 from '../../../../assets/heros/teens-3.webp'
+import teensImg4 from '../../../../assets/heros/teens-4.webp'
+import people from '../../../../assets/heros/people.webp'
+import Image from 'next/image'
+import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 
 
 const HeroImagesWrap = () => {
-    const [ activeImg, setActiveImg ] = useState<number>(1);
-
     return <>
-        <section className={styles.images__Wrap}>
-            {
-                React.Children.toArray(bannerImgsInfo.map(bannerItem => {
-                    return <Link
-                        className={`
-                            ${styles.banner__Wrap}
-                            ${
-                                activeImg === bannerItem.id ?
-                                    styles.main
-                                :
-                                ''
-                            }
-                        `}
-                        href={bannerItem.location}
-                        onMouseEnter={
-                            () => setActiveImg(bannerItem.id)
-                        }
-                        onMouseLeave={
-                            () => setActiveImg(1)
-                        }
-                        key={bannerItem.id}
-                    >
-                        <Image
-                            src={bannerItem.imageUrl}
-                            alt={`${bannerItem.title} hero illustration`}
-                            className={`${styles.banner__Image}`}
-                            priority
-                        />
-                        
-                        <div 
-                            className={styles.mask}
-                        >
-                            <p className={styles.banner__Text}>
-                                {bannerItem.title}
-                            </p>
-                        </div>
-                    </Link>
-                }))
-            }
-        </section>
+        <FadeInOnScroll width='100%'>
+            <section className={styles.content__Wrap}>
+                <Image 
+                    className={`${styles.img__Content} ${styles.i_1}`}
+                    alt='hero'
+                    src={teensImg1}
+                />
+                
+                <Image 
+                    className={`${styles.img__Content} ${styles.i_2}`}
+                    alt='hero'
+                    src={teensImg2}
+                />
+
+                
+                <Image 
+                    className={`${styles.img__Content} ${styles.i_main}`}
+                    alt='hero'
+                    src={mainHeroImg}
+                />
+
+                <Image 
+                    className={`${styles.img__Content} ${styles.i_3}`}
+                    alt='hero'
+                    src={people}
+                />
+                
+                <Image 
+                    className={`${styles.img__Content} ${styles.i_4}`}
+                    alt='hero'
+                    src={teensImg3}
+                />
+
+                <Image 
+                    className={`${styles.img__Content} ${styles.i_5}`}
+                    alt='hero'
+                    src={teensImg4}
+                />
+            </section>
+        </FadeInOnScroll>
     </>
 }
 

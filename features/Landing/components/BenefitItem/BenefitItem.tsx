@@ -16,18 +16,21 @@ const BenefitItem = ({
 
     return <>
         <section className={styles.item__Wrap}>
-            <Icon 
-                size={'3rem'}
-                style={{
-                    display: 'block',
-                    margin: '0 auto',
-                }}
-            />
+            <section className={styles.icon__Wrap}>
+                <Icon 
+                    size={'2rem'}
+                    style={{
+                        display: 'block',
+                        margin: '0 auto',
+                        color: '#fff',
+                    }}
+                />
+            </section>
             
-            <br />
-
-            <h5 className={styles.header}>{benefit.title}</h5>
-            <p className={styles.info}>{benefit.info}</p>
+            <section className={styles.content}>
+                <h5 className={styles.header}>{benefit.title}</h5>
+                <p className={styles.info}>{benefit.info}</p>
+            </section>
         </section>
     </>
 }

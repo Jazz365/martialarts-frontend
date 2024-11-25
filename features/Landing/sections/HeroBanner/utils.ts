@@ -25,8 +25,8 @@ export const bannerImgsInfo: {
     },
     {
         id: 3,
-        title: 'minors',
-        location: '/search?gender=minors',
+        title: 'kids',
+        location: '/search?gender=kids',
         imageUrl: bannerImage3,
     },
 ]

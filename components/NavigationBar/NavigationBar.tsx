@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
+import { IoAddOutline } from 'react-icons/io5'
 
 
 const NavigationBar = () => {
@@ -32,7 +33,12 @@ const NavigationBar = () => {
                     className={`${styles.btn} ${styles.add__Btn}`}
                     href={'/login?next=add-place'}
                 >
-                    <span>Add place</span>
+                    <IoAddOutline
+                        color='#fff'
+                        size={'1.1rem'}
+                    />
+
+                    <span>boost your studio</span>
                 </Link>
             </section>
         </nav>

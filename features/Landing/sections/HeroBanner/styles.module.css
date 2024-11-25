@@ -1,8 +1,10 @@
 .hero__Wrap {
     display: flex;
     align-items: center;
-    padding: 4rem;
-    justify-content: space-between;
+    flex-direction: column;
+    padding: 5rem;
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -22,14 +24,14 @@
 
 .header {
     font-family: var(--mako-font);
-    font-size: 3.4rem;
+    font-size: 3rem;
     font-weight: 900;
     position: relative;
     animation: fadeInFromTop 1.4s ease-in-out;
-}
-
-.subtitle__Header {
-    color: #808080;
+    text-transform: capitalize;
+    text-align: center;
+    width: 55%;
+    margin: 0 auto;
 }
 
 @keyframes fadeInFromTop {
@@ -51,12 +53,17 @@
     }
     
     .header {
-        font-size: 2.7rem;
+        font-size: 1.8rem;
+        width: 100%;
     }
 }
 
 @media (min-width: 767.98px) and (max-width: 1200px) {
     .hero__Wrap {
         flex-direction: column;
+    }
+
+    .header {
+        width: 90%;
     }
 }

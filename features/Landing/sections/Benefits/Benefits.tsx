@@ -2,14 +2,11 @@ import React from 'react'
 import styles from './styles.module.css'
 import { benefitsList } from './utils'
 import BenefitItem from '../../components/BenefitItem/BenefitItem'
+import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 
 const Benefits = () => {
     return <>
-        <section
-            className={styles.content__Wrap}
-        >
-            <h2 className={styles.header}>Why Us?</h2>
-
+        <FadeInOnScroll>
             <section className={styles.benefits__Wrap}>
                 {
                     React.Children.toArray(benefitsList.map(benefit => {
@@ -19,7 +16,7 @@ const Benefits = () => {
                     }))
                 }
             </section>
-        </section>
+        </FadeInOnScroll>
     </>
 }
 
