@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { dummyMartialStyles } from '@/utils/utils'
+import { dummyMartialStyles } from '@/utils/styles'
 import facebookIcon from '../../assets/icons/facebook.png'
 import instagramIcon from '../../assets/icons/instagram.png'
 import tiktokIcon from '../../assets/icons/tiktok.png'
@@ -48,11 +48,14 @@ const Footer = () => {
 
                     <ul className={styles.footer__Links}>
                         {
-                            React.Children.toArray(dummyMartialStyles.map(style => {
-                                return <li>
-                                    <Link href={''}>{style.name}</Link>
-                                </li>
-                            }))
+                            React.Children.toArray(dummyMartialStyles
+                                .filter(style => style.isTrending === true)
+                                .map(style => {
+                                    return <li>
+                                        <Link href={''}>{style.name}</Link>
+                                    </li>
+                                })
+                            )
                         }
                     </ul>
                 </section>

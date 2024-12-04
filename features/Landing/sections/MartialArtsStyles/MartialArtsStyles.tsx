@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { dummyMartialStyles } from '@/utils/utils'
+import { dummyMartialStyles } from '@/utils/styles'
 import Image from 'next/image'
 import Link from 'next/link'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import { listingViewTypes } from '@/features/Search/sections/Places/utils'
 
 
 const MartialArtsStyles = () => {
@@ -17,11 +18,13 @@ const MartialArtsStyles = () => {
                 <section className={styles.styles__Wrap}>
                     {
                         React.Children.toArray(
-                            dummyMartialStyles.map(style => {
+                            dummyMartialStyles
+                            .filter(style => style.isFeatured === true)
+                            .map(style => {
                                 return <>
                                     <Link
                                         className={styles.style__Item__Detail}
-                                        href={`/search?style=${style.name}`}
+                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}`}
                                     >
                                         <Image 
                                             src={style.imageUrl}

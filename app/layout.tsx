@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import "rc-pagination/assets/index.css";
-
+import AppProviders from "@/contexts";
+import NextTopLoader from "nextjs-toploader";
+import 'rc-rate/assets/index.css';
 
 const mako = localFont({
   src: "./fonts/Mako/Mako-Regular.ttf",
@@ -49,9 +50,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${mako.variable} ${poppins.variable}`}>
-        {children}
-      </body>
+      <AppProviders>
+        <body className={`${mako.variable} ${poppins.variable}`}>
+          <NextTopLoader color={'var(--primary-app-color)'} />
+          {children}
+        </body>
+      </AppProviders>
     </html>
   );
 }

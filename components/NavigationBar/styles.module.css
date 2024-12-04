@@ -22,23 +22,6 @@
     gap: 1.8rem;
 }
 
-.btn {
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-.add__Btn {
-    background-color: #000;
-    padding: 0.8rem 1.5rem;
-    border-radius: 24px;
-    color: #fff;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    text-transform: capitalize;
-}
-
 @media screen and (max-width: 767px) {
     .nav__Wrapper {
         padding-left: 1rem;

@@ -8,12 +8,14 @@ import { useInView } from 'react-intersection-observer'
 const FadeInOnScroll = ({
     children,
     width,
+    viewThreshold=0.65,
 }: {
     children: ReactNode;
     width?: string;
+    viewThreshold?: number;
 }) => {
     const { ref, inView } = useInView({
-        threshold: 0.65,
+        threshold: viewThreshold,
         triggerOnce: true,
     });
 

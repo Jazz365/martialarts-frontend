@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import styles from './styles.module.css'
 import Image from 'next/image';
 import Link from 'next/link';
-import { bannerImgsInfo } from '../../sections/HeroBanner/utils';
+import { genderImgsInfo } from './utils';
 
 
 const GenderImagesWrap = () => {
@@ -13,29 +13,29 @@ const GenderImagesWrap = () => {
     return <>
         <section className={styles.images__Wrap}>
             {
-                React.Children.toArray(bannerImgsInfo.map(bannerItem => {
+                React.Children.toArray(genderImgsInfo.map(genderItem => {
                     return <Link
                         className={`
                             ${styles.banner__Wrap}
                             ${
-                                activeImg === bannerItem.id ?
+                                activeImg === genderItem.id ?
                                     styles.main
                                 :
                                 ''
                             }
                         `}
-                        href={bannerItem.location}
+                        href={genderItem.location}
                         onMouseEnter={
-                            () => setActiveImg(bannerItem.id)
+                            () => setActiveImg(genderItem.id)
                         }
                         onMouseLeave={
                             () => setActiveImg(1)
                         }
-                        key={bannerItem.id}
+                        key={genderItem.id}
                     >
                         <Image
-                            src={bannerItem.imageUrl}
-                            alt={`${bannerItem.title} hero illustration`}
+                            src={genderItem.imageUrl}
+                            alt={`${genderItem.title} hero illustration`}
                             className={`${styles.banner__Image}`}
                             priority
                         />
@@ -44,7 +44,7 @@ const GenderImagesWrap = () => {
                             className={styles.mask}
                         >
                             <p className={styles.banner__Text}>
-                                {bannerItem.title}
+                                {genderItem.title}
                             </p>
                         </div>
                     </Link>

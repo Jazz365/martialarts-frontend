@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { IoLocateOutline } from 'react-icons/io5'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import { listingViewTypes } from '@/features/Search/sections/Places/utils'
 
 
 const FeaturedLocations = () => {
@@ -20,7 +21,7 @@ const FeaturedLocations = () => {
                         React.Children.toArray(dummyFeaturedLocations.map(location => {
                             return <Link
                                 key={location.id}
-                                href={`/search?location=${location.name}`}
+                                href={`/search?location=${location.name}&view=${listingViewTypes.listView}`}
                                 className={styles.location__Item}
                             >
                                 <Image 

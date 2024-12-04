@@ -1,19 +1,28 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import { IoClose, IoSearch } from 'react-icons/io5'
 import styles from './styles.module.css'
 import Link from 'next/link'
-import { dummyMartialStyles } from '@/utils/utils';
+import { dummyMartialStyles } from '@/utils/styles';
+import { listingViewTypes } from '@/features/Search/sections/Places/utils';
 
 
-const CategorySearchBar = () => {
+const CategorySearchBar = ({
+    hideTrendingStyles=false,
+    wrapperStyle={},
+    searchBarStyle={},
+}: {
+    hideTrendingStyles?: boolean;
+    wrapperStyle?: CSSProperties;
+    searchBarStyle?: CSSProperties;
+}) => {
     const [ searchValue, setSearchValue ] = useState<string>('');
     const [ inputFocused, setInputFocused ] = useState<boolean>(false);
 
     return <>
-        <section className={styles.search__Bar__Wrap}>
-            <section className={styles.search__Bar}>
+        <section className={styles.search__Bar__Wrap} style={wrapperStyle}>
+            <section className={styles.search__Bar} style={searchBarStyle}>
                 <input 
                     placeholder='Choose the style you want to learn'
                     value={searchValue}
@@ -59,7 +68,7 @@ const CategorySearchBar = () => {
                                         key={styleItem.id}
                                     >
                                         <Link
-                                            href={`/search?category=${styleItem.name}`}
+                                            href={`/search?style=${encodeURIComponent(styleItem.name)}&view=${listingViewTypes.listView}`}
                                         >
                                             {styleItem.name}
                                         </Link>
@@ -71,25 +80,31 @@ const CategorySearchBar = () => {
                 </section>
             </section>
 
-            <section className={styles.trending__Wrap}>
-                <p>Trending styles</p>
+            {
+                hideTrendingStyles ? <></>
+                    :
+                <section className={styles.trending__Wrap}>
+                    <p>Trending styles</p>
 
-                <section className={styles.trending__Items}>
-                    {
-                        React.Children.toArray(
-                            dummyMartialStyles.map(style => {
-                                return <Link
-                                    href={`/search?category=${style.name}`}
-                                    className={styles.trending__Item}
-                                    key={style.id}
-                                >
-                                    {style.name}
-                                </Link>
-                            })
-                        )
-                    }
+                    <section className={styles.trending__Items}>
+                        {
+                            React.Children.toArray(
+                                dummyMartialStyles
+                                .filter(style => style.isTrending === true)
+                                .map(style => {
+                                    return <Link
+                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}`}
+                                        className={styles.trending__Item}
+                                        key={style.id}
+                                    >
+                                        {style.name}
+                                    </Link>
+                                })
+                            )
+                        }
+                    </section>
                 </section>
-            </section>
+            }
         </section>
     </>
 }

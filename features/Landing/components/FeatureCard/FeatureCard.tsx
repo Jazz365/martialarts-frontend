@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from 'next/image';
 import React from 'react'
 import styles from './styles.module.css'
-import { IoLocationOutline, IoPricetagsOutline, IoStarOutline, IoTodayOutline } from 'react-icons/io5';
+import { IoLocationOutline, IoStarOutline, IoTodayOutline } from 'react-icons/io5';
 import { IoIosTimer } from 'react-icons/io';
 import Link from 'next/link';
 
@@ -32,7 +32,7 @@ const FeatureCard = ({
     return <>
         <Link 
             className={styles.card__Item}
-            href={`/search?placeId=${featuredPlace.id}`}
+            href={`/places?placeId=${featuredPlace.id}`}
         >
             <Image 
                 src={featuredPlace.image}
@@ -62,6 +62,7 @@ const FeatureCard = ({
 
                 <section className={styles.bottom__Row}>
                     <p className={styles.content__Detail}>
+                        <span className={styles.price__Intro}>From</span>
                         {/* <IoPricetagsOutline size={'1.2rem'} /> */}
                         <span className={styles.price}>${featuredPlace?.price}/month</span>
                     </p>

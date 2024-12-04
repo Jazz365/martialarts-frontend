@@ -75,7 +75,7 @@
     gap: 1rem;
     max-height: 12rem;
     overflow-y: auto;
-    width: 60%;
+    /* width: 60%; */
     margin-right: auto;
 }
 

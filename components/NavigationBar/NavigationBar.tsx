@@ -1,13 +1,24 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import { IoAddOutline } from 'react-icons/io5'
+import Button from '../Button/Button'
+import CategorySearchBar from '../CategorySearchBar/CategorySearchBar'
 
 
-const NavigationBar = () => {
+const NavigationBar = ({
+    showSearchBar=false,
+    wrapperStyle={},
+}: {
+    showSearchBar?: boolean;
+    wrapperStyle?: CSSProperties;
+}) => {
     return <>
-        <nav className={styles.nav__Wrapper}>
+        <nav 
+            className={styles.nav__Wrapper}
+            style={wrapperStyle}
+        >
             <Link 
                 href={'/'}
             >
@@ -21,25 +32,43 @@ const NavigationBar = () => {
                 />
             </Link>
 
+            {
+                showSearchBar &&
+                <CategorySearchBar
+                    hideTrendingStyles={true}
+                    wrapperStyle={{
+                        width: '35%',
+                    }}
+                    searchBarStyle={{
+                        padding: '0.75rem 0.75rem 0.75rem 1.5rem',
+                        width: '100%',
+                    }}
+                />
+            }
+
             <section className={styles.nav__Actions}>
-                <Link
-                    className={`${styles.btn}`}
-                    href={'/login'}
-                >
-                    <span>Login</span>
-                </Link>
+                <Button 
+                    label='login'
+                    style={{
+                        backgroundColor: 'transparent',
+                        color: '#000',
+                        fontWeight: '500',
+                    }}
+                    useLink={true}
+                    linkLocation='/login'
+                />
 
-                <Link
-                    className={`${styles.btn} ${styles.add__Btn}`}
-                    href={'/login?next=add-place'}
-                >
-                    <IoAddOutline
-                        color='#fff'
-                        size={'1.1rem'}
-                    />
-
-                    <span>boost your studio</span>
-                </Link>
+                <Button 
+                    label='boost your studio'
+                    icon={
+                        <IoAddOutline 
+                            color='#fff'
+                            size='1.1rem'
+                        />
+                    }
+                    useLink={true}
+                    linkLocation={'/login?next=add-place'}
+                />
             </section>
         </nav>
     </>

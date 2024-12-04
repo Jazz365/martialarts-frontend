@@ -12,7 +12,10 @@ import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 
 const HeroImagesWrap = () => {
     return <>
-        <FadeInOnScroll width='100%'>
+        <FadeInOnScroll 
+            width='100%'
+            viewThreshold={0.2}
+        >
             <section className={styles.content__Wrap}>
                 <Image 
                     className={`${styles.img__Content} ${styles.i_1}`}

@@ -1,0 +1,96 @@
+.list__Card,
+.detail__Item,
+.details,
+.benefits,
+.header__Wrap {
+    display: flex;
+}
+
+.list__Card {
+    gap: 2rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 12px;
+}
+
+.list__Card.row {
+    align-items: center;
+    width: 100%;
+    padding: 0.45rem;
+    height: calc(290px + calc(0.45rem * 2));
+}
+
+.list__Card.col {
+    width: calc(calc(100% / 3) - 1rem);
+    flex-direction: column;
+    padding: 1rem 0.45rem;
+    height: max-content;
+}
+
+.image {
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.header__Wrap {
+    gap: 0.2rem;
+    flex-direction: column;
+}
+
+.details {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.5rem 1rem 0.5rem 0;
+    width: 100%;
+    height: 100%;
+}
+
+.list__Card.col .details {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+}
+
+.header {
+    font-family: var(--mako-font);
+    font-size: 1.1rem;
+}
+
+.detail__Item {
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    text-transform: capitalize;
+}
+
+.grey__Content {
+    color: #808080;
+}
+
+.list__Card.col .benefits {
+    padding-left: 0;
+}
+
+.benefits {
+    flex-direction: column;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    padding-left: 1rem;
+    gap: 0.5rem;
+    text-transform: capitalize;
+}
+
+.list__Card.col .benefits li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.price {
+    text-align: right;
+    display: block;
+    margin-top: auto;
+}
+
+.price__Intro {
+    font-weight: 400;
+    font-size: 0.75rem;
+}

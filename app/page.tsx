@@ -12,8 +12,8 @@ import IncludedGenders from "@/features/Landing/sections/IncludedGenders/Include
 
 export default function Home() {
   return <>
+    <NavigationBar />
     <main className={styles.main}>
-      <NavigationBar />
       <HeroBanner />
       <Benefits />
       <IncludedGenders />

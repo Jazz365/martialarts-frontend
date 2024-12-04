@@ -4,15 +4,29 @@ import { dummyBlogArticles } from './utils'
 import Link from 'next/link'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import Button from '@/components/Button/Button'
 
 
-const maxArticleTitleLength = 65;
+const maxArticleTitleLength = 70;
 
 const Blog = () => {
     return <>
         <section className={styles.content__Wrap}>
             <FadeInOnScroll>
-                <h2 className={styles.header}>Stories from our blog</h2>
+                <section className={styles.header__Row}>
+                    <h2 className={styles.header}>Stories from our blog</h2>
+
+                    <Button 
+                        label='read more'
+                        useLink={true}
+                        linkLocation={'/blog'}
+                        style={{
+                            border: '1px solid #000',
+                            backgroundColor: 'transparent',
+                            color: '#000'
+                        }}
+                    />
+                </section>
             </FadeInOnScroll>
 
             <FadeInOnScroll>
@@ -22,6 +36,7 @@ const Blog = () => {
                             return <Link
                                 href={article.link}
                                 className={styles.blog__Article}
+                                key={article.id}
                             >
                                 <Image 
                                     alt={article.name}
