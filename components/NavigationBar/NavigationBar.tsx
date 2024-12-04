@@ -55,7 +55,7 @@ const NavigationBar = ({
                         fontWeight: '500',
                     }}
                     useLink={true}
-                    linkLocation='/login'
+                    linkLocation='/auth/login?type=owner'
                 />
 
                 <Button 
@@ -67,7 +67,7 @@ const NavigationBar = ({
                         />
                     }
                     useLink={true}
-                    linkLocation={'/login?next=add-place'}
+                    linkLocation={'/auth/login?type=owner&next=add-place'}
                 />
             </section>
         </nav>

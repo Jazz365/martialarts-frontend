@@ -12,6 +12,7 @@ const Button = ({
     icon,
     useLink=false,
     linkLocation='',
+    disabled=false,
     handleClick=()=>{},
 }: {
     label: string;
@@ -21,6 +22,7 @@ const Button = ({
     iconSize?: string;
     useLink?: boolean;
     linkLocation?: string;
+    disabled?: boolean;
     handleClick?: () => void;
 }) => {
     if (useLink === true) return <>
@@ -42,6 +44,7 @@ const Button = ({
             className={`${styles.btn}`}
             style={style}
             onClick={handleClick}
+            disabled={disabled}
         >
             {
                 icon ?? <></>

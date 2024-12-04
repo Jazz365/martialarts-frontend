@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from './styles.module.css'
-import mainHeroImg from '../../../../assets/heros/main.webp'
-import teensImg1 from '../../../../assets/heros/teens-1.webp'
-import teensImg2 from '../../../../assets/heros/teens-2.webp'
-import teensImg3 from '../../../../assets/heros/teens-3.webp'
-import teensImg4 from '../../../../assets/heros/teens-4.webp'
-import people from '../../../../assets/heros/people.webp'
+import mainHeroImg from '../../../../assets/heros/karate.png'
+import heroImg1 from '../../../../assets/heros/judo.png'
+import heroImg2 from '../../../../assets/heros/Kickboxing.png'
+import heroImg3 from '../../../../assets/heros/Muay-Thai.png'
+import heroImg4 from '../../../../assets/heros/taekwondo.png'
+import heroImg5 from '../../../../assets/heros/Wrestling.png'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 
@@ -20,13 +20,13 @@ const HeroImagesWrap = () => {
                 <Image 
                     className={`${styles.img__Content} ${styles.i_1}`}
                     alt='hero'
-                    src={teensImg1}
+                    src={heroImg1}
                 />
                 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_2}`}
                     alt='hero'
-                    src={teensImg2}
+                    src={heroImg2}
                 />
 
                 
@@ -39,19 +39,19 @@ const HeroImagesWrap = () => {
                 <Image 
                     className={`${styles.img__Content} ${styles.i_3}`}
                     alt='hero'
-                    src={people}
+                    src={heroImg5}
                 />
                 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_4}`}
                     alt='hero'
-                    src={teensImg3}
+                    src={heroImg3}
                 />
 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_5}`}
                     alt='hero'
-                    src={teensImg4}
+                    src={heroImg4}
                 />
             </section>
         </FadeInOnScroll>

@@ -1,6 +1,6 @@
-import bannerImage1 from '../../../../assets/heros/female-hero.webp'
-import bannerImage2 from '../../../../assets/heros/male-hero.webp'
-import bannerImage3 from '../../../../assets/heros/kids-hero.webp'
+import women from '../../../../assets/heros/women.png'
+import men from '../../../../assets/heros/men.png'
+import kids from '../../../../assets/heros/kids.png'
 import { StaticImageData } from 'next/image';
 import { listingViewTypes } from '@/features/Search/sections/Places/utils';
 
@@ -15,19 +15,19 @@ export const genderImgsInfo: {
         id: 1,
         title: 'men',
         location: `/search?class=adults&view=${listingViewTypes.listView}`,
-        imageUrl: bannerImage2,
+        imageUrl: men,
     },
     {
         id: 2,
         title: 'women',
         isMainImage: true,
         location: `/search?class=adults&view=${listingViewTypes.listView}`,
-        imageUrl: bannerImage1,
+        imageUrl: women,
     },
     {
         id: 3,
         title: 'kids',
         location: `/search?class=minors&view=${listingViewTypes.listView}`,
-        imageUrl: bannerImage3,
+        imageUrl: kids,
     },
 ]

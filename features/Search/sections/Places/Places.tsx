@@ -9,6 +9,7 @@ import SearchBar from '@/components/SearchBar/SearchBar'
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext'
 import { listingSortOptions, listingViewTypesList } from './utils';
 import PlacesSectionView from '../PlacesSectionView/PlacesSectionView';
+import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOption';
 
 
 const SearchPlacesListing = () => {
@@ -79,10 +80,11 @@ const SearchPlacesListing = () => {
       
       <br/> 
       
-      <section className={styles.listing__View}>
-        <section className={styles.view__Option__Wrap}>
+      <ResultsViewOption 
+        options={[
           {
-            React.Children.toArray(Object.keys(listingSortOptions).map(sortOptionKey => {
+            id: 1,
+            children: React.Children.toArray(Object.keys(listingSortOptions).map(sortOptionKey => {
               return <Button 
                 label={sortOptionKey.replaceAll('_', ' ')}
                 style={{
@@ -108,12 +110,10 @@ const SearchPlacesListing = () => {
                 key={sortOptionKey}
               />
             }))
-          }
-        </section>
-
-        <section className={styles.view__Option__Wrap}>
+          },
           {
-            React.Children.toArray(listingViewTypesList.map(type => {
+            id: 2,
+            children: React.Children.toArray(listingViewTypesList.map(type => {
               return <Button 
                 label={type.viewType}
                 style={{
@@ -141,8 +141,8 @@ const SearchPlacesListing = () => {
               />
             }))
           }
-        </section>
-      </section>
+        ]}
+      />
       
       <br />
 

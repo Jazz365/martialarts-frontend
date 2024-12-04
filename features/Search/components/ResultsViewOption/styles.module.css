@@ -1,0 +1,15 @@
+.view__Option__Wrap,
+.listing__View {
+    display: flex;
+    align-items: center;
+}
+
+.listing__View {
+    justify-content: space-between;
+}
+
+.view__Option__Wrap {
+    background-color: #f3f3f6;
+    width: max-content;
+    border-radius: 24px;
+}

@@ -14,45 +14,45 @@
 .img__Content.i_main {
     top: 50%;
     left: 50%;
-    transform: translate(-90%, -50%);
-    width: 20rem;
-    height: 20rem;
+    transform: translate(-70%, -50%);
+    width: 25rem;
+    height: 25rem;
 }
 
 .img__Content.i_1 {
     left: 0;
     top: 5%;
-    width: 8rem;
-    height: 8rem;
+    width: 18rem;
+    height: 18rem;
 }
 
 .img__Content.i_2 {
-    left: 12%;
+    left: 15%;
     top: 30%;
-    width: 10rem;
-    height: 10rem;
+    width: 18rem;
+    height: 18rem;
 }
 
 
 .img__Content.i_3 {
     right: 26%;
     top: 30%;
-    width: 14rem;
-    height: 14rem;
+    width: 18rem;
+    height: 18rem;
 }
 
 .img__Content.i_4 {
     right: 11%;
     top: 6%;
-    width: 10rem;
-    height: 10rem;
+    width: 18rem;
+    height: 18rem;
 }
 
 .img__Content.i_5 {
     right: 0;
     top: 50%;
-    width: 8rem;
-    height: 8rem;
+    width: 15rem;
+    height: 15rem;
 }
 
 @media screen and (max-width: 767px) {

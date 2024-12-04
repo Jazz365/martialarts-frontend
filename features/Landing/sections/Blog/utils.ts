@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
-import sampleImage1 from '../../../../assets/blogSamples/surprised-puzzled-african-american-lady.webp';
-import sampleImage2 from '../../../../assets/blogSamples/pictures-hand.webp';
-import sampleImage3 from '../../../../assets/blogSamples/freedom-concept-with-hiker-mountain.webp';
+import sampleImage1 from '../../../../assets/blogSamples/blog-1.png';
+import sampleImage2 from '../../../../assets/blogSamples/blog-2.png';
+import sampleImage3 from '../../../../assets/blogSamples/blog-3.png';
 
 export const dummyBlogArticles: {
     id: number;

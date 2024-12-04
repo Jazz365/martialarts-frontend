@@ -15,15 +15,12 @@
 
 .listing__Title,
 .listing__Search,
-.search__Actions,
-.view__Option__Wrap,
-.listing__View {
+.search__Actions {
     display: flex;
     align-items: center;
 }
 
-.listing__Title,
-.listing__View {
+.listing__Title {
     justify-content: space-between;
 }
 
@@ -48,10 +45,4 @@
 
 .listing__Search {
     width: 100%;
-}
-
-.view__Option__Wrap {
-    background-color: #f3f3f6;
-    width: max-content;
-    border-radius: 24px;
 }

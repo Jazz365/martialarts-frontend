@@ -4,6 +4,7 @@ import "./globals.css";
 import AppProviders from "@/contexts";
 import NextTopLoader from "nextjs-toploader";
 import 'rc-rate/assets/index.css';
+import { Toaster } from "sonner";
 
 const mako = localFont({
   src: "./fonts/Mako/Mako-Regular.ttf",
@@ -53,6 +54,7 @@ export default function RootLayout({
       <AppProviders>
         <body className={`${mako.variable} ${poppins.variable}`}>
           <NextTopLoader color={'var(--primary-app-color)'} />
+          <Toaster />
           {children}
         </body>
       </AppProviders>
