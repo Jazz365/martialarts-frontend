@@ -1,0 +1,19 @@
+.greeting__Item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title__Text,
+.username {
+    font-family: var(--mako-font);
+}
+
+.title__Text {
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+}
+
+.username {
+    text-transform: capitalize;
+}

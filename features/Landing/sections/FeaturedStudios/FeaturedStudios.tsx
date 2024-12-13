@@ -28,7 +28,7 @@ const FeaturedStudios = () => {
                 </section>
             </FadeInOnScroll>
             
-            <FadeInOnScroll>
+            <FadeInOnScroll viewThreshold={0.55}>
                 <section className={styles.items__Wrap}>
                     {
                         React.Children.toArray(

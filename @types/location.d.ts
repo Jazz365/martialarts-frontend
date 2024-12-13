@@ -1,5 +1,5 @@
 type ILocation = {
-    id: number;
+    id: number | string;
     address: string;
     city: string;
     state: string;

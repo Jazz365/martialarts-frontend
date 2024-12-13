@@ -1,0 +1,15 @@
+.page__Wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 2rem;
+    padding: 2rem 3rem 5rem;
+    overflow-y: auto;
+}
+
+.user__Stats {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}

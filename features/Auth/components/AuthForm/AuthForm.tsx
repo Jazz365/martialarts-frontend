@@ -13,19 +13,21 @@ import { AuthDetails } from './utils';
 import { AuthService } from '@/services/authService';
 import { validateEmail } from '@/helpers/helpers';
 import { toast } from 'sonner';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { userTypes } from '../UserTypeSelect/utils';
+import { AppConstants } from '@/utils/constants';
 
 const AuthForm = ({
     authType,
 }: {
     authType: string;
 }) => {
-    const [ isLoginForm, setIsLoginForm ] = useState<boolean>(false);
+    const [ isLoginForm, setIsLoginForm ] = useState<boolean | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ details, setDetails ] = useState<AuthDetails>({});
 
     const params = useSearchParams();
+    const router = useRouter();
 
     const authService = new AuthService();
 
@@ -54,8 +56,11 @@ const AuthForm = ({
 
         if (isLoginForm) {
             try {
-                await authService.loginUser(details);
+                const res = await authService.loginUser(details);
+                localStorage.setItem(AppConstants.tokenKey, res?.token);
+                
                 setLoading(false);
+                router.push('/login-success');
             } catch (error) {
                 setLoading(false);   
             }
@@ -70,12 +75,13 @@ const AuthForm = ({
             });
 
             setLoading(false);
+            router.push('/login');
         } catch (error) {
             setLoading(false);   
         }
     }
 
-    if (!authType || authType?.length < 1) return <></>
+    if (!authType || authType?.length < 1 || isLoginForm === null) return <></>
     
     return <>
         <section className={styles.form__Wrap}>
@@ -88,15 +94,18 @@ const AuthForm = ({
                 />
             </Link>
 
-            <UserTypeSelect 
-                authType={authType}
-            />
+            {
+                !isLoginForm &&
+                <UserTypeSelect 
+                    authType={authType}
+                />
+            }
 
             <TextInputComponent 
                 label='username'
                 name='username'
                 value={details.username ?? ''}
-                onChange={({ target }) => handleUpdateDetail(target.name, target.value)}
+                onChange={handleUpdateDetail}
             />
 
             {
@@ -106,7 +115,7 @@ const AuthForm = ({
                         type='email'
                         name='email'
                         value={details.email ?? ''}
-                        onChange={({ target }) => handleUpdateDetail(target.name, target.value)}
+                        onChange={handleUpdateDetail}
                     />
 
                     <TextInputComponent 
@@ -114,7 +123,7 @@ const AuthForm = ({
                         type='tel'
                         name='phone_number'
                         value={details.phone_number ?? ''}
-                        onChange={({ target }) => handleUpdateDetail(target.name, target.value)}
+                        onChange={handleUpdateDetail}
                     />
                 </>
             }
@@ -124,7 +133,7 @@ const AuthForm = ({
                 type='password'
                 name='password'
                 value={details.password ?? ''}
-                onChange={({ target }) => handleUpdateDetail(target.name, target.value)}
+                onChange={handleUpdateDetail}
             />
 
             <Button 
@@ -161,7 +170,7 @@ const AuthForm = ({
                         isLoginForm ?
                             '/auth/register?type=owner'
                         :
-                        '/auth/login?type=owner'   
+                        '/auth/login'   
                     }
                     style={{
                         fontSize: '0.85rem',

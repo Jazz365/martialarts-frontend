@@ -25,21 +25,23 @@ const SearchFilters = () => {
             <FilterItem 
                 title='place'
                 filterKey='place'
-                filters={availablePlaceTypes}
+                filters={availablePlaceTypes.map(place => place.name)}
                 currentActiveFiltersForItem={activeFilters.place}
             />
             
             <FilterItem 
                 title='class type'
                 filterKey='class'
-                filters={availableClassTypes}
+                filters={availableClassTypes.map(type => type.name)}
                 currentActiveFiltersForItem={activeFilters.class}
             />
 
             <FilterItem 
                 title='location'
                 filterKey='location'
-                filters={availableLocations}
+                filters={Object.keys(availableLocations || {}).map(locationKey => {
+                    return `${locationKey}, ${availableLocations[locationKey]}`
+                })}
                 currentActiveFiltersForItem={activeFilters.location}
             />
         </section>

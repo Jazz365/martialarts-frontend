@@ -2,7 +2,8 @@
 .detail__Item,
 .details,
 .benefits,
-.header__Wrap {
+.header__Wrap,
+.top__Row {
     display: flex;
 }
 
@@ -16,7 +17,7 @@
     align-items: center;
     width: 100%;
     padding: 0.45rem;
-    height: calc(290px + calc(0.45rem * 2));
+    height: calc(320px + calc(0.45rem * 2));
 }
 
 .list__Card.col {
@@ -29,6 +30,11 @@
 .image {
     border-radius: 12px;
     object-fit: cover;
+}
+
+.top__Row {
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .header__Wrap {

@@ -53,7 +53,7 @@ export default function RootLayout({
     <html lang="en">
       <AppProviders>
         <body className={`${mako.variable} ${poppins.variable}`}>
-          <NextTopLoader color={'var(--primary-app-color)'} />
+          <NextTopLoader color={'var(--primary-app-color)'} showSpinner={false} />
           <Toaster />
           {children}
         </body>

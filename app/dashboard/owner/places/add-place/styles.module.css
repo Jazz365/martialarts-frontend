@@ -1,0 +1,58 @@
+.content__Wrap,
+.item__Section__Col,
+.check__Wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.content__Wrap {
+    padding: 2rem 4rem;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    gap: 2rem;
+}
+
+.header {
+    font-family: var(--mako-font);
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+}
+
+.listing__Wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.8rem;
+}
+
+.item__Section__Row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.4rem;
+}
+
+.item__Section__Col,
+.check__Wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.item__Section__Col {
+    gap: 1rem;
+}
+
+.check__Wrap {
+    gap: 0.5rem;
+}
+
+.check__Wrap > p {
+    font-size: 0.8rem;
+    text-transform: capitalize;
+}
+
+.features__Wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}

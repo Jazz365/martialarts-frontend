@@ -196,6 +196,13 @@ export const allDummyPlaces: IPlace[] = [
                 rating: 4,
                 comment: '',
                 created_at: '03/12/2024, 20:33:44',
+            },
+            {
+                id: 2,
+                user: 'Peter Pan',
+                rating: 4,
+                comment: '',
+                created_at: '03/12/2024, 20:33:44',
             }
         ],
         benefits: [
@@ -364,6 +371,20 @@ export const allDummyPlaces: IPlace[] = [
         reviews: [
             {
                 id: 1,
+                user: 'Peter Pan',
+                rating: 4,
+                comment: '',
+                created_at: '03/12/2024, 20:33:44',
+            },
+            {
+                id: 2,
+                user: 'Peter Pan',
+                rating: 4,
+                comment: '',
+                created_at: '03/12/2024, 20:33:44',
+            },
+            {
+                id: 3,
                 user: 'Peter Pan',
                 rating: 4,
                 comment: '',

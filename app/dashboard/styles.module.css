@@ -1,0 +1,11 @@
+.dash__Layout {
+    display: flex;
+    align-items: flex-start;
+    height: 100dvh;
+    width: 100%;
+}
+
+.dash__Content {
+    height: 100%;
+    width: 100%;
+}

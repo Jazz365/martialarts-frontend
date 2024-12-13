@@ -3,7 +3,7 @@ import apiBaseUrl from "./config"
 
 class AuthService {
     getAuthEndpoint(endpoint: string) {
-        return `${apiBaseUrl}/auth/${endpoint}/`;
+        return `${apiBaseUrl}/users/${endpoint}/`;
     }
 
     async registerUser (data={}) {
@@ -17,9 +17,14 @@ class AuthService {
             });
 
             const jsonRes = await res.json();
-            if (!res.ok) throw Error();
+            if (!res.ok) {
+                const errorMsg = jsonRes[Object.keys(jsonRes || {})[0]] ?? 'Something went wrong. Please try again later';
+                toast.error(errorMsg);
+                
+                throw Error(errorMsg);
+            }
 
-            toast.success('Successfully registered account!');
+            toast.success('Successfully registered account! Please login');
 
             return jsonRes;
         } catch (error) {
@@ -38,7 +43,12 @@ class AuthService {
             });
 
             const jsonRes = await res.json();
-            if (!res.ok) throw Error();
+            if (!res.ok) {
+                const errorMsg = jsonRes[Object.keys(jsonRes || {})[0]] ?? 'Something went wrong. Please try again later';
+                toast.error(errorMsg);
+                
+                throw Error(errorMsg);
+            }
 
             toast.success('Successfully logged in!');
 

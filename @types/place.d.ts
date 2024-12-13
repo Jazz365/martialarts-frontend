@@ -19,24 +19,26 @@ type IPlace = {
     activity_hours: IPlaceActivityHours[];
     reviews: IPlaceReviews[];
     benefits: string[];
-    price: number,
+    price: number;
 }
 
 type IPlaceImage = {
-    id: number;
-    image: string;
-    uploaded_at: string;
+    id: number | string;
+    image: string | File;
+    imageFile?: File;
+    uploaded_at?: string;
 }
 
 type IPlaceMasterImage = {
-    id: number;
+    id?: number | string;
     name: string;
-    image: string;
+    image: string | File;
     bio: string;
+    imageFile?: File;
 }
 
 type IPlaceFaq = {
-    id: number;
+    id?: number | string;
     question: string;
     answer: string;
 }
@@ -48,16 +50,16 @@ type IPlacePolicy = {
 }
 
 type IPlaceActivityHours = {
-    id: number;
+    id?: number | string;
     day: string;
     opening_time: string;
     closing_time: string;
 }
 
 type IPlaceReviews = {
-    id: number;
-    user: string;
+    id?: number;
+    user: string | number;
     rating: number;
     comment: string;
-    created_at: string;
+    created_at?: string;
 }

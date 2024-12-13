@@ -29,6 +29,12 @@ const PlacesSectionView = () => {
                     return <PlaceListCard 
                         place={place}
                         key={place.id}
+                        isListView={
+                            (
+                                activeFilters.view.length < 1 ||
+                                activeFilters.view === listingViewTypes.listView
+                            )
+                        }
                     />
                 }))
             }

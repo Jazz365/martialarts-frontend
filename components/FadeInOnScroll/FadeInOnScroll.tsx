@@ -9,10 +9,12 @@ const FadeInOnScroll = ({
     children,
     width,
     viewThreshold=0.65,
+    className='',
 }: {
     children: ReactNode;
     width?: string;
     viewThreshold?: number;
+    className?: string;
 }) => {
     const { ref, inView } = useInView({
         threshold: viewThreshold,
@@ -22,7 +24,11 @@ const FadeInOnScroll = ({
     return (
         <div
             ref={ref}
-            className={`${styles.section__Wrap} ${inView ? styles.in__View : ''}`}
+            className={`
+                ${styles.section__Wrap} 
+                ${inView ? styles.in__View : ''}
+                ${className}
+            `}
             style={{
                 width,
             }}
