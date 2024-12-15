@@ -9,14 +9,14 @@ const ProtectedRouteWrap = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const { userDetails, userDetailsLoading } = useUserContext();
+    const { userDetails, userDetailsLoading, isLoggedIn } = useUserContext();
     const router = useRouter();
     
     useEffect(() => {
-        if (userDetailsLoading || userDetails) return;
+        if (userDetailsLoading || userDetails || isLoggedIn) return;
 
-        if (!userDetails) return router.push('/auth/login');    
-    }, [userDetails, userDetailsLoading])
+        if (!userDetails) return router.push('/auth/login');  
+    }, [userDetails, userDetailsLoading, isLoggedIn])
 
     return (
         <>{children}</>

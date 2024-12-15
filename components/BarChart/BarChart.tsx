@@ -3,6 +3,7 @@
 import React from 'react'
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import styles from './styles.module.css'
+import useMobile from '@/hooks/useMobile';
 
 
 const CustomBarChart = ({
@@ -18,6 +19,8 @@ const CustomBarChart = ({
     dataKeyName: string;
     labelKeyName: string;
 }) => {
+    const isMobile = useMobile();
+
     return <section className={styles.content}>
         <h3 className={styles.title}>
             <>{title}</>
@@ -32,12 +35,17 @@ const CustomBarChart = ({
                 width={500}
                 height={400}
                 data={data}
-                margin={{
-                    top: 20,
-                    right: 30,
-                    left: 0,
-                    bottom: 0,
-                }}
+                margin={
+                    isMobile ? 
+                        {}
+                    :
+                    {
+                        top: 20,
+                        right: 30,
+                        left: 0,
+                        bottom: 0,
+                    }
+                }
                 barSize={30}
             >   
                 <XAxis 

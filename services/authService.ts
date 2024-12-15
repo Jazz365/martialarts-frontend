@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import apiBaseUrl from "./config"
 
 class AuthService {
-    getAuthEndpoint(endpoint: string) {
+    private getAuthEndpoint(endpoint: string) {
         return `${apiBaseUrl}/users/${endpoint}/`;
     }
 
@@ -51,6 +51,31 @@ class AuthService {
             }
 
             toast.success('Successfully logged in!');
+
+            return jsonRes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async logoutUser () {
+        try {
+            const res = await fetch(`${this.getAuthEndpoint('logout')}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = jsonRes[Object.keys(jsonRes || {})[0]] ?? 'Something went wrong. Please try again later';
+                toast.error(errorMsg);
+                
+                throw Error(errorMsg);
+            }
+
+            toast.success('Successfully logged out!');
 
             return jsonRes;
         } catch (error) {

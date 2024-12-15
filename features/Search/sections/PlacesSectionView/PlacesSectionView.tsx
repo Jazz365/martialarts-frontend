@@ -1,14 +1,22 @@
+'use client';
+
+
 import React from 'react'
 import { allDummyPlaces, listingViewTypes } from '../Places/utils'
 import PlaceListCard from '../../components/PlaceListCard/PlaceListCard'
 import styles from './styles.module.css';
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
+import PageLoader from '@/components/PageLoader/PageLoader';
 
 const PlacesSectionView = () => {
     const {
-        activeFilters
+        activeFilters,
+        allPlaces,
+        placesLoading,
     } = useSearchFilterContext();
-
+    
+    // if (placesLoading) return <PageLoader />
+    
     return <>
         <section 
             className={`

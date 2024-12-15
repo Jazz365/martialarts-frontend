@@ -17,3 +17,11 @@
 .username {
     text-transform: capitalize;
 }
+
+@media screen and (max-width: 767px) {
+    .greeting__Item {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}

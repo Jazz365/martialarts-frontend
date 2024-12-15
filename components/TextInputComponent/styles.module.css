@@ -17,6 +17,7 @@
     border: 1px solid #d3d3d3;
     transition: 0.2s ease-in-out;
     font-size: 0.8rem;
+    accent-color: #000;
 }
 
 .input__Wrap input:focus-within,

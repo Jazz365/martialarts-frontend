@@ -43,3 +43,33 @@
     background-color: #f2f2f2;
     color: var(--primary-app-color);
 }
+
+@media screen and (max-width: 767px) {
+    .side__Nav,
+    .links__Wrap {
+        flex-direction: row;
+    }
+
+    .side__Nav {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        background-color: #fff;
+        z-index: 2;
+        height: max-content;
+    }
+
+    .links__Wrap,
+    .nav__Info {
+        width: 100%;
+    }
+
+    .logo,
+    .link__Item span {
+        display: none;
+    }
+
+    .links__Wrap {
+        justify-content: space-between;
+    }
+}

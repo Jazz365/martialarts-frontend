@@ -1,0 +1,40 @@
+.content__Wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 4rem;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    gap: 2rem;
+}
+
+.header {
+    font-family: var(--mako-font);
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+}
+
+.subs__Wrap {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.subs__Wrap > * {
+    width: calc(calc(100% / 3) - 1rem);
+}
+
+@media screen and (max-width: 767px) {
+    .content__Wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .subs__Wrap {
+        flex-direction: column;
+    }
+
+    .subs__Wrap > * {
+        width: 100%;
+    }
+}

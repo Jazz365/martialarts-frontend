@@ -2,33 +2,33 @@
 
 import SelectItem from '@/components/SelectItem/SelectItem';
 import TextInputComponent from '@/components/TextInputComponent/TextInputComponent'
-import { useCategoryContext } from '@/contexts/CategoryContext';
 import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddItemWrapper'
 import React, { useState } from 'react'
 import styles from './styles.module.css'
 import AddItemComponent from '@/features/Dashboard/components/AddItemComponent/AddItemComponent';
-import { compulsoryDetailKeys, formatNewPlaceDetailsForPosting, initialNewPlaceDetail, NewPlaceDetail } from './utils';
+import { compulsoryDetailKeys, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict } from './utils';
 import AddLocationsComponent from '@/features/Dashboard/components/AddLocationsComponent/AddLocationsComponent';
 import MastersAddComponent from '@/features/Dashboard/components/MastersAddComponent/MastersAddComponent';
 import ActivityHoursEdit from '@/features/Dashboard/components/ActivityHoursEdit/ActivityHoursEdit';
 import AddFaqItem from '@/features/Dashboard/components/AddFaqItem/AddFaqItem';
 import Button from '@/components/Button/Button';
 import GalleryEditItem from '@/features/Dashboard/components/GalleryEditItem/GalleryEditItem';
-import { availablePlaceTypes } from '@/utils/placeTypes';
-import { dummyMartialStyles } from '@/utils/styles';
 import { genderTypes } from '@/utils/genderTypes';
-import { availableClassTypes } from '@/utils/classTypes';
 import RequiredIndicator from '@/components/RequiredIndicator/RequiredIndicator';
 import { toast } from 'sonner';
 import { PlaceService } from '@/services/placeService';
 import { AppConstants } from '@/utils/constants';
+import { useAppContext } from '@/contexts/AppContext';
+import { useRouter } from 'next/navigation';
 
 
 const AddPlaceDetails = () => {
     const [ details, setDetails ] = useState<NewPlaceDetail>(initialNewPlaceDetail);
     const [ loading, setLoading ] = useState(false);
 
-    const { categories } = useCategoryContext();
+    const { allStyles, placeTypes, catersTo, userPlaces, setUserPlaces } = useAppContext();
+    const router = useRouter();
+
     const placeService = new PlaceService();
 
     const handleDetailUpdate = (
@@ -61,9 +61,9 @@ const AddPlaceDetails = () => {
                     [itemKey]: value,
                 };
 
-                if (key === 'locations') updatedDetails.locations = updatedItems as ILocation[];
-                if (key === 'master_images') updatedDetails.master_images = updatedItems as IPlaceMasterImage[];
-                if (key === 'activity_hours') updatedDetails.activity_hours = updatedItems as IPlaceActivityHours[];
+                if (key === newPlaceDetailKeysDict.locations) updatedDetails.locations = updatedItems as ILocation[];
+                if (key === newPlaceDetailKeysDict.master_images) updatedDetails.master_images = updatedItems as IPlaceMasterImage[];
+                if (key === newPlaceDetailKeysDict.activity_hours) updatedDetails.activity_hours = updatedItems as IPlaceActivityHours[];
 
                 return updatedDetails;
             }
@@ -78,7 +78,7 @@ const AddPlaceDetails = () => {
     }
 
     const handleUpdateCheckboxItems = (key: keyof NewPlaceDetail, valueId: number, checkedStatus: boolean) => {
-        const validkeys = ['styles', 'caters_to'];
+        const validkeys = [newPlaceDetailKeysDict.styles, newPlaceDetailKeysDict.caters_to];
 
         const currentItem = details[key];
         if (!validkeys.includes(key) || !Array.isArray(currentItem)) return;
@@ -101,34 +101,31 @@ const AddPlaceDetails = () => {
             const value = details[key as keyof NewPlaceDetail];
           
             return (
-              !value || 
-              (typeof value !== 'number' && 
-               (typeof value === 'string' || Array.isArray(value)) && value.length < 1)
+                !value || 
+                (typeof value !== 'number' && 
+                (typeof value === 'string' || Array.isArray(value)) && value.length < 1)
             );
         });
 
         if (missingRequiredDetail) return toast.info('Please fill in all required info');
-        if (isNaN(Number(details.price))) return toast.info('Please enter a valid number for the pricing of this new place');
+        if (isNaN(Number(details.pricing))) return toast.info('Please enter a valid number for the pricing of this new place');
         if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) return toast.info('Found missing city or address in location provided');
         if (details.benefits.find(benefit => benefit.length < 1)) return toast.info('Found missing/empty benefit in provided benefits');
         if (details.master_images.find(master => master.name.length < 1 || !master.imageFile)) return toast.info('Found missing master name or image');
         
-        const formattedDetails = formatNewPlaceDetailsForPosting(details, categories);
-        
-        const formData = new FormData();
-
-        for (const key in formattedDetails) {
-            if (formattedDetails.hasOwnProperty(key)) {
-              formData.append(key, formattedDetails[key]);
-            }
-        }
+        const formData = generateFormDataForNewPlaceDetails(details);
 
         setLoading(true);
 
         try {
-            const res = await placeService.createNewPlace(savedToken, formattedDetails);
-            console.log(res);
+            const res = await placeService.createNewPlace(savedToken, formData);
+            setUserPlaces([
+                res,
+                ...userPlaces,
+            ]);
+            
             setLoading(false);
+            router.push(`/places/${res.id}`);
         } catch (_err) {
             setLoading(false);   
         }
@@ -140,7 +137,7 @@ const AddPlaceDetails = () => {
         >
             <TextInputComponent
                 label='place name'
-                name='name'
+                name={newPlaceDetailKeysDict.name}
                 value={details.name}
                 onChange={handleDetailUpdate}
                 borderRadius='12px'
@@ -149,7 +146,7 @@ const AddPlaceDetails = () => {
 
             <TextInputComponent 
                 label='place description'
-                name='description'
+                name={newPlaceDetailKeysDict.description}
                 value={details.description}
                 onChange={handleDetailUpdate}
                 isTextArea={true}
@@ -159,16 +156,8 @@ const AddPlaceDetails = () => {
 
             <section className={styles.item__Section__Row}>
                 <SelectItem 
-                    label='primary martial art style'
-                    options={categories.map(category => ({ id: category.id, value: category.id, label: category.name }))}
-                    value={details.category}
-                    handleChange={(value) => handleDetailUpdate('category', value)}
-                    isRequired
-                />
-
-                <SelectItem 
                     label='place type'
-                    options={availablePlaceTypes.map(place => ({ id: place.id, value: place.id, label: place.name }))}
+                    options={placeTypes.map(place => ({ id: place.id, value: place.id, label: place.name }))}
                     value={details.type_of_place ?? ''}
                     handleChange={(value) => handleDetailUpdate('type_of_place', value)}
                     isRequired
@@ -176,8 +165,8 @@ const AddPlaceDetails = () => {
 
                 <TextInputComponent 
                     label='price per month ($)'
-                    name='price'
-                    value={details.price}
+                    name={newPlaceDetailKeysDict.pricing}
+                    value={`${details.pricing}`}
                     onChange={handleDetailUpdate}
                     borderRadius='12px'
                     type='number'
@@ -189,7 +178,7 @@ const AddPlaceDetails = () => {
 
                 <section className={styles.listing__Wrap}>
                     {
-                        React.Children.toArray(dummyMartialStyles
+                        React.Children.toArray(allStyles
                             .map(style => {
                                 return <TextInputComponent 
                                     label={style.name}
@@ -234,7 +223,7 @@ const AddPlaceDetails = () => {
             <section className={styles.item__Section__Row}>
                 <TextInputComponent 
                     label='email'
-                    name='email'
+                    name={newPlaceDetailKeysDict.email}
                     type='email'
                     value={details.email}
                     onChange={handleDetailUpdate}
@@ -253,7 +242,7 @@ const AddPlaceDetails = () => {
 
             <TextInputComponent 
                 label='website url'
-                name='website'
+                name={newPlaceDetailKeysDict.website}
                 value={details.website}
                 onChange={handleDetailUpdate}
                 borderRadius='12px'
@@ -274,13 +263,13 @@ const AddPlaceDetails = () => {
             title='place gallery'
         >
             <section className={styles.item__Section__Col}>
-                <TextInputComponent 
-                    name='video'
-                    label='video'
+                {/* <TextInputComponent 
+                    name={newPlaceDetailKeysDict.video}
+                    label='video link'
                     value={details.video}
                     onChange={handleDetailUpdate}
                     borderRadius='12px'
-                />
+                /> */}
 
                 <GalleryEditItem 
                     images={details.images}
@@ -339,7 +328,7 @@ const AddPlaceDetails = () => {
                     <p>Class Type</p>
                     
                     {
-                        React.Children.toArray(availableClassTypes.map(type => {
+                        React.Children.toArray(catersTo.map(type => {
                             return <TextInputComponent 
                                 label={type.name}
                                 type='checkbox'
@@ -380,9 +369,10 @@ const AddPlaceDetails = () => {
 
         <AddItemWrapper
             title='policy'
+            isRequired
         >
             <TextInputComponent
-                name='policy'
+                name={newPlaceDetailKeysDict.policy}
                 value={details.policy}
                 onChange={handleDetailUpdate}
                 isTextArea

@@ -1,8 +1,16 @@
+'use client';
+
+
 import React from 'react'
 import styles from './styles.module.css'
 import StatItem from '../../components/StatItem/StatItem'
+import { useAppContext } from '@/contexts/AppContext'
 
 const TopStatsRow = () => {
+    const {
+        userPlaces,
+    } = useAppContext();
+
     return <>
         <section className={styles.stats__Wrap}>
             <StatItem
@@ -12,7 +20,7 @@ const TopStatsRow = () => {
 
             <StatItem
                 title='total places'
-                count={40}
+                count={userPlaces.length}
             />
 
             <StatItem 

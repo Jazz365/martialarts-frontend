@@ -10,10 +10,12 @@ import styles from './styles.module.css'
 import { usePathname } from 'next/navigation';
 import { useUserContext } from '@/contexts/UserContext';
 import { LinkItemDetail, ownerNavLinks } from './utils';
+import useMobile from '@/hooks/useMobile';
 
 const SideBar = () => {
     const currentPath = usePathname();
     const { userDetails } = useUserContext();
+    const isMobile = useMobile();
 
     const [ links, setLinks ] = useState<LinkItemDetail[]>([]);
 
@@ -33,6 +35,7 @@ const SideBar = () => {
             <section className={styles.nav__Info}>
                 <Link
                     href={'/'}
+                    className={styles.logo}
                 >
                     <Image 
                         src={logo}
@@ -51,7 +54,14 @@ const SideBar = () => {
                                 key={link.id}
                             >
                                 <Link href={link.location}>
-                                    <link.icon />
+                                    <link.icon 
+                                        size={
+                                            isMobile ?
+                                                '1.3rem'
+                                            :
+                                            ''
+                                        }
+                                    />
                                     <span>{link.text}</span>
                                 </Link>
                             </li>
@@ -60,7 +70,12 @@ const SideBar = () => {
                 </ul>
             </section>
 
-            <ProfileItem />
+            {
+                isMobile ?
+                    <></>
+                :
+                <ProfileItem />
+            }
         </nav>
     )
 }

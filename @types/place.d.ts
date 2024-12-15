@@ -1,6 +1,6 @@
 type IPlace = {
     id: number;
-    owner: string;
+    owner: number;
     name: string;
     description: string;
     category: ICategory;
@@ -11,15 +11,17 @@ type IPlace = {
     is_featured: boolean;
     created_at: string;
     average_rating: number,
-    locations: ILocation[];
-    images: IPlaceImage[];
-    master_images: IPlaceMasterImage[];
-    faqs: IPlaceFaq[];
+    place_locations: ILocation[];
+    images_data: IPlaceImage[];
+    master_images_data: IPlaceMasterImage[];
+    place_faqs: IPlaceFaq[];
     policy: IPlacePolicy;
-    activity_hours: IPlaceActivityHours[];
+    place_activity_hours: IPlaceActivityHours[];
     reviews: IPlaceReviews[];
-    benefits: string[];
-    price: number;
+    benefits: string;
+    pricing: number;
+    place_styles: IMartialArtStyle[];
+    place_caters_to: ICatersTo[];
 }
 
 type IPlaceImage = {
@@ -62,4 +64,19 @@ type IPlaceReviews = {
     rating: number;
     comment: string;
     created_at?: string;
+}
+
+type ICatersTo = {
+    id: number;
+    name: string;
+}
+
+type IMartialArtStyle = {
+    id: number;
+    name: string;
+}
+
+type IPlaceType = {
+    id: number;
+    name: string;
 }

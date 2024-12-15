@@ -1,0 +1,53 @@
+.grid__Imgs {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+}
+
+.image {
+    width: 23vw;
+    object-fit: cover;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.image.main {
+    width: 54vw;
+}
+
+.btn {
+    outline: none;
+    border: none;
+    background: none;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn.left {
+    left: 1rem;
+}
+
+.btn.right {
+    right: 1rem;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}

@@ -66,3 +66,14 @@
         opacity: 1;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .gallery {
+        flex-direction: column;
+    }
+
+    .add__New__Item,
+    .place__Image__Wrap {
+        width: 100%;
+    }
+}

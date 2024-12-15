@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import HeroImagesWrap from '../../components/HeroImagesWrap/HeroImagesWrap';
 import CategorySearchBar from '../../../../components/CategorySearchBar/CategorySearchBar';
-import HeroBannerSubtitle from '../../components/HeroBannerSubtitle/HeroBannerSubtitle';
+// import HeroBannerSubtitle from '../../components/HeroBannerSubtitle/HeroBannerSubtitle';
 
 const HeroBanner = () => {
     return <section className={styles.hero__Wrap}>
@@ -12,7 +12,7 @@ const HeroBanner = () => {
                     Discover & Book the best martial arts classes near you!
                 </h1>
 
-                <HeroBannerSubtitle />
+                {/* <HeroBannerSubtitle /> */}
             </section>
 
             <CategorySearchBar />

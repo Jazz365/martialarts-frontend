@@ -2,7 +2,7 @@
 
 
 import Link from 'next/link';
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import styles from './styles.module.css';
 
 
@@ -14,6 +14,7 @@ const Button = ({
     linkLocation='',
     disabled=false,
     handleClick=()=>{},
+    hoverStyle,
 }: {
     label: string;
     style?: CSSProperties;
@@ -24,12 +25,25 @@ const Button = ({
     linkLocation?: string;
     disabled?: boolean;
     handleClick?: () => void;
+    hoverStyle?: CSSProperties;
 }) => {
+    const [ mouseOver, setMouseOver ] = useState(false);
+
     if (useLink === true) return <>
         <Link
             className={`${styles.btn}`}
             href={linkLocation}
-            style={style}
+            style={
+                mouseOver ?
+                    {
+                        ...style,
+                        ...hoverStyle,
+                    }
+                :
+                style
+            }
+            onMouseEnter={() => setMouseOver(true)}
+            onMouseLeave={() => setMouseOver(false)}
         >
             {
                 icon ?? <></>
@@ -42,9 +56,19 @@ const Button = ({
     return <>
         <button
             className={`${styles.btn}`}
-            style={style}
             onClick={handleClick}
             disabled={disabled}
+            style={
+                mouseOver ?
+                    {
+                        ...style,
+                        ...hoverStyle,
+                    }
+                :
+                style
+            }
+            onMouseEnter={() => setMouseOver(true)}
+            onMouseLeave={() => setMouseOver(false)}
         >
             {
                 icon ?? <></>

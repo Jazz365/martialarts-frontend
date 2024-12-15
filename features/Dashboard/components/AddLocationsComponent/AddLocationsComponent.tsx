@@ -133,6 +133,10 @@ const AddLocationsComponent = ({
                     border: '1px solid #000',
                     color: '#000',
                 }}
+                hoverStyle={{
+                    background: '#000',
+                    color: '#fff'
+                }}
                 handleClick={handleAddNewItem}
             />
         </section>

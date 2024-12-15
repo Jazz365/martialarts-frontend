@@ -32,7 +32,7 @@ const FeatureCard = ({
     return <>
         <Link 
             className={styles.card__Item}
-            href={`/places?placeId=${featuredPlace.id}`}
+            href={`/places/${featuredPlace.id}`}
         >
             <Image 
                 src={featuredPlace.image}

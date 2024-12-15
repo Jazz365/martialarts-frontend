@@ -4,18 +4,17 @@ import { v4 as uuidv4 } from 'uuid';
 export interface NewPlaceDetail {
     name: string;
     description: string;
-    price: string;
+    pricing: number;
     email: string;
     phone_number: string;
-    website: string;
-    category: string;
+    website?: string;
     benefits: string[];
     locations: ILocation[];
     master_images: IPlaceMasterImage[];
     activity_hours: IPlaceActivityHours[];
     faqs: IPlaceFaq[];
     images: IPlaceImage[];
-    video: string;
+    video?: string;
     type_of_place: number | null;
     free_lesson_available: boolean;
     styles: number[];
@@ -23,29 +22,51 @@ export interface NewPlaceDetail {
     caters_to: number[];
     policy: string;
     reviews: IPlaceReviews[];
+    is_featured: boolean;
+}
+
+export const newPlaceDetailKeysDict = {
+    name: 'name',
+    description: 'description',
+    pricing: 'pricing',
+    email: 'email',
+    phone_number: 'phone_number',
+    website: 'website',
+    benefits: 'benefits',
+    locations: 'locations',
+    master_images: 'master_images',
+    activity_hours: 'activity_hours',
+    faqs: 'faqs',
+    images: 'images',
+    video: 'video',
+    type_of_place: 'type_of_place',
+    free_lesson_available: 'free_lesson_available',
+    styles: 'styles',
+    gender: 'gender',
+    caters_to: 'caters_to',
+    policy: 'policy',
+    reviews: 'reviews',
+    is_featured: 'is_featured',
 }
 
 export const compulsoryDetailKeys = [
-    'name',
-    'description',
-    'category',
-    'type_of_place',
-    'gender',
-    'email',
-    'locations',
-    'benefits',
-    'policy',
-    // 'master_images',
+    newPlaceDetailKeysDict.name,
+    newPlaceDetailKeysDict.description,
+    newPlaceDetailKeysDict.type_of_place,
+    newPlaceDetailKeysDict.gender,
+    newPlaceDetailKeysDict.email,
+    newPlaceDetailKeysDict.locations,
+    newPlaceDetailKeysDict.benefits,
+    newPlaceDetailKeysDict.policy,
+    newPlaceDetailKeysDict.faqs,
 ]
 
 export const initialNewPlaceDetail: NewPlaceDetail = {
     name: '',
     description: '',
-    price: '',
+    pricing: 0,
     email: '',
     phone_number: '',
-    website: '',
-    category: '',
     benefits: [],
     locations: [],
     master_images: [],
@@ -59,7 +80,6 @@ export const initialNewPlaceDetail: NewPlaceDetail = {
     }),
     faqs: [],
     images: [],
-    video: '',
     type_of_place: null,
     free_lesson_available: false,
     styles: [],
@@ -73,6 +93,7 @@ export const initialNewPlaceDetail: NewPlaceDetail = {
             "user": 1 
         }
     ],
+    is_featured: false,
 };
 
 export const rateOptions = [
@@ -80,16 +101,16 @@ export const rateOptions = [
     'hour',
 ]
 
-export const formatNewPlaceDetailsForPosting = (details: NewPlaceDetail, categories: ICategory[]) => {
-    return Object.keys(details).map(key => {
+export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail) => {
+    const formattedDetails = Object.keys(details).map(key => {
         const value = details[key as keyof NewPlaceDetail];
         
-        if (key === 'activity_hours' || key === 'faqs' || key === 'images' || key === 'master_images' || key === 'locations') {
+        if (key === newPlaceDetailKeysDict.activity_hours || key === newPlaceDetailKeysDict.faqs || key === newPlaceDetailKeysDict.images || key === newPlaceDetailKeysDict.master_images || key === newPlaceDetailKeysDict.locations) {
             const valueFormatted = value as IPlaceActivityHours[] | IPlaceFaq[] | IPlaceImage[] | IPlaceMasterImage[] | ILocation[];
             const updatedValue = valueFormatted.map(item => {
                 const { id, ...rest } = item;
 
-                if (key === 'images' || key === 'master_images') {
+                if (key === newPlaceDetailKeysDict.images || key === newPlaceDetailKeysDict.master_images) {
                     const itemValue = rest as IPlaceImage | IPlaceMasterImage;
 
                     if (itemValue.imageFile) {
@@ -112,24 +133,21 @@ export const formatNewPlaceDetailsForPosting = (details: NewPlaceDetail, categor
             }
         }
 
-        if (key === 'benefits') {
-            const valueFormatted = value as string[];
+        if (key === newPlaceDetailKeysDict.benefits) {
+            const updatedValue = value as string[];
             return {
-                [key]: valueFormatted.join(', ')
+                [key]: updatedValue.join(', '),
             }
         }
 
-        if (key === 'category') {
-            const foundCategory = categories.find(category => category.id === Number(value));
+        if (key === newPlaceDetailKeysDict.type_of_place || key === newPlaceDetailKeysDict.pricing) {
+            const updatedValue = Number(value);
             return {
-                [key]: {
-                    id: foundCategory?.id,
-                    name: foundCategory?.name,
-                }
+                [key]: updatedValue,
             }
         }
 
-        if (key === 'policy') {
+        if (key === newPlaceDetailKeysDict.policy) {
             return {
                 [key]: {
                     content: value,
@@ -143,4 +161,57 @@ export const formatNewPlaceDetailsForPosting = (details: NewPlaceDetail, categor
     }).reduce<{ [key: string]: any }>((acc, current) => {
         return { ...acc, ...current };
     }, {});
+
+    
+    const formData = new FormData();
+
+    for (const key in formattedDetails) {
+        const value = formattedDetails[key];
+        if (key === newPlaceDetailKeysDict.master_images) {
+            const masterImagesDetails = value as IPlaceMasterImage[];
+
+            formData.append('master_images_bio', JSON.stringify(masterImagesDetails.map(item => ({ name: item.name, bio: item.bio }))))
+            masterImagesDetails.forEach(item => {
+                formData.append(`${key}`, item.image as File)
+            });
+
+            continue;
+        }
+        
+        if (key === newPlaceDetailKeysDict.images) {
+            const imagesDetail = value as IPlaceImage[];
+
+            imagesDetail.forEach(item => {
+                if (item.image instanceof File) {
+                    formData.append(`${key}`, item.image as File)
+                }
+            });
+
+            continue;
+        }
+
+        if (key === newPlaceDetailKeysDict.locations) {
+            formData.append('locations_data', JSON.stringify(value));
+            continue;
+        }
+
+        if (key === newPlaceDetailKeysDict.activity_hours) {
+            formData.append('activity_hours_data', JSON.stringify(value));
+            continue;
+        }
+        
+        if (key === newPlaceDetailKeysDict.faqs) {
+            formData.append('faqs_data', JSON.stringify(value));
+            continue;
+        }
+        
+        if (key === newPlaceDetailKeysDict.styles || key === newPlaceDetailKeysDict.caters_to || key === newPlaceDetailKeysDict.policy || key === newPlaceDetailKeysDict.reviews) {
+            formData.append(key, JSON.stringify(value));
+            continue;
+        }
+
+        formData.append(key, value);
+    }
+    
+    return formData;
 }

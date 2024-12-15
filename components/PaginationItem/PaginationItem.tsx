@@ -53,7 +53,14 @@ const PaginationItem = ({
                 <p className={styles.pagination__Detail}>
                     <span className={styles.current__Page}>{currentPage}</span>
                     <span>/</span>
-                    <span>{Math.round(totalItems / itemsPerPage)}</span>
+                    <span>
+                        {
+                            totalItems < itemsPerPage ?
+                                1
+                            :
+                            Math.round(totalItems / itemsPerPage)
+                        }
+                    </span>
                 </p>
 
                 <section className={styles.progress__Bar}>

@@ -56,3 +56,19 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
+
+@media screen and (max-width: 767px) {
+    .content__Wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .item__Section__Row {
+        flex-direction: column;
+    }
+
+    .features__Wrap {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}

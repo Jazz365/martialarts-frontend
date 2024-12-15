@@ -2,6 +2,8 @@
 
 
 import { listingSortOptions, listingViewTypes } from "@/features/Search/sections/Places/utils";
+import useLoadData from "@/hooks/useLoadData";
+import { PlaceService } from "@/services/placeService";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -45,9 +47,21 @@ const initialActiveFilters = availableFiltersKeys.reduce((acc, key) => {
 const SearchFilterContext = createContext<{
     activeFilters: AvailableFilters;
     handleUpdateFiltersForCategory: (category: string, value: string[] | string) => void;
+    allPlaces: IPlace[];
+    setAllPlaces: (val: IPlace[]) => void;
+    placesLoading: boolean;
+    setPlacesLoading: (val: boolean) => void;
+    placesLoaded: boolean;
+    setPlacesLoaded: (val: boolean) => void;
 }>({
     activeFilters: initialActiveFilters,
     handleUpdateFiltersForCategory: () => {},
+    allPlaces: [],
+    setAllPlaces: () => {},
+    placesLoading: true,
+    setPlacesLoading: () => {},
+    placesLoaded: false,
+    setPlacesLoaded: () => {},
 });
 
 export const useSearchFilterContext = () => useContext(SearchFilterContext);
@@ -60,9 +74,29 @@ const SearchFilterContextProvider = ({
 }) => {
     const [ activeFilters, setActiveFilters ] = useState<AvailableFilters>(initialActiveFilters);
 
+    const [ allPlaces, setAllPlaces ] = useState<IPlace[]>([]);
+    const [ placesLoading, setPlacesLoading ] = useState(true);
+    const [ placesLoaded, setPlacesLoaded ] = useState(false);
+
     const searchParams = useSearchParams();
     const router = useRouter();
 
+    const placeService = new PlaceService();
+
+    const handleUpdateFiltersForCategory = (category: string, value: string[] | string) => {
+        const newSearchParams = new URLSearchParams(searchParams.toString());
+
+        newSearchParams.delete(category);
+
+        const categoryValue = Array.isArray(value) ? value: [value]
+        
+        categoryValue.forEach(searchQuery => {
+            newSearchParams.append(category, searchQuery);
+        });
+
+        router.push(`?${newSearchParams.toString()}`);
+    }
+    
     useEffect(() => {
         setActiveFilters((prevFilters) => {
             return {
@@ -79,25 +113,25 @@ const SearchFilterContextProvider = ({
         });
     }, [searchParams])
 
-    const handleUpdateFiltersForCategory = (category: string, value: string[] | string) => {
-        const newSearchParams = new URLSearchParams(searchParams.toString());
-
-        newSearchParams.delete(category);
-
-        const categoryValue = Array.isArray(value) ? value: [value]
-        
-        categoryValue.forEach(searchQuery => {
-            newSearchParams.append(category, searchQuery);
-        });
-
-        router.push(`?${newSearchParams.toString()}`);
-    }
+    useLoadData(
+        placesLoaded,
+        setPlacesLoading,
+        placeService.getAllPlaces.bind(placeService),
+        setAllPlaces,
+        setPlacesLoaded,
+    );
 
     return <>
         <SearchFilterContext.Provider
             value={{
                 activeFilters,
                 handleUpdateFiltersForCategory,
+                allPlaces,
+                setAllPlaces,
+                placesLoaded,
+                setPlacesLoaded,
+                placesLoading,
+                setPlacesLoading,
             }}
         >
             {children}

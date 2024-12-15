@@ -18,7 +18,7 @@ const PlaceListCard = ({
   isListView?: boolean;
   isOwnerView?: boolean;
 }) => {
-  const placeLocation = `${place?.locations[0]?.address}, ${place?.locations[0]?.city}, ${place?.locations[0]?.state}`;
+  const placeLocation = `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`;
 
   return (
     <Link 
@@ -31,13 +31,20 @@ const PlaceListCard = ({
           styles.col
         }
       `}
-      href={`/places?placeId=${place.id}`}
+      href={`/places/${place.id}`}
     >
-      <Carousel>
+      <Carousel 
+        style={{ 
+          width: isListView ? 
+            420 
+            : 
+          '100%' 
+        }}
+      >
         {
-          React.Children.toArray(place.images.map(imageItem => {
+          React.Children.toArray(place.images_data.map(imageItem => {
             return <Image
-              width={200}
+              width={0}
               height={
                 isListView ?
                   280
@@ -99,6 +106,10 @@ const PlaceListCard = ({
                   background: 'transparent',
                   color: '#000'
                 }}
+                hoverStyle={{
+                  background: '#000',
+                  color: '#fff'
+                }}
                 useLink
                 linkLocation=''
               />
@@ -109,7 +120,7 @@ const PlaceListCard = ({
 
         <ul className={styles.benefits}>
           {
-            React.Children.toArray(place.benefits
+            React.Children.toArray(place.benefits.split(',')
               .slice(
                 0, 
                 !isListView ? 
@@ -132,7 +143,7 @@ const PlaceListCard = ({
         <h3 className={`${styles.header} ${styles.price}`}>
           <span className={styles.price__Intro}>from</span>
           {' '}
-          <span>${place.price}/month</span>
+          <span>${place.pricing}/month</span>
         </h3>
       </section>
     </Link>
