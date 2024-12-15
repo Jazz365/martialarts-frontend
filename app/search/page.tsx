@@ -1,4 +1,4 @@
-import NavigationBar from '@/components/NavigationBar/NavigationBar'
+import NavigationBar from '@/layouts/NavigationBar/NavigationBar'
 import React from 'react'
 import SearchFilters from '@/features/Search/sections/Filters/Filters'
 import PlacesMap from '@/features/Search/sections/Map/Map'

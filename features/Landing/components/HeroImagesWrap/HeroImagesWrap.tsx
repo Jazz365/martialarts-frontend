@@ -14,7 +14,7 @@ const HeroImagesWrap = () => {
     return <>
         <FadeInOnScroll 
             width='100%'
-            viewThreshold={0.2}
+            viewThreshold={0.1}
         >
             <section className={styles.content__Wrap}>
                 <Image 

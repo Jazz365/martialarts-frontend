@@ -13,4 +13,5 @@
     gap: 0.7rem;
     text-transform: capitalize;
     cursor: pointer;
+    transition: all 0.25s ease-in-out;
 }

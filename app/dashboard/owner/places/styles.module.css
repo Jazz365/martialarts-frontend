@@ -1,0 +1,29 @@
+.content__Wrap {
+    padding: 2rem 4rem;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.header__Wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header {
+    font-family: var(--mako-font);
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+}
+
+.all__places {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}

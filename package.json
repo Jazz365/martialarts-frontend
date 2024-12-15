@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.7.9",
+    "core-js-pure": "^3.39.0",
     "embla-carousel-autoplay": "^8.5.1",
     "embla-carousel-react": "^8.5.1",
     "google-maps-react-markers": "^2.0.11",
@@ -16,10 +18,14 @@
     "nextjs-toploader": "^3.7.15",
     "rc-rate": "^2.13.0",
     "react": "19.0.0-rc-66855b96-20241106",
+    "react-avatar": "^5.0.3",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-icons": "^5.3.0",
     "react-intersection-observer": "^9.13.1",
-    "sonner": "^1.7.0"
+    "react-tooltip": "^5.28.0",
+    "recharts": "^2.14.1",
+    "sonner": "^1.7.0",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@types/node": "^20",

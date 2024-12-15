@@ -14,18 +14,21 @@ const MartialArtsStyles = () => {
                 <h2 className={styles.header}>Find your ideal martial art style</h2>
             </FadeInOnScroll>
             
-            <FadeInOnScroll>
-                <section className={styles.styles__Wrap}>
-                    {
-                        React.Children.toArray(
-                            dummyMartialStyles
-                            .filter(style => style.isFeatured === true)
-                            .map(style => {
-                                return <>
+            <section className={styles.styles__Wrap}>
+                {
+                    React.Children.toArray(
+                        dummyMartialStyles
+                        .filter(style => style.isFeatured === true)
+                        .map(style => {
+                            return <>
+                                <FadeInOnScroll 
+                                    viewThreshold={0.5}
+                                    className={styles.style__Item__Detail}
+                                >
                                     <Link
-                                        className={styles.style__Item__Detail}
                                         href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}`}
                                     >
+                                        
                                         <Image 
                                             src={style.imageUrl}
                                             alt={style.name}
@@ -36,12 +39,12 @@ const MartialArtsStyles = () => {
                                             <h3 className={styles.style__Name}>{style.name}</h3>
                                         </section>
                                     </Link>
-                                </>
-                            })
-                        )
-                    }
-                </section>
-            </FadeInOnScroll>
+                                </FadeInOnScroll>
+                            </>
+                        })
+                    )
+                }
+            </section>
         </section>
     </>
 }

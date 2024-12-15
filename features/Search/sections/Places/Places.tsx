@@ -45,7 +45,7 @@ const SearchPlacesListing = () => {
         <SearchBar
           placeholder='Search by name'
           style={{
-            padding: '0.5rem 1rem',
+            padding: '0.75rem 1rem',
             fontSize: '0.75rem',
           }}
           name='name'
@@ -53,7 +53,7 @@ const SearchPlacesListing = () => {
           onChange={(_name, value) => setSearchVal(value)}
         />
 
-        <section className={styles.search__Actions}>
+        {/* <section className={styles.search__Actions}>
           <Button 
             label='clear'
             style={{
@@ -75,7 +75,7 @@ const SearchPlacesListing = () => {
             }}
             handleClick={() => handleUpdateFiltersForCategory('name', [searchVal])}
           />
-        </section>
+        </section> */}
       </section>
       
       <br/> 

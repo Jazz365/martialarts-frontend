@@ -1,0 +1,41 @@
+.sub__Card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-radius: 24px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 2rem;
+}
+
+.title {
+    color: var(--primary-app-color);
+    text-transform: capitalize;
+    font-weight: 500;
+    font-family: var(--mako-font);
+}
+
+.pricing__Wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.3rem;
+}
+
+.pricing {
+    font-family: var(--mako-font);
+    font-size: 3.2rem;
+    font-weight: 900;
+}
+
+.benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.benefit__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
