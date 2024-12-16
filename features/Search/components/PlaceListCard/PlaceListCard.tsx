@@ -1,27 +1,36 @@
+'use client';
+
 import Image from 'next/image';
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import styles from './styles.module.css';
 import { IoLocationOutline } from 'react-icons/io5';
 import Rate from 'rc-rate';
 import Carousel from '@/components/Carousel/Carousel';
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
+import { generateDashLinkForUser } from '@/helpers/helpers';
+import { useUserContext } from '@/contexts/UserContext';
 
 const maxLengthForGridView = 32;
+const maxGridTitleLength = 16;
 
 const PlaceListCard = ({
   place,
   isListView=true,
-  isOwnerView=false,
+  imageHeight,
+  style,
 }: {
   place: IPlace;
   isListView?: boolean;
-  isOwnerView?: boolean;
+  imageHeight?: number;
+  style?: CSSProperties;
 }) => {
   const placeLocation = `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`;
+  const placeName = `${place.name}`;
+  const { userDetails } = useUserContext();
 
   return (
-    <Link 
+    <section 
       className={`
         ${styles.list__Card} 
         ${
@@ -31,14 +40,16 @@ const PlaceListCard = ({
           styles.col
         }
       `}
-      href={`/places/${place.id}`}
+      style={style}
+      // href={`/places/${place.id}`}
     >
       <Carousel 
         style={{ 
           width: isListView ? 
             420 
             : 
-          '100%' 
+          '100%',
+          borderRadius: '12px',
         }}
       >
         {
@@ -49,7 +60,8 @@ const PlaceListCard = ({
                 isListView ?
                   280
                 :
-                200
+                imageHeight ??
+                250
               }
               alt={place.description}
               src={imageItem.image as string}
@@ -63,7 +75,44 @@ const PlaceListCard = ({
       <section className={styles.details}>
         <section className={styles.top__Row}>
           <section className={styles.header__Wrap}>
-            <h2 className={styles.header}>{place.name}</h2>
+            <section className={styles.title}>
+              <Link 
+                className={styles.header}
+                href={`/places/${place.id}`}
+              >
+                {
+                  isListView ?
+                    placeName
+                  :
+                  placeName.length > maxGridTitleLength ?
+                    placeName.slice(0, maxGridTitleLength) + '...'
+                  :
+                  placeName
+                }
+              </Link>
+              
+              {
+                userDetails?.id === place.owner ?
+                  <Button 
+                    label='edit'
+                    style={{
+                      padding: '0.45rem 1.2rem',
+                      border: '1px solid #000',
+                      background: 'transparent',
+                      color: '#000',
+                      fontSize: '0.75rem'
+                    }}
+                    hoverStyle={{
+                      background: '#000',
+                      color: '#fff'
+                    }}
+                    useLink
+                    linkLocation={`${generateDashLinkForUser(true)}/places/add-place?id=${place.id}`}
+                  />
+                :
+                <></>
+              }
+            </section>
             <div className={styles.detail__Item}>
               <Rate
                 allowHalf={true}
@@ -95,32 +144,12 @@ const PlaceListCard = ({
               </span>      
             </p>
           </section>
-
-          {
-            isOwnerView ?
-              <Button 
-                label='edit'
-                style={{
-                  padding: '0.5rem 1.5rem',
-                  border: '1px solid #000',
-                  background: 'transparent',
-                  color: '#000'
-                }}
-                hoverStyle={{
-                  background: '#000',
-                  color: '#fff'
-                }}
-                useLink
-                linkLocation=''
-              />
-            :
-            <></>
-          }
         </section>
 
         <ul className={styles.benefits}>
           {
-            React.Children.toArray(place.benefits.split(',')
+            React.Children.toArray(
+              place.benefits.split(',')
               .slice(
                 0, 
                 !isListView ? 
@@ -146,7 +175,7 @@ const PlaceListCard = ({
           <span>${place.pricing}/month</span>
         </h3>
       </section>
-    </Link>
+    </section>
   )
 }
 

@@ -7,17 +7,17 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 const LoginSuccess = () => {
-  const { userDetails, userDetailsLoading } = useUserContext();
+  const { userDetails, userDetailsLoading, isLoggedIn } = useUserContext();
   const router = useRouter();
 
   useEffect(() => {
     if (userDetailsLoading) return;
-    if (!userDetails) return router.push('/auth/login');
+    if (!userDetails && !isLoggedIn) return router.push('/auth/login');
 
-    router.push(`/dashboard/${userDetails.is_owner === true ? 'owner' : 'user'}`);
+    router.push(`/dashboard/${userDetails?.is_owner === true ? 'owner' : 'user'}`);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userDetails, userDetailsLoading])
+  }, [userDetails, userDetailsLoading, isLoggedIn])
 
   return (
     <section style={{

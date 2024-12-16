@@ -86,6 +86,8 @@ const AddFaqItem = ({
 
             <FaqsList 
                 faqs={faqs}
+                showDeleteIcon
+                handleDeleteFaq={(id) => updateItemsArr(faqs.filter(faq => faq.id !== id))}
             />
         </section>
     </>

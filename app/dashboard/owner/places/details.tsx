@@ -24,7 +24,7 @@ const AllPlacesDetails = () => {
         <PaginationItem 
             currentPage={currentPage}
             updateCurrentPage={setCurrentPage}
-            itemsPerPage={5}
+            itemsPerPage={6}
             totalItems={userPlaces.length}
         />
 
@@ -44,7 +44,12 @@ const AllPlacesDetails = () => {
                         return <PlaceListCard
                             place={place}
                             key={place.id}
-                            isOwnerView
+                            isListView={false}
+                            style={{
+                                height: '100%',
+                                maxHeight: '33rem',
+                            }}
+                            imageHeight={350}
                         />
                     }))
             }

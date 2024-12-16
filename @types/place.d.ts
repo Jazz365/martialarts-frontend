@@ -1,5 +1,6 @@
 type IPlace = {
     id: number;
+    email: string;
     owner: number;
     name: string;
     description: string;

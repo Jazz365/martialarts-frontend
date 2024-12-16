@@ -112,6 +112,7 @@ const AddLocationsComponent = ({
                                 style={{
                                     width: '8%',
                                 }}
+                                color='#f90000'
                             />
                         </li>
                     }))

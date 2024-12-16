@@ -2,7 +2,7 @@
 
 
 import React from 'react'
-import { allDummyPlaces, listingViewTypes } from '../Places/utils'
+import { listingViewTypes } from '../Places/utils'
 import PlaceListCard from '../../components/PlaceListCard/PlaceListCard'
 import styles from './styles.module.css';
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
@@ -15,7 +15,7 @@ const PlacesSectionView = () => {
         placesLoading,
     } = useSearchFilterContext();
     
-    // if (placesLoading) return <PageLoader />
+    if (placesLoading) return <PageLoader />
     
     return <>
         <section 
@@ -33,7 +33,7 @@ const PlacesSectionView = () => {
             `}
         >
             {
-                React.Children.toArray(allDummyPlaces.map(place => {
+                React.Children.toArray(allPlaces.map(place => {
                     return <PlaceListCard 
                         place={place}
                         key={place.id}

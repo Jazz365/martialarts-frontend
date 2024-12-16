@@ -69,6 +69,7 @@ const AddItemComponent = ({
                                 cursor={'pointer'}
                                 size={'1.2rem'}
                                 onClick={() => handleDeleteItem(index)}
+                                color='#f90000'
                             />
                         </li>
                     }))

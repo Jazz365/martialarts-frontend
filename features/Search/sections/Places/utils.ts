@@ -40,6 +40,7 @@ export const allDummyPlaces: IPlace[] = [
             description: '',
             image: ''
         },
+        email: '',
         website: 'https://google.com',
         phone_number: '00000000000',
         video: '',
@@ -146,6 +147,7 @@ export const allDummyPlaces: IPlace[] = [
         id: 2,
         owner: 2,
         name: 'Wooden Hollow',
+        email: '',
         description: 'Learn martial arts here',
         category: {
             id: 1,
@@ -241,6 +243,7 @@ export const allDummyPlaces: IPlace[] = [
         id: 3,
         owner: 2,
         name: 'Silent Creek',
+        email: '',
         description: 'Learn martial arts here',
         category: {
             id: 1,
@@ -330,6 +333,7 @@ export const allDummyPlaces: IPlace[] = [
         owner: 2,
         name: 'Shadow Vale',
         description: 'Learn martial arts here',
+        email: '',
         category: {
             id: 1,
             name: '',
@@ -435,6 +439,7 @@ export const allDummyPlaces: IPlace[] = [
         id: 5,
         owner: 2,
         name: 'Wooden Creek',
+        email: '',
         description: 'Learn martial arts here',
         category: {
             id: 1,

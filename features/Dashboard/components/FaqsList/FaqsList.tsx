@@ -2,12 +2,17 @@ import React from 'react'
 import styles from './styles.module.css'
 import { HiOutlineChevronDown } from 'react-icons/hi2';
 import { AiOutlineQuestion } from 'react-icons/ai';
+import { IoTrashOutline } from 'react-icons/io5';
 
 
 const FaqsList = ({
     faqs=[],
+    showDeleteIcon=false,
+    handleDeleteFaq=()=>{},
 }: {
     faqs: IPlaceFaq[];
+    showDeleteIcon?: boolean;
+    handleDeleteFaq?: (val: number | string | undefined) => void;
 }) => {
 
     return <>
@@ -26,7 +31,21 @@ const FaqsList = ({
                                 <span className={styles.question}>{faq.question}</span>
                             </section>
                             
-                            <HiOutlineChevronDown />
+                            <section className={styles.action__Icons}>
+                                <HiOutlineChevronDown />
+                                {
+                                    
+                                    showDeleteIcon ?
+                                        <IoTrashOutline
+                                            cursor={'pointer'}
+                                            size={'1.2rem'}
+                                            onClick={() => handleDeleteFaq(faq?.id)}
+                                            color='#f90000'
+                                        />
+                                    :
+                                    <></>
+                                }
+                            </section>
                         </summary>
 
                         <p className={styles.answer}>{faq.answer}</p>

@@ -1,9 +1,19 @@
 'use client';
 
-
-import { allDummyPlaces } from '@/features/Search/sections/Places/utils';
 import React, { useEffect, useState } from 'react'
 import SinglePlaceGallery from '../../components/SinglePlaceGallery/SinglePlaceGallery';
+import { PlaceService } from '@/services/placeService';
+import PageLoader from '@/components/PageLoader/PageLoader';
+import SinglePlaceHeader from '../../components/SinglePlaceHeader/SinglePlaceHeader';
+import styles from './styles.module.css'
+import SinglePlaceBenefits from '../../components/SinglePlaceBenefits/SinglePlaceBenefits';
+import Divider from '../../components/Divider/Divider';
+import SinglePlaceDescription from '../../components/SinglePlaceDescription/SinglePlaceDescription';
+import ContactInfo from '../../components/ContactInfo/ContactInfo';
+import OpeningHours from '../../components/OpeningHours/OpeningHours';
+import FaqInfo from '../../components/FaqInfo/FaqInfo';
+import NewBooking from '../../components/NewBooking/NewBooking';
+import BackButton from '@/components/BackButton/BackButton';
 
 const SinglePlaceView = ({
     id
@@ -11,19 +21,90 @@ const SinglePlaceView = ({
     id: number | undefined | null;
 }) => {
     const [ foundPlace, setFoundPlace ] = useState<IPlace | null | undefined>(null);
+    const [ loading, setLoading ] = useState(false);
+    const [ loaded, setLoaded ] = useState(false);
+
+    const placeService = new PlaceService();
 
     useEffect(() => {
-        setFoundPlace(
-            allDummyPlaces.find(place => place.id === id)
-        );
+        if (!id || loaded) return;
+
+        setLoading(true);
+
+        placeService.getSinglePlace(id).then(res => {
+            setFoundPlace(res);
+            setLoaded(true);
+            setLoading(false);
+        }).catch(() => {
+            setLoaded(true);
+            setLoading(false);
+        })
     }, [id])
 
-    if (!id || !foundPlace) return <></>
+    if (!id) return <section style={{ height: '70dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></section>
+
+    if (loading) return <section style={{ height: '70dvh' }}>
+        <PageLoader />
+    </section>
+
+    if (!foundPlace) return <section style={{ height: '70dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ padding: '4rem', textAlign: 'center'}}>No place found</p>
+    </section>
 
     return <>
+        <section className={styles.back__Wrap}>
+            <BackButton />
+        </section>
+    
         <SinglePlaceGallery
             images={foundPlace?.images_data ?? []}
         />
+
+        <section className={styles.wrapper}>
+            <section className={styles.content__Wrap}>
+                <SinglePlaceHeader 
+                    place={foundPlace}
+                />
+
+                <Divider />
+
+                <SinglePlaceBenefits 
+                    benefits={foundPlace.benefits?.split(',')}
+                />
+
+                <Divider />
+
+                <SinglePlaceDescription 
+                    description={foundPlace.description}
+                    video={foundPlace.video}
+                    masters={foundPlace.master_images_data}
+                />
+
+                <Divider />
+
+                <ContactInfo
+                    email={foundPlace.email}
+                    website={foundPlace.website}
+                    phoneNumber={foundPlace.phone_number}
+                />
+
+                <Divider />
+
+                <OpeningHours 
+                    activityHours={foundPlace.place_activity_hours}
+                />
+
+                <Divider />
+
+                <FaqInfo 
+                    placeFaqs={foundPlace.place_faqs}
+                />
+            </section>
+
+            <NewBooking
+                place={foundPlace}
+            />
+        </section>        
     </>
 }
 
