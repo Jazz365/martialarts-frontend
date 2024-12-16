@@ -4,13 +4,16 @@
 import FilterItem from '@/features/Search/components/FilterItem/FilterItem'
 import React from 'react'
 import styles from './styles.module.css'
-import { dummyMartialStyles } from '@/utils/styles'
-import { availablePlaceTypes } from '@/utils/placeTypes';
-import { availableClassTypes } from '@/utils/classTypes';
 import { availableLocations } from '@/utils/locations';
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
+import { useAppContext } from '@/contexts/AppContext';
 
 const SearchFilters = () => {
+    const {
+        placeTypes,
+        catersTo,
+        allStyles,
+    } = useAppContext();
     const { activeFilters } = useSearchFilterContext();
 
     return <>
@@ -18,21 +21,21 @@ const SearchFilters = () => {
             <FilterItem 
                 title='style'
                 filterKey='style'
-                filters={dummyMartialStyles.map(style => style.name)}
+                filters={allStyles.map(style => style.name)}
                 currentActiveFiltersForItem={activeFilters.style}
             />
 
             <FilterItem 
                 title='place'
-                filterKey='place'
-                filters={availablePlaceTypes.map(place => place.name)}
-                currentActiveFiltersForItem={activeFilters.place}
+                filterKey='placeType'
+                filters={placeTypes.map(place => place.name)}
+                currentActiveFiltersForItem={activeFilters.placeType}
             />
             
             <FilterItem 
                 title='class type'
                 filterKey='class'
-                filters={availableClassTypes.map(type => type.name)}
+                filters={catersTo.map(type => type.name)}
                 currentActiveFiltersForItem={activeFilters.class}
             />
 

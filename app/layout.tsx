@@ -4,6 +4,7 @@ import "./globals.css";
 import AppProviders from "@/contexts";
 import NextTopLoader from "nextjs-toploader";
 import 'rc-rate/assets/index.css';
+import 'react-calendar/dist/Calendar.css';
 import { Toaster } from "sonner";
 
 const mako = localFont({

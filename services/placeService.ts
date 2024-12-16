@@ -3,8 +3,8 @@ import apiBaseUrl from "./config"
 import axios from "axios";
 
 class PlaceService {
-    private getPlaceEndpoint(endpoint: string) {
-        return `${apiBaseUrl}/places/${endpoint.length < 1 ? '' : endpoint + '/'}`;
+    private getPlaceEndpoint(endpoint: string, searchParams?: string | null | undefined) {
+        return `${apiBaseUrl}/places/${endpoint.length < 1 ? '' : endpoint + '/'}${searchParams ?? ''}`;
     }
 
     async createNewPlace (token: string, data={}): Promise<IPlace> {
@@ -19,6 +19,8 @@ class PlaceService {
 
             return res as IPlace;
         } catch (error) {
+            toast.error('Something went wrong, please try again later');
+            
             throw error;
         }
     }
@@ -26,6 +28,24 @@ class PlaceService {
     async getAllPlaces () {
         try {
             const res = await fetch(`${this.getPlaceEndpoint('')}`, {
+                method: 'GET',
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = 'Something went wrong. Please try again later';
+                throw Error(errorMsg);
+            }
+
+            return jsonRes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getSinglePlace (placeId: number) {
+        try {
+            const res = await fetch(`${this.getPlaceEndpoint(`${placeId}`)}`, {
                 method: 'GET',
             });
 
@@ -101,6 +121,24 @@ class PlaceService {
     async getAllCatersTo () {
         try {
             const res = await fetch(`${this.getPlaceEndpoint('caters-to')}`, {
+                method: 'GET',
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = 'Something went wrong. Please try again later';
+                throw Error(errorMsg);
+            }
+
+            return jsonRes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async searchPlace (queryParams?: string | undefined | null) {
+        try {
+            const res = await fetch(`${this.getPlaceEndpoint('', queryParams)}`, {
                 method: 'GET',
             });
 

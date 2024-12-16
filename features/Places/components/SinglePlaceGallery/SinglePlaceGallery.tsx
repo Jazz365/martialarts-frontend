@@ -56,6 +56,7 @@ const SinglePlaceGallery = ({
                             width={0}
                             height={500}
                             className={`${styles.image} ${index === 1 ? styles.main : ''}`}
+                            quality={100}
                         />
                     })
                 )

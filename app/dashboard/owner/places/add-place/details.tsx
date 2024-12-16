@@ -3,7 +3,7 @@
 import SelectItem from '@/components/SelectItem/SelectItem';
 import TextInputComponent from '@/components/TextInputComponent/TextInputComponent'
 import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddItemWrapper'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import AddItemComponent from '@/features/Dashboard/components/AddItemComponent/AddItemComponent';
 import { compulsoryDetailKeys, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict } from './utils';
@@ -19,12 +19,18 @@ import { toast } from 'sonner';
 import { PlaceService } from '@/services/placeService';
 import { AppConstants } from '@/utils/constants';
 import { useAppContext } from '@/contexts/AppContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import PageLoader from '@/components/PageLoader/PageLoader';
+import { AxiosError } from 'axios';
 
 
 const AddPlaceDetails = () => {
     const [ details, setDetails ] = useState<NewPlaceDetail>(initialNewPlaceDetail);
+    const [ detailsLoading, setDetailsLoading ] = useState<boolean>(false);
     const [ loading, setLoading ] = useState(false);
+    const [ isEditView, setIsEditView ] = useState(false);
+
+    const searchParams = useSearchParams();
 
     const { allStyles, placeTypes, catersTo, userPlaces, setUserPlaces } = useAppContext();
     const router = useRouter();
@@ -42,6 +48,32 @@ const AddPlaceDetails = () => {
             }
         });
     }
+
+    useEffect(() => {
+        const idPassed = searchParams.get('id');
+        if (!idPassed || isNaN(Number(idPassed))) return setIsEditView(false);
+
+        setIsEditView(true);
+        setDetailsLoading(true);
+
+        placeService.getSinglePlace(Number(idPassed)).then(res => {
+            setDetails({
+                ...res,
+                benefits: res?.benefits?.split(','),
+                styles: res?.place_styles?.map((item: IMartialArtStyle) => item.id),
+                locations: res?.place_locations,
+                master_images: res?.master_images_data,
+                images: res?.images_data,
+                caters_to: res?.place_caters_to?.map((item: ICatersTo) => item.id),
+                activity_hours: res?.place_activity_hours,
+                faqs: res?.place_faqs,
+                policy: res?.policy?.content,
+            });
+            setDetailsLoading(false);
+        }).catch(() => {
+            setDetailsLoading(false);
+        })
+    }, [searchParams])
 
     const handleUpdateArrayItem = (
         key: keyof NewPlaceDetail, 
@@ -124,7 +156,7 @@ const AddPlaceDetails = () => {
                 ...userPlaces,
             ]);
             
-            setLoading(false);
+            // setLoading(false);
             router.push(`/places/${res.id}`);
         } catch (_err) {
             setLoading(false);   
@@ -132,6 +164,21 @@ const AddPlaceDetails = () => {
     }
 
     return <>
+        {
+            detailsLoading && <section className={styles.loader__Wrap}>
+                <PageLoader />
+            </section>
+        }
+
+        <h1 className={styles.header}>
+            {
+                isEditView ? 
+                    'Edit'
+                :
+                'Add new'
+            }{' '}place
+        </h1>
+    
         <AddItemWrapper
             title='basic information'
         >
@@ -383,6 +430,9 @@ const AddPlaceDetails = () => {
         <Button 
             label={
                 loading ? 
+                    isEditView ?
+                        'updating...'
+                    :
                     'creating...'
                 :
                 'submit'

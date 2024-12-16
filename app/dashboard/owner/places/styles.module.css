@@ -24,6 +24,11 @@
 
 .all__places {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     flex-wrap: wrap;
+    height: 100%;
+}
+
+.all__places > * {
+    width: calc(calc(100% / 3) - 1.5rem) !important;
 }

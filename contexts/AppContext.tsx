@@ -62,7 +62,9 @@ const AppContextProvider = ({
         placeService.getUserPlaces.bind(placeService),
         setUserPlaces,
         setUserPlacesLoaded,
-        true,
+        {
+            authorisationRequired: true,
+        },
     );
 
     useLoadData(

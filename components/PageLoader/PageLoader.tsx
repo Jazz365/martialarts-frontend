@@ -7,7 +7,9 @@ const PageLoader = () => {
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center',
-            padding: '1rem 0'
+            padding: '1rem 0 2rem',
+            height: '100%',
+            width: '100%',
         }}
     >
         <Loader />

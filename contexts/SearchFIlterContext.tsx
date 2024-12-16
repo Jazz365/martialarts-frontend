@@ -10,7 +10,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 export interface AvailableFilters {
     style: string[];
-    place: string[];
+    placeType: string[];
     class: string[];
     location: string[];
     name: string[];
@@ -22,7 +22,7 @@ export type FilterKeyType = keyof AvailableFilters;
 
 export const availableFiltersKeys: (keyof AvailableFilters)[] = [
     'style',
-    'place',
+    'placeType',
     'class',
     'location',
     'name',
@@ -111,14 +111,18 @@ const SearchFilterContextProvider = ({
                 }, {} as AvailableFilters),
             }
         });
+        setPlacesLoaded(false);
     }, [searchParams])
 
     useLoadData(
         placesLoaded,
         setPlacesLoading,
-        placeService.getAllPlaces.bind(placeService),
+        placeService.searchPlace.bind(placeService),
         setAllPlaces,
         setPlacesLoaded,
+        {
+            inputParam: `?${searchParams.toString()}`,
+        }
     );
 
     return <>

@@ -1,0 +1,25 @@
+.content__Wrap,
+.date__wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.content__Wrap {
+    gap: 2rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 12px;
+    padding: 2rem 2rem 2.5rem;
+    position: sticky;
+    top: 6.5rem;
+}
+
+.date__wrap {
+    text-transform: capitalize;
+    font-size: 0.875rem;
+    gap: 1rem;
+}
+
+.title {
+    font-family: var(--mako-font);
+    text-transform: capitalize;
+}

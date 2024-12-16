@@ -83,6 +83,7 @@ const MastersAddComponent = ({
                                     marginLeft: 'auto',
                                 }}
                                 onClick={() => handleDeleteItem(index)}
+                                fill='#f90000'
                             />
 
                             <Image

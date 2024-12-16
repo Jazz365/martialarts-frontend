@@ -8,13 +8,13 @@
 }
 
 .image {
-    width: 23vw;
+    width: 25vw;
     object-fit: cover;
     animation: fadeIn 0.5s ease-in-out;
 }
 
 .image.main {
-    width: 54vw;
+    width: 50vw;
 }
 
 .btn {

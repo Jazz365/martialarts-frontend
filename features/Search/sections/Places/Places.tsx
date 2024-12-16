@@ -16,6 +16,7 @@ const SearchPlacesListing = () => {
   const {
     activeFilters,
     handleUpdateFiltersForCategory,
+    allPlaces,
   } = useSearchFilterContext();
 
   const [ searchVal, setSearchVal ] = useState<string>('');
@@ -24,7 +25,7 @@ const SearchPlacesListing = () => {
     <section className={styles.listing__Wrap}>
       <section className={styles.listing__Title}>
         <h1 className={styles.header}>
-          <span>20 results</span>
+          <span>{allPlaces.length} results</span>
           <span className={styles.subheader}>Find your perfect martial arts style place</span>
         </h1>
 
@@ -41,7 +42,7 @@ const SearchPlacesListing = () => {
         />
       </section>
 
-      <section className={styles.listing__Search}>
+      {/* <section className={styles.listing__Search}>
         <SearchBar
           placeholder='Search by name'
           style={{
@@ -53,7 +54,7 @@ const SearchPlacesListing = () => {
           onChange={(_name, value) => setSearchVal(value)}
         />
 
-        {/* <section className={styles.search__Actions}>
+        <section className={styles.search__Actions}>
           <Button 
             label='clear'
             style={{
@@ -75,8 +76,8 @@ const SearchPlacesListing = () => {
             }}
             handleClick={() => handleUpdateFiltersForCategory('name', [searchVal])}
           />
-        </section> */}
-      </section>
+        </section>
+      </section> */}
       
       <br/> 
       
@@ -150,7 +151,7 @@ const SearchPlacesListing = () => {
 
       <br />
 
-      <Button 
+      {/* <Button 
         label='load more'
         style={{
           display: 'flex',
@@ -159,7 +160,7 @@ const SearchPlacesListing = () => {
           width: 'max-content',
           margin: '0 auto'
         }}
-      />
+      /> */}
     </section>
   </>
 }

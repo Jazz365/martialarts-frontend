@@ -1,0 +1,20 @@
+.wrapper {
+    padding: 4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.content__Wrap {
+    border: 1px solid #d3d3d3;
+    border-radius: 12px;
+    padding: 2rem 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+}
+
+.back__Wrap {
+    padding: 1rem 4rem;
+}
