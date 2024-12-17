@@ -21,7 +21,6 @@ import { AppConstants } from '@/utils/constants';
 import { useAppContext } from '@/contexts/AppContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/PageLoader/PageLoader';
-import { AxiosError } from 'axios';
 
 
 const AddPlaceDetails = () => {

@@ -1,5 +1,5 @@
 .content__Wrap {
-    padding: 5rem 3rem;
+    padding: 5rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -11,34 +11,49 @@
 }
 
 .locations__Wrap {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: auto;
+    width: 100%;
 }
 
 .location__Item {
-    width: calc(calc(100% / 3) - 1.5rem);
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 12px;
+    position: relative;
+    height: 15rem;
+    overflow: hidden;
 }
 
 .location__Image {
-    width: 50%;
-    height: 12rem;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     max-width: 100%;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-radius: 12px;
+    transition: transform 0.25s ease-in-out;
+}
+
+.location__Image:hover {
+    transform: scale(1.2);
+}
+
+.location__Item.main {
+    grid-row: span 2;
+    grid-column: span 1;
+    height: auto;
 }
 
 .location__Details {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    color: #fff;
+    position: absolute;
 }
 
 .location__Place__Count {
@@ -56,6 +71,23 @@
 
     .location__Item {
         width: 100%;
+        height: 20rem;
+    }
+
+    .locations__Wrap {
+        overflow-x: auto;
+        max-width: 100%;
+        scrollbar-width: none;
+    }
+
+    .location__Item.main {
+        grid-row: span 1;
+        grid-column: span 1;
+        height: 20rem;
+    }
+
+    .header {
+        font-size: 1.2rem;
     }
 }
 

@@ -7,7 +7,7 @@ import FeaturedStudios from "@/features/Landing/sections/FeaturedStudios/Feature
 import FeaturedLocations from "@/features/Landing/sections/FeaturedLocations/FeaturedLocations";
 import Banner from "@/features/Landing/sections/Banner/Banner";
 import Blog from "@/features/Landing/sections/Blog/Blog";
-import Footer from "@/components/Footer/Footer";
+import Footer from "@/layouts/Footer/Footer";
 import IncludedGenders from "@/features/Landing/sections/IncludedGenders/IncludedGenders";
 
 export default function Home() {

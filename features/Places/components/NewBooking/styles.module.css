@@ -11,15 +11,36 @@
     padding: 2rem 2rem 2.5rem;
     position: sticky;
     top: 6.5rem;
+    width: 35%;
 }
 
 .date__wrap {
     text-transform: capitalize;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     gap: 1rem;
 }
 
 .title {
     font-family: var(--mako-font);
     text-transform: capitalize;
+}
+
+.calendar {
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .content__Wrap {
+        padding: 2rem 1rem;
+        position: static;
+    }
+
+    .date__wrap {
+        font-size: 0.75rem;
+    }
+
+    .calendar,
+    .navigation__Label {
+        font-size: 0.7rem;
+    }
 }

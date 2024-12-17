@@ -8,13 +8,13 @@
 }
 
 .image {
-    width: 25vw;
+    width: 27.5vw;
     object-fit: cover;
     animation: fadeIn 0.5s ease-in-out;
 }
 
 .image.main {
-    width: 50vw;
+    width: 45vw;
 }
 
 .btn {
@@ -33,6 +33,7 @@
     justify-content: center;
     cursor: pointer;
     z-index: 10;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .btn.left {
@@ -49,5 +50,15 @@
         opacity: 0;
     } to {
         opacity: 1;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .image.main {
+        width: 75vw;
+    }
+
+    .image {
+        width: 12.5vw;
     }
 }

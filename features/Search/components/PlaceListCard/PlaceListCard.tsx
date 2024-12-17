@@ -10,31 +10,36 @@ import Link from 'next/link';
 import Button from '@/components/Button/Button';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { useUserContext } from '@/contexts/UserContext';
+import useMobile from '@/hooks/useMobile';
 
 const maxLengthForGridView = 32;
 const maxGridTitleLength = 16;
+const viewDurations = [1000, 1500, 1800];
 
 const PlaceListCard = ({
   place,
   isListView=true,
   imageHeight,
   style,
+  index,
 }: {
   place: IPlace;
   isListView?: boolean;
   imageHeight?: number;
   style?: CSSProperties;
+  index: number;
 }) => {
   const placeLocation = `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`;
   const placeName = `${place.name}`;
   const { userDetails } = useUserContext();
-
+  const isMobile = useMobile();
+  
   return (
     <section 
       className={`
         ${styles.list__Card} 
         ${
-          isListView ?
+          isListView && !isMobile ?
             styles.row
           :
           styles.col
@@ -43,9 +48,10 @@ const PlaceListCard = ({
       style={style}
       // href={`/places/${place.id}`}
     >
-      <Carousel 
+      <Carousel
+        delay={Number(index + 1) * viewDurations[Math.floor(Math.random() * viewDurations.length)]}
         style={{ 
-          width: isListView ? 
+          width: isListView && !isMobile ? 
             420 
             : 
           '100%',
@@ -57,7 +63,7 @@ const PlaceListCard = ({
             return <Image
               width={0}
               height={
-                isListView ?
+                isListView && !isMobile ?
                   280
                 :
                 imageHeight ??
@@ -77,11 +83,11 @@ const PlaceListCard = ({
           <section className={styles.header__Wrap}>
             <section className={styles.title}>
               <Link 
-                className={styles.header}
+                className={`${styles.header} ${styles.place__Name}`}
                 href={`/places/${place.id}`}
               >
                 {
-                  isListView ?
+                  isListView && !isMobile ?
                     placeName
                   :
                   placeName.length > maxGridTitleLength ?
@@ -113,7 +119,8 @@ const PlaceListCard = ({
                 <></>
               }
             </section>
-            <div className={styles.detail__Item}>
+
+            {/* <div className={styles.detail__Item}>
               <Rate
                 allowHalf={true}
                 value={place.average_rating}
@@ -129,11 +136,11 @@ const PlaceListCard = ({
               <span></span>
 
               <span className={styles.grey__Content}>{place?.reviews?.length ?? 0} review{place?.reviews?.length > 1 ? 's' : ''}</span>
-            </div>
+            </div> */}
 
             <p className={styles.detail__Item}>
               <IoLocationOutline size={'1.2rem'} />
-              <span>
+              <span className={styles.location}>
                 {
                   placeLocation.length > maxLengthForGridView && 
                   !isListView ?
@@ -169,11 +176,34 @@ const PlaceListCard = ({
 
         <br />
 
-        <h3 className={`${styles.header} ${styles.price}`}>
-          <span className={styles.price__Intro}>from</span>
-          {' '}
-          <span>${place.pricing}/month</span>
-        </h3>
+        <section className={styles.actions__Wrap}>
+          <h3 className={`${styles.header} ${styles.price}`}>
+            <span className={styles.price__Intro}>Review</span>
+            {' '}
+            <span className={styles.price__Intro}>from</span>
+            {' '}
+            <span>${place.pricing}/month</span>
+          </h3>
+
+          {
+            userDetails?.id !== place.owner ?
+              <Button 
+                label='join class'
+                style={{
+                  background: 'transparent',
+                  color: '#000',
+                  border: '1px solid #000',
+                  fontSize: '0.8rem'
+                }}
+                hoverStyle={{
+                  background: '#000',
+                  color: '#fff'
+                }}
+              />
+            :
+            <></>
+          }
+        </section>
       </section>
     </section>
   )

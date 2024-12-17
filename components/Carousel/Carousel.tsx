@@ -6,16 +6,18 @@ import styles from './styles.module.css'
 const Carousel = ({
     children,
     style,
+    delay=3000,
 }: {
     style?: CSSProperties;
     children: React.ReactNode;
+    delay?: number;
 }) => {
     const [emblaRef] = useEmblaCarousel(
         {
             loop: true,
         },
         [Autoplay({
-            delay: 3000,
+            delay,
         })],
     );
 

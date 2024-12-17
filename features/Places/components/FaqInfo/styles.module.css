@@ -8,3 +8,9 @@
     font-family: var(--mako-font);
     text-transform: capitalize;
 }
+
+@media screen and (max-width: 767px) {
+    .header {
+        font-size: 1.2rem;
+    }
+}

@@ -46,3 +46,20 @@
 .action__Icons {
     gap: 2rem;
 }
+
+@media screen and (max-width: 767px) {
+    .icon__Wrap {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 6px;
+    }
+
+    .question {
+        font-size: 0.75rem;
+    }
+
+    .answer {
+        font-size: 0.65rem;
+        margin-left: calc(2rem + 1rem);
+    }
+}

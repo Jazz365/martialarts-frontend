@@ -8,3 +8,12 @@
     background-color: #fff;
     z-index: 98;
 }
+
+@media screen and (max-width: 767px) {
+    .filters__Wrap {
+        padding: 1rem;
+        max-width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+}

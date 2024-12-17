@@ -10,6 +10,7 @@ import { useSearchFilterContext } from '@/contexts/SearchFIlterContext'
 import { listingSortOptions, listingViewTypesList } from './utils';
 import PlacesSectionView from '../PlacesSectionView/PlacesSectionView';
 import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOption';
+import useMobile from '@/hooks/useMobile';
 
 
 const SearchPlacesListing = () => {
@@ -18,7 +19,7 @@ const SearchPlacesListing = () => {
     handleUpdateFiltersForCategory,
     allPlaces,
   } = useSearchFilterContext();
-
+  const isMobile = useMobile();
   const [ searchVal, setSearchVal ] = useState<string>('');
 
   return <>
@@ -26,11 +27,11 @@ const SearchPlacesListing = () => {
       <section className={styles.listing__Title}>
         <h1 className={styles.header}>
           <span>{allPlaces.length} results</span>
-          <span className={styles.subheader}>Find your perfect martial arts style place</span>
+          {/* <span className={styles.subheader}>Find your perfect martial arts style place</span> */}
         </h1>
 
         <Button 
-          label='Save search'
+          label={isMobile ? 'Save' : 'Save search'}
           icon={<IoStarOutline />}
           style={{
             border: '1px solid #000',
@@ -87,7 +88,7 @@ const SearchPlacesListing = () => {
             id: 1,
             children: React.Children.toArray(Object.keys(listingSortOptions).map(sortOptionKey => {
               return <Button 
-                label={sortOptionKey.replaceAll('_', ' ')}
+                label={isMobile ? listingSortOptions[sortOptionKey] : sortOptionKey.replaceAll('_', ' ')}
                 style={{
                   border: activeFilters.sort === listingSortOptions[sortOptionKey] ? 
                     '1px solid #000'
@@ -116,7 +117,7 @@ const SearchPlacesListing = () => {
             id: 2,
             children: React.Children.toArray(listingViewTypesList.map(type => {
               return <Button 
-                label={type.viewType}
+                label={isMobile ? '' : type.viewType}
                 style={{
                   border: activeFilters.view === type.viewType ? 
                     '1px solid #000'

@@ -20,3 +20,13 @@
     text-transform: capitalize;
     font-size: 0.875rem;
 }
+
+@media screen and (max-width: 767px) {
+    .header {
+        font-size: 1.2rem;
+    }
+
+    .benefits {
+        font-size: 0.7rem;
+    }
+}

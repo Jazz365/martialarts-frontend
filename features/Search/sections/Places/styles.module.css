@@ -46,3 +46,13 @@
 .listing__Search {
     width: 100%;
 }
+
+@media screen and (max-width: 767px) {
+    .listing__Wrap {
+        width: 100%;
+    }
+
+    .header {
+        font-size: 1.2rem;
+    }
+}

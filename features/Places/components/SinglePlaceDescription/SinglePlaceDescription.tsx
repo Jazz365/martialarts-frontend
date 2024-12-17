@@ -1,7 +1,14 @@
-import React from 'react'
+'use client';
+
+
+import React, { useState } from 'react'
 import styles from './styles.module.css'
 import Image from 'next/image';
+import useMobile from '@/hooks/useMobile';
+import Button from '@/components/Button/Button';
 
+
+const maxDescriptionCap = 800;
 
 const SinglePlaceDescription = ({
     description,
@@ -12,6 +19,9 @@ const SinglePlaceDescription = ({
     video: string;
     masters: IPlaceMasterImage[];
 }) => {
+    const [ showFullDescription, setShowFullDescription ] = useState(false);
+    const isMobile = useMobile();
+
     return (
         <section className={styles.content__Wrap}>
             <h3 className={styles.header}>about this place</h3>
@@ -20,7 +30,7 @@ const SinglePlaceDescription = ({
                 <section className={styles.intro}>
                     <iframe
                         width="100%"
-                        height="300"
+                        height={isMobile ? 200 : 300}
                         src="https://www.youtube.com/embed/bxuYDT-BWaI"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen>
@@ -34,8 +44,8 @@ const SinglePlaceDescription = ({
                                 React.Children.toArray(masters.map(master => {
                                     return <section className={styles.master__item}>
                                         <Image 
-                                            width={100}
-                                            height={100}
+                                            width={isMobile ? 65 : 100}
+                                            height={isMobile ? 65 : 100}
                                             alt={master.name}
                                             src={master.image as string}
                                             style={{
@@ -55,7 +65,34 @@ const SinglePlaceDescription = ({
                 <section className={styles.description__Content}>
                     <h4 className={styles.content__header}>description</h4>
 
-                    <p>{description}</p>
+                    <p>
+                        {
+                            showFullDescription ?
+                                description
+                            :
+                            description.length > maxDescriptionCap ?
+                                description.slice(0, maxDescriptionCap) + '...'
+                            :
+                            description
+                        }
+                    </p>
+
+                    <Button 
+                        label={
+                            !showFullDescription ?
+                                'see more'
+                            :
+                            'see less'
+                        }
+                        style={{
+                            width: 'max-content',
+                            padding: 0,
+                            fontSize: '0.8rem',
+                            background: 'transparent',
+                            color: 'var(--primary-app-color)',
+                        }}
+                        handleClick={() => setShowFullDescription(!showFullDescription)}
+                    />
                 </section>
             </section>
         </section>
