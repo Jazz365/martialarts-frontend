@@ -1,7 +1,8 @@
 .content__Wrap {
-    padding: 2rem 4rem;
+    padding: 2rem 4rem 10rem;
     height: 100%;
     width: 100%;
+    min-height: 90dvh;
     overflow-y: auto;
     gap: 2rem;
     display: flex;

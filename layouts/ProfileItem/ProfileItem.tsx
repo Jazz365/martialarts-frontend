@@ -17,10 +17,10 @@ const ProfileItem = () => {
 
     const router = useRouter();
     
-    const authservice = new AuthService();
+    const authService = new AuthService();
 
     const handleLogout = async () => {
-        // await authservice.logoutUser();
+        // await authService.logoutUser();
 
         setIsLoggedIn(false);
         localStorage.removeItem(AppConstants.tokenKey);

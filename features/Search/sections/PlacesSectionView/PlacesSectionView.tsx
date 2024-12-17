@@ -2,7 +2,7 @@
 
 
 import React from 'react'
-import { listingViewTypes } from '../Places/utils'
+import { listingSortOptions, listingViewTypes } from '../Places/utils'
 import PlaceListCard from '../../components/PlaceListCard/PlaceListCard'
 import styles from './styles.module.css';
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
@@ -33,18 +33,28 @@ const PlacesSectionView = () => {
             `}
         >
             {
-                React.Children.toArray(allPlaces.map(place => {
-                    return <PlaceListCard 
-                        place={place}
-                        key={place.id}
-                        isListView={
-                            (
-                                activeFilters.view.length < 1 ||
-                                activeFilters.view === listingViewTypes.listView
-                            )
-                        }
-                    />
-                }))
+                React.Children.toArray(
+                    allPlaces
+                    .sort((a, b) => {
+                        if (activeFilters.sort === listingSortOptions.sort_by_rating) return b.average_rating - a.average_rating
+                        if (activeFilters.sort === listingSortOptions.sort_by_price) return b.pricing - a.pricing
+                        
+                        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                    })
+                    .map((place, index) => {
+                        return <PlaceListCard 
+                            place={place}
+                            index={index}
+                            key={place.id}
+                            isListView={
+                                (
+                                    activeFilters.view.length < 1 ||
+                                    activeFilters.view === listingViewTypes.listView
+                                )
+                            }
+                        />
+                    })
+                )
             }
         </section>
     </>

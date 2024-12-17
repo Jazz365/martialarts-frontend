@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './styles.module.css'
 import { IoIosArrowRoundForward } from 'react-icons/io'
-import happyIllustration from '../../../../assets/happy.svg'
+// import happyIllustration from '../../../../assets/happy.svg'
+import astronaut from '../../../../assets/astr.png'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 
@@ -25,7 +26,7 @@ const Banner = () => {
 
                     <Image 
                         alt={'banner illustration'}
-                        src={happyIllustration}
+                        src={astronaut}
                         className={styles.banner__Img}
                     />
                 </section>

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import useMobile from '@/hooks/useMobile';
 
 
 const SinglePlaceGallery = ({
@@ -14,6 +15,7 @@ const SinglePlaceGallery = ({
 }) => {
     const [ currentSlide, setCurrentSlide ] = useState(0);
     const [ imagesToDisplay, setImagesToDisplay ] = useState<IPlaceImage[]>([]);
+    const isMobile = useMobile();
 
     const handleGoForward = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
@@ -54,7 +56,12 @@ const SinglePlaceGallery = ({
                             alt='place'
                             key={image.id}
                             width={0}
-                            height={500}
+                            height={
+                                isMobile ?
+                                    250 
+                                :
+                                500
+                            }
                             className={`${styles.image} ${index === 1 ? styles.main : ''}`}
                             quality={100}
                         />

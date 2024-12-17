@@ -5,6 +5,7 @@ import Button from '@/components/Button/Button';
 import React, { useState } from 'react'
 import Calendar from 'react-calendar';
 import styles from './styles.module.css';
+import useMobile from '@/hooks/useMobile';
 
 
 type ValuePiece = Date | null;
@@ -16,6 +17,7 @@ const NewBooking = ({
     place: IPlace;
 }) => {
     const [value, onChange] = useState<Value>(new Date());
+    const isMobile = useMobile();
 
     return (
         <section className={styles.content__Wrap}>
@@ -28,6 +30,19 @@ const NewBooking = ({
                     onChange={onChange} 
                     value={value} 
                     minDate={new Date()}
+                    className={styles.calendar}
+                    navigationLabel={({ date, label, locale, view }) => {
+                        const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short' };
+
+                        return <span className={styles.navigation__Label}>
+                            {
+                                isMobile ?
+                                    <>{date.toLocaleString(locale, options)}</>
+                                :
+                                <>{label.toLocaleString()}</>
+                            }
+                        </span>
+                    }}
                 />
             </section>
 

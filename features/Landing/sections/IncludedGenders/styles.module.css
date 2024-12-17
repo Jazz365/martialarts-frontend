@@ -1,5 +1,5 @@
 .content__Wrap {
-    padding: 5rem 3rem 2rem;
+    padding: 5rem 5rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -24,5 +24,9 @@
     .content__Wrap {
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+
+    .header {
+        font-size: 1.2rem;
     }
 }

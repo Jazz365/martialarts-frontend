@@ -37,3 +37,10 @@ export const convertFileObjectToBinaryStr = (fileObj: File): Promise<string | Ar
         reader.onerror = error => reject(error);
     });
 }
+
+export const formatTimeString = (timeStr: string) => {
+    const date = new Date(`1970-01-01T${timeStr}Z`);
+    const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
+
+    return date.toLocaleString('en-US', options);
+}

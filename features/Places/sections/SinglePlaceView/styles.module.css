@@ -18,3 +18,18 @@
 .back__Wrap {
     padding: 1rem 4rem;
 }
+
+@media screen and (max-width: 767px) {
+    .back__Wrap {
+        padding: 1rem;
+    }
+
+    .wrapper {
+        padding: 2rem 1rem;
+        flex-direction: column;
+    }
+
+    .content__Wrap {
+        padding: 2rem 1rem;
+    }
+}

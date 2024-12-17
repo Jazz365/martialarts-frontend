@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { IoLocateOutline } from 'react-icons/io5'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
-import { listingViewTypes } from '@/features/Search/sections/Places/utils'
+import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
 
 
 const FeaturedLocations = () => {
@@ -18,11 +18,11 @@ const FeaturedLocations = () => {
             <FadeInOnScroll>
                 <section className={styles.locations__Wrap}>
                     {
-                        React.Children.toArray(dummyFeaturedLocations.map(location => {
+                        React.Children.toArray(dummyFeaturedLocations.map((location, index) => {
                             return <Link
                                 key={location.id}
-                                href={`/search?location=${location.name}&view=${listingViewTypes.listView}`}
-                                className={styles.location__Item}
+                                href={`/search?location=${location.name}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                className={`${styles.location__Item} ${index === 0 ? styles.main : ''}`}
                             >
                                 <Image 
                                     src={location.image}
@@ -33,10 +33,10 @@ const FeaturedLocations = () => {
                                 <section className={styles.location__Details}>
                                     <h3 className={`${styles.header}`}>{location.name}</h3>
 
-                                    <p className={styles.location__Place__Count}>
+                                    {/* <p className={styles.location__Place__Count}>
                                         <IoLocateOutline />
                                         <span>{location.totalPlaces} places</span>
-                                    </p>
+                                    </p> */}
                                 </section>
                             </Link>
                         }))

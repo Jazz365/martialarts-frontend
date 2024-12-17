@@ -90,7 +90,20 @@
         width: 100%;
         right: 0;
         bottom: 0;
-        height: 12rem;
+        height: 10rem;
+    }
+
+    .header {
+        font-size: 1.2rem;
+    }
+
+    .info {
+        font-size: 0.75rem;
+    }
+
+    .get__Started__Btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
     }
 }
 

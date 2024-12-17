@@ -4,7 +4,7 @@ import { dummyMartialStyles } from '@/utils/styles'
 import Image from 'next/image'
 import Link from 'next/link'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
-import { listingViewTypes } from '@/features/Search/sections/Places/utils'
+import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
 
 
 const MartialArtsStyles = () => {
@@ -26,7 +26,7 @@ const MartialArtsStyles = () => {
                                     className={styles.style__Item__Detail}
                                 >
                                     <Link
-                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}`}
+                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
                                     >
                                         
                                         <Image 

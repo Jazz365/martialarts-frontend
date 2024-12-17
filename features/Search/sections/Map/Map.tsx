@@ -37,14 +37,14 @@ const PlacesMap = ({
   return <>
     <section className={styles.content__Wrap}>
       <GoogleMap
-        // apiKey={process.env.NEXT_PUBLIC_MAP_KEY}
-        apiKey={''}
+        apiKey={process.env.NEXT_PUBLIC_MAP_KEY}
+        // apiKey={''}
         defaultCenter={{ lat: 45.4046987, lng: 12.2472504 }}
         defaultZoom={5}
         // options={mapOptions}
         mapMinHeight="100vh"
         onGoogleApiLoaded={onGoogleApiLoaded}
-        onChange={(map) => console.log('Map moved', map)}
+        // onChange={(map) => console.log('Map moved', map)}
       >
         {/* {placeCoordinates.map(({ lat, lng, name }, index) => (
           <Marker

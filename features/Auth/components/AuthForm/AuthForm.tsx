@@ -3,7 +3,7 @@
 
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import logo from '../../../../assets/FAVICON.jpg'
+import logo from '../../../../assets/FAVICON-plain.png'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import Button from '@/components/Button/Button'
@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { userTypes } from '../UserTypeSelect/utils';
 import { AppConstants } from '@/utils/constants';
+import { useUserContext } from '@/contexts/UserContext';
 
 const AuthForm = ({
     authType,
@@ -25,6 +26,8 @@ const AuthForm = ({
     const [ isLoginForm, setIsLoginForm ] = useState<boolean | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ details, setDetails ] = useState<AuthDetails>({});
+
+    const { setIsLoggedIn } = useUserContext();
 
     const params = useSearchParams();
     const router = useRouter();
@@ -60,6 +63,8 @@ const AuthForm = ({
                 localStorage.setItem(AppConstants.tokenKey, res?.token);
                 
                 setLoading(false);
+                setIsLoggedIn(true);
+
                 router.push('/login-success');
             } catch (error) {
                 setLoading(false);   

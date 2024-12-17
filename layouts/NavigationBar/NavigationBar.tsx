@@ -79,6 +79,7 @@ const NavigationBar = ({
                                     backgroundColor: 'transparent',
                                     color: '#000',
                                     fontWeight: '500',
+                                    padding: 0
                                 }}
                                 useLink={true}
                                 linkLocation='/auth/login'

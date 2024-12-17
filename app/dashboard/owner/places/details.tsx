@@ -40,9 +40,10 @@ const AllPlacesDetails = () => {
                         ,
                         Number(currentPage * 5)
                     )
-                    .map(place => {
+                    .map((place, index) => {
                         return <PlaceListCard
                             place={place}
+                            index={index}
                             key={place.id}
                             isListView={false}
                             style={{

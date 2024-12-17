@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
+import { formatTimeString } from '@/helpers/helpers';
 
 
 const OpeningHours = ({
@@ -18,7 +19,7 @@ const OpeningHours = ({
                             key={activity.id}
                         >
                             <span>{activity.day}</span>
-                            <span>{activity.opening_time} - {activity.closing_time}</span>
+                            <span className={styles.time__Detail}>{formatTimeString(activity.opening_time)} - {formatTimeString(activity.closing_time)}</span>
                         </li>
                     }))
                 }

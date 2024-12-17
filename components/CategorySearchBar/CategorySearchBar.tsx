@@ -5,7 +5,9 @@ import { IoClose, IoSearch } from 'react-icons/io5'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import { dummyMartialStyles } from '@/utils/styles';
-import { listingViewTypes } from '@/features/Search/sections/Places/utils';
+import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
+import { useAppContext } from '@/contexts/AppContext';
+import Loader from '../Loader/Loader';
 
 
 const CategorySearchBar = ({
@@ -19,6 +21,10 @@ const CategorySearchBar = ({
 }) => {
     const [ searchValue, setSearchValue ] = useState<string>('');
     const [ inputFocused, setInputFocused ] = useState<boolean>(false);
+    const {
+        allStyles,
+        stylesLoading,  
+    } = useAppContext();
 
     return <>
         <section className={styles.search__Bar__Wrap} style={wrapperStyle}>
@@ -51,32 +57,43 @@ const CategorySearchBar = ({
                 <section className={styles.category__Listing__Wrap}>
                     <p>Martial Arts Styles</p>
 
-                    <ul 
-                        className={styles.category__Listing}
-                        onMouseDown={(event: React.MouseEvent<HTMLUListElement, MouseEvent>) => event.preventDefault()}
-                    >
-                        {
-                            React.Children.toArray(
-                                dummyMartialStyles
-                                .filter(styleItem => {
-                                    if (searchValue.length > 0) return styleItem.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+                    {
+                        stylesLoading ?
+                            <section style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
+                                <Loader />
+                            </section>
+                        :
+                        <ul 
+                            className={styles.category__Listing}
+                            onMouseDown={(event: React.MouseEvent<HTMLUListElement, MouseEvent>) => event.preventDefault()}
+                        >
+                            {
+                                React.Children.toArray(
+                                    allStyles
+                                    .filter(styleItem => {
+                                        if (searchValue.length > 0) return styleItem.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
 
-                                    return true;
-                                })
-                                .map(styleItem => {
-                                    return <li
-                                        key={styleItem.id}
-                                    >
-                                        <Link
-                                            href={`/search?style=${encodeURIComponent(styleItem.name)}&view=${listingViewTypes.listView}`}
+                                        return true;
+                                    })
+                                    .map(styleItem => {
+                                        return <li
+                                            key={styleItem.id}
                                         >
-                                            {styleItem.name}
-                                        </Link>
-                                    </li>
-                                })
-                            )
-                        }
-                    </ul>
+                                            <Link
+                                                href={`/search?style=${encodeURIComponent(styleItem.name)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                            >
+                                                {styleItem.name}
+                                            </Link>
+                                        </li>
+                                    })
+                                )
+                            }
+                        </ul>
+                    }
                 </section>
             </section>
 
@@ -93,7 +110,7 @@ const CategorySearchBar = ({
                                 .filter(style => style.isTrending === true)
                                 .map(style => {
                                     return <Link
-                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}`}
+                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&${listingSortOptions.sort_by_newest}`}
                                         className={styles.trending__Item}
                                         key={style.id}
                                     >

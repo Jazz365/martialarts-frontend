@@ -49,7 +49,12 @@ const Button = ({
                 icon ?? <></>
             }
 
-            <span>{label}</span>
+            {
+                label.length > 1 ?
+                    <span>{label}</span>
+                :
+                <></>
+            }
         </Link>
     </>
     
@@ -74,7 +79,12 @@ const Button = ({
                 icon ?? <></>
             }
 
-            <span>{label}</span>
+            {
+                label.length > 1 ?
+                    <span>{label}</span>
+                :
+                <></>
+            }
         </button>
     </>
 }

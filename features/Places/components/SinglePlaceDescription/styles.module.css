@@ -63,3 +63,21 @@
     white-space: pre-line;
     font-size: 0.875rem;
 }
+
+@media screen and (max-width: 767px) {
+    .header {
+        font-size: 1.2rem;
+    }
+
+    .intro {
+        flex-direction: column;
+    }   
+    
+    .content__header {
+        font-size: 0.875rem;
+    }
+
+    .description__Content p {
+        font-size: 0.75rem;
+    }
+}

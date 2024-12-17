@@ -1,17 +1,11 @@
-import Footer from '@/components/Footer/Footer';
+import Footer from '@/layouts/Footer/Footer';
 import SinglePlaceView from '@/features/Places/sections/SinglePlaceView/SinglePlaceView';
 import NavigationBar from '@/layouts/NavigationBar/NavigationBar'
 import { PlaceService } from '@/services/placeService';
 import React from 'react'
 
-export async function generateMetadata({
-    params,
-}: {
-    params: {
-        [key: string]: string,
-    };
-}) {
-    const { placeId } = await params;
+export async function generateMetadata(props: { params: PageParams }) {
+    const { placeId } = await props.params;
     if (!placeId) return {
         title: "Invalid Place",
     };

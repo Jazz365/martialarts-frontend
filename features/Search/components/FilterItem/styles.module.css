@@ -61,3 +61,12 @@
 .single__Filter input[type='checkbox'] {
     accent-color: #000;
 }
+
+@media screen and (max-width: 767px) {
+    .filter__Item {
+        height: 100%;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        flex: 1;
+    }
+}

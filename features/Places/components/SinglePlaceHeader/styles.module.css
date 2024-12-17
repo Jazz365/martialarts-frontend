@@ -20,9 +20,23 @@
 
 .details {
     gap: 2.5rem;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
 }
 
 .detail__Item {
     gap: 0.3rem;
+}
+
+@media screen and (max-width: 767px) {
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .detail__Item {
+        font-size: 0.65rem;
+    }
+
+    .details {
+        gap: 1rem;
+    }
 }

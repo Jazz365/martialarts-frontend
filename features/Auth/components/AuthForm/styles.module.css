@@ -19,3 +19,11 @@
     font-size: 0.85rem;
     color: #808080;
 }
+
+@media screen and (max-width: 767px) {
+    .form__Wrap {
+        width: 90%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

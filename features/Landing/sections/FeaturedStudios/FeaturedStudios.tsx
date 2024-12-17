@@ -6,12 +6,14 @@ import { dummyFeaturedPlaces } from './utils'
 import FeatureCard from '../../components/FeatureCard/FeatureCard'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll';
 import PaginationItem from '@/components/PaginationItem/PaginationItem';
+import useMobile from '@/hooks/useMobile';
 
 
 const maxItemsPerPage = 4;
 
 const FeaturedStudios = () => {
     const [ currentPage, setCurrentPage ] = useState<number>(1);
+    const isMobile = useMobile();
 
     return <>
         <section className={styles.content__Wrap}>
@@ -28,7 +30,7 @@ const FeaturedStudios = () => {
                 </section>
             </FadeInOnScroll>
             
-            <FadeInOnScroll viewThreshold={0.55}>
+            <FadeInOnScroll viewThreshold={isMobile ? 0.15 : 0.55}>
                 <section className={styles.items__Wrap}>
                     {
                         React.Children.toArray(
