@@ -11,6 +11,7 @@ import { listingSortOptions, listingViewTypesList } from './utils';
 import PlacesSectionView from '../PlacesSectionView/PlacesSectionView';
 import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOption';
 import useMobile from '@/hooks/useMobile';
+import { toast } from 'sonner';
 
 
 const SearchPlacesListing = () => {
@@ -40,6 +41,7 @@ const SearchPlacesListing = () => {
             fontSize: '0.75rem',
             padding: '0.5rem 1rem'
           }}
+          handleClick={() => toast.success('Feature coming soon!')}
         />
       </section>
 

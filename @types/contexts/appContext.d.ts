@@ -1,4 +1,6 @@
 type AppContextType = {
+    selectedPlaceId: number | null; 
+    setSelectedPlaceId: (val: number | null) => void;
     allStyles: IMartialArtStyle[];
     setAllStyles: (styles: IMartialArtStyle[]) => void;
     stylesLoading: boolean;
@@ -23,4 +25,17 @@ type AppContextType = {
     setUserPlacesLoading: (val: boolean) => void;
     userPlacesLoaded: boolean;
     setUserPlacesLoaded: (val: boolean) => void;
+    bookings: IBooking[];
+    setBookings: (val: IBooking[]) => void;
+    bookingsLoading: boolean;
+    setBookingsLoading: (val: boolean) => void;
+    bookingsLoaded: boolean;
+    setBookingsLoaded: (val: boolean) => void;
+    placesViewStats: IPlaceViewStat[];
+    placesViewStatLoaded: boolean,
+    placesViewStatLoading: boolean,
+    setPlacesViewStats: (val: IPlaceViewStat[]) => void;
+    setPlacesViewStatLoaded: (val: boolean) => void;
+    setPlacesViewStatLoading: (val: boolean) => void;
+    resetUserInfoInContext: () => void;
 }

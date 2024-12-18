@@ -9,7 +9,7 @@ import Link from 'next/link'
 import styles from './styles.module.css'
 import { usePathname } from 'next/navigation';
 import { useUserContext } from '@/contexts/UserContext';
-import { LinkItemDetail, ownerNavLinks } from './utils';
+import { LinkItemDetail, ownerNavLinks, userNavLinks } from './utils';
 import useMobile from '@/hooks/useMobile';
 
 const SideBar = () => {
@@ -28,6 +28,7 @@ const SideBar = () => {
             return;
         }
         
+        setLinks(userNavLinks);
     }, [userDetails])
     
     return (

@@ -13,11 +13,13 @@ const TextInputComponent = ({
     borderRadius,
     placeholder='',
     labelFontSize,
+    inputFontSize,
     isDisabled=false,
     style,
     checked=false,
     handleUpdateChecked=()=>{},
     isRequired=false,
+    min,
 }: {
     label?: string;
     type?: string;
@@ -28,11 +30,13 @@ const TextInputComponent = ({
     borderRadius?: string;
     placeholder?: string;
     labelFontSize?: string;
+    inputFontSize?: string;
     isDisabled?: boolean;
     style?: CSSProperties;
     checked?: boolean;
     handleUpdateChecked?: (val: boolean) => void;
     isRequired?: boolean;
+    min?: any;
 }) => {
     return (
         <label 
@@ -67,7 +71,8 @@ const TextInputComponent = ({
                         onChange={({ target }) => onChange(name, target.value)}
                         rows={5}
                         style={{
-                            borderRadius
+                            borderRadius,
+                            fontSize: inputFontSize,
                         }}
                         placeholder={placeholder}
                         disabled={isDisabled}
@@ -83,12 +88,14 @@ const TextInputComponent = ({
                         onChange(name, target.value)
                     }}
                     style={{
-                        borderRadius
+                        borderRadius,
+                        fontSize: inputFontSize,
                     }}
                     placeholder={placeholder}
                     disabled={isDisabled}
                     readOnly={isDisabled}
                     checked={checked}
+                    min={min}
                 />
             }
         </label>

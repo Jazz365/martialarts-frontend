@@ -11,6 +11,10 @@ import Button from '@/components/Button/Button';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { useUserContext } from '@/contexts/UserContext';
 import useMobile from '@/hooks/useMobile';
+import { useRouter } from 'next/navigation';
+import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
+import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
+import { useAppContext } from '@/contexts/AppContext';
 
 const maxLengthForGridView = 32;
 const maxGridTitleLength = 16;
@@ -29,11 +33,26 @@ const PlaceListCard = ({
   style?: CSSProperties;
   index: number;
 }) => {
-  const placeLocation = `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`;
+  const placeLocation = place?.place_locations?.length > 0 ? 
+    `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`
+  :
+  ``;
   const placeName = `${place.name}`;
+
   const { userDetails } = useUserContext();
+  const {
+    setSelectedPlaceId
+  } = useAppContext();
+  
+  const router = useRouter();
   const isMobile = useMobile();
   
+  const handleJoinClassBtnClick = () => {
+    if (!userDetails) return router.push(`/auth/register?type=${userTypes.user}&next=${encodeURIComponent(`/places/${place.id}`)}`);
+
+    setSelectedPlaceId(place.id);
+  }
+
   return (
     <section 
       className={`
@@ -199,6 +218,7 @@ const PlaceListCard = ({
                   background: '#000',
                   color: '#fff'
                 }}
+                handleClick={handleJoinClassBtnClick}
               />
             :
             <></>

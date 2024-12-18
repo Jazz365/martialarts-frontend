@@ -37,3 +37,24 @@ export const ownerNavLinks: LinkItemDetail[] = [
         text: 'subscription',
     },
 ]
+
+export const userNavLinks: LinkItemDetail[] = [
+    {
+        id: 1,
+        location: generateDashLinkForUser(false),
+        icon: IoHomeOutline,
+        text: 'dashboard',
+    },
+    {
+        id: 2,
+        location: `${generateDashLinkForUser(false)}/bookings`,
+        icon: IoCalendarOutline,
+        text: 'bookings',
+    },
+    {
+        id: 3,
+        location: `${generateDashLinkForUser(false)}/places`,
+        icon: HiOutlineBuildingOffice2,
+        text: 'saved places',
+    },
+]

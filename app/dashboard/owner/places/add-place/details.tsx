@@ -143,7 +143,8 @@ const AddPlaceDetails = () => {
         if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) return toast.info('Found missing city or address in location provided');
         if (details.benefits.find(benefit => benefit.length < 1)) return toast.info('Found missing/empty benefit in provided benefits');
         if (details.master_images.find(master => master.name.length < 1 || !master.imageFile)) return toast.info('Found missing master name or image');
-        
+        if (details.images.length < 3) return toast.info('Please upload at least 3 images for your place');
+
         const formData = generateFormDataForNewPlaceDetails(details);
 
         setLoading(true);
@@ -205,7 +206,7 @@ const AddPlaceDetails = () => {
                     label='place type'
                     options={placeTypes.map(place => ({ id: place.id, value: place.id, label: place.name }))}
                     value={details.type_of_place ?? ''}
-                    handleChange={(value) => handleDetailUpdate('type_of_place', value)}
+                    handleChange={(value) => handleDetailUpdate(newPlaceDetailKeysDict.type_of_place, value)}
                     isRequired
                 />
 
@@ -239,7 +240,7 @@ const AddPlaceDetails = () => {
                                     }}
                                     checked={details?.styles?.includes(style.id)}
                                     key={style.id}
-                                    handleUpdateChecked={(val) => handleUpdateCheckboxItems('styles', style.id, val)}
+                                    handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.styles as keyof NewPlaceDetail, style.id, val)}
                                 />
                             }))
                     }
@@ -249,8 +250,8 @@ const AddPlaceDetails = () => {
             <AddLocationsComponent
                 label='Location(s)'
                 items={details.locations}
-                updateItemsArr={(items: ILocation[]) => handleDetailUpdate('locations', items)}
-                updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem('locations', itemIndex, item, key)}
+                updateItemsArr={(items: ILocation[]) => handleDetailUpdate(newPlaceDetailKeysDict.locations, items)}
+                updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.locations as keyof NewPlaceDetail, itemIndex, item, key)}
             />
 
             <AddItemComponent
@@ -258,8 +259,8 @@ const AddPlaceDetails = () => {
                 placeholder='e.g Professional staff'
                 isRequired
                 items={details.benefits}
-                updateItemsArr={(items: string[]) => handleDetailUpdate('benefits', items)}
-                updateSingleItem={(itemIndex: number, item: string) => handleUpdateArrayItem('benefits', itemIndex, item)}
+                updateItemsArr={(items: string[]) => handleDetailUpdate(newPlaceDetailKeysDict.benefits, items)}
+                updateSingleItem={(itemIndex: number, item: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.benefits as keyof NewPlaceDetail, itemIndex, item)}
             />
         </AddItemWrapper>
 
@@ -300,8 +301,8 @@ const AddPlaceDetails = () => {
         >
             <MastersAddComponent
                 items={details.master_images}
-                updateItemsArr={(items: IPlaceMasterImage[]) => handleDetailUpdate('master_images', items)}
-                updateSingleItem={(itemIndex: number, item: string | File, key: string) => handleUpdateArrayItem('master_images', itemIndex, item, key)}
+                updateItemsArr={(items: IPlaceMasterImage[]) => handleDetailUpdate(newPlaceDetailKeysDict.master_images, items)}
+                updateSingleItem={(itemIndex: number, item: string | File, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.master_images as keyof NewPlaceDetail, itemIndex, item, key)}
             />
         </AddItemWrapper>
 
@@ -319,7 +320,7 @@ const AddPlaceDetails = () => {
 
                 <GalleryEditItem 
                     images={details.images}
-                    updateImages={(items: IPlaceImage[]) => handleDetailUpdate('images', items)}
+                    updateImages={(items: IPlaceImage[]) => handleDetailUpdate(newPlaceDetailKeysDict.images, items)}
                 />
             </section>
         </AddItemWrapper>
@@ -342,7 +343,7 @@ const AddPlaceDetails = () => {
                             gap: '1rem',
                         }}
                         checked={details.free_lesson_available}
-                        handleUpdateChecked={(val) => handleDetailUpdate('free_lesson_available', val)}
+                        handleUpdateChecked={(val) => handleDetailUpdate(newPlaceDetailKeysDict.free_lesson_available, val)}
                     />
                 </section>
 
@@ -363,7 +364,7 @@ const AddPlaceDetails = () => {
                                 }}
                                 value={gender.name}
                                 checked={details.gender === gender.name}
-                                onChange={() => handleDetailUpdate('gender', gender.name)}
+                                onChange={() => handleDetailUpdate(newPlaceDetailKeysDict.gender, gender.name)}
                                 key={gender.id}
                             />
                         }))
@@ -386,7 +387,7 @@ const AddPlaceDetails = () => {
                                     gap: '1rem',
                                 }}
                                 checked={details?.caters_to?.includes(type.id)}
-                                handleUpdateChecked={(val) => handleUpdateCheckboxItems('caters_to', type.id, val)}
+                                handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.caters_to as keyof NewPlaceDetail, type.id, val)}
                                 key={type.id}
                             />
                         }))
@@ -397,10 +398,11 @@ const AddPlaceDetails = () => {
 
         <AddItemWrapper
             title='activity hours'
+            isRequired
         >
             <ActivityHoursEdit 
                 activityHours={details.activity_hours}
-                updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem('activity_hours', itemIndex, item, key)}
+                updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.activity_hours as keyof NewPlaceDetail, itemIndex, item, key)}
             />
         </AddItemWrapper>
 
@@ -409,7 +411,7 @@ const AddPlaceDetails = () => {
         >
             <AddFaqItem 
                 faqs={details.faqs}
-                updateItemsArr={(items: IPlaceFaq[]) => handleDetailUpdate('faqs', items)}
+                updateItemsArr={(items: IPlaceFaq[]) => handleDetailUpdate(newPlaceDetailKeysDict.faqs, items)}
             />
         </AddItemWrapper>
 

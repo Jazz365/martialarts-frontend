@@ -8,16 +8,6 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-export interface AvailableFilters {
-    style: string[];
-    placeType: string[];
-    class: string[];
-    location: string[];
-    name: string[];
-    sort: string;
-    view: string;
-}
-
 export type FilterKeyType = keyof AvailableFilters;
 
 export const availableFiltersKeys: (keyof AvailableFilters)[] = [
@@ -44,16 +34,7 @@ const initialActiveFilters = availableFiltersKeys.reduce((acc, key) => {
 }, {} as AvailableFilters);
 
 
-const SearchFilterContext = createContext<{
-    activeFilters: AvailableFilters;
-    handleUpdateFiltersForCategory: (category: string, value: string[] | string) => void;
-    allPlaces: IPlace[];
-    setAllPlaces: (val: IPlace[]) => void;
-    placesLoading: boolean;
-    setPlacesLoading: (val: boolean) => void;
-    placesLoaded: boolean;
-    setPlacesLoaded: (val: boolean) => void;
-}>({
+const SearchFilterContext = createContext<SearchContextType>({
     activeFilters: initialActiveFilters,
     handleUpdateFiltersForCategory: () => {},
     allPlaces: [],

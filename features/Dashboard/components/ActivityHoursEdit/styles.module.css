@@ -12,8 +12,11 @@
 }
 
 .title {
-    width: 18%;
-    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 25%;
+    font-size: 0.9rem;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,7 +1,7 @@
 'use client';
 
 
-import { generateDashLinkForUser, getDayOfTheWeek } from '@/helpers/helpers';
+import { formatTimeString, generateDashLinkForUser, getDayOfTheWeek } from '@/helpers/helpers';
 import React from 'react'
 import { AiFillClockCircle } from 'react-icons/ai';
 import styles from './styles.module.css'
@@ -45,12 +45,12 @@ const BookingSummaryItem = ({
                             fill='#333'
                             size={'1rem'}
                         />
-                        <p>{booking.time}</p>
+                        <p>{formatTimeString(booking.time)}</p>
                     </div>
                     
                     
                     <p className={styles.user__Info}>
-                        {booking.user}
+                        {booking.name}
                     </p>
                 </section>
 

@@ -16,8 +16,14 @@ export const getAllDaysOfTheWeek = () => {
     return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 }
 
+export const getMonthsOfTheYear = () => {
+    return [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+}
+
 export const generateDashLinkForUser = (userIsOwner?: boolean) => {
-    if (!userIsOwner) return ''
     return `/dashboard/${userIsOwner === true ? 'owner' : 'user'}`
 }
 

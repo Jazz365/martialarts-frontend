@@ -81,3 +81,8 @@ type IPlaceType = {
     id: number;
     name: string;
 }
+
+type IPlaceViewStat = {
+    name: string;
+    views: number;
+}

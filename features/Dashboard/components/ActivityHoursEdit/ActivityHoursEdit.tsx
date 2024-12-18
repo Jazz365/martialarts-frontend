@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
+import { newPlaceDetailKeysDict } from '@/app/dashboard/owner/places/add-place/utils';
 
 
 const ActivityHoursEdit = ({
@@ -18,7 +19,34 @@ const ActivityHoursEdit = ({
                         className={styles.single__Item}
                         key={item.id}
                     >
-                        <p className={styles.title}>{item.day}</p>
+                        <p className={styles.title}>
+                            <span>{item.day}</span>
+
+                            <TextInputComponent 
+                                label='open'
+                                type='checkbox'
+                                checked={item.closing_time.length > 0 && item.opening_time.length > 0}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    width: 'max-content',
+                                    flexDirection: 'row-reverse',
+                                    gap: '0.3rem',
+                                }}
+                                labelFontSize='0.75rem'
+                                handleUpdateChecked={(val) => {
+                                    if (val === true) {
+                                        updateSingleItem(index, '09:00', newPlaceDetailKeysDict.opening_time);
+                                        updateSingleItem(index, '17:00', newPlaceDetailKeysDict.closing_time);
+
+                                        return;
+                                    }
+
+                                    updateSingleItem(index, '', newPlaceDetailKeysDict.opening_time);
+                                    updateSingleItem(index, '', newPlaceDetailKeysDict.closing_time);
+                                }}
+                            />
+                        </p>
 
                         <TextInputComponent 
                             label='opening time'
@@ -26,7 +54,7 @@ const ActivityHoursEdit = ({
                             borderRadius='12px'
                             type='time'
                             value={item.opening_time}
-                            onChange={(_name, value: string) => updateSingleItem(index, value, 'opening_time')}
+                            onChange={(_name, value: string) => updateSingleItem(index, value, newPlaceDetailKeysDict.opening_time)}
                         />
 
                         <TextInputComponent 
@@ -35,7 +63,7 @@ const ActivityHoursEdit = ({
                             borderRadius='12px'
                             type='time'
                             value={item.closing_time}
-                            onChange={(_name, value: string) => updateSingleItem(index, value, 'closing_time')}
+                            onChange={(_name, value: string) => updateSingleItem(index, value, newPlaceDetailKeysDict.closing_time)}
                         />
                     </section>
                 }))

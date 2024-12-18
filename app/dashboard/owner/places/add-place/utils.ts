@@ -36,6 +36,8 @@ export const newPlaceDetailKeysDict = {
     locations: 'locations',
     master_images: 'master_images',
     activity_hours: 'activity_hours',
+    opening_time: 'opening_time',
+    closing_time: 'closing_time',
     faqs: 'faqs',
     images: 'images',
     video: 'video',
@@ -59,6 +61,7 @@ export const compulsoryDetailKeys = [
     newPlaceDetailKeysDict.benefits,
     newPlaceDetailKeysDict.policy,
     newPlaceDetailKeysDict.faqs,
+    newPlaceDetailKeysDict.images,
 ]
 
 export const initialNewPlaceDetail: NewPlaceDetail = {

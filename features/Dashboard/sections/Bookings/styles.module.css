@@ -27,7 +27,8 @@
 
 .bookings {
     gap: 1.4rem;
-    height: 32.5rem;
+    height: max-content;
+    max-height: 32.5rem;
     overflow-y: auto;
     scrollbar-width: none;
 }

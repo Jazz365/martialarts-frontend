@@ -12,4 +12,15 @@ type IBooking = {
     time: string;
     status: keyof typeof BookingStatus;
     created_at: string;
+    name: string;
+    email: string;
+    phone: string;
+    is_for_child: boolean;
+    child_name?: string;
+    child_dob?: string;
+    child_phone_number?: string;
+    child_email?: string;
+    selected_styles: number[];
+    agreed_to_health_declaration: boolean;
+    agreed_to_liability_waiver: boolean;
 }
