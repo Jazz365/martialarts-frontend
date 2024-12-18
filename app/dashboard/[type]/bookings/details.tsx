@@ -3,7 +3,6 @@
 
 import React from 'react'
 import styles from './styles.module.css'
-import { dummyBookings } from '@/features/Dashboard/sections/Bookings/utils'
 import BookingSummaryItem from '@/features/Dashboard/components/BookingSummaryItem/BookingSummaryItem'
 import { useAppContext } from '@/contexts/AppContext'
 import Link from 'next/link';
