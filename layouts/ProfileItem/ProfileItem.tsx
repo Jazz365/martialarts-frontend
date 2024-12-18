@@ -9,10 +9,16 @@ import { HiDotsHorizontal } from 'react-icons/hi';
 import { AuthService } from '@/services/authService';
 import { AppConstants } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
+import { useAppContext } from '@/contexts/AppContext';
 
 
 const ProfileItem = () => {
-    const { userDetails, setIsLoggedIn } = useUserContext();
+    const { 
+        userDetails, 
+        setIsLoggedIn, 
+        setUserDetails
+    } = useUserContext();
+    const { resetUserInfoInContext } = useAppContext();
     const [ showProfileMenu, setShowProfileMenu ] = useState<boolean>(false);
 
     const router = useRouter();
@@ -23,6 +29,10 @@ const ProfileItem = () => {
         // await authService.logoutUser();
 
         setIsLoggedIn(false);
+        setUserDetails(null);
+
+        resetUserInfoInContext();
+        
         localStorage.removeItem(AppConstants.tokenKey);
         router.push('/auth/login');
     }

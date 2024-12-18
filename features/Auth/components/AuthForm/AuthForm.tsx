@@ -61,8 +61,7 @@ const AuthForm = ({
             try {
                 const res = await authService.loginUser(details);
                 localStorage.setItem(AppConstants.tokenKey, res?.token);
-                
-                setLoading(false);
+
                 setIsLoggedIn(true);
 
                 router.push('/login-success');
@@ -79,8 +78,9 @@ const AuthForm = ({
                 is_owner: params.get('type') === userTypes.owner,
             });
 
-            setLoading(false);
-            router.push('/login');
+            if (params.get('next')) return router.push(`/auth/login?next=${params.get('next')}`);
+
+            router.push('/auth/login');
         } catch (error) {
             setLoading(false);   
         }
@@ -111,6 +111,7 @@ const AuthForm = ({
                 name='username'
                 value={details.username ?? ''}
                 onChange={handleUpdateDetail}
+                isRequired
             />
 
             {
@@ -121,6 +122,7 @@ const AuthForm = ({
                         name='email'
                         value={details.email ?? ''}
                         onChange={handleUpdateDetail}
+                        isRequired
                     />
 
                     <TextInputComponent 
@@ -139,6 +141,7 @@ const AuthForm = ({
                 name='password'
                 value={details.password ?? ''}
                 onChange={handleUpdateDetail}
+                isRequired
             />
 
             <Button 

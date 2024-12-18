@@ -1,0 +1,73 @@
+'use client';
+
+
+import React from 'react'
+import styles from './styles.module.css'
+import { dummyBookings } from '@/features/Dashboard/sections/Bookings/utils'
+import BookingSummaryItem from '@/features/Dashboard/components/BookingSummaryItem/BookingSummaryItem'
+import { useAppContext } from '@/contexts/AppContext'
+import Link from 'next/link';
+import { bookingStatusList } from './utils';
+import { useSearchParams } from 'next/navigation';
+import { generateDashLinkForUser } from '@/helpers/helpers';
+import { useUserContext } from '@/contexts/UserContext';
+
+
+const BookingsDetail = () => {
+    const {
+        bookings,
+    } = useAppContext();
+
+    const {
+        userDetails
+    } = useUserContext();
+
+    const params = useSearchParams();
+
+    return <>
+        <section className={styles.links__Wrap}>
+            {
+                React.Children.toArray(bookingStatusList.map(stat => {
+                    return <Link
+                        href={stat.length < 1 ? `${generateDashLinkForUser(userDetails?.is_owner)}/bookings` : `?status=${stat}`}
+                        key={stat}
+                        className={`
+                            ${styles.link__item} 
+                            ${
+                                ((params.get('status') === stat) || (stat.length < 1 && !params.get('status'))) ? 
+                                    styles.active 
+                                : 
+                                ''
+                            }`}
+                    >
+                        <span>{stat.length < 1 ? 'all' : stat}</span>
+
+                        <span className={styles.highlight}></span>
+                    </Link>
+                }))
+            }
+        </section>
+
+        <section className={styles.bookings}>
+            {
+                React.Children.toArray(bookings
+                    .filter(booking => {
+                        if (params.get('status')) {
+                            return booking.status === params.get('status')?.toLocaleLowerCase();
+                        }
+
+                        return true
+                    })
+                    .map(booking => {
+                        return <BookingSummaryItem 
+                            booking={booking}
+                            key={booking.id}
+                        />
+                    })
+                )
+            }
+        </section>
+    </>
+}
+
+export default BookingsDetail

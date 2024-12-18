@@ -5,8 +5,9 @@ import { useUserContext } from '@/contexts/UserContext'
 import React from 'react'
 import styles from './styles.module.css'
 import Button from '@/components/Button/Button';
-import { IoAddOutline } from 'react-icons/io5';
+import { IoAddOutline, IoSearchOutline } from 'react-icons/io5';
 import { generateDashLinkForUser } from '@/helpers/helpers';
+import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 
 
 const Greeting = () => {
@@ -23,10 +24,15 @@ const Greeting = () => {
                     userDetails?.is_owner === true ?
                         'add place'
                     :
-                    ''
+                    'search places'
                 }
                 icon={
-                    <IoAddOutline
+                    userDetails?.is_owner === true ?
+                        <IoAddOutline
+                            size={'1.1rem'}
+                        />
+                    :
+                    <IoSearchOutline
                         size={'1.1rem'}
                     />
                 }
@@ -35,7 +41,7 @@ const Greeting = () => {
                     userDetails?.is_owner === true ?
                         `${generateDashLinkForUser(userDetails.is_owner)}/places/add-place`
                     :
-                    ''
+                    `/search?view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
                 }
             />
         </section>

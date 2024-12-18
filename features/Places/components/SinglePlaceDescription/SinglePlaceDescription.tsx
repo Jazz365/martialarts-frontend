@@ -42,7 +42,10 @@ const SinglePlaceDescription = ({
                         <section className={styles.masters}>
                             {
                                 React.Children.toArray(masters.map(master => {
-                                    return <section className={styles.master__item}>
+                                    return <section 
+                                        className={styles.master__item}
+                                        key={master.id}
+                                    >
                                         <Image 
                                             width={isMobile ? 65 : 100}
                                             height={isMobile ? 65 : 100}
@@ -77,22 +80,27 @@ const SinglePlaceDescription = ({
                         }
                     </p>
 
-                    <Button 
-                        label={
-                            !showFullDescription ?
-                                'see more'
-                            :
-                            'see less'
-                        }
-                        style={{
-                            width: 'max-content',
-                            padding: 0,
-                            fontSize: '0.8rem',
-                            background: 'transparent',
-                            color: 'var(--primary-app-color)',
-                        }}
-                        handleClick={() => setShowFullDescription(!showFullDescription)}
-                    />
+                    {
+                        description.length > maxDescriptionCap ?
+                            <Button 
+                                label={
+                                    !showFullDescription ?
+                                        'see more'
+                                    :
+                                    'see less'
+                                }
+                                style={{
+                                    width: 'max-content',
+                                    padding: 0,
+                                    fontSize: '0.8rem',
+                                    background: 'transparent',
+                                    color: 'var(--primary-app-color)',
+                                }}
+                                handleClick={() => setShowFullDescription(!showFullDescription)}
+                            />
+                        :
+                        <></>
+                    }
                 </section>
             </section>
         </section>

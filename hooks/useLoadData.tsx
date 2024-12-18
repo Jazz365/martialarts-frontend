@@ -4,6 +4,8 @@ import { useEffect } from "react";
 interface InfoParams {
     authorisationRequired?: boolean;
     inputParam?: string;
+    hasDependency?: boolean;
+    dependency?: any;
 }
 
 export default function useLoadData(
@@ -15,17 +17,21 @@ export default function useLoadData(
     extraInfo: InfoParams = {
         authorisationRequired: false,
         inputParam: '',
+        hasDependency: false,
+        dependency: null,
     },
 ) {
     useEffect(() => {
         const savedToken = AppConstants.getSavedToken();
+
+        if (extraInfo.hasDependency === true && extraInfo.dependency === null) return;
 
         if (dataLoaded) return setDataLoading(false);
 
         setDataLoading(true);
         
         dataLoaderFunction(
-            extraInfo.authorisationRequired ? 
+            extraInfo.authorisationRequired === true ? 
                 savedToken 
                 : 
             extraInfo.inputParam && extraInfo?.inputParam?.length > 0 ?
@@ -39,5 +45,5 @@ export default function useLoadData(
         }).catch(() => {
             setDataLoading(false);
         })
-    }, [dataLoaded])
+    }, [dataLoaded, extraInfo.hasDependency, extraInfo.dependency])
 }

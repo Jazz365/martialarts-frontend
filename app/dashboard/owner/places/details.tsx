@@ -48,7 +48,7 @@ const AllPlacesDetails = () => {
                             isListView={false}
                             style={{
                                 height: '100%',
-                                maxHeight: '33rem',
+                                maxHeight: '30rem',
                             }}
                             imageHeight={350}
                         />

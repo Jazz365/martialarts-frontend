@@ -62,6 +62,7 @@
 
 .user__Info {
     font-size: 0.875rem;
+    text-transform: capitalize;
 }
 
 .status {

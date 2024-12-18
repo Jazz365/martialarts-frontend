@@ -3,14 +3,7 @@ import { UserService } from "@/services/userService";
 import { AppConstants } from "@/utils/constants";
 import { createContext, useContext, useEffect, useState } from "react";
 
-const UserContext = createContext<{
-    isLoggedIn: boolean;
-    setIsLoggedIn: (val: boolean) => void;
-    userDetails: IUser | null;
-    setUserDetails: (user: IUser) => void;
-    userDetailsLoading: boolean;
-    setUserDetailsLoading: (val: boolean) => void;
-}>({
+const UserContext = createContext<UserContextType>({
     isLoggedIn: false,
     setIsLoggedIn: () => {},
     userDetails: null,

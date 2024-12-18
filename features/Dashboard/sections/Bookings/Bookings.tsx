@@ -8,10 +8,16 @@ import { useUserContext } from '@/contexts/UserContext'
 import { dummyBookings } from './utils';
 import BookingSummaryItem from '../../components/BookingSummaryItem/BookingSummaryItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
+import { useAppContext } from '@/contexts/AppContext';
 
 
 const Bookings = () => {
     const { userDetails } = useUserContext();
+
+    const {
+        bookings,
+        bookingsLoading,
+    } = useAppContext()
 
     return <>
         <section className={styles.content__Wrap}>
@@ -36,7 +42,7 @@ const Bookings = () => {
 
             <section className={styles.bookings}>
                 {
-                    React.Children.toArray(dummyBookings.map(booking => {
+                    React.Children.toArray(bookings.slice(0, 3).map(booking => {
                         return <BookingSummaryItem 
                             booking={booking}
                             key={booking.id}

@@ -1,10 +1,15 @@
 'use client';
 
+import BookingForm from "@/components/BookingForm/BookingForm";
 import useLoadData from "@/hooks/useLoadData";
+import { BookingService } from "@/services/bookingService";
 import { PlaceService } from "@/services/placeService";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import { useUserContext } from "./UserContext";
 
 const AppContext = createContext<AppContextType>({
+    selectedPlaceId: null, 
+    setSelectedPlaceId: () => {},
     allStyles: [],
     setAllStyles: () => {},
     stylesLoading: true,
@@ -29,6 +34,19 @@ const AppContext = createContext<AppContextType>({
     setUserPlacesLoading: () => {},
     userPlacesLoaded: false,
     setUserPlacesLoaded: () => {},
+    bookings: [],
+    bookingsLoaded: false,
+    bookingsLoading: true,
+    setBookings: () => {},
+    setBookingsLoaded: () => {},
+    setBookingsLoading: () => {},
+    placesViewStats: [],
+    placesViewStatLoaded: false,
+    placesViewStatLoading: true,
+    setPlacesViewStats: () => {},
+    setPlacesViewStatLoaded: () => {},
+    setPlacesViewStatLoading: () => {},
+    resetUserInfoInContext: () => {},
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -38,6 +56,10 @@ const AppContextProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
+    const { userDetails } = useUserContext();
+
+    const [ selectedPlaceId, setSelectedPlaceId ] = useState<number | null>(null);
+
     const [ allStyles, setAllStyles ] = useState<IMartialArtStyle[]>([]);
     const [ stylesLoading, setStylesLoading ] = useState(true);
     const [ stylesLoaded, setStylesLoaded ] = useState(false);
@@ -54,7 +76,32 @@ const AppContextProvider = ({
     const [ userPlacesLoading, setUserPlacesLoading ] = useState(true);
     const [ userPlacesLoaded, setUserPlacesLoaded ] = useState(false);
     
-    const placeService = new PlaceService();
+    const [ bookings, setBookings ] = useState<IBooking[]>([]);
+    const [ bookingsLoading, setBookingsLoading ] = useState(true);
+    const [ bookingsLoaded, setBookingsLoaded ] = useState(false);
+    
+    
+    const [ placesViewStats, setPlacesViewStats ] = useState<IPlaceViewStat[]>([]);
+    const [ placesViewStatLoading, setPlacesViewStatLoading ] = useState(true);
+    const [ placesViewStatLoaded, setPlacesViewStatLoaded ] = useState(false);
+
+    const [
+        placeService,
+        bookingService,
+    ] = [
+        new PlaceService(),
+        new BookingService(),
+    ];
+
+    const resetUserInfoInContext = () => {
+        setUserPlaces([]);
+        setUserPlacesLoaded(false);
+        setUserPlacesLoading(true);
+
+        setBookings([]);
+        setBookingsLoaded(false);
+        setBookingsLoading(true);
+    }
     
     useLoadData(
         userPlacesLoaded,
@@ -64,6 +111,8 @@ const AppContextProvider = ({
         setUserPlacesLoaded,
         {
             authorisationRequired: true,
+            hasDependency: true,
+            dependency: userPlacesLoaded,
         },
     );
 
@@ -91,8 +140,37 @@ const AppContextProvider = ({
         setPlaceTypesLoaded,
     );
 
+    useLoadData(
+        bookingsLoaded,
+        setBookingsLoading,
+        userDetails?.is_owner === true ?
+            bookingService.getOwnerBookings.bind(bookingService)
+        :
+        bookingService.getUserBookings.bind(bookingService),
+        setBookings,
+        setBookingsLoaded,
+        {
+            authorisationRequired: true,
+            hasDependency: true,
+            dependency: userDetails,
+        }
+    );
+
+    useLoadData(
+        placesViewStatLoaded,
+        setPlaceTypesLoading,
+        placeService.getPlaceViewStats.bind(placeService),
+        setPlacesViewStats,
+        setPlaceTypesLoaded,
+        {
+            authorisationRequired: true,
+        }
+    );
+
     return <>
         <AppContext.Provider value={{
+            selectedPlaceId,
+            setSelectedPlaceId,
             allStyles,
             setAllStyles,
             stylesLoaded,
@@ -117,8 +195,27 @@ const AppContextProvider = ({
             setUserPlacesLoaded,
             userPlacesLoading,
             setUserPlacesLoading,
+            bookings,
+            setBookings,
+            bookingsLoaded,
+            setBookingsLoaded,
+            bookingsLoading,
+            setBookingsLoading,
+            placesViewStats,
+            setPlacesViewStats,
+            placesViewStatLoaded,
+            setPlacesViewStatLoaded,
+            placesViewStatLoading,
+            setPlacesViewStatLoading,
+            resetUserInfoInContext,
         }}>
             {children}
+
+            {
+                selectedPlaceId &&
+                <BookingForm />
+            }
+            
         </AppContext.Provider>
     </>
 }

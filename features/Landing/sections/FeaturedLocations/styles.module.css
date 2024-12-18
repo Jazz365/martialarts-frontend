@@ -54,6 +54,9 @@
     gap: 0.5rem;
     color: #fff;
     position: absolute;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    height: max-content;
+    padding-top: 0.3rem;
 }
 
 .location__Place__Count {

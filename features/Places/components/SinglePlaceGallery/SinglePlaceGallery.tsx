@@ -40,12 +40,15 @@ const SinglePlaceGallery = ({
 
     return <>
         <section className={styles.grid__Imgs}>
-            <button 
-                className={`${styles.btn} ${styles.left}`}
-                onClick={handleBackward}
-            >
-                <FiChevronLeft size={'1.4rem'} />
-            </button>
+            {
+                images.length > 3 &&
+                <button 
+                    className={`${styles.btn} ${styles.left}`}
+                    onClick={handleBackward}
+                >
+                    <FiChevronLeft size={'1.4rem'} />
+                </button>
+            }
 
             {
                 React.Children.toArray(
@@ -69,12 +72,15 @@ const SinglePlaceGallery = ({
                 )
             }
 
-            <button 
-                className={`${styles.btn} ${styles.right}`}
-                onClick={handleGoForward}
-            >
-                <FiChevronRight size={'1.4rem'} />
-            </button>
+            {
+                images.length > 3 &&
+                <button 
+                    className={`${styles.btn} ${styles.right}`}
+                    onClick={handleGoForward}
+                >
+                    <FiChevronRight size={'1.4rem'} />
+                </button>
+            }
         </section>
     </>
 }
