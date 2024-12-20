@@ -6,7 +6,7 @@ import maintenanceImg from '../../assets/maintenance.jpg'
 import Image from 'next/image'
 import styles from './styles.module.css'
 import { IoClose } from 'react-icons/io5';
-import happyIllustration from '../../assets/happy.svg'
+import astronaut from '../../assets/astr.png'
 
 const MaintenanceScreen = () => {
     const [ showPopup, setShowPopup ] = useState(false);
@@ -21,6 +21,15 @@ const MaintenanceScreen = () => {
 
     return (
         <section className={styles.content}>
+            <Image 
+                src={'/logo-new.png'}
+                alt='logo'
+                width={180}
+                height={25}
+                className={styles.logo}
+                priority
+            />
+
             <Image 
                 src={maintenanceImg}
                 alt='maintenance illustation'
@@ -41,7 +50,7 @@ const MaintenanceScreen = () => {
                         />
 
                         <Image 
-                            src={happyIllustration}
+                            src={astronaut}
                             alt='happy'
                             width={0}
                             height={150}
@@ -50,7 +59,7 @@ const MaintenanceScreen = () => {
                         
                         <section className={styles.info}>
                             <h2 className={styles.header}>Thanks For Visiting Martialarts.guru!</h2>
-                            <p>We are working hard to improve the site and enhance your experience. Please check back soon!</p>
+                            <p>We are constantly improving the site</p>
                         </section>
                     </section>
                 </section>
