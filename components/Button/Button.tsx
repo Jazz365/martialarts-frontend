@@ -15,6 +15,7 @@ const Button = ({
     disabled=false,
     handleClick=()=>{},
     hoverStyle,
+    isLeadingIcon=true,
 }: {
     label: string;
     style?: CSSProperties;
@@ -26,6 +27,7 @@ const Button = ({
     disabled?: boolean;
     handleClick?: () => void;
     hoverStyle?: CSSProperties;
+    isLeadingIcon?: boolean;
 }) => {
     const [ mouseOver, setMouseOver ] = useState(false);
 
@@ -46,13 +48,23 @@ const Button = ({
             onMouseLeave={() => setMouseOver(false)}
         >
             {
-                icon ?? <></>
+                icon && isLeadingIcon === true ?
+                    icon
+                : 
+                <></>
             }
 
             {
                 label.length > 1 ?
                     <span>{label}</span>
                 :
+                <></>
+            }
+
+            {
+                icon && isLeadingIcon === false ?
+                    icon
+                : 
                 <></>
             }
         </Link>
@@ -76,13 +88,23 @@ const Button = ({
             onMouseLeave={() => setMouseOver(false)}
         >
             {
-                icon ?? <></>
+                icon && isLeadingIcon === true ?
+                    icon
+                : 
+                <></>
             }
 
             {
                 label.length > 1 ?
                     <span>{label}</span>
                 :
+                <></>
+            }
+
+            {
+                icon && isLeadingIcon === false ?
+                    icon
+                : 
                 <></>
             }
         </button>

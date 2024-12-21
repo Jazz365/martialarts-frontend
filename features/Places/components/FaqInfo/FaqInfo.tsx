@@ -10,7 +10,7 @@ const FaqInfo = ({
 }) => {
     return (
         <section className={styles.content__Wrap}>
-            <h3 className={styles.header}>FAQs</h3>
+            <h3 className={styles.header}>Commonly Questions</h3>
 
             <FaqsList 
                 faqs={placeFaqs}

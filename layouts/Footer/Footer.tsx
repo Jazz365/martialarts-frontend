@@ -1,3 +1,6 @@
+'use client';
+
+
 import React from 'react'
 import styles from './styles.module.css'
 import Image from 'next/image'
@@ -6,8 +9,12 @@ import { dummyMartialStyles } from '@/utils/styles'
 import facebookIcon from '../../assets/icons/facebook.png'
 import instagramIcon from '../../assets/icons/instagram.png'
 import tiktokIcon from '../../assets/icons/tiktok.png'
+import youtubeIcon from '../../assets/icons/youtube.png'
+import { useAppContext } from '@/contexts/AppContext';
 
 const Footer = () => {
+    const { allStyles } = useAppContext();
+
     return <>
         <footer className={styles.footer}>
             <section className={styles.logo__Wrap}>
@@ -48,10 +55,12 @@ const Footer = () => {
 
                     <ul className={styles.footer__Links}>
                         {
-                            React.Children.toArray(dummyMartialStyles
-                                .filter(style => style.isTrending === true)
+                            React.Children.toArray(allStyles
+                                .filter(style => style.is_popular === true)
                                 .map(style => {
-                                    return <li>
+                                    return <li
+                                        key={style.id}
+                                    >
                                         <Link href={''}>{style.name}</Link>
                                     </li>
                                 })
@@ -88,6 +97,12 @@ const Footer = () => {
                         <Image 
                             src={tiktokIcon}
                             alt='tiktok'
+                            className={styles.footer__Icon}
+                        />
+
+                        <Image 
+                            src={youtubeIcon}
+                            alt='youtube'
                             className={styles.footer__Icon}
                         />
                     </section>

@@ -5,7 +5,7 @@ import AddPlaceDetails from './details'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Configure Place | Dasboard'
+    title: 'Configure Studio | Dasboard'
 }
 
 const AddPlacesPage = () => {

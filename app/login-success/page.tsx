@@ -14,7 +14,11 @@ const LoginSuccess = () => {
     if (userDetailsLoading) return;
     if (!userDetails && !isLoggedIn) return router.push('/auth/login');
 
-    router.push(`/dashboard/${userDetails?.is_owner === true ? 'owner' : 'user'}`);
+    if (userDetails?.is_owner !== true) {
+      return router.push('/');
+    }
+    
+    router.push(`/dashboard/owner`);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDetails, userDetailsLoading, isLoggedIn])

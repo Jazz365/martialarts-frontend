@@ -10,6 +10,7 @@ import CategorySearchBar from '../../components/CategorySearchBar/CategorySearch
 import { useUserContext } from '@/contexts/UserContext'
 import ProfileItem from '../ProfileItem/ProfileItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
+import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 
 
 const NavigationBar = ({
@@ -95,7 +96,7 @@ const NavigationBar = ({
                                 }
                                 useLink={true}
                                 linkLocation={
-                                    '/auth/login?next=add-place'
+                                    `/auth/register?type=${userTypes.owner}`
                                 }
                             />
                         </>

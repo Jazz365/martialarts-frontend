@@ -1,3 +1,5 @@
+'use client';
+
 import HeroBanner from "@/features/Landing/sections/HeroBanner/HeroBanner";
 import styles from "./page.module.css";
 import NavigationBar from "@/layouts/NavigationBar/NavigationBar";
@@ -10,13 +12,13 @@ import Blog from "@/features/Landing/sections/Blog/Blog";
 import Footer from "@/layouts/Footer/Footer";
 import IncludedGenders from "@/features/Landing/sections/IncludedGenders/IncludedGenders";
 import MaintenanceScreen from "@/components/MaintenanceScreen/MaintenanceScreen";
+import { useSearchParams } from "next/navigation";
+import { tempLandingAccessVal } from "@/utils/utils";
 
 export default function Home() {
-  return <>
-    <MaintenanceScreen />
-  </>
-  
-  return <>
+  const searchParams = useSearchParams();
+
+  if (searchParams.get('access') === tempLandingAccessVal) return <>
     <NavigationBar />
     <main className={styles.main}>
       <HeroBanner />
@@ -30,5 +32,9 @@ export default function Home() {
     </main>
 
     <Footer />
+  </>
+  
+  return <>
+    <MaintenanceScreen />
   </>
 }

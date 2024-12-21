@@ -6,6 +6,7 @@ import { BookingService } from "@/services/bookingService";
 import { PlaceService } from "@/services/placeService";
 import { createContext, useContext, useState } from "react";
 import { useUserContext } from "./UserContext";
+import { BlogService } from "@/services/blogService";
 
 const AppContext = createContext<AppContextType>({
     selectedPlaceId: null, 
@@ -46,6 +47,12 @@ const AppContext = createContext<AppContextType>({
     setPlacesViewStats: () => {},
     setPlacesViewStatLoaded: () => {},
     setPlacesViewStatLoading: () => {},
+    blogs: [],
+    setBlogs: () => {},
+    blogsLoaded: false,
+    setBlogsLoaded: () => {},
+    blogsLoading: true,
+    setBlogsLoading: () => {},
     resetUserInfoInContext: () => {},
 });
 
@@ -80,7 +87,10 @@ const AppContextProvider = ({
     const [ bookingsLoading, setBookingsLoading ] = useState(true);
     const [ bookingsLoaded, setBookingsLoaded ] = useState(false);
     
-    
+    const [ blogs, setBlogs ] = useState<IBlog[]>([]);
+    const [ blogsLoading, setBlogsLoading ] = useState(true);
+    const [ blogsLoaded, setBlogsLoaded ] = useState(false);
+
     const [ placesViewStats, setPlacesViewStats ] = useState<IPlaceViewStat[]>([]);
     const [ placesViewStatLoading, setPlacesViewStatLoading ] = useState(true);
     const [ placesViewStatLoaded, setPlacesViewStatLoaded ] = useState(false);
@@ -88,9 +98,11 @@ const AppContextProvider = ({
     const [
         placeService,
         bookingService,
+        blogService,
     ] = [
         new PlaceService(),
         new BookingService(),
+        new BlogService(),
     ];
 
     const resetUserInfoInContext = () => {
@@ -167,6 +179,14 @@ const AppContextProvider = ({
         }
     );
 
+    useLoadData(
+        blogsLoaded,
+        setBlogsLoading,
+        blogService.getAllBlogs.bind(blogService),
+        setBlogs,
+        setBlogsLoaded,
+    );
+
     return <>
         <AppContext.Provider value={{
             selectedPlaceId,
@@ -207,6 +227,12 @@ const AppContextProvider = ({
             setPlacesViewStatLoaded,
             placesViewStatLoading,
             setPlacesViewStatLoading,
+            blogs,
+            setBlogs,
+            blogsLoaded,
+            setBlogsLoaded,
+            blogsLoading,
+            setBlogsLoading,
             resetUserInfoInContext,
         }}>
             {children}

@@ -1,4 +1,4 @@
 export const userTypes = {
-    owner: 'owner',
-    user: 'user'
+    owner: 'leader',
+    user: 'student'
 }

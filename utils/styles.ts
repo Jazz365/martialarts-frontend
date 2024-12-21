@@ -79,4 +79,25 @@ export const dummyMartialStyles: {
         isFeatured: true,
         isTrending: true,
     },
+    {
+        id: 10,
+        name: 'boxing',
+        imageUrl: boxing,
+        isFeatured: true,
+        isTrending: true,
+    },
+    {
+        id: 11,
+        name: 'karate',
+        imageUrl: karate,
+        isFeatured: true,
+        isTrending: true,
+    },
+    {
+        id: 12,
+        name: 'taekwondo',
+        imageUrl: taekwondo,
+        isFeatured: true,
+        isTrending: true,
+    },
 ]

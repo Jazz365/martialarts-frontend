@@ -15,9 +15,9 @@ const UserTypeSelect = ({
     return <>
         <section className={styles.select__Wrap}>
             {
-                React.Children.toArray(Object.keys(userTypes).map(type => {
+                React.Children.toArray((Object.keys(userTypes) as Array<keyof typeof userTypes>).map(type => {
                     return <Button
-                        label={type}
+                        label={userTypes[type]}
                         useLink={true}
                         linkLocation={`/auth/${authType}?type=${type}`}
                         key={type}

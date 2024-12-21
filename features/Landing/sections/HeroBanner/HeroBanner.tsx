@@ -9,7 +9,7 @@ const HeroBanner = () => {
         <section className={styles.hero__Content__Wrap}>
             <section className={styles.header__Content}>
                 <h1 className={styles.header}>
-                    Discover & Book the best martial arts classes near you!
+                    Discover & Book martial arts classes near you!
                 </h1>
 
                 {/* <HeroBannerSubtitle /> */}

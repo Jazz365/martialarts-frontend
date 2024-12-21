@@ -6,7 +6,7 @@ import SubscriptionDetails from './details'
 const SubscriptionPage = () => {
     return (
         <section className={styles.content__Wrap}>
-            <h1 className={styles.header}>Subscription</h1>
+            <h1 className={styles.header}>Your Plans</h1>
 
             <SubscriptionDetails />
         </section>

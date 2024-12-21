@@ -77,7 +77,7 @@ const NewBooking = ({
                 :
                 <>
                     <Button 
-                        label='book now'
+                        label='join us'
                         style={{
                             display: 'flex',
                             alignItems: 'center',

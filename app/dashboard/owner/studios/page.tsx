@@ -9,14 +9,14 @@ import { generateDashLinkForUser } from '@/helpers/helpers';
 
 
 export const metadata: Metadata = {
-    title: 'Places | Dasboard'
+    title: 'Studios | Dasboard'
 }
 
 const PlacesPage = () => {
     return <>
         <section className={styles.content__Wrap}>
             <section className={styles.header__Wrap}>
-                <h1 className={styles.header}>Your places</h1>
+                <h1 className={styles.header}>Your studios</h1>
 
                 <Button
                     label={'add new'}
@@ -26,7 +26,7 @@ const PlacesPage = () => {
                         />
                     }
                     useLink={true}
-                    linkLocation={`${generateDashLinkForUser(true)}/places/add-place`}
+                    linkLocation={`${generateDashLinkForUser(true)}/studios/add-studio`}
                 />
             </section>
 

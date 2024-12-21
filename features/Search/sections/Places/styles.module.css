@@ -15,7 +15,8 @@
 
 .listing__Title,
 .listing__Search,
-.search__Actions {
+.search__Actions,
+.header__Actions {
     display: flex;
     align-items: center;
 }
@@ -45,6 +46,10 @@
 
 .listing__Search {
     width: 100%;
+}
+
+.header__Actions {
+    gap: 1.8rem;
 }
 
 @media screen and (max-width: 767px) {

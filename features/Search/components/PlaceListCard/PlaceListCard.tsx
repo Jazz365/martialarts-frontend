@@ -199,7 +199,7 @@ const PlaceListCard = ({
           <h3 className={`${styles.header} ${styles.price}`}>
             <span className={styles.price__Intro}>Review</span>
             {' '}
-            <span className={styles.price__Intro}>from</span>
+            <span className={styles.price__Intro}>here</span>
             {' '}
             <span>${place.pricing}/month</span>
           </h3>

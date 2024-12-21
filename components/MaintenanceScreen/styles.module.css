@@ -53,6 +53,10 @@
     text-align: center;
 }
 
+.main__Ilus {
+    object-fit: cover;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -62,7 +66,13 @@
 }
 
 @media screen and (max-width: 767px) {
-    .popup {
+    .popup,
+    .main__Ilus {
         width: 95%;
+    }
+
+    .main__Ilus {
+        height: 300px;
+        max-width: 100%;
     }
 }

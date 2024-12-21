@@ -7,7 +7,7 @@ import React from 'react'
 export async function generateMetadata(props: { params: PageParams }) {
     const { placeId } = await props.params;
     if (!placeId) return {
-        title: "Invalid Place",
+        title: "Invalid Studio",
     };
 
     const placeService = new PlaceService();
@@ -15,11 +15,11 @@ export async function generateMetadata(props: { params: PageParams }) {
     try {
         const res = await placeService.getSinglePlace(Number(placeId));
         return {
-            title: `${res?.name} | Places`,
+            title: `${res?.name} | Studios`,
         }
     } catch (error) {
         return {
-            title: "Invalid Place",
+            title: "Invalid Studio",
         };
     }
 }

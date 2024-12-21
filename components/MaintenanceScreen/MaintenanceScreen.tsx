@@ -35,6 +35,7 @@ const MaintenanceScreen = () => {
                 alt='maintenance illustation'
                 width={0}
                 height={500}
+                className={styles.main__Ilus}
             />
 
             {

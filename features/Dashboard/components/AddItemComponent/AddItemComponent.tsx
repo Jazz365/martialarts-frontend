@@ -15,6 +15,7 @@ const AddItemComponent = ({
     updateSingleItem=()=>{},
     maxItemCap = 9,
     isRequired=false,
+    extraInfo,
 }: {
     label: string;
     placeholder?: string;
@@ -23,6 +24,7 @@ const AddItemComponent = ({
     updateSingleItem?: (itemIndex: number, value: string) => void;
     maxItemCap?: number;
     isRequired?: boolean;
+    extraInfo?: string;
 }) => {
     const handleAddNewItem = () => {
         const copyOfCurrentItems = items.slice();
@@ -41,13 +43,21 @@ const AddItemComponent = ({
     return <>
         <section className={styles.item__Wrap}>
             <p className={styles.title}>
-                {label}
+                <span>
+                    {label}
+                    {
+                        isRequired ? <>
+                            {' '}<RequiredIndicator />
+                        </>
+                        :
+                        <></>
+                    }
+                </span>
+                
                 {
-                    isRequired ? <>
-                        {' '}<RequiredIndicator />
+                    extraInfo && <>
+                        <span className={styles.title__Info}>{extraInfo}</span>
                     </>
-                    :
-                    <></>
                 }
             </p>
 

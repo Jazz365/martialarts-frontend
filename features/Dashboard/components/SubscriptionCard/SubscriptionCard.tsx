@@ -31,7 +31,7 @@ const SubscriptionCard = ({
             </section>
 
             <Button 
-                label='get started'
+                label="let's go"
                 style={{
                     display: 'flex',
                     alignItems: 'center',
