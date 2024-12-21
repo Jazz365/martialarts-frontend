@@ -22,7 +22,12 @@ const Bookings = () => {
         <section className={styles.content__Wrap}>
             <section className={styles.title__Wrap}>
                 <h3 className={styles.title}>
-                    Recent Bookings
+                    {
+                        userDetails?.is_owner === true ?
+                            'New students'
+                        :
+                        'Recent bookings'
+                    }
                 </h3>
 
                 <Button 
@@ -41,12 +46,15 @@ const Bookings = () => {
 
             <section className={styles.bookings}>
                 {
-                    React.Children.toArray(bookings.slice(0, 3).map(booking => {
-                        return <BookingSummaryItem 
-                            booking={booking}
-                            key={booking.id}
-                        />
-                    }))
+                    React.Children.toArray(bookings
+                        .filter(booking => booking.status === 'pending')
+                        .map(booking => {
+                            return <BookingSummaryItem 
+                                booking={booking}
+                                key={booking.id}
+                            />
+                        })
+                    )
                 }
             </section>
         </section>

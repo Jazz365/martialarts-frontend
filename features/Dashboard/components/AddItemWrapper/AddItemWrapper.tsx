@@ -7,21 +7,31 @@ const AddItemWrapper = ({
     title,
     isRequired=false,
     children,
+    extraInfo,
 }: {
     title: string;
     children: React.ReactNode;
     isRequired?: boolean;
+    extraInfo?: string;
 }) => {
     return <>
         <section className={styles.add__Section}>
             <h2 className={styles.title}>
-                {title}
+                <span>
+                    {title}
+                    {
+                        isRequired ? <>
+                            {' '}<RequiredIndicator />
+                        </>
+                        :
+                        <></>
+                    }    
+                </span>
+                
                 {
-                    isRequired ? <>
-                        {' '}<RequiredIndicator />
+                    extraInfo && <>
+                        <span className={styles.title__Info}>{extraInfo}</span>
                     </>
-                    :
-                    <></>
                 }
             </h2>
 

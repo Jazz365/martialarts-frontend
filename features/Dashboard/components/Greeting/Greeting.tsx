@@ -22,9 +22,9 @@ const Greeting = () => {
             <Button 
                 label={
                     userDetails?.is_owner === true ?
-                        'add place'
+                        'add studio'
                     :
-                    'search places'
+                    'search studios'
                 }
                 icon={
                     userDetails?.is_owner === true ?
@@ -39,7 +39,7 @@ const Greeting = () => {
                 useLink={true}
                 linkLocation={
                     userDetails?.is_owner === true ?
-                        `${generateDashLinkForUser(userDetails.is_owner)}/places/add-place`
+                        `${generateDashLinkForUser(userDetails.is_owner)}/studios/add-studio`
                     :
                     `/search?view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
                 }

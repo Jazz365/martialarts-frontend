@@ -101,6 +101,8 @@ const BookingForm = () => {
 
         const requiredItemsForPage: string[] = requiredInfo[currentPage];
 
+        if (currentPage === 1 && bookingDetails.is_for_child === null) return toast.info('Please fill in all required info');
+
         if (currentPage > 1) {
             const missingRequiredInfo = requiredItemsForPage.find((item: string) => {
                 const missingItem = bookingDetails[item as keyof BookingDetails] as string | number[];
@@ -202,10 +204,11 @@ const BookingForm = () => {
                                                         src={item.image as string}
                                                         alt={selectedPlace?.name}
                                                         width={0}
-                                                        height={200}
+                                                        height={180}
                                                         style={{
                                                             borderRadius: '24px',
-                                                            width: '100%'
+                                                            width: '100%',
+                                                            objectFit: 'cover',
                                                         }}
                                                         key={item.id}
                                                     />
@@ -237,7 +240,7 @@ const BookingForm = () => {
                                 <br/>
 
                                 <section className={styles.detail__item}>
-                                    <p className={styles.label__Item}>Are you an adult or signing up a child?</p>
+                                    <p className={styles.label__Item}>Are you an adult or signing up a child? <RequiredIndicator /></p>
 
                                     <section className={styles.options}>
                                         {
@@ -413,7 +416,7 @@ const BookingForm = () => {
                                         min={new Date().toISOString().split('T')[0]}
                                     />
 
-                                    <TextInputComponent 
+                                    {/* <TextInputComponent 
                                         label='appointment time'
                                         name={bookingDetailsDict.time}
                                         value={bookingDetails.time}
@@ -424,7 +427,7 @@ const BookingForm = () => {
                                         style={{
                                             width: 'calc(50% - 0.5rem)',
                                         }}
-                                    />
+                                    /> */}
                                 </section>
 
                                 <section className={styles.details__Info}>

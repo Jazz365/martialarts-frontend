@@ -11,12 +11,25 @@
     gap: 2rem;
 }
 
-.title {
+.title,
+.title span,
+.title__Info {
     font-family: var(--mako-font);
+}
+
+.title {
     text-transform: capitalize;
     font-size: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
 .section__Content {
     gap: 2rem;
+}
+
+.title__Info {
+    font-size: 0.65rem;
 }

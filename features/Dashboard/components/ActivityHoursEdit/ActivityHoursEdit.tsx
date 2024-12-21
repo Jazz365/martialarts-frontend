@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
-import { newPlaceDetailKeysDict } from '@/app/dashboard/owner/places/add-place/utils';
+import { newPlaceDetailKeysDict } from '@/app/dashboard/owner/studios/add-studio/utils';
 
 
 const ActivityHoursEdit = ({

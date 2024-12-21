@@ -1,10 +1,17 @@
 import { getAllDaysOfTheWeek } from "@/helpers/helpers";
 import { v4 as uuidv4 } from 'uuid';
 
+export const pricingTypes = [
+    'monthly',
+    'per class',
+    'private'
+]
+
 export interface NewPlaceDetail {
     name: string;
     description: string;
     pricing: number;
+    pricing_type: string;
     email: string;
     phone_number: string;
     website?: string;
@@ -29,6 +36,7 @@ export const newPlaceDetailKeysDict = {
     name: 'name',
     description: 'description',
     pricing: 'pricing',
+    pricing_type: 'pricing_type',
     email: 'email',
     phone_number: 'phone_number',
     website: 'website',
@@ -55,6 +63,7 @@ export const compulsoryDetailKeys = [
     newPlaceDetailKeysDict.name,
     newPlaceDetailKeysDict.description,
     newPlaceDetailKeysDict.type_of_place,
+    newPlaceDetailKeysDict.pricing_type,
     newPlaceDetailKeysDict.gender,
     newPlaceDetailKeysDict.email,
     newPlaceDetailKeysDict.locations,
@@ -68,6 +77,7 @@ export const initialNewPlaceDetail: NewPlaceDetail = {
     name: '',
     description: '',
     pricing: 0,
+    pricing_type: '',
     email: '',
     phone_number: '',
     benefits: [],

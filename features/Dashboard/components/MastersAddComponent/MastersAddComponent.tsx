@@ -10,6 +10,7 @@ import TextInputComponent from '@/components/TextInputComponent/TextInputCompone
 import { v4 as uuidv4 } from 'uuid';
 import FileInputComponent from '@/components/FileInputComponent/FileInputComponent';
 import { convertFileObjectToBinaryStr } from '@/helpers/helpers';
+import { toast } from 'sonner';
 
 
 const MastersAddComponent = ({
@@ -31,6 +32,7 @@ const MastersAddComponent = ({
             bio: '',
             image: '',
         });
+        if (copyOfCurrentItems.length > 3) return toast.info('You can only add a maximum of 3 mentor images');
 
         updateItemsArr(copyOfCurrentItems);
     }

@@ -37,5 +37,11 @@ type AppContextType = {
     setPlacesViewStats: (val: IPlaceViewStat[]) => void;
     setPlacesViewStatLoaded: (val: boolean) => void;
     setPlacesViewStatLoading: (val: boolean) => void;
+    blogs: IBlog[];
+    setBlogs: (val: IBlog[]) => void;
+    blogsLoading: boolean;
+    setBlogsLoading: (val: boolean) => void;
+    blogsLoaded: boolean;
+    setBlogsLoaded: (val: boolean) => void;
     resetUserInfoInContext: () => void;
 }

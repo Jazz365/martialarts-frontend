@@ -75,6 +75,9 @@ type ICatersTo = {
 type IMartialArtStyle = {
     id: number;
     name: string;
+    is_trending?: boolean;
+    is_popular?: boolean;
+    is_search_style?: boolean;
 }
 
 type IPlaceType = {

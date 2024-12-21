@@ -5,7 +5,7 @@ export interface BookingDetails {
     name: string;
     phone?: string;
     email: string;
-    is_for_child: boolean;
+    is_for_child: boolean | null;
     child_name?: string;
     child_dob?: string;
     child_phone_number?: string;
@@ -18,11 +18,11 @@ export interface BookingDetails {
 export const initialBookingDetails: BookingDetails = {
     place_id: 0,
     date: '',
-    time: '',
+    time: '09:00',
     name: '',
     phone: '',
     email: '',
-    is_for_child: false,
+    is_for_child: null,
     selected_styles: [],
     agreed_to_health_declaration: false,
     agreed_to_liability_waiver: false,

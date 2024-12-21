@@ -100,6 +100,22 @@ class PlaceService {
         }
     }
 
+    async createNewStyle (token: string, data={}): Promise<IMartialArtStyle> {
+        try {
+            const res = (await axios.post(`${this.getPlaceEndpoint('styles/create')}`, data, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                }
+            })).data;
+
+            return res as IMartialArtStyle;
+        } catch (error) {
+            toast.error('Something went wrong, please try again later');
+            
+            throw error;
+        }
+    }
+
     async getAllPlaceTypes () {
         try {
             const res = await fetch(`${this.getPlaceEndpoint('place-types')}`, {

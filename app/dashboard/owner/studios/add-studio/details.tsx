@@ -6,7 +6,7 @@ import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddIt
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import AddItemComponent from '@/features/Dashboard/components/AddItemComponent/AddItemComponent';
-import { compulsoryDetailKeys, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict } from './utils';
+import { compulsoryDetailKeys, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes } from './utils';
 import AddLocationsComponent from '@/features/Dashboard/components/AddLocationsComponent/AddLocationsComponent';
 import MastersAddComponent from '@/features/Dashboard/components/MastersAddComponent/MastersAddComponent';
 import ActivityHoursEdit from '@/features/Dashboard/components/ActivityHoursEdit/ActivityHoursEdit';
@@ -143,7 +143,7 @@ const AddPlaceDetails = () => {
         if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) return toast.info('Found missing city or address in location provided');
         if (details.benefits.find(benefit => benefit.length < 1)) return toast.info('Found missing/empty benefit in provided benefits');
         if (details.master_images.find(master => master.name.length < 1 || !master.imageFile)) return toast.info('Found missing master name or image');
-        if (details.images.length < 3) return toast.info('Please upload at least 3 images for your place');
+        if (details.images.length < 5) return toast.info('Please upload at least 5 images for your place');
 
         const formData = generateFormDataForNewPlaceDetails(details);
 
@@ -176,7 +176,7 @@ const AddPlaceDetails = () => {
                     'Edit'
                 :
                 'Add new'
-            }{' '}place
+            }{' '}studio
         </h1>
     
         <AddItemWrapper
@@ -210,8 +210,16 @@ const AddPlaceDetails = () => {
                     isRequired
                 />
 
+                <SelectItem 
+                    label='pricing type'
+                    options={pricingTypes.map((type, index) => ({ id: index, value: type, label: type }))}
+                    value={details.pricing_type ?? ''}
+                    handleChange={(value) => handleDetailUpdate(newPlaceDetailKeysDict.pricing_type, value)}
+                    isRequired
+                />
+
                 <TextInputComponent 
-                    label='price per month ($)'
+                    label='pricing ($)'
                     name={newPlaceDetailKeysDict.pricing}
                     value={`${details.pricing}`}
                     onChange={handleDetailUpdate}
@@ -256,6 +264,7 @@ const AddPlaceDetails = () => {
 
             <AddItemComponent
                 label='why choose us?'
+                extraInfo='(write at least 5 benefits)'
                 placeholder='e.g Professional staff'
                 isRequired
                 items={details.benefits}
@@ -298,6 +307,7 @@ const AddPlaceDetails = () => {
 
         <AddItemWrapper
             title='masters information'
+            extraInfo='(you can add here max 3 mentor images)'
         >
             <MastersAddComponent
                 items={details.master_images}
@@ -308,6 +318,7 @@ const AddPlaceDetails = () => {
 
         <AddItemWrapper
             title='place gallery'
+            extraInfo='(min 5 images max 15 images)'
         >
             <section className={styles.item__Section__Col}>
                 {/* <TextInputComponent 
@@ -333,7 +344,7 @@ const AddPlaceDetails = () => {
                     <p>Offerings</p>
 
                     <TextInputComponent 
-                        label='free lesson available'
+                        label='do you offer a free trial class?'
                         type='checkbox'
                         style={{
                             display: 'flex',
@@ -407,7 +418,7 @@ const AddPlaceDetails = () => {
         </AddItemWrapper>
 
         <AddItemWrapper
-            title='faqs'
+            title='commonly asked questions'
         >
             <AddFaqItem 
                 faqs={details.faqs}
@@ -416,7 +427,8 @@ const AddPlaceDetails = () => {
         </AddItemWrapper>
 
         <AddItemWrapper
-            title='policy'
+            title='documents'
+            extraInfo='Drag here health declaration or other documents for the student to confirm before joining class'
             isRequired
         >
             <TextInputComponent

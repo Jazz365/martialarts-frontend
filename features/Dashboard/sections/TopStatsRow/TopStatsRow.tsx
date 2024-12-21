@@ -51,7 +51,7 @@ const TopStatsRow = () => {
                 :
                 <>
                     <StatItem
-                        title='total places'
+                        title='total studios'
                         count={userPlaces.length}
                     />
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
+import SingleResultViewOption from './SingleResultViewOption';
 
 const ResultsViewOption = ({
   options=[],
@@ -13,12 +14,10 @@ const ResultsViewOption = ({
     <section className={styles.listing__View}>
       {
         React.Children.toArray(options.map(action => {
-          return <section 
-            className={styles.view__Option__Wrap}
+          return <SingleResultViewOption
             key={action.id}
-          >
-            {action.children}
-          </section>
+            children={action.children}
+          />
         }))
       }
     </section>

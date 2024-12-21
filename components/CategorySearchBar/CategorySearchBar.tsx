@@ -74,6 +74,7 @@ const CategorySearchBar = ({
                             {
                                 React.Children.toArray(
                                     allStyles
+                                    .filter(styleItem => styleItem.is_search_style === true)
                                     .filter(styleItem => {
                                         if (searchValue.length > 0) return styleItem.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
 
@@ -106,8 +107,8 @@ const CategorySearchBar = ({
                     <section className={styles.trending__Items}>
                         {
                             React.Children.toArray(
-                                dummyMartialStyles
-                                .filter(style => style.isTrending === true)
+                                allStyles
+                                .filter(style => style.is_trending === true)
                                 .map(style => {
                                     return <Link
                                         href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&${listingSortOptions.sort_by_newest}`}

@@ -5,6 +5,7 @@ import image3 from '../../../../assets/locations/illinois.png';
 import image4 from '../../../../assets/locations/new-york.png';
 import image5 from '../../../../assets/locations/texas.png';
 import image6 from '../../../../assets/locations/washington.png';
+import image7 from '../../../../assets/locations/michigan.png';
 
 export const dummyFeaturedLocations: {
     id: number;
@@ -50,8 +51,8 @@ export const dummyFeaturedLocations: {
     },
     {
         id: 7,
-        name: 'texas',
+        name: 'michigan',
         totalPlaces: 5,
-        image: image5,
+        image: image7,
     },
 ]

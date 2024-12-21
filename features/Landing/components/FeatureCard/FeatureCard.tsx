@@ -4,7 +4,9 @@ import styles from './styles.module.css'
 import { IoLocationOutline, IoStarOutline, IoTodayOutline } from 'react-icons/io5';
 import { IoIosTimer } from 'react-icons/io';
 import Link from 'next/link';
-
+import { AiOutlineAppstore, AiOutlineTag } from 'react-icons/ai';
+import { GiGymBag, GiProgression } from "react-icons/gi";
+import { Tooltip } from 'react-tooltip';
 
 const FeatureCard = ({
     featuredPlace,
@@ -27,6 +29,8 @@ const FeatureCard = ({
         free_lesson_available: boolean;
         is_featured: boolean;
         price: number;
+        place_styles: IMartialArtStyle[];
+        place_caters_to: ICatersTo[];
     }
 }) => {
     return <>
@@ -42,20 +46,70 @@ const FeatureCard = ({
 
             <section className={styles.card__Content}>
                 <h3 className={styles.header}>{featuredPlace.name}</h3>
-                
-                <p className={styles.content__Detail}>
+
+                <p 
+                    className={styles.content__Detail}
+                    data-tooltip-content={`Location: ${featuredPlace?.location?.address} ${featuredPlace?.location?.city} ${featuredPlace?.location?.state}`}
+                    data-tooltip-id={`location-${featuredPlace.id}`}
+                >
                     <IoLocationOutline size={'1.2rem'} />
                     <span>{featuredPlace?.location?.address} {featuredPlace?.location?.city} {featuredPlace?.location?.state}</span>
+
+                    <Tooltip 
+                        id={`location-${featuredPlace.id}`}
+                    />
                 </p>
 
-                <p className={styles.content__Detail}>
+                <p 
+                    className={styles.content__Detail}
+                    data-tooltip-content={`Styles offered: ${featuredPlace.place_styles.map(item => item.name).join(', ')}`}
+                    data-tooltip-id={`styles-${featuredPlace.id}`}
+                >
+                    <AiOutlineAppstore size={'1.2rem'} />
+                    <span>{featuredPlace.place_styles.map(item => item.name).join(', ')}</span>
+
+                    <Tooltip 
+                        id={`styles-${featuredPlace.id}`}
+                    />
+                </p>
+
+                <p 
+                    className={styles.content__Detail}
+                    data-tooltip-content={`Skills levels: ${featuredPlace.place_caters_to.map(item => item.name).join(', ')}`}
+                    data-tooltip-id={`skills-${featuredPlace.id}`}
+                >
+                    <AiOutlineTag size={'1.2rem'} />
+                    <span>{featuredPlace.place_caters_to.map(item => item.name).join(', ')}</span>
+                    
+                    <Tooltip 
+                        id={`skills-${featuredPlace.id}`}
+                    />
+                </p>
+
+                <p 
+                    className={styles.content__Detail}
+                    data-tooltip-content={`Class times: ${featuredPlace?.activity_hours?.opening_time} - ${featuredPlace?.activity_hours?.closing_time}`}
+                    data-tooltip-id={`classTimes-${featuredPlace.id}`}
+                >
                     <IoIosTimer size={'1.2rem'} />
                     <span>{featuredPlace?.activity_hours?.opening_time} - {featuredPlace?.activity_hours?.closing_time}</span>
+                    
+                    <Tooltip 
+                        id={`classTimes-${featuredPlace.id}`}
+                    />
                 </p>
 
-                <p className={styles.content__Detail}>
+                <p 
+                    className={styles.content__Detail}
+                    data-tooltip-content={`Class days: ${featuredPlace?.activity_hours?.days}`}
+                    data-tooltip-id={`days-${featuredPlace.id}`}
+                >
                     <IoTodayOutline size={'1.2rem'} />
                     <span>{featuredPlace?.activity_hours?.days}</span>
+                    
+                    <Tooltip 
+                        id={`days-${featuredPlace.id}`}
+                    />
                 </p>
 
                 <br />

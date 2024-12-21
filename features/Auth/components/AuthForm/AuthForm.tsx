@@ -27,7 +27,7 @@ const AuthForm = ({
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ details, setDetails ] = useState<AuthDetails>({});
 
-    const { setIsLoggedIn } = useUserContext();
+    const { setIsLoggedIn, setUserDetails } = useUserContext();
 
     const params = useSearchParams();
     const router = useRouter();
@@ -73,14 +73,23 @@ const AuthForm = ({
         }
         
         try {
-            await authService.registerUser({
+            const res = await authService.registerUser({
                 ...details,
                 is_owner: params.get('type') === userTypes.owner,
             });
 
-            if (params.get('next')) return router.push(`/auth/login?next=${params.get('next')}`);
+            setIsLoggedIn(true);
+            setUserDetails({
+                id: res?.id,
+                email: res?.email,
+                is_owner: res?.is_owner,
+                phone_number: res?.phone_number,
+                username: res?.username,
+            });
 
-            router.push('/auth/login');
+            localStorage.setItem(AppConstants.tokenKey, res?.token);
+
+            router.push('/login-success');
         } catch (error) {
             setLoading(false);   
         }
@@ -176,7 +185,7 @@ const AuthForm = ({
                     useLink={true}
                     linkLocation={
                         isLoginForm ?
-                            '/auth/register?type=owner'
+                            `/auth/register?type=${userTypes.owner}`
                         :
                         '/auth/login'   
                     }
@@ -189,6 +198,35 @@ const AuthForm = ({
                     }}
                 />
             </section>
+
+            {
+                !isLoginForm &&
+                <p className={styles.legal__Info}>
+                    <span>By continuing, you agree to our named</span>
+                    {' '}
+                    <Button 
+                        label='terms of use'
+                        style={{
+                            padding: 0,
+                            backgroundColor: 'transparent',
+                            fontSize: '0.65rem',
+                            color: 'var(--primary-app-color)',
+                        }}
+                    />
+                    
+                    <span>Read our</span>
+                    
+                    <Button 
+                        label='Privacy Policy'
+                        style={{
+                            padding: 0,
+                            backgroundColor: 'transparent',
+                            fontSize: '0.65rem',
+                            color: 'var(--primary-app-color)',
+                        }}
+                    />
+                </p>
+            }
         </section>
     </>
 }

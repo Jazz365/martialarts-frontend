@@ -13,7 +13,7 @@ import ContactInfo from '../../components/ContactInfo/ContactInfo';
 import OpeningHours from '../../components/OpeningHours/OpeningHours';
 import FaqInfo from '../../components/FaqInfo/FaqInfo';
 import NewBooking from '../../components/NewBooking/NewBooking';
-import BackButton from '@/components/BackButton/BackButton';
+
 
 const SinglePlaceView = ({
     id
@@ -48,14 +48,10 @@ const SinglePlaceView = ({
     </section>
 
     if (!foundPlace) return <section style={{ height: '70dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ padding: '4rem', textAlign: 'center'}}>No place found</p>
+        <p style={{ padding: '4rem', textAlign: 'center'}}>No studio found</p>
     </section>
 
     return <>
-        <section className={styles.back__Wrap}>
-            <BackButton />
-        </section>
-    
         <SinglePlaceGallery
             images={foundPlace?.images_data ?? []}
         />

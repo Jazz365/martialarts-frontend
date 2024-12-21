@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './styles.module.css'
 import { HiOutlineChevronDown } from 'react-icons/hi2';
-import { AiOutlineQuestion } from 'react-icons/ai';
 import { IoTrashOutline } from 'react-icons/io5';
+import { HiOutlineChatAlt2 } from 'react-icons/hi';
 
 
 const FaqsList = ({
@@ -26,7 +26,7 @@ const FaqsList = ({
                         <summary>
                             <section className={styles.question__Wrap}>
                                 <section className={styles.icon__Wrap}>
-                                    <AiOutlineQuestion />
+                                    <HiOutlineChatAlt2 />
                                 </section>
                                 <span className={styles.question}>{faq.question}</span>
                             </section>

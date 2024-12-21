@@ -12,6 +12,7 @@ import PlacesSectionView from '../PlacesSectionView/PlacesSectionView';
 import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOption';
 import useMobile from '@/hooks/useMobile';
 import { toast } from 'sonner';
+import SingleResultViewOption from '../../components/ResultsViewOption/SingleResultViewOption';
 
 
 const SearchPlacesListing = () => {
@@ -31,18 +32,52 @@ const SearchPlacesListing = () => {
           {/* <span className={styles.subheader}>Find your perfect martial arts style place</span> */}
         </h1>
 
-        <Button 
-          label={isMobile ? 'Save' : 'Save search'}
-          icon={<IoStarOutline />}
-          style={{
-            border: '1px solid #000',
-            backgroundColor: 'transparent',
-            color: '#000',
-            fontSize: '0.75rem',
-            padding: '0.5rem 1rem'
-          }}
-          handleClick={() => toast.success('Feature coming soon!')}
-        />
+        <section className={styles.header__Actions}>
+          <SingleResultViewOption 
+            children={
+              React.Children.toArray(listingViewTypesList.map(type => {
+                return <Button 
+                  label={isMobile ? '' : type.viewType}
+                  style={{
+                    border: activeFilters.view === type.viewType ? 
+                      '1px solid #000'
+                    :
+                    '',
+                    fontSize: '0.75rem',
+                    padding: '0.55rem 1rem',
+                    color: activeFilters.view === type.viewType ? 
+                      '#000'
+                    :
+                    '#808080',
+                    backgroundColor: activeFilters.view === type.viewType ? 
+                      '#fff'
+                    :
+                    'transparent',
+                    transition: '0.25s ease-in-out',
+                  }}
+                  handleClick={
+                    () => handleUpdateFiltersForCategory('view', type.viewType)
+                  }
+                  key={type.viewType}
+                  icon={<type.icon />}
+                />
+              }))
+            }
+          />
+
+          <Button 
+            label={isMobile ? 'Save' : 'Save search'}
+            icon={<IoStarOutline />}
+            style={{
+              border: '1px solid #000',
+              backgroundColor: 'transparent',
+              color: '#000',
+              fontSize: '0.75rem',
+              padding: '0.5rem 1rem'
+            }}
+            handleClick={() => toast.success('Feature coming soon!')}
+          />
+        </section>
       </section>
 
       {/* <section className={styles.listing__Search}>
@@ -84,7 +119,7 @@ const SearchPlacesListing = () => {
       
       <br/> 
       
-      <ResultsViewOption 
+      {/* <ResultsViewOption 
         options={[
           {
             id: 1,
@@ -146,7 +181,7 @@ const SearchPlacesListing = () => {
             }))
           }
         ]}
-      />
+      /> */}
       
       <br />
 

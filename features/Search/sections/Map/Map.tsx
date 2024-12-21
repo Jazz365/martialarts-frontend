@@ -19,7 +19,18 @@ const PlacesMap = ({
 
   const onGoogleApiLoaded = ({ map, maps }: { map: Map, maps: Map[]}) => {
     mapRef.current = map
-    setMapReady(true)
+    setMapReady(true);
+    
+    // Define map options to hide top-right controls
+    const mapOptions = {
+      zoomControl: false, // Hide zoom control
+      mapTypeControl: false, // Hide map type control (Satellite, Terrain)
+      streetViewControl: false, // Hide street view control
+      fullscreenControl: false, // Hide fullscreen control
+    };
+
+    // Apply these options to the map once it's loaded
+    map.setOptions(mapOptions);
   }
 
   const onMarkerClick = (e: MapMouseEvent, { markerId, lat, lng }: { 
@@ -37,8 +48,8 @@ const PlacesMap = ({
   return <>
     <section className={styles.content__Wrap}>
       <GoogleMap
-        apiKey={process.env.NEXT_PUBLIC_MAP_KEY}
-        // apiKey={''}
+        // apiKey={process.env.NEXT_PUBLIC_MAP_KEY}
+        apiKey={''}
         defaultCenter={{ lat: 45.4046987, lng: 12.2472504 }}
         defaultZoom={5}
         // options={mapOptions}

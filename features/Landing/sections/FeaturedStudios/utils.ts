@@ -22,6 +22,8 @@ export const dummyFeaturedPlaces:{
     free_lesson_available: boolean;
     is_featured: boolean;
     price: number;
+    place_styles: IMartialArtStyle[];
+    place_caters_to: ICatersTo[];
 }[] = [
     {
         id: 1,
@@ -41,6 +43,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 2,
@@ -60,6 +86,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 3,
@@ -79,6 +129,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 4,
@@ -98,6 +172,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 5,
@@ -117,6 +215,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 6,
@@ -136,6 +258,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 120,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 7,
@@ -155,6 +301,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 8,
@@ -174,6 +344,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 9,
@@ -193,6 +387,30 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
     {
         id: 10,
@@ -212,5 +430,29 @@ export const dummyFeaturedPlaces:{
         free_lesson_available: true,
         is_featured: true,
         price: 100,
+        place_styles: [
+            {
+                "id": 1,
+                "name": "Judo"
+            },
+            {
+                "id": 2,
+                "name": "capoeira"
+            }
+        ],
+        place_caters_to: [
+            {
+                "id": 1,
+                "name": "Men"
+            },
+            {
+                "id": 2,
+                "name": "Women"
+            },
+            {
+                "id": 3,
+                "name": "Kids"
+            }
+        ],
     },
 ]

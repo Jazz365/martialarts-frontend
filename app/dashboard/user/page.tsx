@@ -17,7 +17,7 @@ const UserDashboard = () => {
             <TopStatsRow />
 
             <section className={styles.user__Stats}>
-                <CustomLineChart
+                {/* <CustomLineChart
                     title='Booking Trends'
                     subtitle='get insights into how many bookings you made this year'
                     data={
@@ -30,7 +30,7 @@ const UserDashboard = () => {
                     }
                     dataKeyName='bookings'
                     labelKeyName='name'
-                />
+                /> */}
 
                 <Bookings />
             </section>

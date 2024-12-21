@@ -20,15 +20,15 @@ export const ownerNavLinks: LinkItemDetail[] = [
     },
     {
         id: 2,
-        location: `${generateDashLinkForUser(true)}/places`,
+        location: `${generateDashLinkForUser(true)}/studios`,
         icon: HiOutlineBuildingOffice2,
-        text: 'places',
+        text: 'studios',
     },
     {
         id: 3,
         location: `${generateDashLinkForUser(true)}/bookings`,
         icon: IoCalendarOutline,
-        text: 'bookings',
+        text: 'students',
     },
     {
         id: 4,
