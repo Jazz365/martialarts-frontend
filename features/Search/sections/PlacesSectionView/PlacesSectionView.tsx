@@ -7,6 +7,8 @@ import PlaceListCard from '../../components/PlaceListCard/PlaceListCard'
 import styles from './styles.module.css';
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
 import PageLoader from '@/components/PageLoader/PageLoader';
+import { useAppContext } from '@/contexts/AppContext';
+import useMobile from '@/hooks/useMobile';
 
 const PlacesSectionView = () => {
     const {
@@ -14,6 +16,12 @@ const PlacesSectionView = () => {
         allPlaces,
         placesLoading,
     } = useSearchFilterContext();
+
+    const {
+        showMap
+    } = useAppContext();
+
+    const isMobile = useMobile();
     
     if (placesLoading) return <PageLoader />
     
@@ -25,7 +33,7 @@ const PlacesSectionView = () => {
                     (
                         activeFilters.view.length < 1 ||
                         activeFilters.view === listingViewTypes.listView
-                    ) ?
+                    ) && showMap === true ?
                     ''
                     :
                     styles.wrap__Row
@@ -35,12 +43,12 @@ const PlacesSectionView = () => {
             {
                 React.Children.toArray(
                     allPlaces
-                    .sort((a, b) => {
-                        if (activeFilters.sort === listingSortOptions.sort_by_rating) return b.average_rating - a.average_rating
-                        if (activeFilters.sort === listingSortOptions.sort_by_price) return b.pricing - a.pricing
+                    // .sort((a, b) => {
+                    //     if (activeFilters.sort === listingSortOptions.sort_by_rating) return b.average_rating - a.average_rating
+                    //     if (activeFilters.sort === listingSortOptions.sort_by_price) return b.pricing - a.pricing
                         
-                        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-                    })
+                    //     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                    // })
                     .map((place, index) => {
                         return <PlaceListCard 
                             place={place}

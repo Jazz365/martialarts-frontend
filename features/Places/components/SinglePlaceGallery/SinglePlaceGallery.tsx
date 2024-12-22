@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import useMobile from '@/hooks/useMobile';
+import { useSwipeable } from 'react-swipeable';
 
 
 const SinglePlaceGallery = ({
@@ -16,6 +17,11 @@ const SinglePlaceGallery = ({
     const [ currentSlide, setCurrentSlide ] = useState(0);
     const [ imagesToDisplay, setImagesToDisplay ] = useState<IPlaceImage[]>([]);
     const isMobile = useMobile();
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => handleBackward,
+        onSwipedRight: () => handleGoForward,
+    });
 
     const handleGoForward = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
@@ -39,7 +45,10 @@ const SinglePlaceGallery = ({
     }, [currentSlide])
 
     return <>
-        <section className={styles.grid__Imgs}>
+        <section 
+            {...handlers}
+            className={styles.grid__Imgs}
+        >
             {
                 images.length > 3 &&
                 <button 
@@ -63,7 +72,7 @@ const SinglePlaceGallery = ({
                                 isMobile ?
                                     250 
                                 :
-                                500
+                                550
                             }
                             className={`${styles.image} ${index === 1 ? styles.main : ''}`}
                             quality={100}

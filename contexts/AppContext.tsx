@@ -53,6 +53,8 @@ const AppContext = createContext<AppContextType>({
     setBlogsLoaded: () => {},
     blogsLoading: true,
     setBlogsLoading: () => {},
+    showMap: true,
+    setShowMap: () => {},
     resetUserInfoInContext: () => {},
 });
 
@@ -94,6 +96,8 @@ const AppContextProvider = ({
     const [ placesViewStats, setPlacesViewStats ] = useState<IPlaceViewStat[]>([]);
     const [ placesViewStatLoading, setPlacesViewStatLoading ] = useState(true);
     const [ placesViewStatLoaded, setPlacesViewStatLoaded ] = useState(false);
+    
+    const [ showMap, setShowMap ] = useState(true);
 
     const [
         placeService,
@@ -113,6 +117,10 @@ const AppContextProvider = ({
         setBookings([]);
         setBookingsLoaded(false);
         setBookingsLoading(true);
+
+        setPlacesViewStats([]);
+        setPlacesViewStatLoaded(false);
+        setPlacesViewStatLoading(true);
     }
     
     useLoadData(
@@ -176,6 +184,8 @@ const AppContextProvider = ({
         setPlaceTypesLoaded,
         {
             authorisationRequired: true,
+            hasDependency: true,
+            dependency: placesViewStatLoaded,
         }
     );
 
@@ -233,6 +243,8 @@ const AppContextProvider = ({
             setBlogsLoaded,
             blogsLoading,
             setBlogsLoading,
+            showMap,
+            setShowMap,
             resetUserInfoInContext,
         }}>
             {children}

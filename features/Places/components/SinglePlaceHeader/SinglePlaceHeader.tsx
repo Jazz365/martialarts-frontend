@@ -13,17 +13,22 @@ const SinglePlaceHeader = ({
             <h1 className={styles.title}>{place.name}</h1>
 
             <section className={styles.details}>
-                <p className={styles.detail__Item}>
-                    <IoStarOutline />
-                    <span>{place.average_rating}</span>
-                </p>
-
-                <p className={styles.detail__Item}>
-                    <span>{place?.reviews?.length ?? 0}</span>
-                    <span>reviews</span>
-                </p>
-
                 <p className={styles.detail__Item}>${place.pricing}/month</p>
+        
+                <p className={styles.detail__Item}>
+                    <span>Styles offered:</span>
+                    <span>{place.place_styles.map(style => style.name).join(', ')}</span>
+                </p>
+
+                <p className={styles.detail__Item}>
+                    <span>Skill levels:</span>
+                    <span>{place.place_caters_to.map(style => style.name).join(', ')}</span>
+                </p>
+
+                <p className={styles.detail__Item}>
+                    <span>Age groups:</span>
+                    <span>All</span>
+                </p>
             </section>
         </section>
     )

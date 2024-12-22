@@ -24,6 +24,7 @@ const MartialArtsStyles = () => {
                                 <FadeInOnScroll 
                                     viewThreshold={0.5}
                                     className={styles.style__Item__Detail}
+                                    key={style.id}
                                 >
                                     <Link
                                         href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}

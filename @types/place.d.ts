@@ -23,6 +23,7 @@ type IPlace = {
     pricing: number;
     place_styles: IMartialArtStyle[];
     place_caters_to: ICatersTo[];
+    // place_age_groups: IPlaceAgeGroups[];
 }
 
 type IPlaceImage = {
@@ -78,6 +79,7 @@ type IMartialArtStyle = {
     is_trending?: boolean;
     is_popular?: boolean;
     is_search_style?: boolean;
+    is_featured?: boolean;
 }
 
 type IPlaceType = {
@@ -88,4 +90,8 @@ type IPlaceType = {
 type IPlaceViewStat = {
     name: string;
     views: number;
+}
+
+type IPlaceAgeGroups = {
+
 }

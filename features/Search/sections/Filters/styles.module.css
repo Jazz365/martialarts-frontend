@@ -1,5 +1,10 @@
+.content,
 .filters__Wrap {
-    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.filters__Wrap {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -9,9 +14,17 @@
     z-index: 98;
 }
 
+.content {
+    padding: 1rem 1.5rem;
+    justify-content: space-between;
+}
+
 @media screen and (max-width: 767px) {
-    .filters__Wrap {
+    .content {
         padding: 1rem;
+    }
+
+    .filters__Wrap {
         max-width: 100%;
         overflow-x: auto;
         scrollbar-width: none;

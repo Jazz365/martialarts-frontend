@@ -12,9 +12,9 @@ export type FilterKeyType = keyof AvailableFilters;
 
 export const availableFiltersKeys: (keyof AvailableFilters)[] = [
     'style',
-    'placeType',
-    'class',
-    'location',
+    'type_of_place_id',
+    'caters_to_ids',
+    'place',
     'name',
     'sort',
     'view',

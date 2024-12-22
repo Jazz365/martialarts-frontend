@@ -3,18 +3,24 @@
 import React, { useRef, useState } from 'react'
 import styles from './styles.module.css'
 import GoogleMap, { Map, MapMouseEvent } from 'google-maps-react-markers'
+import { useAppContext } from '@/contexts/AppContext';
 
 
 const PlacesMap = ({
-  placeCoordinates=[]
+  placeCoordinates=[],
+  minHeight="100vh",
+  width,
 }: {
   placeCoordinates?: {
     lat: number;
     lng: number;
     name: string;
-  }[]
+  }[];
+  minHeight?: string;
+  width?: string;
 }) => {
-  const mapRef = useRef<Map | null>(null)
+  const mapRef = useRef<Map | null>(null);
+  const { showMap } = useAppContext();
   const [mapReady, setMapReady] = useState(false)
 
   const onGoogleApiLoaded = ({ map, maps }: { map: Map, maps: Map[]}) => {
@@ -46,14 +52,19 @@ const PlacesMap = ({
   }
 
   return <>
-    <section className={styles.content__Wrap}>
+    <section 
+      className={`${styles.content__Wrap} ${showMap === false ? styles.hide : ''}`}
+      style={{
+        width,
+      }}
+    >
       <GoogleMap
         // apiKey={process.env.NEXT_PUBLIC_MAP_KEY}
         apiKey={''}
         defaultCenter={{ lat: 45.4046987, lng: 12.2472504 }}
         defaultZoom={5}
         // options={mapOptions}
-        mapMinHeight="100vh"
+        mapMinHeight={minHeight}
         onGoogleApiLoaded={onGoogleApiLoaded}
         // onChange={(map) => console.log('Map moved', map)}
       >

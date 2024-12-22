@@ -21,17 +21,28 @@ import { AppConstants } from '@/utils/constants';
 import { useAppContext } from '@/contexts/AppContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/PageLoader/PageLoader';
+import { IoAddOutline } from 'react-icons/io5';
+import StyleAddModal from '@/components/StyleAddModal/StyleAddModal';
 
 
 const AddPlaceDetails = () => {
     const [ details, setDetails ] = useState<NewPlaceDetail>(initialNewPlaceDetail);
     const [ detailsLoading, setDetailsLoading ] = useState<boolean>(false);
+    const [ showStyleAddModal, setShowStyleAddModal ] = useState<boolean>(false);
     const [ loading, setLoading ] = useState(false);
     const [ isEditView, setIsEditView ] = useState(false);
 
     const searchParams = useSearchParams();
 
-    const { allStyles, placeTypes, catersTo, userPlaces, setUserPlaces } = useAppContext();
+    const { 
+        allStyles,
+        stylesLoading,
+        placeTypes, 
+        catersTo, 
+        userPlaces, 
+        setUserPlaces,
+    } = useAppContext();
+
     const router = useRouter();
 
     const placeService = new PlaceService();
@@ -144,6 +155,7 @@ const AddPlaceDetails = () => {
         if (details.benefits.find(benefit => benefit.length < 1)) return toast.info('Found missing/empty benefit in provided benefits');
         if (details.master_images.find(master => master.name.length < 1 || !master.imageFile)) return toast.info('Found missing master name or image');
         if (details.images.length < 5) return toast.info('Please upload at least 5 images for your place');
+        if (details.benefits.length < 5) return toast.info('Please write at least 5 benefits of your place');
 
         const formData = generateFormDataForNewPlaceDetails(details);
 
@@ -229,30 +241,55 @@ const AddPlaceDetails = () => {
             </section>
 
             <section className={styles.check__Wrap}>
-                <p>martial art styles offered</p>
+                <section className={styles.item__Section__Row}>
+                    <p className={styles.title__Item}>martial art styles offered</p>
 
-                <section className={styles.listing__Wrap}>
-                    {
-                        React.Children.toArray(allStyles
-                            .map(style => {
-                                return <TextInputComponent 
-                                    label={style.name}
-                                    type='checkbox'
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        width: 'max-content',
-                                        flexDirection: 'row-reverse',
-                                        gap: '1rem',
-                                        marginRight: '3rem',
-                                    }}
-                                    checked={details?.styles?.includes(style.id)}
-                                    key={style.id}
-                                    handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.styles as keyof NewPlaceDetail, style.id, val)}
-                                />
-                            }))
-                    }
+                    <Button 
+                        label='add new'
+                        icon={
+                            <IoAddOutline />
+                        }
+                        isLeadingIcon={false}
+                        style={{
+                            padding: '0',
+                            backgroundColor: 'transparent',
+                            color: 'var(--primary-app-color)',
+                            fontSize: '0.8rem',
+                        }}
+                        hoverStyle={{
+                            color: '#808080',
+                        }}
+                        handleClick={() => setShowStyleAddModal(true)}
+                    />
                 </section>
+
+                {
+                    stylesLoading ?
+                        <PageLoader />
+                    :
+                    <section className={styles.listing__Wrap}>
+                        {
+                            React.Children.toArray(allStyles
+                                .map(style => {
+                                    return <TextInputComponent 
+                                        label={style.name}
+                                        type='checkbox'
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            width: 'max-content',
+                                            flexDirection: 'row-reverse',
+                                            gap: '1rem',
+                                            marginRight: '3rem',
+                                        }}
+                                        checked={details?.styles?.includes(style.id)}
+                                        key={style.id}
+                                        handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.styles as keyof NewPlaceDetail, style.id, val)}
+                                    />
+                                }))
+                        }
+                    </section>
+                }
             </section>
 
             <AddLocationsComponent
@@ -456,6 +493,14 @@ const AddPlaceDetails = () => {
             handleClick={handleSaveNewPlace}
             disabled={loading}
         />
+
+        {
+            showStyleAddModal && <>
+                <StyleAddModal 
+                    hideModal={() => setShowStyleAddModal(false)}
+                />
+            </>
+        }
     </>
 }
 

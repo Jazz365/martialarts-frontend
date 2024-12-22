@@ -19,12 +19,15 @@
 }
 
 .details {
-    gap: 2.5rem;
+    gap: 1rem;
     font-size: 0.75rem;
 }
 
 .detail__Item {
     gap: 0.3rem;
+    background-color: #e8e8e8;
+    padding: 0.4rem 1rem;
+    border-radius: 24px;
 }
 
 @media screen and (max-width: 767px) {

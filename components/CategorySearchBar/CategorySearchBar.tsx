@@ -101,27 +101,34 @@ const CategorySearchBar = ({
             {
                 hideTrendingStyles ? <></>
                     :
-                <section className={styles.trending__Wrap}>
-                    <p>Trending styles</p>
+                <>
+                    {
+                        stylesLoading ?
+                            <Loader />
+                        :
+                        <section className={styles.trending__Wrap}>
+                            <p>Trending styles</p>
 
-                    <section className={styles.trending__Items}>
-                        {
-                            React.Children.toArray(
-                                allStyles
-                                .filter(style => style.is_trending === true)
-                                .map(style => {
-                                    return <Link
-                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&${listingSortOptions.sort_by_newest}`}
-                                        className={styles.trending__Item}
-                                        key={style.id}
-                                    >
-                                        {style.name}
-                                    </Link>
-                                })
-                            )
-                        }
-                    </section>
-                </section>
+                            <section className={styles.trending__Items}>
+                                {
+                                    React.Children.toArray(
+                                        allStyles
+                                        .filter(style => style.is_trending === true)
+                                        .map(style => {
+                                            return <Link
+                                                href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                                className={styles.trending__Item}
+                                                key={style.id}
+                                            >
+                                                {style.name}
+                                            </Link>
+                                        })
+                                    )
+                                }
+                            </section>
+                        </section>
+                    }
+                </>
             }
         </section>
     </>

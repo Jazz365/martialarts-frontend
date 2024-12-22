@@ -9,6 +9,11 @@ import useClickOutside from '@/hooks/useClickOutside';
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
 
 
+interface FilterValue {
+    name: string;
+    value: string;
+}
+
 const FilterItem = ({
     title='',
     filterKey='',
@@ -17,7 +22,7 @@ const FilterItem = ({
 }: {
     title: string;
     filterKey: string;
-    filters?: string[];
+    filters?: FilterValue[];
     currentActiveFiltersForItem?: string[];
 }) => {
     const {
@@ -66,19 +71,19 @@ const FilterItem = ({
                             React.Children.toArray(filters.map(filter => {
                                 return <li 
                                     className={styles.single__Filter}
-                                    key={filter}
+                                    key={`${filter.name} ${filter.value}`}
                                 >
                                     <label className={styles.single__Filter__Label}>
                                         <input 
                                             type='checkbox'
-                                            checked={selectedFilters.includes(filter)}
+                                            checked={selectedFilters.includes(filter.value)}
                                             onChange={({ target }) => {
-                                                if (target.checked === false) return setSelectedFilters((prevFilters) => prevFilters.filter(selectFilter => filter !== selectFilter));
+                                                if (target.checked === false) return setSelectedFilters((prevFilters) => prevFilters.filter(selectFilter => filter.value !== selectFilter));
 
-                                                setSelectedFilters((prevFilters) => [...prevFilters, filter])
+                                                setSelectedFilters((prevFilters) => [...prevFilters, filter.value])
                                             }}
                                         />
-                                        <span>{filter}</span>
+                                        <span>{filter.name}</span>
                                     </label>
                                 </li>
                             }))

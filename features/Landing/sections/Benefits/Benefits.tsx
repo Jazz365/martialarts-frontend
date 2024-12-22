@@ -9,9 +9,10 @@ const Benefits = () => {
         <FadeInOnScroll>
             <section className={styles.benefits__Wrap}>
                 {
-                    React.Children.toArray(benefitsList.map(benefit => {
+                    React.Children.toArray(benefitsList.map((benefit, index) => {
                         return <BenefitItem 
                             benefit={benefit}
+                            key={index}
                         />
                     }))
                 }

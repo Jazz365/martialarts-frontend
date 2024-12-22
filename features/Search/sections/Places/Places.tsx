@@ -13,6 +13,7 @@ import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOpt
 import useMobile from '@/hooks/useMobile';
 import { toast } from 'sonner';
 import SingleResultViewOption from '../../components/ResultsViewOption/SingleResultViewOption';
+import { useAppContext } from '@/contexts/AppContext';
 
 
 const SearchPlacesListing = () => {
@@ -21,11 +22,16 @@ const SearchPlacesListing = () => {
     handleUpdateFiltersForCategory,
     allPlaces,
   } = useSearchFilterContext();
+
+  const {
+    showMap
+  } = useAppContext();
+
   const isMobile = useMobile();
   const [ searchVal, setSearchVal ] = useState<string>('');
 
   return <>
-    <section className={styles.listing__Wrap}>
+    <section className={`${styles.listing__Wrap} ${showMap === false ? styles.full : ''}`}>
       <section className={styles.listing__Title}>
         <h1 className={styles.header}>
           <span>{allPlaces.length} results</span>

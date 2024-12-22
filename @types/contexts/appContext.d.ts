@@ -43,5 +43,7 @@ type AppContextType = {
     setBlogsLoading: (val: boolean) => void;
     blogsLoaded: boolean;
     setBlogsLoaded: (val: boolean) => void;
+    showMap: boolean;
+    setShowMap: (val: boolean) => void;
     resetUserInfoInContext: () => void;
 }

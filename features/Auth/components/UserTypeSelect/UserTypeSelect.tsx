@@ -1,6 +1,6 @@
 import Button from '@/components/Button/Button'
 import React from 'react'
-import { userTypes } from './utils';
+import { userTypes, userTypesDict } from './utils';
 import styles from './styles.module.css';
 import { useSearchParams } from 'next/navigation';
 
@@ -17,7 +17,7 @@ const UserTypeSelect = ({
             {
                 React.Children.toArray((Object.keys(userTypes) as Array<keyof typeof userTypes>).map(type => {
                     return <Button
-                        label={userTypes[type]}
+                        label={userTypesDict[type]}
                         useLink={true}
                         linkLocation={`/auth/${authType}?type=${type}`}
                         key={type}

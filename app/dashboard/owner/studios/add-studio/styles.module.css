@@ -31,7 +31,7 @@
 
 .listing__Wrap {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
     gap: 0.8rem;
 }
 
@@ -56,7 +56,8 @@
     gap: 0.5rem;
 }
 
-.check__Wrap > p {
+.check__Wrap > p,
+.title__Item {
     font-size: 0.8rem;
     text-transform: capitalize;
 }
