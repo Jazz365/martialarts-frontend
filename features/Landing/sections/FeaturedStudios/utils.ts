@@ -1,8 +1,8 @@
 import { StaticImageData } from 'next/image';
-import image1 from '../../../../assets/places/3d-japanese-hall-karate-training.webp';
-import image2 from '../../../../assets/places/byodo-temple-kyoto-japan.webp';
-import image3 from '../../../../assets/places/front-view-japanese-temple-structure.webp';
-import image4 from '../../../../assets/places/kinkakuji-temple.webp';
+import image1 from '../../../../assets/places/sample-1.png';
+import image2 from '../../../../assets/places/sample-2.png';
+import image3 from '../../../../assets/places/sample-3.png';
+import image4 from '../../../../assets/places/sample-4.png';
 
 export const dummyFeaturedPlaces:{
     id: number;

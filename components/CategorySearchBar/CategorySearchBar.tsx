@@ -1,6 +1,6 @@
 'use client';
 
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, useEffect, useState } from 'react'
 import { IoClose, IoSearch } from 'react-icons/io5'
 import styles from './styles.module.css'
 import Link from 'next/link'
@@ -21,10 +21,33 @@ const CategorySearchBar = ({
 }) => {
     const [ searchValue, setSearchValue ] = useState<string>('');
     const [ inputFocused, setInputFocused ] = useState<boolean>(false);
+    const [ stylesToDisplay, setStylesToDisplay ] = useState<IMartialArtStyle[]>([]);
     const {
         allStyles,
         stylesLoading,  
     } = useAppContext();
+
+    useEffect(() => {
+        const filteredStyles = allStyles
+        .filter(styleItem => styleItem.is_search_style === true)
+        .filter(styleItem => {
+            if (searchValue.length > 0) return styleItem.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+
+            return true;
+        });
+
+        if (filteredStyles.length < 1) {
+            const foundStylesFromAllStyles = allStyles.filter(styleItem => {
+                if (searchValue.length > 0) return styleItem.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+    
+                return true;
+            });
+
+            if (foundStylesFromAllStyles.length > 0) return setStylesToDisplay(foundStylesFromAllStyles);
+        }
+
+        setStylesToDisplay(filteredStyles);
+    }, [allStyles, searchValue])
 
     return <>
         <section className={styles.search__Bar__Wrap} style={wrapperStyle}>
@@ -73,13 +96,7 @@ const CategorySearchBar = ({
                         >
                             {
                                 React.Children.toArray(
-                                    allStyles
-                                    .filter(styleItem => styleItem.is_search_style === true)
-                                    .filter(styleItem => {
-                                        if (searchValue.length > 0) return styleItem.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
-
-                                        return true;
-                                    })
+                                    stylesToDisplay
                                     .map(styleItem => {
                                         return <li
                                             key={styleItem.id}
