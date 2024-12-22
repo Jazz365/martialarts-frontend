@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { AiOutlineAppstore, AiOutlineTag } from 'react-icons/ai';
 import { GiGymBag, GiProgression } from "react-icons/gi";
 import { Tooltip } from 'react-tooltip';
+import Button from '@/components/Button/Button';
 
 const FeatureCard = ({
     featuredPlace,
@@ -49,67 +50,26 @@ const FeatureCard = ({
 
                 <p 
                     className={styles.content__Detail}
-                    data-tooltip-content={`Location: ${featuredPlace?.location?.address} ${featuredPlace?.location?.city} ${featuredPlace?.location?.state}`}
-                    data-tooltip-id={`location-${featuredPlace.id}`}
                 >
-                    <IoLocationOutline size={'1.2rem'} />
-                    <span>{featuredPlace?.location?.address} {featuredPlace?.location?.city} {featuredPlace?.location?.state}</span>
-
-                    <Tooltip 
-                        id={`location-${featuredPlace.id}`}
-                    />
+                    <span><b className={styles.title}>Location:</b> {featuredPlace?.location?.address} {featuredPlace?.location?.city} {featuredPlace?.location?.state}</span>
                 </p>
 
                 <p 
                     className={styles.content__Detail}
-                    data-tooltip-content={`Styles offered: ${featuredPlace.place_styles.map(item => item.name).join(', ')}`}
-                    data-tooltip-id={`styles-${featuredPlace.id}`}
                 >
-                    <AiOutlineAppstore size={'1.2rem'} />
-                    <span>{featuredPlace.place_styles.map(item => item.name).join(', ')}</span>
-
-                    <Tooltip 
-                        id={`styles-${featuredPlace.id}`}
-                    />
+                    <span><b className={styles.title}>styles offered:</b> {featuredPlace.place_styles.map(item => item.name).join(', ')}</span>
                 </p>
 
                 <p 
                     className={styles.content__Detail}
-                    data-tooltip-content={`Skills levels: ${featuredPlace.place_caters_to.map(item => item.name).join(', ')}`}
-                    data-tooltip-id={`skills-${featuredPlace.id}`}
                 >
-                    <AiOutlineTag size={'1.2rem'} />
-                    <span>{featuredPlace.place_caters_to.map(item => item.name).join(', ')}</span>
-                    
-                    <Tooltip 
-                        id={`skills-${featuredPlace.id}`}
-                    />
+                    <span><b className={styles.title}>skills offered:</b> {featuredPlace.place_caters_to.map(item => item.name).join(', ')}</span>
                 </p>
 
                 <p 
                     className={styles.content__Detail}
-                    data-tooltip-content={`Class times: ${featuredPlace?.activity_hours?.opening_time} - ${featuredPlace?.activity_hours?.closing_time}`}
-                    data-tooltip-id={`classTimes-${featuredPlace.id}`}
                 >
-                    <IoIosTimer size={'1.2rem'} />
-                    <span>{featuredPlace?.activity_hours?.opening_time} - {featuredPlace?.activity_hours?.closing_time}</span>
-                    
-                    <Tooltip 
-                        id={`classTimes-${featuredPlace.id}`}
-                    />
-                </p>
-
-                <p 
-                    className={styles.content__Detail}
-                    data-tooltip-content={`Class days: ${featuredPlace?.activity_hours?.days}`}
-                    data-tooltip-id={`days-${featuredPlace.id}`}
-                >
-                    <IoTodayOutline size={'1.2rem'} />
-                    <span>{featuredPlace?.activity_hours?.days}</span>
-                    
-                    <Tooltip 
-                        id={`days-${featuredPlace.id}`}
-                    />
+                    <span><b className={styles.title}>class times: </b>{featuredPlace?.activity_hours?.opening_time} - {featuredPlace?.activity_hours?.closing_time}</span>
                 </p>
 
                 <br />
@@ -121,10 +81,13 @@ const FeatureCard = ({
                         <span className={styles.price}>${featuredPlace?.price}/month</span>
                     </p>
 
-                    <p className={`${styles.content__Detail} ${styles.mini}`}>
-                        <IoStarOutline size={'1.2rem'} />
-                        <span>{featuredPlace.average_rating}</span>
-                    </p>
+                    <Button 
+                        label='join class'
+                        style={{
+                            fontSize: '0.8rem',
+                            padding: '0.75rem 1.4rem'
+                        }}
+                    />
                 </section>
             </section>
         </Link>

@@ -40,7 +40,12 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
+
+.title {
+    font-size: 0.85rem;
 }
 
 .content__Detail.mini {

@@ -1,12 +1,12 @@
-import taekwondo from '../assets/artStyles/taekwondo.png'
-import judo from '../assets/artStyles/judo.png'
-import boxing from '../assets/artStyles/boxing.png'
-import karate from '../assets/artStyles/karate.png'
-import jiujustu from '../assets/artStyles/Jiu-Jitsu.png'
-import wrestling from '../assets/artStyles/Wrestling.png'
-import muaythai from '../assets/artStyles/Muai-thai.png'
-import capoeira from '../assets/artStyles/Capoeira.png'
-import kickboxing from '../assets/artStyles/Kick-boxing.png'
+import taekwondo from '../assets/artStyles/taekwondo.jpg'
+import judo from '../assets/artStyles/judo.jpg'
+import boxing from '../assets/artStyles/boxing.jpg'
+import karate from '../assets/artStyles/karate.jpg'
+import jiujustu from '../assets/artStyles/Jiu-Jitsu.jpg'
+import wrestling from '../assets/artStyles/Wrestling.jpg'
+import muaythai from '../assets/artStyles/Muay-Thai.jpg'
+import capoeira from '../assets/artStyles/Capoeira.jpg'
+import kickboxing from '../assets/artStyles/Kickboxing.jpg'
 import { StaticImageData } from 'next/image'
 
 export const dummyMartialStyles: {
@@ -79,25 +79,25 @@ export const dummyMartialStyles: {
         isFeatured: true,
         isTrending: true,
     },
-    {
-        id: 10,
-        name: 'boxing',
-        imageUrl: boxing,
-        isFeatured: true,
-        isTrending: true,
-    },
-    {
-        id: 11,
-        name: 'karate',
-        imageUrl: karate,
-        isFeatured: true,
-        isTrending: true,
-    },
-    {
-        id: 12,
-        name: 'taekwondo',
-        imageUrl: taekwondo,
-        isFeatured: true,
-        isTrending: true,
-    },
+    // {
+    //     id: 10,
+    //     name: 'boxing',
+    //     imageUrl: boxing,
+    //     isFeatured: true,
+    //     isTrending: true,
+    // },
+    // {
+    //     id: 11,
+    //     name: 'karate',
+    //     imageUrl: karate,
+    //     isFeatured: true,
+    //     isTrending: true,
+    // },
+    // {
+    //     id: 12,
+    //     name: 'taekwondo',
+    //     imageUrl: taekwondo,
+    //     isFeatured: true,
+    //     isTrending: true,
+    // },
 ]
