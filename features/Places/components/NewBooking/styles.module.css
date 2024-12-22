@@ -33,6 +33,7 @@
     .content__Wrap {
         padding: 2rem 1rem;
         position: static;
+        width: 100%;
     }
 
     .date__wrap {

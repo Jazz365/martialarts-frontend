@@ -10,6 +10,7 @@ const PlacesMap = ({
   placeCoordinates=[],
   minHeight="100vh",
   width,
+  showContentOnSmallScreen=false,
 }: {
   placeCoordinates?: {
     lat: number;
@@ -18,6 +19,7 @@ const PlacesMap = ({
   }[];
   minHeight?: string;
   width?: string;
+  showContentOnSmallScreen?: boolean;
 }) => {
   const mapRef = useRef<Map | null>(null);
   const { showMap } = useAppContext();
@@ -53,7 +55,7 @@ const PlacesMap = ({
 
   return <>
     <section 
-      className={`${styles.content__Wrap} ${showMap === false ? styles.hide : ''}`}
+      className={`${styles.content__Wrap} ${showMap === false ? styles.hide : ''} ${showContentOnSmallScreen === true ? styles.main : ''}`}
       style={{
         width,
       }}

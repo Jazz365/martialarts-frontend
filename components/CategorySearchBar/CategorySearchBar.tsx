@@ -123,6 +123,9 @@ const CategorySearchBar = ({
                         stylesLoading ?
                             <Loader />
                         :
+                        allStyles.filter(style => style.is_trending === true)?.length < 1 ?
+                            <></>
+                        :
                         <section className={styles.trending__Wrap}>
                             <p>Trending styles</p>
 
