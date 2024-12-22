@@ -26,7 +26,8 @@
 
     .filters__Wrap {
         max-width: 100%;
-        overflow-x: auto;
         scrollbar-width: none;
+        overflow: visible;
+        flex-wrap: wrap;
     }
 }

@@ -31,6 +31,7 @@
 @media screen and (max-width: 767px) {
     .form__Wrap {
         width: 90%;
+        max-width: unset;
         padding-left: 1rem;
         padding-right: 1rem;
     }

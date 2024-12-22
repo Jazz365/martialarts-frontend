@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 767px) {
-    .content__Wrap {
+    .content__Wrap:not(.main) {
         display: none;
     }
 }
