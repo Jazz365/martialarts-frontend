@@ -3,16 +3,20 @@
 
 import Loader from '@/components/Loader/Loader';
 import { useUserContext } from '@/contexts/UserContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 const LoginSuccess = () => {
   const { userDetails, userDetailsLoading, isLoggedIn } = useUserContext();
+  const params = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
     if (userDetailsLoading) return;
     if (!userDetails && !isLoggedIn) return router.push('/auth/login');
+
+    const nextUrl = params.get('next');
+    if (nextUrl) return router.push(nextUrl);
 
     if (userDetails?.is_owner !== true) {
       return router.push('/');
