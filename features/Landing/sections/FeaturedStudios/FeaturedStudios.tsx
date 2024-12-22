@@ -29,7 +29,7 @@ const FeaturedStudios = () => {
                         <section className={styles.header__Styles}>
                             {
                                 React.Children.toArray(
-                                    allStyles.slice(0, 3)
+                                    allStyles.filter(style => style.is_featured == true)
                                     .map(style => {
                                         return <Link
                                             className={styles.style__item}

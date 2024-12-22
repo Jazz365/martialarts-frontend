@@ -11,3 +11,10 @@
     flex-wrap: wrap;
     gap: 1.5rem;
 }
+
+@media screen and (max-width: 767px) {
+    .list__Wrap,
+    .list__Wrap.wrap__Row {
+        flex-direction: column;
+    }
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useEffect, useState } from 'react'
 import styles from './styles.module.css';
 import { IoLocationOutline } from 'react-icons/io5';
 import Rate from 'rc-rate';
@@ -17,7 +17,7 @@ import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
 import { useAppContext } from '@/contexts/AppContext';
 
 const maxLengthForGridView = 32;
-const maxGridTitleLength = 16;
+const maxGridTitleLength = 14;
 const viewDurations = [1000, 1500, 1800];
 
 const PlaceListCard = ({
@@ -33,16 +33,34 @@ const PlaceListCard = ({
   style?: CSSProperties;
   index: number;
 }) => {
-  const placeLocation = place?.place_locations?.length > 0 ? 
-    `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`
-  :
-  ``;
-  const placeName = `${place.name}`;
+  const [
+    placeLocation,
+    placeName,
+    placeStyles,
+    placeCatersTo, 
+    placeTimes,
+  ] = [
+    place?.place_locations?.length > 0 ? 
+      `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`
+    :
+    ``,
+    `${place.name}`,
+    `${place.place_styles.map(style => style.name).join(', ')}`,
+    `${place.place_caters_to.map(cat => cat.name).join(', ')}`,
+    `${
+      place.place_activity_hours
+      .filter(act => act.opening_time.length > 0 && act.closing_time.length > 0)
+      .map(act => `${act.day} (${act.opening_time} - ${act.closing_time})`)
+      .join(', ')
+    }`,
+  ]
 
   const { userDetails } = useUserContext();
   const {
-    setSelectedPlaceId
+    setSelectedPlaceId,
+    showMap,
   } = useAppContext();
+  const [ maxofferingLength, setMaxOfferingLength] = useState(70);
   
   const router = useRouter();
   const isMobile = useMobile();
@@ -53,6 +71,19 @@ const PlaceListCard = ({
     setSelectedPlaceId(place.id);
   }
 
+  useEffect(() => {
+    if (isMobile) {
+      return setMaxOfferingLength(30);
+    }
+    
+    if (isListView) {
+      if (showMap === false) return setMaxOfferingLength(50);
+      return setMaxOfferingLength(70);
+    }
+
+    setMaxOfferingLength(30);
+  }, [isMobile, isListView, showMap])
+
   return (
     <section 
       className={`
@@ -62,6 +93,12 @@ const PlaceListCard = ({
             styles.row
           :
           styles.col
+        }
+        ${
+          showMap === false ?
+            styles.full
+          :
+          ''
         }
       `}
       style={style}
@@ -83,10 +120,10 @@ const PlaceListCard = ({
               width={0}
               height={
                 isListView && !isMobile ?
-                  280
+                  370
                 :
                 imageHeight ??
-                250
+                340
               }
               alt={place.description}
               src={imageItem.image as string}
@@ -97,7 +134,15 @@ const PlaceListCard = ({
         }
       </Carousel>
       
-      <section className={styles.details}>
+      <section 
+        className={styles.details}
+        style={{
+          maxWidth: isListView && !isMobile ? 
+            'calc(100% - 300px)'
+          :
+          '100%'
+        }}
+      >
         <section className={styles.top__Row}>
           <section className={styles.header__Wrap}>
             <section className={styles.title}>
@@ -172,6 +217,44 @@ const PlaceListCard = ({
           </section>
         </section>
 
+        <section className={styles.offerings_row}>
+          <p className={styles.offerings}>
+            <span>Styles offered:</span>
+            <span>
+              {
+                placeStyles.length > maxofferingLength ?
+                  placeStyles.slice(0, maxofferingLength) + '...'
+                :
+                placeStyles
+              }
+            </span>
+          </p>
+
+          <p className={styles.offerings}>
+            <span>Skill levels:</span>
+            <span>
+              {
+                placeCatersTo.length > maxofferingLength ?
+                  placeCatersTo.slice(0, maxofferingLength) + '...'
+                :
+                placeCatersTo
+              }
+            </span>
+          </p>
+
+          <p className={styles.offerings}>
+            <span>Class times:</span>
+            <span>
+              {
+                placeTimes.length > maxofferingLength ?
+                  placeTimes.slice(0, maxofferingLength) + '...'
+                :
+                placeTimes
+              }
+            </span>
+          </p>
+        </section>
+
         <ul className={styles.benefits}>
           {
             React.Children.toArray(
@@ -205,7 +288,7 @@ const PlaceListCard = ({
           </h3>
 
           {
-            userDetails?.id !== place.owner ?
+            userDetails?.is_owner !== true ?
               <Button 
                 label='join class'
                 style={{

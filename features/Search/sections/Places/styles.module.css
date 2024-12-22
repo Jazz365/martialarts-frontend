@@ -13,6 +13,10 @@
     padding: 0 0.3rem 2rem;
 }
 
+.listing__Wrap.full {
+    width: 100%;
+}
+
 .listing__Title,
 .listing__Search,
 .search__Actions,

@@ -21,7 +21,7 @@ const FeaturedLocations = () => {
                         React.Children.toArray(dummyFeaturedLocations.map((location, index) => {
                             return <Link
                                 key={location.id}
-                                href={`/search?location=${location.name}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                href={`/search?place=${location.name}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
                                 className={`${styles.location__Item} ${index === 0 ? styles.main : ''}`}
                             >
                                 <Image 

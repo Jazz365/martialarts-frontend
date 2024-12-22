@@ -108,6 +108,8 @@ class PlaceService {
                 }
             })).data;
 
+            toast.success('Successfully added new style!');
+
             return res as IMartialArtStyle;
         } catch (error) {
             toast.error('Something went wrong, please try again later');

@@ -13,6 +13,7 @@ import ContactInfo from '../../components/ContactInfo/ContactInfo';
 import OpeningHours from '../../components/OpeningHours/OpeningHours';
 import FaqInfo from '../../components/FaqInfo/FaqInfo';
 import NewBooking from '../../components/NewBooking/NewBooking';
+import SinglePlaceLocation from '../../components/SinglePlaceLocation/SinglePlaceLocation';
 
 
 const SinglePlaceView = ({
@@ -83,6 +84,10 @@ const SinglePlaceView = ({
                     website={foundPlace.website}
                     phoneNumber={foundPlace.phone_number}
                 />
+
+                <Divider />
+
+                <SinglePlaceLocation />
 
                 <Divider />
 

@@ -26,7 +26,7 @@ const Bookings = () => {
                         userDetails?.is_owner === true ?
                             'New students'
                         :
-                        'Recent bookings'
+                        'Classes joined'
                     }
                 </h3>
 
