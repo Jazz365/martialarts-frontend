@@ -17,6 +17,7 @@ import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
 import { useAppContext } from '@/contexts/AppContext';
 
 const maxLengthForGridView = 32;
+const maxBenLengthForListView = 80;
 const maxGridTitleLength = 14;
 const viewDurations = [1000, 1500, 1800];
 
@@ -129,6 +130,7 @@ const PlaceListCard = ({
               src={imageItem.image as string}
               key={imageItem.id}
               className={styles.image}
+              priority
             />
           }))
         }
@@ -177,7 +179,7 @@ const PlaceListCard = ({
                       color: '#fff'
                     }}
                     useLink
-                    linkLocation={`${generateDashLinkForUser(true)}/places/add-place?id=${place.id}`}
+                    linkLocation={`${generateDashLinkForUser(true)}/studios/add-studio?id=${place.id}`}
                   />
                 :
                 <></>
@@ -270,7 +272,15 @@ const PlaceListCard = ({
                   className={styles.benefit__Item}
                   key={benefit}
                 >
-                  {benefit}
+                  {
+                    !isListView ?
+                      benefit
+                    :
+                    benefit.length > maxBenLengthForListView ?
+                      benefit.slice(0, maxBenLengthForListView) + '...'
+                    :
+                    benefit
+                  }
                 </li>
             }))
           }
@@ -280,10 +290,9 @@ const PlaceListCard = ({
 
         <section className={styles.actions__Wrap}>
           <h3 className={`${styles.header} ${styles.price}`}>
-            <span className={styles.price__Intro}>Review</span>
+            <span className={styles.price__Intro}>from</span>
             {' '}
-            <span className={styles.price__Intro}>here</span>
-            {' '}
+            {/* <span className={styles.price__Intro}>here</span> */}
             <span>${place.pricing}/month</span>
           </h3>
 

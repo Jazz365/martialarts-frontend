@@ -2,7 +2,7 @@
 
 
 import { useUserContext } from '@/contexts/UserContext'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Avatar from 'react-avatar';
 import styles from './styles.module.css'
 import { HiDotsHorizontal } from 'react-icons/hi';
@@ -10,6 +10,8 @@ import { AuthService } from '@/services/authService';
 import { AppConstants } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/contexts/AppContext';
+import useMobile from '@/hooks/useMobile';
+import useClickOutside from '@/hooks/useClickOutside';
 
 
 const ProfileItem = () => {
@@ -20,11 +22,19 @@ const ProfileItem = () => {
     } = useUserContext();
     const { resetUserInfoInContext } = useAppContext();
     const [ showProfileMenu, setShowProfileMenu ] = useState<boolean>(false);
+    const isMobile = useMobile();
+
+    const menuRef = useRef<HTMLUListElement>(null);
 
     const router = useRouter();
     
     const authService = new AuthService();
 
+    useClickOutside({
+        elemRef: menuRef,
+        handleClickOutside: () => setShowProfileMenu(false),
+    });
+    
     const handleLogout = async () => {
         // await authService.logoutUser();
 
@@ -44,23 +54,36 @@ const ProfileItem = () => {
                     name={userDetails?.username}
                     round={true}
                     size='2.8rem'
+                    onClick={() => setShowProfileMenu(!showProfileMenu)}
                 />
                 
-                <p>{userDetails?.username}</p>
+                {
+                    isMobile ? <></> 
+                    :
+                    <p>{userDetails?.username}</p>
+                }
             </section>
 
             {
-                showProfileMenu && <ul className={styles.menu}>
+                showProfileMenu && <ul 
+                    className={styles.menu}
+                    ref={menuRef}
+                >
                     <li onClick={handleLogout}>logout</li>
                 </ul>
             }
-            <HiDotsHorizontal
-                size={'1.2rem'}
-                style={{
-                    cursor: 'pointer'
-                }}
-                onClick={() => setShowProfileMenu(!showProfileMenu)}
-            />
+
+            {
+                isMobile ? <></>
+                :
+                <HiDotsHorizontal
+                    size={'1.2rem'}
+                    style={{
+                        cursor: 'pointer'
+                    }}
+                    onClick={() => setShowProfileMenu(!showProfileMenu)}
+                />
+            }
         </section>
     )
 }

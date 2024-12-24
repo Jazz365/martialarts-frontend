@@ -153,13 +153,31 @@ const AddPlaceDetails = () => {
         if (isNaN(Number(details.pricing))) return toast.info('Please enter a valid number for the pricing of this new place');
         if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) return toast.info('Found missing city or address in location provided');
         if (details.benefits.find(benefit => benefit.length < 1)) return toast.info('Found missing/empty benefit in provided benefits');
-        if (details.master_images.find(master => master.name.length < 1 || !master.imageFile)) return toast.info('Found missing master name or image');
+        if (details.master_images.find(master => master.name.length < 1 || (!master.imageFile && master.image.toString().length < 1))) return toast.info('Found missing master name or image');
         if (details.images.length < 5) return toast.info('Please upload at least 5 images for your place');
         if (details.benefits.length < 5) return toast.info('Please write at least 5 benefits of your place');
 
         const formData = generateFormDataForNewPlaceDetails(details);
 
         setLoading(true);
+
+        if (isEditView) {
+            try {
+                const res = await placeService.editPlace(savedToken, Number(searchParams.get('id')), formData);
+                
+                const copyOfPlaces = userPlaces.slice();
+                const foundEditedPlaceIndex = userPlaces.findIndex(place => place.id === res?.id);
+                if (foundEditedPlaceIndex !== -1) {
+                    userPlaces[foundEditedPlaceIndex] = res;
+                    setUserPlaces(copyOfPlaces);
+                }
+
+                router.push(`/places/${res.id}`);
+            } catch (error) {
+                setLoading(false);
+            }
+            return
+        }
 
         try {
             const res = await placeService.createNewPlace(savedToken, formData);
@@ -358,13 +376,13 @@ const AddPlaceDetails = () => {
             extraInfo='(min 5 images max 15 images)'
         >
             <section className={styles.item__Section__Col}>
-                {/* <TextInputComponent 
+                <TextInputComponent 
                     name={newPlaceDetailKeysDict.video}
                     label='video link'
                     value={details.video}
                     onChange={handleDetailUpdate}
                     borderRadius='12px'
-                /> */}
+                />
 
                 <GalleryEditItem 
                     images={details.images}
@@ -466,7 +484,6 @@ const AddPlaceDetails = () => {
         <AddItemWrapper
             title='documents'
             extraInfo='Drag here health declaration or other documents for the student to confirm before joining class'
-            isRequired
         >
             <TextInputComponent
                 name={newPlaceDetailKeysDict.policy}

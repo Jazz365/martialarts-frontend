@@ -16,12 +16,14 @@
 
 .subs__Wrap {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: stretch;
     gap: 1.5rem;
+    height: max-content;
 }
 
 .subs__Wrap > * {
-    width: calc(calc(100% / 3) - 1rem);
+    flex: 0 1 calc(calc(100% / 3) - 1rem);
 }
 
 @media screen and (max-width: 767px) {

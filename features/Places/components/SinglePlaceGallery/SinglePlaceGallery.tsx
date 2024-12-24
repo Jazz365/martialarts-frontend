@@ -76,6 +76,7 @@ const SinglePlaceGallery = ({
                             }
                             className={`${styles.image} ${index === 1 ? styles.main : ''}`}
                             quality={100}
+                            priority
                         />
                     })
                 )

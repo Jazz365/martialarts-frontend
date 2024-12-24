@@ -46,7 +46,7 @@ export const dummyMartialStyles: {
     },
     {
         id: 5,
-        name: 'jiu-justu',
+        name: 'jiu-jistu',
         imageUrl: jiujustu,
         isFeatured: true,
         isTrending: false,

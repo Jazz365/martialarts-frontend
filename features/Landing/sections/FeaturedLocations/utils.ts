@@ -51,7 +51,7 @@ export const dummyFeaturedLocations: {
     },
     {
         id: 7,
-        name: 'michigan',
+        name: 'more',
         totalPlaces: 5,
         image: image7,
     },

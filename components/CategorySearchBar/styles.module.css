@@ -113,6 +113,7 @@
 
 .trending__Items {
     gap: 1rem;
+    text-transform: uppercase;
 }
 
 .trending__Item {

@@ -1,12 +1,7 @@
 import Image, { StaticImageData } from 'next/image';
 import React from 'react'
 import styles from './styles.module.css'
-import { IoLocationOutline, IoStarOutline, IoTodayOutline } from 'react-icons/io5';
-import { IoIosTimer } from 'react-icons/io';
 import Link from 'next/link';
-import { AiOutlineAppstore, AiOutlineTag } from 'react-icons/ai';
-import { GiGymBag, GiProgression } from "react-icons/gi";
-import { Tooltip } from 'react-tooltip';
 import Button from '@/components/Button/Button';
 
 const FeatureCard = ({
@@ -37,7 +32,8 @@ const FeatureCard = ({
     return <>
         <Link 
             className={styles.card__Item}
-            href={`/places/${featuredPlace.id}`}
+            href={''}
+            // href={`/places/${featuredPlace.id}`}
         >
             <Image 
                 src={featuredPlace.image}

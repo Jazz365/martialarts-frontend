@@ -9,9 +9,7 @@ const SearchPage = () => {
   return <>
     <NavigationBar
       showSearchBar={true}
-      wrapperStyle={{
-        padding: '1rem 1.5rem'
-      }}
+      className={styles.nav__Bar}
     />
     
     <SearchFilters />

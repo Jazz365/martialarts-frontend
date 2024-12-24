@@ -132,7 +132,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: userPlacesLoaded,
+            dependency: userDetails,
         },
     );
 
@@ -185,7 +185,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: placesViewStatLoaded,
+            dependency: userDetails,
         }
     );
 
