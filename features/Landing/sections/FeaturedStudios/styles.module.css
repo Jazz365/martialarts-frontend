@@ -85,6 +85,8 @@
     .header__Styles {
         overflow-x: auto;
         scrollbar-width: none;
+        flex-wrap: nowrap;
+        max-width: 100%;
     }
 
     .style__item {
