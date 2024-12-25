@@ -76,11 +76,6 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
-
-    .style__Image {
-        width: 400px;
-        height: 280px;
-    }
     
     .header {
         font-size: 1.2rem;
@@ -92,6 +87,7 @@
 
     .style__Item__Detail {
         width: 100%;
+        height: 300px;
     }
 }
 

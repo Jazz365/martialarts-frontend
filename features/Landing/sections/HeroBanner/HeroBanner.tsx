@@ -2,7 +2,10 @@ import React from 'react'
 import styles from './styles.module.css'
 import HeroImagesWrap from '../../components/HeroImagesWrap/HeroImagesWrap';
 import CategorySearchBar from '../../../../components/CategorySearchBar/CategorySearchBar';
+import Image from 'next/image';
 // import HeroBannerSubtitle from '../../components/HeroBannerSubtitle/HeroBannerSubtitle';
+import heroImg1 from '../../../../assets/heros/judo.png'
+import heroImg4 from '../../../../assets/heros/taekwondo.png'
 
 const HeroBanner = () => {
     return <section className={styles.hero__Wrap}>
@@ -16,6 +19,20 @@ const HeroBanner = () => {
             </section>
 
             <CategorySearchBar />
+
+            <Image
+                className={`${styles.img__Content} ${styles.i_1}`}
+                alt='hero'
+                src={heroImg4}
+                priority
+            />
+
+            <Image 
+                className={`${styles.img__Content} ${styles.i_2}`}
+                alt='hero'
+                src={heroImg1}
+                priority
+            />
         </section>
 
         <HeroImagesWrap />

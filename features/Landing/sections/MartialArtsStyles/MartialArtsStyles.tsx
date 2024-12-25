@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
+import Button from '@/components/Button/Button'
 
 
 const MartialArtsStyles = () => {
@@ -46,6 +47,22 @@ const MartialArtsStyles = () => {
                     )
                 }
             </section>
+
+            <Button 
+                label='more categories'
+                style={{
+                    width: 'max-content',
+                    background: 'transparent',
+                    color: '#000',
+                    border: '1px solid #000',
+                }}
+                useLink
+                linkLocation='/search'
+                hoverStyle={{
+                    background: '#000',
+                    color: '#fff'
+                }}
+            />
         </section>
     </>
 }

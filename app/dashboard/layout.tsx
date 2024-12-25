@@ -3,6 +3,7 @@ import ProtectedRouteWrap from '@/features/Auth/components/ProtectedRouteWrap/Pr
 import React from 'react'
 import styles from './styles.module.css'
 import { Metadata } from 'next';
+import AppTopNavBar from '@/features/Dashboard/components/AppTopNavBar/AppTopNavBar';
 
 export const metadata: Metadata = {
     title: 'Dashboard'
@@ -16,6 +17,7 @@ const DashboardLayout = ({
 
     return <>
         <ProtectedRouteWrap>
+            <AppTopNavBar />
             <section className={styles.dash__Layout}>
                 <SideBar />
 

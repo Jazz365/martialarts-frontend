@@ -44,6 +44,12 @@
     text-transform: capitalize;
 }
 
+.content__Detail span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .title {
     font-size: 0.85rem;
 }

@@ -7,6 +7,10 @@
     overflow: hidden;
 }
 
+.nav__Bar {
+    padding: 1rem 1.5rem;
+}
+
 @media screen and (max-width: 767px) {
     .content__Wrap {
         padding-left: 1rem;

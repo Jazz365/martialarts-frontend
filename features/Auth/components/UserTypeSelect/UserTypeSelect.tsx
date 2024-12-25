@@ -19,7 +19,12 @@ const UserTypeSelect = ({
                     return <Button
                         label={userTypesDict[type]}
                         useLink={true}
-                        linkLocation={`/auth/${authType}?type=${type}`}
+                        linkLocation={
+                            params.size > 0 ?
+                                `/auth/${authType}?type=${type}&${new URLSearchParams(params?.toString())?.toString()?.split('&')?.slice(1)?.join('')}`
+                            :
+                            `/auth/${authType}?type=${type}`
+                        }
                         key={type}
                         style={{
                             backgroundColor: params.get('type') === type ?

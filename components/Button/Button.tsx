@@ -16,6 +16,7 @@ const Button = ({
     handleClick=()=>{},
     hoverStyle,
     isLeadingIcon=true,
+    className='',
 }: {
     label: string;
     style?: CSSProperties;
@@ -28,12 +29,13 @@ const Button = ({
     handleClick?: () => void;
     hoverStyle?: CSSProperties;
     isLeadingIcon?: boolean;
+    className?: string;
 }) => {
     const [ mouseOver, setMouseOver ] = useState(false);
 
     if (useLink === true) return <>
         <Link
-            className={`${styles.btn}`}
+            className={`${styles.btn} ${className ?? ''}`}
             href={linkLocation}
             style={
                 mouseOver ?
@@ -72,7 +74,7 @@ const Button = ({
     
     return <>
         <button
-            className={`${styles.btn}`}
+            className={`${styles.btn} ${className ?? ''}`}
             onClick={handleClick}
             disabled={disabled}
             style={

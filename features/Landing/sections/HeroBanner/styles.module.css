@@ -16,6 +16,7 @@
 
 .hero__Content__Wrap {
     gap: 3rem;
+    position: relative;
 }
 
 .header__Content {
@@ -32,6 +33,27 @@
     text-align: center;
     width: 75%;
     margin: 0 auto;
+}
+
+.img__Content {
+    max-width: 100%;
+    border-radius: 50%;
+    position: absolute;
+    object-fit: cover;
+}
+
+.img__Content.i_1 {
+    left: -12%;
+    top: -10%;
+    width: 16rem;
+    height: 16rem;
+}
+
+.img__Content.i_2 {
+    right: -12%;
+    top: -10%;
+    width: 16rem;
+    height: 16rem;
 }
 
 @keyframes fadeInFromTop {
@@ -55,6 +77,10 @@
     .header {
         font-size: 1.8rem;
         width: 100%;
+    }
+
+    .img__Content {
+        display: none;
     }
 }
 

@@ -1,30 +1,44 @@
 'use client';
 
 import Image from 'next/image'
-import React, { CSSProperties, Suspense } from 'react'
+import React, { CSSProperties, Suspense, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
-import { IoAddOutline, IoGridOutline } from 'react-icons/io5'
+import { IoAddOutline, IoCloseOutline, IoGridOutline } from 'react-icons/io5'
 import Button from '../../components/Button/Button'
 import CategorySearchBar from '../../components/CategorySearchBar/CategorySearchBar'
 import { useUserContext } from '@/contexts/UserContext'
 import ProfileItem from '../ProfileItem/ProfileItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
+import useMobile from '@/hooks/useMobile';
+import { RxHamburgerMenu } from "react-icons/rx";
+import useClickOutside from '@/hooks/useClickOutside';
 
 
 const NavigationBar = ({
     showSearchBar=false,
     wrapperStyle={},
+    className
 }: {
     showSearchBar?: boolean;
     wrapperStyle?: CSSProperties;
+    className?: string;
 }) => {
     const { userDetails, userDetailsLoading } = useUserContext();
+    const [ showMobileMenu, setShowMobileMenu ] = useState(false);
+    const isMobile = useMobile();
+
+    const actionsRef = useRef<HTMLDivElement>(null);
+
+    useClickOutside({
+        elemRef: actionsRef,
+        handleClickOutside: () => setShowMobileMenu(false),
+    });
 
     return <>
         <nav 
-            className={styles.nav__Wrapper}
+            className={`${styles.nav__Wrapper} ${className ?? ''}`}
             style={wrapperStyle}
         >
             <Link 
@@ -41,7 +55,7 @@ const NavigationBar = ({
             </Link>
 
             {
-                showSearchBar &&
+                showSearchBar && !isMobile &&
                 <CategorySearchBar
                     hideTrendingStyles={true}
                     wrapperStyle={{
@@ -54,7 +68,30 @@ const NavigationBar = ({
                 />
             }
 
-            <section className={styles.nav__Actions}>
+            {
+                isMobile &&
+                <>
+                    {
+                        showMobileMenu ?
+                            <IoCloseOutline
+                                size={'1.2rem'}
+                                cursor={'pointer'}
+                                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                            />
+                        :
+                        <RxHamburgerMenu
+                            size={'1.2rem'}
+                            cursor={'pointer'}
+                            onClick={() => setShowMobileMenu(!showMobileMenu)}
+                        />
+                    }
+                </>
+            }
+
+            <section 
+                className={`${styles.nav__Actions} ${isMobile ? styles.mobile : ''} ${isMobile && showMobileMenu ? styles.show : ''}`}
+                ref={actionsRef}
+            >
                 <Suspense fallback={<>Loading...</>}>
                     {
                         userDetailsLoading ? 

@@ -22,14 +22,27 @@
     gap: 1.8rem;
 }
 
+.nav__Actions.mobile {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    flex-direction: column;
+    padding: 1.2rem 0 2rem;
+    background-color: #fff;
+    z-index: 10;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    display: none;
+}
+
+.nav__Actions.mobile.show {
+    display: flex;
+}
+
 @media screen and (max-width: 767px) {
     .nav__Wrapper {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    .nav__Actions {
-        display: none;
+        padding: 1.5rem 1rem 1.2rem;
     }
 }
 

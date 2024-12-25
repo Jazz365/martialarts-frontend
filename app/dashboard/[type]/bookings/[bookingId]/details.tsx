@@ -130,6 +130,11 @@ const SingleBookingDetailContent = ({
             </p>
 
             <p>
+                <span>phone number</span>
+                <span>{bookingDetail.phone}</span>
+            </p>
+
+            <p>
                 <span>status</span>
                 <span>{bookingDetail.status}</span>
             </p>

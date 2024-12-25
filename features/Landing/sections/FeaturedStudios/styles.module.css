@@ -31,13 +31,15 @@
 }
 
 .style__item {
-    font-size: 0.875rem;
-    background-color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 24px;
-    font-size: 0.875rem;
-    text-transform: capitalize;
-    color: var(--primary-app-color);
+    background-color: #fff !important;
+    padding: 0.5rem 1rem !important;
+    text-transform: capitalize !important;
+    color: #000 !important;
+}
+
+.style__item.active {
+    background-color: #000 !important;
+    color: #fff !important;
 }
 
 .items__Wrap {
@@ -83,6 +85,8 @@
     .header__Styles {
         overflow-x: auto;
         scrollbar-width: none;
+        flex-wrap: nowrap;
+        max-width: 100%;
     }
 
     .style__item {

@@ -26,7 +26,7 @@ const SearchFilters = () => {
         <section className={styles.content}>
             <section className={styles.filters__Wrap}>
                 <FilterItem 
-                    title='style'
+                    title='place'
                     filterKey='style'
                     filters={
                         allStyles
@@ -44,7 +44,7 @@ const SearchFilters = () => {
                 />
 
                 <FilterItem 
-                    title='place'
+                    title='style'
                     filterKey='type_of_place_id'
                     filters={placeTypes.map(place => ({ name: place.name, value: String(place.id) }))}
                     currentActiveFiltersForItem={activeFilters.type_of_place_id}

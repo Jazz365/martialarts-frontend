@@ -5,10 +5,10 @@ import styles from './styles.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
-import Button from '@/components/Button/Button'
 import { useAppContext } from '@/contexts/AppContext';
 import sampleImage1 from '../../../../assets/blogSamples/blog-1.png';
 import PageLoader from '@/components/PageLoader/PageLoader';
+import { estimateReadingTime } from '@/helpers/helpers';
 
 
 const maxArticleTitleLength = 40;
@@ -67,7 +67,7 @@ const Blog = () => {
                                         <div className={styles.article__Footer}>
                                             {/* <p>{new Date(blog.created_at).toString().split(' ').slice(0, 4).join(' ')}</p>
                                             <p>.</p> */}
-                                            <p>{5} minute read</p>
+                                            <p>{estimateReadingTime(blog.content.length)} minute read</p>
                                         </div>
                                     </div>
                                 </Link>

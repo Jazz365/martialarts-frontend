@@ -28,6 +28,13 @@
     white-space: nowrap;
 }
 
+.input__Col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+}
+
 @media screen and (max-width: 767px) {
     .form__Wrap {
         width: 90%;

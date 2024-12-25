@@ -24,7 +24,7 @@ class AuthService {
                 throw Error(errorMsg);
             }
 
-            toast.success('Successfully registered account! Please login');
+            toast.success('Successfully registered account!');
 
             return jsonRes;
         } catch (error) {
@@ -51,6 +51,58 @@ class AuthService {
             }
 
             toast.success('Successfully logged in!');
+
+            return jsonRes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async requestPasswordReset (data={}) {
+        try {
+            const res = await fetch(`${this.getAuthEndpoint('forgot-password')}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = jsonRes[Object.keys(jsonRes || {})[0]] ?? 'Something went wrong. Please try again later';
+                toast.error(errorMsg);
+                
+                throw Error(errorMsg);
+            }
+
+            toast.success('Successfully sent email to reset account password!');
+
+            return jsonRes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async resetPassword (data={}) {
+        try {
+            const res = await fetch(`${this.getAuthEndpoint('reset-password')}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = jsonRes[Object.keys(jsonRes || {})[0]] ?? 'Something went wrong. Please try again later';
+                toast.error(errorMsg);
+                
+                throw Error(errorMsg);
+            }
+
+            toast.success('Successfully reset account password! Please login');
 
             return jsonRes;
         } catch (error) {

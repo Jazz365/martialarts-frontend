@@ -10,7 +10,7 @@ const SubscriptionCard = ({
 }: {
     plan: SubscriptionPlan;
 }) => {
-    return (
+    return <>
         <section className={styles.sub__Card}>
             <h5 className={styles.title}>{plan.title}</h5>
 
@@ -49,7 +49,7 @@ const SubscriptionCard = ({
                 }}
             />
         </section>
-    )
+    </>
 }
 
 export default SubscriptionCard

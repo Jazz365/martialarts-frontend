@@ -57,12 +57,12 @@ const TopStatsRow = () => {
 
                     <StatItem 
                         title='total reviews'
-                        count={1320}
+                        count={0}
                     />
                     
                     <StatItem 
                         title={'average rating'}
-                        count={4.6}
+                        count={0.0}
                     />
                 </>
             }

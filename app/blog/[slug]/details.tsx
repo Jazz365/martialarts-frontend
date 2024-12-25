@@ -15,6 +15,7 @@ import Link from 'next/link';
 import sampleImage1 from '../../../assets/blogSamples/blog-1.png';
 import NavigationBar from '@/layouts/NavigationBar/NavigationBar';
 import useMobile from '@/hooks/useMobile';
+import { estimateReadingTime } from '@/helpers/helpers';
 
 
 const maxArticleTitleLength = 40;
@@ -88,7 +89,7 @@ const SingleBlogDetails = ({
                 <div className={`${styles.article__Footer} ${styles.top}`}>
                   {/* <p>{new Date(blogDetails.created_at).toString().split(' ').slice(0, 4).join(' ')}</p>
                   <p>.</p> */}
-                  <p>{5} minute read</p>
+                  <p>{estimateReadingTime(blogDetails.content.length)} minute read</p>
                 </div>
 
                 <div className={styles.share__Wrap}>
@@ -165,7 +166,7 @@ const SingleBlogDetails = ({
                             <div className={styles.article__Footer}>
                               {/* <p>{new Date(blog.created_at).toString().split(' ').slice(0, 4).join(' ')}</p>
                               <p>.</p> */}
-                              <p>{5} minute read</p>
+                              <p>{estimateReadingTime(blogDetails.content.length)} minute read</p>
                             </div>
                           </div>
                         </Link>

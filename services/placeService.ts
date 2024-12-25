@@ -25,6 +25,24 @@ class PlaceService {
         }
     }
 
+    async editPlace (token: string, placeId: number, data={}): Promise<IPlace> {
+        try {
+            const res = (await axios.put(`${this.getPlaceEndpoint(`${placeId}/update`)}`, data, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                }
+            })).data;
+            
+            toast.success('Successfully edited place details!');
+
+            return res as IPlace;
+        } catch (error) {
+            toast.error('Something went wrong, please try again later');
+            
+            throw error;
+        }
+    }
+
     async getAllPlaces () {
         try {
             const res = await fetch(`${this.getPlaceEndpoint('')}`, {

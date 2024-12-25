@@ -13,9 +13,10 @@ export const subscriptionPlans: SubscriptionPlan[] = [
         pricing: 29,
         paymentInterval: 'month',
         benefits: [
-            'unlimited places',
-            'unlimited places',
-            'unlimited places',
+            'Monthly subscription',
+            'No commitment - cancel anytime.',
+            'Unlimited listings and access to all features.',
+            'Full flexibility to manage your account at any time',
         ]
     },
     {
@@ -24,9 +25,10 @@ export const subscriptionPlans: SubscriptionPlan[] = [
         pricing: 25,
         paymentInterval: 'booking',
         benefits: [
-            'charged only for successful booking',
-            'charged only for successful booking',
-            'charged only for successful booking',
+            'One-time fee per student upon attendance.',
+            'Credit Card details are required for enrollment.',
+            'Unlimited listings and access to all features.',
+            'Full flexibility to manage your account at any time.',
         ]
     }
 ]

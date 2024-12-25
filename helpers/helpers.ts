@@ -50,3 +50,13 @@ export const formatTimeString = (timeStr: string) => {
 
     return date.toLocaleString('en-US', options);
 }
+
+export const estimateReadingTime = (textLength: number) => {
+    const wordsPerMinute = 200;
+    const avgWordLength = 5;
+  
+    const totalWords = textLength / avgWordLength;
+    const readingTimeMinutes = totalWords / wordsPerMinute;
+  
+    return Math.ceil(readingTimeMinutes);
+}

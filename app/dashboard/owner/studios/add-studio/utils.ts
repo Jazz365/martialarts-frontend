@@ -68,7 +68,7 @@ export const compulsoryDetailKeys = [
     newPlaceDetailKeysDict.email,
     newPlaceDetailKeysDict.locations,
     newPlaceDetailKeysDict.benefits,
-    newPlaceDetailKeysDict.policy,
+    // newPlaceDetailKeysDict.policy,
     newPlaceDetailKeysDict.faqs,
     newPlaceDetailKeysDict.images,
 ]
