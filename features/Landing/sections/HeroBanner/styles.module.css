@@ -78,6 +78,10 @@
         font-size: 1.8rem;
         width: 100%;
     }
+
+    .img__Content {
+        display: none;
+    }
 }
 
 @media (min-width: 767.98px) and (max-width: 1200px) {
