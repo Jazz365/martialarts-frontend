@@ -21,6 +21,7 @@ type IPlace = {
     reviews: IPlaceReviews[];
     benefits: string;
     pricing: number;
+    pricing_type?: string;
     place_styles: IMartialArtStyle[];
     place_caters_to: ICatersTo[];
     // place_age_groups: IPlaceAgeGroups[];

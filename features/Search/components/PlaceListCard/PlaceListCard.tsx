@@ -121,7 +121,10 @@ const PlaceListCard = ({
               width={0}
               height={
                 isListView && !isMobile ?
-                  370
+                  showMap ?
+                    370
+                  :
+                  400
                 :
                 imageHeight ??
                 340

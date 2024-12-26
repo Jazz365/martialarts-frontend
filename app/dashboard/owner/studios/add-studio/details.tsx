@@ -23,6 +23,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
 import StyleAddModal from '@/components/StyleAddModal/StyleAddModal';
+import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
 
 
 const AddPlaceDetails = () => {
@@ -485,13 +486,7 @@ const AddPlaceDetails = () => {
             title='documents'
             extraInfo='Drag here health declaration or other documents for the student to confirm before joining class'
         >
-            <TextInputComponent
-                name={newPlaceDetailKeysDict.policy}
-                value={details.policy}
-                onChange={handleDetailUpdate}
-                isTextArea
-                borderRadius='12px'
-            />
+            <DocumentsAdd />
         </AddItemWrapper>
 
         <Button 

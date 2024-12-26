@@ -15,6 +15,7 @@ import RequiredIndicator from '../RequiredIndicator/RequiredIndicator';
 import { toast } from 'sonner';
 import { BookingService } from '@/services/bookingService';
 import { AppConstants } from '@/utils/constants';
+import SelectItem from '../SelectItem/SelectItem';
 
 
 const BookingForm = () => {
@@ -298,10 +299,11 @@ const BookingForm = () => {
                                     value={bookingDetails.phone}
                                     onChange={handleDetailUpdate}
                                     borderRadius='12px'
+                                    isRequired
                                 />
 
                                 <section className={styles.detail__item}>
-                                    <p className={styles.label__Item}>select style preferences <RequiredIndicator /></p>
+                                    <p className={styles.label__Item}>your style preferences <RequiredIndicator /></p>
                                     <section className={styles.listing__Wrap}>
                                         {
                                             React.Children.toArray(selectedPlace?.place_styles
@@ -326,6 +328,20 @@ const BookingForm = () => {
                                         }
                                     </section>
                                 </section>
+
+                                <SelectItem
+                                    label='location'
+                                    options={
+                                        selectedPlace?.place_locations?.map(location => ({
+                                            id: location.id,
+                                            label: `${location.address}, ${location.city}, ${location.state}`,
+                                            value: `${location.address}, ${location.city}, ${location.state}`,
+                                        })) ?? []
+                                    }
+                                    value={bookingDetails.location}
+                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.location, val)}
+                                    isRequired
+                                />
 
                                 {
                                     bookingDetails.is_for_child === true && <>

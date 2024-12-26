@@ -21,7 +21,7 @@ const AllPlacesDetails = () => {
         <PageLoader />
     </>
 
-    if (userPlaces.length > 1) return <section className={styles.empty__places}>
+    if (userPlaces.length < 1) return <section className={styles.empty__places}>
         <Image
             src={mascot}
             alt='mascot img'
@@ -35,7 +35,7 @@ const AllPlacesDetails = () => {
     </section>
     
     return <>
-        <PaginationItem 
+        <PaginationItem
             currentPage={currentPage}
             updateCurrentPage={setCurrentPage}
             itemsPerPage={6}

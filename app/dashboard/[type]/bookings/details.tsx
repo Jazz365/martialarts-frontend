@@ -24,6 +24,18 @@ const BookingsDetail = () => {
     const params = useSearchParams();
 
     return <>
+        <h1 className={styles.header}>
+            {
+                !userDetails ?
+                    ''
+                :
+                userDetails?.is_owner === false ?
+                    'Your classes'
+                :
+                'Your students'
+            }
+        </h1>
+
         <section className={styles.links__Wrap}>
             {
                 React.Children.toArray(bookingStatusList.map(stat => {

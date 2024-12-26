@@ -36,7 +36,7 @@ const SearchFilters = () => {
                             return 0;
                         })
                         .map(style => ({ 
-                            name: `${style.name} ${style.is_featured === true ? '(featured*)' : ''}`, 
+                            name: `${style.name}`, 
                             value: style.name 
                         }))
                     }

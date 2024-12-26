@@ -52,6 +52,7 @@ const Blog = () => {
                                         alt={blog.title}
                                         src={sampleImage1}
                                         className={styles.article__Img}
+                                        priority
                                     />
 
                                     <div className={styles.mask}>

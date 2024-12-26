@@ -8,6 +8,7 @@ import styles from './styles.module.css'
 import { Tooltip } from 'react-tooltip';
 import Link from 'next/link';
 import { useUserContext } from '@/contexts/UserContext';
+import { HiOutlineBuildingOffice2 } from 'react-icons/hi2';
 
 
 const BookingSummaryItem = ({
@@ -41,11 +42,11 @@ const BookingSummaryItem = ({
             <section className={styles.item__Details__Wrap}>
                 <section className={styles.item__Details}>
                     <div className={styles.item__Schedule__Time}>
-                        <AiFillClockCircle 
+                        <HiOutlineBuildingOffice2 
                             fill='#333'
                             size={'1rem'}
                         />
-                        <p>{formatTimeString(booking.time)}</p>
+                        <p>{booking?.place?.name}</p>
                     </div>
                     
                     

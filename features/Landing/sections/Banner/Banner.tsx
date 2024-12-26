@@ -51,6 +51,7 @@ const Banner = () => {
                         alt={'banner illustration'}
                         src={astronaut}
                         className={styles.banner__Img}
+                        priority
                     />
                 </section>
             </section>

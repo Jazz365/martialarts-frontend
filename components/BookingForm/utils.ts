@@ -5,6 +5,7 @@ export interface BookingDetails {
     name: string;
     phone?: string;
     email: string;
+    location: string;
     is_for_child: boolean | null;
     child_name?: string;
     child_dob?: string;
@@ -22,6 +23,7 @@ export const initialBookingDetails: BookingDetails = {
     name: '',
     phone: '',
     email: '',
+    location: '',
     is_for_child: null,
     selected_styles: [],
     agreed_to_health_declaration: false,
@@ -43,6 +45,7 @@ export const bookingDetailsDict = {
     selected_styles: 'selected_styles',
     agreed_to_health_declaration: 'agreed_to_health_declaration',
     agreed_to_liability_waiver: 'agreed_to_liability_waiver',
+    location: 'location',
 }
 
 export const formPageDetail = [
@@ -67,6 +70,8 @@ export const requiredInfo: {
         bookingDetailsDict.name,
         bookingDetailsDict.email,
         bookingDetailsDict.selected_styles,
+        bookingDetailsDict.phone,
+        bookingDetailsDict.location,
     ],
     3: [
         bookingDetailsDict.date,
