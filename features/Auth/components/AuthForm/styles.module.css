@@ -42,4 +42,8 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
+
+    .legal__Info {
+        flex-wrap: wrap;
+    }
 }

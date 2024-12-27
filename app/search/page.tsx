@@ -1,9 +1,8 @@
 import NavigationBar from '@/layouts/NavigationBar/NavigationBar'
 import React from 'react'
 import SearchFilters from '@/features/Search/sections/Filters/Filters'
-import PlacesMap from '@/features/Search/sections/Map/Map'
-import SearchPlacesListing from '@/features/Search/sections/Places/Places'
 import styles from './styles.module.css'
+import SearchPageDetails from './details'
 
 const SearchPage = () => {
   return <>
@@ -14,10 +13,7 @@ const SearchPage = () => {
     
     <SearchFilters />
     
-    <section className={styles.content__Wrap}>
-      <SearchPlacesListing />
-      <PlacesMap />
-    </section>
+    <SearchPageDetails />
   </>
 }
 

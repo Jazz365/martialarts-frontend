@@ -114,10 +114,10 @@ const SingleBookingDetailContent = ({
                 <span>{new Date(bookingDetail?.date).toDateString()}</span>
             </p>
 
-            <p>
+            {/* <p>
                 <span>time</span>
                 <span>{formatTimeString(bookingDetail?.time)}</span>
-            </p>
+            </p> */}
 
             <p>
                 <span>email</span>
@@ -132,6 +132,21 @@ const SingleBookingDetailContent = ({
             <p>
                 <span>phone number</span>
                 <span>{bookingDetail.phone}</span>
+            </p>
+
+            <p>
+                <span>studio</span>
+                <span>{bookingDetail.place.name}</span>
+            </p>
+
+            <p>
+                <span>location</span>
+                <span>{bookingDetail.location}</span>
+            </p>
+
+            <p>
+                <span>style preferences</span>
+                <span>{bookingDetail.selected_styles.map(style => style.name).join(', ')}</span>
             </p>
 
             <p>

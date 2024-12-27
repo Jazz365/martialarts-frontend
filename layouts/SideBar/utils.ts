@@ -49,12 +49,12 @@ export const userNavLinks: LinkItemDetail[] = [
         id: 2,
         location: `${generateDashLinkForUser(false)}/bookings`,
         icon: IoCalendarOutline,
-        text: 'bookings',
+        text: 'classes',
     },
     {
         id: 3,
         location: `${generateDashLinkForUser(false)}/places`,
         icon: HiOutlineBuildingOffice2,
-        text: 'saved places',
+        text: 'saved studios',
     },
 ]

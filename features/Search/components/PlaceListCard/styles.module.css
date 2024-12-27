@@ -20,11 +20,12 @@
     align-items: center;
     width: 100%;
     padding: 0.45rem;
-    height: calc(400px + calc(0.45rem * 2));
+    height: 100%;
 }
 
 .list__Card.row.full {
     width: calc(calc(100% / 2) - 0.75rem);
+    max-height: calc(420px + calc(0.45rem * 2));
 }
 
 .list__Card.col {

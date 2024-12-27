@@ -26,6 +26,10 @@
     font-size: 0.875rem;
 }
 
+.benefits li.closed {
+    color: #e3342f;
+}
+
 @media screen and (max-width: 767px) {
     .header {
         font-size: 1.2rem;

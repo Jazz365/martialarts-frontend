@@ -17,6 +17,7 @@ const SinglePlaceLocation = () => {
                 minHeight={isMobile ? '14rem' : '24rem'}
                 width='100%'
                 showContentOnSmallScreen={true}
+                zoom={13}
             />
         </section>
     )

@@ -76,4 +76,10 @@
     .place__Image__Wrap {
         width: 100%;
     }
+
+    .add__New__Item,
+    .place__Image__Wrap,
+    .place__Image {
+        height: 16rem;
+    }
 }
