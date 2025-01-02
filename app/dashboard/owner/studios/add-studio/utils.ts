@@ -1,11 +1,25 @@
 import { getAllDaysOfTheWeek } from "@/helpers/helpers";
 import { v4 as uuidv4 } from 'uuid';
 
-export const pricingTypes = [
-    'monthly',
-    'per class',
-    'private'
-]
+const pricingTypesDict = {
+    monthlyPricing: 'monthly',
+    classPricing: 'per class',
+    privatePricing: 'private',
+}
+
+export const pricingTypes = Object.keys(pricingTypesDict).map(key => {
+    return pricingTypesDict[key as keyof typeof pricingTypesDict]
+});
+
+export const formatPricingType = (type: string) => {
+    const typeInLower = type.toLowerCase();
+
+    if (typeInLower === pricingTypesDict.monthlyPricing) return 'month';
+    if (typeInLower === pricingTypesDict.classPricing) return 'class';
+    if (typeInLower === pricingTypesDict.privatePricing) return 'private';
+
+    return 'month';
+}
 
 export interface NewPlaceDetail {
     name: string;
@@ -28,8 +42,9 @@ export interface NewPlaceDetail {
     gender: string;
     caters_to: number[];
     policy: string;
-    reviews: IPlaceReviews[];
+    reviews: {}[];
     is_featured: boolean;
+    documents: IPlaceDocuments[];
 }
 
 export const newPlaceDetailKeysDict = {
@@ -57,6 +72,7 @@ export const newPlaceDetailKeysDict = {
     policy: 'policy',
     reviews: 'reviews',
     is_featured: 'is_featured',
+    documents: 'documents',
 }
 
 export const compulsoryDetailKeys = [
@@ -107,6 +123,7 @@ export const initialNewPlaceDetail: NewPlaceDetail = {
         }
     ],
     is_featured: false,
+    documents: [],
 };
 
 export const rateOptions = [
@@ -197,6 +214,18 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail) => {
             imagesDetail.forEach(item => {
                 if (item.image instanceof File) {
                     formData.append(`${key}`, item.image as File)
+                }
+            });
+
+            continue;
+        }
+
+        if (key === newPlaceDetailKeysDict.documents) {
+            const documentDetail = value as IPlaceDocuments[];
+
+            documentDetail.forEach(item => {
+                if (item.file && item.file instanceof File) {
+                    formData.append(`${key}`, item.file as File)
                 }
             });
 

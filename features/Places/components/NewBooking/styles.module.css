@@ -29,6 +29,17 @@
     width: 100%;
 }
 
+.open__Day {
+    background-color: var(--primary-app-color);
+    background-color: #28a745;
+    color: #fff;
+}
+
+.disabled__Day {
+    background-color: #e8e8e8;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 767px) {
     .content__Wrap {
         padding: 2rem 1rem;

@@ -43,7 +43,7 @@ const PlacesMap = ({
     >
       <APIProvider
         apiKey=''
-        // apiKey={process.env.NEXT_PUBLIC_MAP_KEY}
+        // apiKey={process.env.NEXT_PUBLIC_MAP_KEY ?? ''}
       >
         <Map
           defaultZoom={zoom}

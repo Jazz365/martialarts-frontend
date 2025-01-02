@@ -27,6 +27,9 @@ const PlacesPage = () => {
                     }
                     useLink={true}
                     linkLocation={`${generateDashLinkForUser(true)}/studios/add-studio`}
+                    style={{
+                        backgroundColor: 'var(--primary-app-color)'
+                    }}
                 />
             </section>
 

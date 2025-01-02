@@ -150,12 +150,13 @@ const MastersAddComponent = ({
                     padding: '0.5rem 0.75rem',
                     fontSize: '0.75rem',
                     width: 'max-content',
-                    background: 'transparent',
+                    backgroundColor: 'transparent',
                     border: '1px solid #000',
                     color: '#000',
                 }}
                 hoverStyle={{
-                    background: '#000',
+                    backgroundColor: 'var(--primary-app-color)',
+                    borderColor: 'var(--primary-app-color)',
                     color: '#fff'
                 }}
                 handleClick={handleAddNewItem}

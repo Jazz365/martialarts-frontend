@@ -5,13 +5,14 @@ export interface BookingDetails {
     name: string;
     phone?: string;
     email: string;
-    location: string;
+    location_id: string;
     is_for_child: boolean | null;
     child_name?: string;
     child_dob?: string;
     child_phone_number?: string;
     child_email?: string;
     selected_styles: number[];
+    class_id: string;
     agreed_to_health_declaration: boolean;
     agreed_to_liability_waiver: boolean;
 }
@@ -23,11 +24,12 @@ export const initialBookingDetails: BookingDetails = {
     name: '',
     phone: '',
     email: '',
-    location: '',
+    location_id: '',
     is_for_child: null,
     selected_styles: [],
     agreed_to_health_declaration: false,
     agreed_to_liability_waiver: false,
+    class_id: '',
 }
 
 export const bookingDetailsDict = {
@@ -45,38 +47,56 @@ export const bookingDetailsDict = {
     selected_styles: 'selected_styles',
     agreed_to_health_declaration: 'agreed_to_health_declaration',
     agreed_to_liability_waiver: 'agreed_to_liability_waiver',
-    location: 'location',
+    location_id: 'location_id',
+    class_id: 'class_id',
 }
 
 export const formPageDetail = [
     {
         id: 1,
-        name: 'details',
+        name: 'place detail',
     },
     {
         id: 2,
-        name: 'personal information',
+        name: 'Select Class & Time',
     },
     {
         id: 3,
-        name: 'confirmation',
+        name: 'select student type',
+    },
+    {
+        id: 4,
+        name: 'enter personal information',
+    },
+    {
+        id: 5,
+        name: 'review studio health declaration(s)',
+    },
+    {
+        id: 6,
+        name: 'final confirmation',
     },
 ]
 
 export const requiredInfo: {
     [ key: number ]:  string[]
 } = {
+    1: [
+        bookingDetailsDict.selected_styles,
+    ],
     2: [
+        bookingDetailsDict.class_id,
+        bookingDetailsDict.date,
+    ],
+    3: [],
+    4: [
         bookingDetailsDict.name,
         bookingDetailsDict.email,
-        bookingDetailsDict.selected_styles,
         bookingDetailsDict.phone,
-        bookingDetailsDict.location,
+        bookingDetailsDict.location_id,
     ],
-    3: [
-        bookingDetailsDict.date,
-        bookingDetailsDict.time,
-    ],
+    5: [],
+    6: [],
 }
 
 export const bookingUserOptions = [

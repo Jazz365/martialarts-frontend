@@ -13,6 +13,7 @@ import { useAppContext } from '@/contexts/AppContext'
 const Home = () => {
     const {
         placesViewStats,
+        placesViewStatLoading,
     } = useAppContext();
 
     return <>
@@ -28,6 +29,7 @@ const Home = () => {
                     data={placesViewStats}
                     dataKeyName='views'
                     labelKeyName='name'
+                    isLoading={placesViewStatLoading}
                 />
 
                 <Bookings />

@@ -44,6 +44,22 @@ const NewBooking = ({
         setSelectedPlaceId(place.id);
     }
 
+    const getDayName = (date: Date) => {
+        const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
+        return date.toLocaleString('en-US', options).toLowerCase(); // 'monday', 'tuesday', etc.
+      };
+    
+    const tileClassName = ({ date }: { date: Date }) => {
+        const dayName = getDayName(date);
+        const openDaysForPlace = place.place_activity_hours.flatMap(item => item.opening_time.length > 0 && item.closing_time.length > 0 ? [item.day.toLocaleLowerCase()] : []);
+
+        if (openDaysForPlace.includes(dayName)) {
+            return styles.open__Day;
+        }
+
+        return styles.disabled__Day;
+    };
+
     return (
         <section className={styles.content__Wrap}>
             <h3 className={styles.title}>select your date</h3>
@@ -68,11 +84,12 @@ const NewBooking = ({
                             }
                         </span>
                     }}
+                    tileClassName={tileClassName}
                 />
             </section>
 
             {
-                userDetails?.id === place.owner ?
+                userDetails?.is_owner === true ?
                     <></>
                 :
                 <>

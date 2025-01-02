@@ -20,6 +20,10 @@
     transition: all 0.3s ease-in-out;
 }
 
+.details__Wrap summary::-webkit-details-marker {
+    display:none;
+}
+
 .question__Wrap {
     gap: 1rem;
 }
@@ -55,11 +59,11 @@
     }
 
     .question {
-        font-size: 0.75rem;
+        font-size: 1rem;
     }
 
     .answer {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
         margin-left: calc(2rem + 1rem);
     }
 }

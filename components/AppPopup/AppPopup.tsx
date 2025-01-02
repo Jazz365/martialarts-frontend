@@ -6,9 +6,11 @@ import Image from 'next/image'
 
 
 const AppPopup = ({
+    title='Thanks For Visiting Martialarts.guru!',
     content="We're constantly improving and adding new Studios.\nStay tuned for more exciting updates!",
     hidePopup=()=>{},
 }: {
+    title?: string;
     content?: string;
     hidePopup?: () => void;
 }) => {
@@ -33,7 +35,7 @@ const AppPopup = ({
             />
             
             <section className={styles.info}>
-                <h2 className={styles.header}>Thanks For Visiting Martialarts.guru!</h2>
+                <h2 className={styles.header}>{title}</h2>
                 <p>{content}</p>
             </section>
         </section>

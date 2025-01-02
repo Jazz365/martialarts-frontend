@@ -60,3 +60,56 @@ export const estimateReadingTime = (textLength: number) => {
   
     return Math.ceil(readingTimeMinutes);
 }
+
+
+export const getTimeAgoFromDate = (date: string) => {
+    const now = new Date();
+    const inputDate = new Date(date);
+    const diffInSeconds = Math.floor((now.getTime() - inputDate.getTime()) / 1000);
+
+    if (diffInSeconds < 60) {
+        return `${diffInSeconds} secs ago`;
+    }
+
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) {
+        return `${diffInMinutes} mins ago`;
+    }
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) {
+        return `${diffInHours} hr${diffInHours > 1 ? 's' : ''} ago`;
+    }
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 30) {
+        return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    }
+
+    const diffInMonths = Math.floor(diffInDays / 30);
+    if (diffInMonths < 12) {
+        return `${diffInMonths} month${diffInMonths > 1 ? 's' : ''} ago`;
+    }
+
+    const diffInYears = Math.floor(diffInMonths / 12);
+    return `${diffInYears} year${diffInYears > 1 ? 's' : ''} ago`;
+}
+
+export const getYoutubeEmbedVideoLink = (url?: string) => {
+    const defaultPlaceYoutubeUrl = "https://www.youtube.com/embed/bxuYDT-BWaI";
+    if (!url) return defaultPlaceYoutubeUrl;
+
+    const embedPattern = /^https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/;
+    if (embedPattern.test(url)) {
+        return url;
+    }
+
+    const videoIdPattern = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(videoIdPattern);
+
+    if (match && match[1]) {
+        return `https://www.youtube.com/embed/${match[1]}`;
+    }
+
+    return defaultPlaceYoutubeUrl;
+}

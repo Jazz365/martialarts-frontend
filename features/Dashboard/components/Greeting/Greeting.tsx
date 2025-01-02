@@ -43,6 +43,9 @@ const Greeting = () => {
                     :
                     `/search?view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
                 }
+                style={{
+                    backgroundColor: 'var(--primary-app-color)',
+                }}
             />
         </section>
     )

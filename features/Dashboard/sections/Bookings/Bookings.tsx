@@ -8,6 +8,7 @@ import { useUserContext } from '@/contexts/UserContext'
 import BookingSummaryItem from '../../components/BookingSummaryItem/BookingSummaryItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { useAppContext } from '@/contexts/AppContext';
+import PageLoader from '@/components/PageLoader/PageLoader';
 
 
 const Bookings = () => {
@@ -23,6 +24,9 @@ const Bookings = () => {
             <section className={styles.title__Wrap}>
                 <h3 className={styles.title}>
                     {
+                        !userDetails ?
+                            ''
+                        :
                         userDetails?.is_owner === true ?
                             'New students'
                         :
@@ -44,19 +48,24 @@ const Bookings = () => {
                 />
             </section>
 
-            <section className={styles.bookings}>
-                {
-                    React.Children.toArray(bookings
-                        .filter(booking => booking.status === 'pending')
-                        .map(booking => {
-                            return <BookingSummaryItem 
-                                booking={booking}
-                                key={booking.id}
-                            />
-                        })
-                    )
-                }
-            </section>
+            {
+                bookingsLoading ?
+                    <PageLoader />
+                :
+                <section className={styles.bookings}>
+                    {
+                        React.Children.toArray(bookings
+                            .filter(booking => booking.status === 'pending')
+                            .map(booking => {
+                                return <BookingSummaryItem 
+                                    booking={booking}
+                                    key={booking.id}
+                                />
+                            })
+                        )
+                    }
+                </section>
+            }
         </section>
     </>
 }
