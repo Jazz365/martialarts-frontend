@@ -6,6 +6,7 @@ import styles from './styles.module.css'
 import Image from 'next/image';
 import useMobile from '@/hooks/useMobile';
 import Button from '@/components/Button/Button';
+import { getYoutubeEmbedVideoLink } from '@/helpers/helpers';
 
 
 const maxDescriptionCap = 800;
@@ -16,12 +17,14 @@ const SinglePlaceDescription = ({
     masters,
 }: {
     description: string;
-    video: string;
+    video?: string;
     masters: IPlaceMasterImage[];
 }) => {
     const [ showFullDescription, setShowFullDescription ] = useState(false);
     const isMobile = useMobile();
 
+    console.log(video);
+    
     return (
         <section className={styles.content__Wrap}>
             <h3 className={styles.header}>about this place</h3>
@@ -31,7 +34,7 @@ const SinglePlaceDescription = ({
                     <iframe
                         width="100%"
                         height={isMobile ? 200 : 300}
-                        src="https://www.youtube.com/embed/bxuYDT-BWaI"
+                        src={getYoutubeEmbedVideoLink(video)}
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen>
                     </iframe>

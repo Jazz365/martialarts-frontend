@@ -50,6 +50,8 @@
 @media screen and (max-width: 767px) {
     .img__Content.i_main {
         transform: translate(-50%, -50%);
+        width: 30rem;
+        height: 30rem;
     }
 
     .img__Content.i_1,

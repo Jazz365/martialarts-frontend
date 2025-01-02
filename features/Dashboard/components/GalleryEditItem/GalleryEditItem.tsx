@@ -74,6 +74,9 @@ const GalleryEditItem = ({
             <label className={styles.add__New__Item}>
                 <IoMdAddCircle 
                     size={'4rem'}
+                    style={{
+                        fill: 'var(--primary-app-color)',
+                    }}
                 />
 
                 <input 

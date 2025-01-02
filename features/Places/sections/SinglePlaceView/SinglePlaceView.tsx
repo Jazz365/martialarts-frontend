@@ -14,6 +14,7 @@ import OpeningHours from '../../components/OpeningHours/OpeningHours';
 import FaqInfo from '../../components/FaqInfo/FaqInfo';
 import NewBooking from '../../components/NewBooking/NewBooking';
 import SinglePlaceLocation from '../../components/SinglePlaceLocation/SinglePlaceLocation';
+import PlaceReviews from '../../components/PlaceReviews/PlaceReviews';
 
 
 const SinglePlaceView = ({
@@ -36,10 +37,12 @@ const SinglePlaceView = ({
             setFoundPlace(res);
             setLoaded(true);
             setLoading(false);
+
+            window.scrollTo(0, 0);
         }).catch(() => {
             setLoaded(true);
             setLoading(false);
-        })
+        });
     }, [id])
 
     if (!id) return <section style={{ height: '70dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></section>
@@ -87,7 +90,10 @@ const SinglePlaceView = ({
 
                 <Divider />
 
-                <SinglePlaceLocation />
+                <SinglePlaceLocation 
+                    placeName={foundPlace.name}
+                    locations={foundPlace.place_locations}
+                />
 
                 <Divider />
 
@@ -99,6 +105,12 @@ const SinglePlaceView = ({
 
                 <FaqInfo 
                     placeFaqs={foundPlace.place_faqs}
+                />
+
+                <Divider />
+
+                <PlaceReviews 
+                    reviews={foundPlace.place_reviews ?? []}
                 />
             </section>
 

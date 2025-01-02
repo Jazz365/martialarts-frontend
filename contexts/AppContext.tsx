@@ -178,10 +178,10 @@ const AppContextProvider = ({
 
     useLoadData(
         placesViewStatLoaded,
-        setPlaceTypesLoading,
+        setPlacesViewStatLoading,
         placeService.getPlaceViewStats.bind(placeService),
         setPlacesViewStats,
-        setPlaceTypesLoaded,
+        setPlacesViewStatLoaded,
         {
             authorisationRequired: true,
             hasDependency: true,

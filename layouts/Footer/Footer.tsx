@@ -74,11 +74,11 @@ const Footer = () => {
 
                     <ul className={styles.footer__Links}>
                         <li>
-                            <Link href={''}>Email: dummy@dummy.com</Link>
+                            <Link href={'mailto:team@martialarts.guru'}>Email: team@martialarts.guru</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link href={''}>Phone: +911 911 911</Link>
-                        </li>
+                        </li> */}
                     </ul>
 
                     <section className={styles.footer__Icons}>

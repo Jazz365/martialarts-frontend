@@ -1,21 +1,25 @@
 'use client';
 
 
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styles from './styles.module.css'
 import { IoMdAddCircle } from 'react-icons/io'
 import { v4 as uuidv4 } from 'uuid';
 import { IoClose } from 'react-icons/io5';
 
-interface DocumentItem {
-    id: string | number;
-    name: string;
-    file: object
-}
 
-const DocumentsAdd = () => {
+const DocumentsAdd = ({
+    items=[],
+    updateItemsArr=()=>{},
+}: {
+    items: IPlaceDocuments[];
+    updateItemsArr: (items: IPlaceDocuments[]) => void;
+}) => {
     const [ isOver, setOver ] = useState(false);
-    const [ documents, setDocuments ] = useState<DocumentItem[]>([]);
+
+    const documents = useMemo<IPlaceDocuments[]>(() => {
+        return items;
+    }, [items]);
 
     const handleFilesChange = async (files: FileList | null) => {
         if (!files) return;
@@ -23,7 +27,9 @@ const DocumentsAdd = () => {
         const items = Array.from(files).map(file => {
             return {
                 id: uuidv4(),
-                name: file.name,
+                title: file.name,
+                document: '',
+                uploaded_at: new Date().toString(),
                 file,
             }
         });
@@ -32,7 +38,7 @@ const DocumentsAdd = () => {
             ...items,
         ];
         
-        setDocuments(updatedDocuments);
+        updateItemsArr(updatedDocuments);
     }
 
     const handleDragOver = (e: React.DragEvent<HTMLLabelElement> ) => {
@@ -56,7 +62,7 @@ const DocumentsAdd = () => {
     }
 
     const handleDeleteFile = (id: string | number) => {
-        setDocuments((prevDocs) => prevDocs.filter(doc => doc.id !== id));
+        updateItemsArr(items.filter(doc => doc.id !== id));
     }
     
     return (
@@ -70,11 +76,11 @@ const DocumentsAdd = () => {
                 <IoMdAddCircle
                     size={'4rem'}
                     cursor={'pointer'}
+                    fill='var(--primary-app-color)'
                 />
 
                 <input 
-                    type='file' 
-                    accept='image/*'
+                    type='file'
                     className={styles.file__input}
                     onChange={({ target }) => handleFilesChange(target.files)}
                     multiple
@@ -84,8 +90,11 @@ const DocumentsAdd = () => {
             <section className={styles.documents_wrap}>
                 {
                     React.Children.toArray(documents.map(document => {
-                        return <p className={styles.single__Dco}>
-                            <span>{document.name}</span>
+                        return <p 
+                            className={styles.single__Dco}
+                            key={document.id}
+                        >
+                            <span>{document.title}</span>
                             
                             <IoClose 
                                 onClick={() => handleDeleteFile(document.id)}

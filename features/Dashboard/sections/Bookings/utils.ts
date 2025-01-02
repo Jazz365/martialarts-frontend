@@ -1,4 +1,4 @@
-import { allDummyPlaces } from "@/features/Search/sections/Places/utils";
+// import { allDummyPlaces } from "@/features/Search/sections/Places/utils";
 
 // export const dummyBookings: IBooking[] = [
 //     {

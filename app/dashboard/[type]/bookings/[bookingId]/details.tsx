@@ -98,6 +98,7 @@ const SingleBookingDetailContent = ({
                         width: 'max-content',
                         marginLeft: 'auto',
                         fontSize: '0.75rem',
+                        backgroundColor: 'var(--primary-app-color)',
                     }}
                     handleClick={
                         userDetails?.is_owner === true ?
@@ -141,7 +142,7 @@ const SingleBookingDetailContent = ({
 
             <p>
                 <span>location</span>
-                <span>{bookingDetail.location}</span>
+                <span>{bookingDetail?.location?.address}, {bookingDetail?.location?.city}, {bookingDetail?.location?.state}</span>
             </p>
 
             <p>

@@ -7,7 +7,7 @@ type IPlace = {
     category: ICategory;
     website: string;
     phone_number: string;
-    video: string;
+    video?: string;
     free_lesson_available: boolean;
     is_featured: boolean;
     created_at: string;
@@ -18,12 +18,13 @@ type IPlace = {
     place_faqs: IPlaceFaq[];
     policy: IPlacePolicy;
     place_activity_hours: IPlaceActivityHours[];
-    reviews: IPlaceReviews[];
+    place_reviews: IPlaceReviews[];
     benefits: string;
     pricing: number;
     pricing_type?: string;
     place_styles: IMartialArtStyle[];
     place_caters_to: ICatersTo[];
+    documents_data: IPlaceDocuments[];
     // place_age_groups: IPlaceAgeGroups[];
 }
 
@@ -63,10 +64,10 @@ type IPlaceActivityHours = {
 
 type IPlaceReviews = {
     id?: number;
-    user: string | number;
+    user: IUser;
     rating: number;
     comment: string;
-    created_at?: string;
+    created_at: string;
 }
 
 type ICatersTo = {
@@ -91,6 +92,14 @@ type IPlaceType = {
 type IPlaceViewStat = {
     name: string;
     views: number;
+}
+
+type IPlaceDocuments = {
+    id: string | number;
+    title: string;
+    document: string;
+    uploaded_at: string;
+    file?: File;
 }
 
 type IPlaceAgeGroups = {

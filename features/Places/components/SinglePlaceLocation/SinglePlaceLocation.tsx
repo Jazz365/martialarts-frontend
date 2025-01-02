@@ -6,7 +6,13 @@ import PlacesMap from '@/features/Search/sections/Map/Map'
 import useMobile from '@/hooks/useMobile';
 
 
-const SinglePlaceLocation = () => {
+const SinglePlaceLocation = ({
+    placeName,
+    locations=[]
+}: {
+    placeName: string;
+    locations: ILocation[];
+}) => {
     const isMobile = useMobile();
 
     return (
@@ -18,6 +24,15 @@ const SinglePlaceLocation = () => {
                 width='100%'
                 showContentOnSmallScreen={true}
                 zoom={13}
+                placeCoordinates={
+                    locations.map(location => {
+                        return {
+                            lat: location.latitude, 
+                            lng: location.longitude,
+                            name: placeName,
+                        }
+                    })
+                }
             />
         </section>
     )

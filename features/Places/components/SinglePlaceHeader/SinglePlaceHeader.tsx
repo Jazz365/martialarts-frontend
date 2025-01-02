@@ -1,6 +1,6 @@
 import React from 'react'
-import { IoStarOutline } from 'react-icons/io5';
 import styles from './styles.module.css'
+import { formatPricingType } from '@/app/dashboard/owner/studios/add-studio/utils';
 
 
 const SinglePlaceHeader = ({
@@ -13,7 +13,7 @@ const SinglePlaceHeader = ({
             <h1 className={styles.title}>{place.name}</h1>
 
             <section className={styles.details}>
-                <p className={styles.detail__Item}>${place.pricing}/month</p>
+                <p className={styles.detail__Item}>${place.pricing}/{place.pricing_type ? formatPricingType(place.pricing_type) : 'month'}</p>
         
                 <p className={styles.detail__Item}>
                     <span>Styles offered:</span>

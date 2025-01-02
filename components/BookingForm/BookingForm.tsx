@@ -16,6 +16,10 @@ import { toast } from 'sonner';
 import { BookingService } from '@/services/bookingService';
 import { AppConstants } from '@/utils/constants';
 import SelectItem from '../SelectItem/SelectItem';
+import Link from 'next/link';
+import { ImAttachment } from 'react-icons/im';
+import { validateEmail } from '@/helpers/helpers';
+import AppPopup from '../AppPopup/AppPopup';
 
 
 const BookingForm = () => {
@@ -35,6 +39,7 @@ const BookingForm = () => {
     const [ selectedPlaceDetailsLoading, setSelectedPlaceDetailsLoading ] = useState(true);
     const [ loading, setLoading ] = useState(false);
     const [ selectedPlace, setSelectedPlace ] = useState<IPlace | null>(null);
+    const [ showConfirmationModal, setShowConfirmationModal ] = useState(false);
 
     const placeService = new PlaceService();
     const bookingService = new BookingService();
@@ -102,19 +107,17 @@ const BookingForm = () => {
 
         const requiredItemsForPage: string[] = requiredInfo[currentPage];
 
-        if (currentPage === 1 && bookingDetails.is_for_child === null) return toast.info('Please fill in all required info');
+        if (currentPage === 3 && bookingDetails.is_for_child === null) return toast.info('Please fill in all required info');
 
-        if (currentPage > 1) {
-            const missingRequiredInfo = requiredItemsForPage.find((item: string) => {
-                const missingItem = bookingDetails[item as keyof BookingDetails] as string | number[];
-                
-                return missingItem?.length < 1
-            });
+        const missingRequiredInfo = requiredItemsForPage.find((item: string) => {
+            const missingItem = bookingDetails[item as keyof BookingDetails] as string | number[];
+            
+            return missingItem?.length < 1
+        });
 
-            if (missingRequiredInfo) return toast.info('Please fill in all required info');
-        }
-
-        if (currentPage === 2) {
+        if (missingRequiredInfo) return toast.info('Please fill in all required info');
+        
+        if (currentPage === 4) {
             if (bookingDetails.is_for_child === false) return setCurrentPage(currentPage + 1);
 
             if (
@@ -124,10 +127,12 @@ const BookingForm = () => {
                 bookingDetails.child_email && bookingDetails?.child_email?.length < 1 ||
                 !bookingDetails.child_dob ||
                 bookingDetails.child_dob && bookingDetails?.child_dob?.length < 1
-            ) return toast.info('Please fill in all required info');            
+            ) return toast.info('Please fill in all required info');
+
+            if (!validateEmail(bookingDetails.child_email)) return toast.info('Please enter a valid email for your child');
         }
 
-        if (currentPage === 3) {
+        if (currentPage === 6) {
             if (bookingDetails.agreed_to_health_declaration === false || bookingDetails.agreed_to_liability_waiver === false) return toast.info('Please agree to all terms before continuing');
 
             setLoading(true);
@@ -144,6 +149,7 @@ const BookingForm = () => {
                     ...bookings,
                 ]);
                 setSelectedPlaceId(null);
+                setShowConfirmationModal(true);
             } catch (error) {
                 setLoading(false);                
             }
@@ -154,7 +160,7 @@ const BookingForm = () => {
         setCurrentPage(currentPage + 1);
     }
 
-    return (
+    return <>
         <section className={styles.overlay}>
             <section className={styles.content}>
                 {
@@ -172,18 +178,20 @@ const BookingForm = () => {
                         </section>
 
                         <section className={styles.progress}>
+                            <section className={styles.progress__Wrap}>
+                                <section
+                                    className={styles.progress__Indicator}
+                                    style={{
+                                        width: `${Number(currentPage / formPageDetail.length) * 100}%`
+                                    }}
+                                ></section>
+                            </section>
+
                             {
-                                React.Children.toArray(formPageDetail.map(item => {
-                                    return <section 
-                                        className={`${styles.progress__Item} ${currentPage >= item.id ? styles.active : ''}`}
-                                        key={item.id}
-                                    >
-                                        <section className={styles.progress__Indicator}></section>
-                                        <p>{item.name}</p>
-                                    </section>
-                                }))
+                                currentPage > 1 && <>
+                                    <p className={styles.current__Page__header}>Current step: {formPageDetail.find(page => page.id === currentPage)?.name}</p>
+                                </>
                             }
-                            
                         </section>
 
                         {
@@ -241,7 +249,92 @@ const BookingForm = () => {
                                 <br/>
 
                                 <section className={styles.detail__item}>
-                                    <p className={styles.label__Item}>Are you an adult or signing up a child? <RequiredIndicator /></p>
+                                    <p className={styles.label__Item}>choose martial art style offered <RequiredIndicator /></p>
+                                    <section className={styles.listing__Wrap}>
+                                        {
+                                            React.Children.toArray(selectedPlace?.place_styles
+                                                .map(style => {
+                                                    return <TextInputComponent 
+                                                        label={style.name}
+                                                        type='checkbox'
+                                                        style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            width: 'max-content',
+                                                            flexDirection: 'row-reverse',
+                                                            gap: '1rem',
+                                                            marginRight: '3rem',
+                                                        }}
+                                                        checked={bookingDetails?.selected_styles?.includes(style.id)}
+                                                        key={style.id}
+                                                        handleUpdateChecked={(val) => handleUpdateCheckboxItems(bookingDetailsDict.selected_styles as keyof BookingDetails, style.id, val)}
+                                                    />
+                                                })
+                                            )
+                                        }
+                                    </section>
+                                </section>
+                            </> :
+                            currentPage === 2 ? <>
+                                <SelectItem
+                                    label='select class type'
+                                    options={
+                                        selectedPlace?.place_caters_to?.map(item => ({
+                                            id: item.id,
+                                            label: item.name,
+                                            value: `${item.id}`,
+                                        })) ?? []
+                                    }
+                                    value={bookingDetails.class_id}
+                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
+                                    isRequired
+                                />
+
+                                <section className={styles.input__Row}>
+                                    <TextInputComponent 
+                                        label='appointment date'
+                                        name={bookingDetailsDict.date}
+                                        value={bookingDetails.date}
+                                        onChange={(targetName, targetValue) => {
+                                            const openDatesForPlace = selectedPlace?.place_activity_hours.flatMap(item => 
+                                                item.opening_time.length > 0 && item.closing_time.length > 0 ? [item.day.toLocaleLowerCase()] : []
+                                            ) ?? [];
+
+                                            const isDayValid = (date: Date) => {
+                                                const dayOfWeek = date.toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
+                                                return openDatesForPlace.includes(dayOfWeek);
+                                            };
+
+                                            if (!isDayValid(new Date(targetValue))) return toast.info('Sorry, this studio is not open on this day!');
+
+                                            handleDetailUpdate(targetName, targetValue);
+                                        }}
+                                        borderRadius='12px'
+                                        type='date'
+                                        isRequired
+                                        style={{
+                                            width: 'calc(50% - 0.5rem)',
+                                        }}
+                                        min={new Date().toISOString().split('T')[0]}
+                                    />
+
+                                    <TextInputComponent 
+                                        label='appointment time'
+                                        name={bookingDetailsDict.time}
+                                        value={bookingDetails.time}
+                                        onChange={handleDetailUpdate}
+                                        borderRadius='12px'
+                                        type='time'
+                                        // isRequired
+                                        style={{
+                                            width: 'calc(50% - 0.5rem)',
+                                        }}
+                                    />
+                                </section>
+                            </> :
+                            currentPage === 3 ? <>
+                                <section className={styles.detail__item}>
+                                    <p className={styles.label__Item}>Are you an adult or a parent? <RequiredIndicator /></p>
 
                                     <section className={styles.options}>
                                         {
@@ -265,8 +358,9 @@ const BookingForm = () => {
                                         }
                                     </section>
                                 </section>
-                            </> :
-                            currentPage === 2 ? <>
+                            </>
+                            :
+                            currentPage === 4 ? <>
                                 <section className={styles.input__Row}>
                                     <TextInputComponent 
                                         label='full name'
@@ -302,44 +396,17 @@ const BookingForm = () => {
                                     isRequired
                                 />
 
-                                <section className={styles.detail__item}>
-                                    <p className={styles.label__Item}>your style preferences <RequiredIndicator /></p>
-                                    <section className={styles.listing__Wrap}>
-                                        {
-                                            React.Children.toArray(selectedPlace?.place_styles
-                                                .map(style => {
-                                                    return <TextInputComponent 
-                                                        label={style.name}
-                                                        type='checkbox'
-                                                        style={{
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            width: 'max-content',
-                                                            flexDirection: 'row-reverse',
-                                                            gap: '1rem',
-                                                            marginRight: '3rem',
-                                                        }}
-                                                        checked={bookingDetails?.selected_styles?.includes(style.id)}
-                                                        key={style.id}
-                                                        handleUpdateChecked={(val) => handleUpdateCheckboxItems(bookingDetailsDict.selected_styles as keyof BookingDetails, style.id, val)}
-                                                    />
-                                                })
-                                            )
-                                        }
-                                    </section>
-                                </section>
-
                                 <SelectItem
                                     label='location'
                                     options={
                                         selectedPlace?.place_locations?.map(location => ({
                                             id: location.id,
                                             label: `${location.address}, ${location.city}, ${location.state}`,
-                                            value: `${location.address}, ${location.city}, ${location.state}`,
+                                            value: `${location.id}`,
                                         })) ?? []
                                     }
-                                    value={bookingDetails.location}
-                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.location, val)}
+                                    value={bookingDetails.location_id}
+                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.location_id, val)}
                                     isRequired
                                 />
 
@@ -402,50 +469,32 @@ const BookingForm = () => {
                                         </section>
                                     </>
                                 }
-                            </> :
-                            currentPage === 3 ? <>
-                                <section className={styles.input__Row}>
-                                    <TextInputComponent 
-                                        label='appointment date'
-                                        name={bookingDetailsDict.date}
-                                        value={bookingDetails.date}
-                                        onChange={(targetName, targetValue) => {
-                                            const openDatesForPlace = selectedPlace?.place_activity_hours.flatMap(item => 
-                                                item.opening_time.length > 0 && item.closing_time.length > 0 ? [item.day.toLocaleLowerCase()] : []
-                                            ) ?? [];
+                            </>
+                            :
+                            currentPage === 5 ? <>
+                                <section className={styles.details__Info}>
+                                    <p className={styles.label__Item}>health declaration document(s)</p>
 
-                                            const isDayValid = (date: Date) => {
-                                                const dayOfWeek = date.toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
-                                                return openDatesForPlace.includes(dayOfWeek);
-                                            };
-
-                                            if (!isDayValid(new Date(targetValue))) return toast.info('Sorry, this studio is not open on this day!');
-
-                                            handleDetailUpdate(targetName, targetValue);
-                                        }}
-                                        borderRadius='12px'
-                                        type='date'
-                                        isRequired
-                                        style={{
-                                            width: 'calc(50% - 0.5rem)',
-                                        }}
-                                        min={new Date().toISOString().split('T')[0]}
-                                    />
-
-                                    {/* <TextInputComponent 
-                                        label='appointment time'
-                                        name={bookingDetailsDict.time}
-                                        value={bookingDetails.time}
-                                        onChange={handleDetailUpdate}
-                                        borderRadius='12px'
-                                        type='time'
-                                        isRequired
-                                        style={{
-                                            width: 'calc(50% - 0.5rem)',
-                                        }}
-                                    /> */}
+                                    {
+                                        !selectedPlace?.documents_data || selectedPlace.documents_data?.length < 1 ?
+                                            <p className={styles.no__Doc}>No declaration documents to review, please continue</p>
+                                        :
+                                        React.Children.toArray(selectedPlace?.documents_data.map(document => {
+                                            return <Link
+                                                href={document.document}
+                                                target='_blank'
+                                                rel='noreferrer noopener'
+                                                className={styles.document__Link}
+                                            >   
+                                                <ImAttachment />
+                                                <span>{document.title}</span>
+                                            </Link>
+                                        }))
+                                    }
                                 </section>
-
+                            </>
+                            :
+                            currentPage === 6 ? <>
                                 <section className={styles.details__Info}>
                                     <TextInputComponent 
                                         label="I have reviewed and accepted the studio's health declaration form."
@@ -476,6 +525,36 @@ const BookingForm = () => {
                                         handleUpdateChecked={(val) => handleDetailUpdate(bookingDetailsDict.agreed_to_liability_waiver, val)}
                                         checked={bookingDetails.agreed_to_liability_waiver}
                                     />
+
+                                    <br />
+
+                                    <h4 className={styles.summary}>summary</h4>
+                                    
+                                    <section className={styles.summary__Item}>
+                                        <h5 className={styles.summary__Item__Title}>styles selected</h5>
+                                        <p className={styles.summary__Item__Detail}>
+                                            {
+                                                bookingDetails.selected_styles.map(
+                                                    style => {
+                                                        const foundStyle = selectedPlace?.place_styles.find(placeStyle => placeStyle.id === Number(style));
+                                                        return foundStyle?.name ?? '';
+                                                    }
+                                                ).join(', ')
+                                            }
+                                        </p>
+                                    </section>
+
+                                    <section className={styles.input__Row}>
+                                        <section className={styles.summary__Item}>
+                                            <h5 className={styles.summary__Item__Title}>class selected</h5>
+                                            <p className={styles.summary__Item__Detail}>{selectedPlace?.place_caters_to?.find(item => `${item.id}` === bookingDetails.class_id)?.name}</p>
+                                        </section>
+
+                                        <section className={styles.summary__Item}>
+                                            <h5 className={styles.summary__Item__Title}>first lesson</h5>
+                                            <p className={styles.summary__Item__Detail}>free</p>
+                                        </section>
+                                    </section>
                                 </section>
                             </>
                             :
@@ -501,7 +580,7 @@ const BookingForm = () => {
                                     loading ?
                                         'creating...'
                                     :
-                                    currentPage === 3 ?
+                                    currentPage === 6 ?
                                         'submit'
                                     :
                                     'next'
@@ -516,7 +595,16 @@ const BookingForm = () => {
                 }
             </section>
         </section>
-    )
+
+        {
+            showConfirmationModal &&
+            <AppPopup 
+                title='Your Registration is Complete!'
+                content={"Thank you for signing up! You will receive an email shortly with all the details for your first free class.\n\nPlease note, the place will review and confirm your registration. You will receive a follow-up email once your spot is confirmed"}
+                hidePopup={() => setShowConfirmationModal(false)}
+            />
+        }
+    </>
 }
 
 export default BookingForm

@@ -4,6 +4,7 @@ import React from 'react'
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import styles from './styles.module.css'
 import useMobile from '@/hooks/useMobile';
+import PageLoader from '../PageLoader/PageLoader';
 
 
 const CustomBarChart = ({
@@ -12,12 +13,14 @@ const CustomBarChart = ({
     data=[],
     dataKeyName='',
     labelKeyName='',
+    isLoading=false,
 }: {
     title: string;
     subtitle: string;
     data: {}[];
     dataKeyName: string;
     labelKeyName: string;
+    isLoading?: boolean;
 }) => {
     const isMobile = useMobile();
 
@@ -27,50 +30,55 @@ const CustomBarChart = ({
             <span className={styles.subtitle}>{subtitle}</span>
         </h3>
 
-        <ResponsiveContainer 
-            width="100%" 
-            height={500}
-        >
-            <BarChart
-                width={500}
-                height={400}
-                data={data}
-                margin={
-                    isMobile ? 
-                        {}
-                    :
-                    {
-                        top: 20,
-                        right: 30,
-                        left: 0,
-                        bottom: 80,
+        {
+            isLoading ?
+                <PageLoader />
+            :
+            <ResponsiveContainer 
+                width="100%" 
+                height={500}
+            >
+                <BarChart
+                    width={500}
+                    height={400}
+                    data={data}
+                    margin={
+                        isMobile ? 
+                            {}
+                        :
+                        {
+                            top: 20,
+                            right: 30,
+                            left: 0,
+                            bottom: 80,
+                        }
                     }
-                }
-                barSize={30}
-            >   
-                <XAxis 
-                    dataKey={labelKeyName} 
-                    tick={{
-                        fontSize: 12,
-                        textAnchor: 'top'
-                    }}
-                    angle={45}
-                />
+                    barSize={30}
+                >   
+                    <XAxis 
+                        dataKey={labelKeyName} 
+                        tick={{
+                            fontSize: 12,
+                            textAnchor: 'top'
+                        }}
+                        angle={45}
+                    />
 
-                <YAxis
-                    tick={{
-                        fontSize: 12
-                    }}
-                />
-                
-                <Tooltip />
+                    <YAxis
+                        tick={{
+                            fontSize: 12
+                        }}
+                    />
+                    
+                    <Tooltip />
 
-                <Bar
-                    dataKey={dataKeyName}
-                    fill="var(--primary-app-color)" 
-                />
-            </BarChart>
-        </ResponsiveContainer>
+                    <Bar
+                        dataKey={dataKeyName}
+                        fill="var(--primary-app-color)" 
+                    />
+                </BarChart>
+            </ResponsiveContainer>
+        }
     </section>
 }
 

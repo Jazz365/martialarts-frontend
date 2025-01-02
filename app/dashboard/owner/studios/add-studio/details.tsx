@@ -50,7 +50,7 @@ const AddPlaceDetails = () => {
 
     const handleDetailUpdate = (
         key: string, 
-        value: string | boolean | string[] | number[] | ILocation[] | IPlaceMasterImage[] | IPlaceFaq[] | IPlaceImage[]
+        value: string | boolean | string[] | number[] | ILocation[] | IPlaceMasterImage[] | IPlaceFaq[] | IPlaceImage[] | IPlaceDocuments[]
     ) => {
         setDetails((prevDetails) => {
             return {
@@ -79,6 +79,7 @@ const AddPlaceDetails = () => {
                 activity_hours: res?.place_activity_hours,
                 faqs: res?.place_faqs,
                 policy: res?.policy?.content,
+                documents: res?.documents_data,
             });
             setDetailsLoading(false);
         }).catch(() => {
@@ -157,7 +158,7 @@ const AddPlaceDetails = () => {
         if (details.master_images.find(master => master.name.length < 1 || (!master.imageFile && master.image.toString().length < 1))) return toast.info('Found missing master name or image');
         if (details.images.length < 5) return toast.info('Please upload at least 5 images for your place');
         if (details.benefits.length < 5) return toast.info('Please write at least 5 benefits of your place');
-
+        
         const formData = generateFormDataForNewPlaceDetails(details);
 
         setLoading(true);
@@ -486,7 +487,10 @@ const AddPlaceDetails = () => {
             title='documents'
             extraInfo='Drag here health declaration or other documents for the student to confirm before joining class'
         >
-            <DocumentsAdd />
+            <DocumentsAdd 
+                items={details.documents}
+                updateItemsArr={(items: IPlaceDocuments[]) => handleDetailUpdate(newPlaceDetailKeysDict.documents, items)}
+            />
         </AddItemWrapper>
 
         <Button 
@@ -497,10 +501,14 @@ const AddPlaceDetails = () => {
                     :
                     'creating...'
                 :
+                isEditView ?
+                    'update'
+                :
                 'submit'
             }
             style={{
                 width: 'max-content',
+                backgroundColor: 'var(--primary-app-color)',
             }}
             handleClick={handleSaveNewPlace}
             disabled={loading}

@@ -4,4 +4,5 @@ interface IUser {
     is_owner: boolean;
     phone_number: string | null;
     username: string;
+    name?: string;
 }

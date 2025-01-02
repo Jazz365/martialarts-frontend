@@ -39,13 +39,13 @@ const SubscriptionCard = ({
                     borderRadius: '6px',
                     padding: '0.75rem 1rem',
                     fontSize: '0.8rem',
-                    background: 'transparent',
-                    border: '1px solid var(--primary-app-color)',
-                    color: 'var(--primary-app-color)',
-                }}
-                hoverStyle={{
                     background: 'var(--primary-app-color)',
                     color: '#fff',
+                    border: '1px solid var(--primary-app-color)',
+                }}
+                hoverStyle={{
+                    background: 'transparent',
+                    color: 'var(--primary-app-color)',
                 }}
             />
         </section>

@@ -15,7 +15,7 @@ type IBooking = {
     name: string;
     email: string;
     phone: string;
-    location: string;
+    location: ILocation;
     is_for_child: boolean;
     child_name?: string;
     child_dob?: string;

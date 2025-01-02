@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
 import { useAppContext } from '@/contexts/AppContext';
+import { formatPricingType } from '@/app/dashboard/owner/studios/add-studio/utils';
 
 const maxLengthForGridView = 32;
 const maxBenLengthForListView = 80;
@@ -40,6 +41,7 @@ const PlaceListCard = ({
     placeStyles,
     placeCatersTo, 
     placeTimes,
+    placeBenefits,
   ] = [
     place?.place_locations?.length > 0 ? 
       `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`
@@ -54,6 +56,10 @@ const PlaceListCard = ({
       .map(act => `${act.day} (${act.opening_time} - ${act.closing_time})`)
       .join(', ')
     }`,
+    isListView === false ?
+      place.benefits.split(',').slice(0, 3)
+    :
+    place.benefits.split(',').slice(0, 4)
   ]
 
   const { userDetails } = useUserContext();
@@ -178,7 +184,8 @@ const PlaceListCard = ({
                       fontSize: '0.75rem'
                     }}
                     hoverStyle={{
-                      background: '#000',
+                      background: 'var(--primary-app-color)',
+                      borderColor: 'transparent',
                       color: '#fff'
                     }}
                     useLink
@@ -263,13 +270,7 @@ const PlaceListCard = ({
         <ul className={styles.benefits}>
           {
             React.Children.toArray(
-              place.benefits.split(',')
-              .slice(
-                0, 
-                !isListView ? 
-                  3 : 
-                4
-              )
+              placeBenefits
               .map(benefit => {
                 return <li 
                   className={styles.benefit__Item}
@@ -287,6 +288,17 @@ const PlaceListCard = ({
                 </li>
             }))
           }
+          {
+            !isListView && placeBenefits.length < 3 &&
+            React.Children.toArray(
+              Array.from(Array(3 - placeBenefits.length).keys()).map(key => {
+                return <li
+                  className={styles.benefit__Item}
+                  key={key}
+                ></li>
+              })
+            )
+          }
         </ul>
 
         <br />
@@ -296,7 +308,7 @@ const PlaceListCard = ({
             <span className={styles.price__Intro}>from</span>
             {' '}
             {/* <span className={styles.price__Intro}>here</span> */}
-            <span>${place.pricing}/month</span>
+            <span>${place.pricing}/{place.pricing_type ? formatPricingType(place.pricing_type) : 'month'}</span>
           </h3>
 
           {
@@ -307,13 +319,16 @@ const PlaceListCard = ({
                   background: 'transparent',
                   color: '#000',
                   border: '1px solid #000',
-                  fontSize: '0.8rem'
+                  padding: !isListView ? '0.75rem 1rem' : undefined,
+                  fontSize: !isListView ? '0.75rem' : '0.8rem',
                 }}
                 hoverStyle={{
                   background: '#000',
                   color: '#fff'
                 }}
-                handleClick={handleJoinClassBtnClick}
+                useLink
+                linkLocation={`/places/${place.id}`}
+                // handleClick={handleJoinClassBtnClick}
               />
             :
             <></>

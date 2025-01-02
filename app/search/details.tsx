@@ -6,7 +6,7 @@ import PlacesMap from '@/features/Search/sections/Map/Map'
 import SearchPlacesListing from '@/features/Search/sections/Places/Places'
 import styles from './styles.module.css'
 import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
-import { testMapCoordinates } from '@/features/Search/sections/Map/utils';
+// import { testMapCoordinates } from '@/features/Search/sections/Map/utils';
 
 const SearchPageDetails = () => {
     const {
@@ -18,12 +18,11 @@ const SearchPageDetails = () => {
             <SearchPlacesListing />
             <PlacesMap 
                 placeCoordinates={
-                    testMapCoordinates
-                    // allPlaces.flatMap(place => place.place_locations.map(location => ({ 
-                    //     lat: location.latitude, 
-                    //     lng: location.longitude,
-                    //     // name: place.name,
-                    // })))
+                    allPlaces.flatMap(place => place.place_locations.map(location => ({ 
+                        lat: location.latitude, 
+                        lng: location.longitude,
+                        name: place.name,
+                    })))
                 }
             />
         </section>

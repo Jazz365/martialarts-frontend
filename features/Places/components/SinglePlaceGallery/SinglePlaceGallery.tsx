@@ -1,79 +1,53 @@
-'use client';
-
-
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from './styles.module.css'
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import useMobile from '@/hooks/useMobile';
-import { useSwipeable } from 'react-swipeable';
-
+import Carousel from "react-multi-carousel";
 
 const SinglePlaceGallery = ({
     images=[],
 }: {
     images: IPlaceImage[];
 }) => {
-    const [ currentSlide, setCurrentSlide ] = useState(0);
-    const [ imagesToDisplay, setImagesToDisplay ] = useState<IPlaceImage[]>([]);
-    const isMobile = useMobile();
-
-    const handlers = useSwipeable({
-        onSwipedLeft: () => handleBackward,
-        onSwipedRight: () => handleGoForward,
-    });
-
-    const handleGoForward = () => {
-        setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
-    }
-
-    const handleBackward = () => {
-        setCurrentSlide((prevSlide) => (prevSlide - 1 + images.length) % images.length);
-    }
-
-    useEffect(() => {
-        const totalImages = images.length;
-        
-        const prevIndex = (currentSlide - 1 + totalImages) % totalImages;
-        const nextIndex = (currentSlide + 1) % totalImages;
-
-        setImagesToDisplay([
-            images[prevIndex], 
-            images[currentSlide], 
-            images[nextIndex]
-        ]);
-    }, [currentSlide])
+    const responsive = {
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 3,
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 2,
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1,
+        }
+    };
 
     return <>
-        <section 
-            {...handlers}
-            className={styles.grid__Imgs}
+        <Carousel 
+            containerClass={styles.carousel__Wrap} 
+            responsive={responsive}
+            swipeable={true}
+            draggable={true}
+            showDots={false}
+            infinite={true}
+            // autoPlay={true}
+            // autoPlaySpeed={1000}
+            customTransition="all .5"
+            transitionDuration={500}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            ssr={true}
         >
             {
-                images.length > 3 &&
-                <button 
-                    className={`${styles.btn} ${styles.left}`}
-                    onClick={handleBackward}
-                >
-                    <FiChevronLeft size={'1.4rem'} />
-                </button>
-            }
-
-            {
                 React.Children.toArray(
-                    imagesToDisplay
+                    images
                     .map((image, index) => {
-                        return <Image 
+                        return <Image
                             src={image.image as string}
                             alt='place'
                             key={image.id}
-                            width={0}
-                            height={
-                                isMobile ?
-                                    250 
-                                :
-                                550
-                            }
+                            width={505}
+                            height={600}
                             className={`${styles.image} ${index === 1 ? styles.main : ''}`}
                             quality={100}
                             priority
@@ -81,17 +55,7 @@ const SinglePlaceGallery = ({
                     })
                 )
             }
-
-            {
-                images.length > 3 &&
-                <button 
-                    className={`${styles.btn} ${styles.right}`}
-                    onClick={handleGoForward}
-                >
-                    <FiChevronRight size={'1.4rem'} />
-                </button>
-            }
-        </section>
+        </Carousel>
     </>
 }
 
