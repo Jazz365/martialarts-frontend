@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
-import sampleImage1 from '../../../../assets/blogSamples/blog-1.png';
-import sampleImage2 from '../../../../assets/blogSamples/blog-2.png';
-import sampleImage3 from '../../../../assets/blogSamples/blog-3.png';
+import sampleImage1 from '../../../../assets/blogSamples/blog-1.webp';
+import sampleImage2 from '../../../../assets/blogSamples/blog-2.webp';
+import sampleImage3 from '../../../../assets/blogSamples/blog-3.webp';
 
 export const dummyBlogArticles: {
     id: number;

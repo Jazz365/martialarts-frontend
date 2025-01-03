@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import { IoIosArrowRoundForward } from 'react-icons/io'
 // import happyIllustration from '../../../../assets/happy.svg'
-import astronaut from '../../../../assets/astr.png'
+import astronaut from '../../../../assets/astr.webp'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 import Button from '@/components/Button/Button'
@@ -51,7 +51,7 @@ const Banner = () => {
                         alt={'banner illustration'}
                         src={astronaut}
                         className={styles.banner__Img}
-                        priority
+                        // priority
                     />
                 </section>
             </section>

@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './styles.module.css'
-import mainHeroImg from '../../../../assets/heros/karate.png'
-import heroImg3 from '../../../../assets/heros/Muay-Thai.png'
-import heroImg6 from '../../../../assets/heros/boxing.png'
-import heroImg7 from '../../../../assets/heros/sambo.png'
-import heroImg5 from '../../../../assets/heros/Wrestling.png'
+import mainHeroImg from '../../../../assets/heros/karate.webp'
+import heroImg3 from '../../../../assets/heros/Muay-Thai.webp'
+import heroImg6 from '../../../../assets/heros/boxing.webp'
+import heroImg7 from '../../../../assets/heros/sambo.webp'
+import heroImg5 from '../../../../assets/heros/Wrestling.webp'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 
@@ -20,14 +20,14 @@ const HeroImagesWrap = () => {
                     className={`${styles.img__Content} ${styles.i_1}`}
                     alt='hero'
                     src={heroImg6}
-                    priority
+                    // priority
                 />
                 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_2}`}
                     alt='hero'
                     src={heroImg3}
-                    priority
+                    // priority
                 />
 
                 
@@ -35,21 +35,21 @@ const HeroImagesWrap = () => {
                     className={`${styles.img__Content} ${styles.i_main}`}
                     alt='hero'
                     src={mainHeroImg}
-                    priority
+                    // priority
                 />
 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_3}`}
                     alt='hero'
                     src={heroImg5}
-                    priority
+                    // priority
                 />
                 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_4}`}
                     alt='hero'
                     src={heroImg7}
-                    priority
+                    // priority
                 />
             </section>
         </FadeInOnScroll>

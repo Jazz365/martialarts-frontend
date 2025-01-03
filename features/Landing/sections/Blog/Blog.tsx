@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
 import { useAppContext } from '@/contexts/AppContext';
-import sampleImage1 from '../../../../assets/blogSamples/blog-1.png';
+import sampleImage1 from '../../../../assets/blogSamples/blog-1.webp';
 import PageLoader from '@/components/PageLoader/PageLoader';
 import { estimateReadingTime } from '@/helpers/helpers';
 
@@ -52,7 +52,7 @@ const Blog = () => {
                                         alt={blog.title}
                                         src={sampleImage1}
                                         className={styles.article__Img}
-                                        priority
+                                        // priority
                                     />
 
                                     <div className={styles.mask}>

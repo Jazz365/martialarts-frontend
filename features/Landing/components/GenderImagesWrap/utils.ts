@@ -1,6 +1,6 @@
-import women from '../../../../assets/heros/women.png'
-import men from '../../../../assets/heros/men.png'
-import kids from '../../../../assets/heros/kids.png'
+import women from '../../../../assets/heros/women.webp'
+import men from '../../../../assets/heros/men.webp'
+import kids from '../../../../assets/heros/kids.webp'
 import { StaticImageData } from 'next/image';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 

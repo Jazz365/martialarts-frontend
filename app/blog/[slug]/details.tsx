@@ -3,16 +3,16 @@
 
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-import blogImg from '../../../assets/blogSamples/blog-1.png';
+import blogImg from '../../../assets/blogSamples/blog-1.webp';
 import styles from './styles.module.css';
 import PageLoader from '@/components/PageLoader/PageLoader';
 import { BlogService } from '@/services/blogService';
-import facebookIcon from '../../../assets/icons/facebook.png';
-import instagramIcon from '../../../assets/icons/instagram.png';
+import facebookIcon from '../../../assets/icons/facebook.webp';
+import instagramIcon from '../../../assets/icons/instagram.webp';
 import BackButton from '@/components/BackButton/BackButton';
 import { useAppContext } from '@/contexts/AppContext';
 import Link from 'next/link';
-import sampleImage1 from '../../../assets/blogSamples/blog-1.png';
+import sampleImage1 from '../../../assets/blogSamples/blog-1.webp';
 import NavigationBar from '@/layouts/NavigationBar/NavigationBar';
 import useMobile from '@/hooks/useMobile';
 import { estimateReadingTime } from '@/helpers/helpers';

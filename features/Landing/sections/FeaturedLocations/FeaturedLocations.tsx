@@ -28,7 +28,7 @@ const FeaturedLocations = () => {
                                     src={location.image}
                                     alt={location.name}
                                     className={styles.location__Image}
-                                    priority
+                                    // priority
                                 />
 
                                 <section className={styles.location__Details}>
