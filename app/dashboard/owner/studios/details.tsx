@@ -7,7 +7,7 @@ import PlaceListCard from '@/features/Search/components/PlaceListCard/PlaceListC
 import { useAppContext } from '@/contexts/AppContext';
 import PageLoader from '@/components/PageLoader/PageLoader';
 import Image from 'next/image';
-import mascot from '../../../../assets/astr.png'
+import mascot from '../../../../assets/astr.webp'
 
 const AllPlacesDetails = () => {
     const {

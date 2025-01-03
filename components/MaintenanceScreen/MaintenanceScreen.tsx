@@ -2,7 +2,7 @@
 
 
 import React, { useEffect, useState } from 'react'
-import maintenanceImg from '../../assets/maintenance.jpg'
+import maintenanceImg from '../../assets/maintenance.webp'
 import Image from 'next/image'
 import styles from './styles.module.css'
 import AppPopup from '../AppPopup/AppPopup';

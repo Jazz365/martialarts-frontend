@@ -1,11 +1,11 @@
 import { StaticImageData } from 'next/image';
-import image1 from '../../../../assets/locations/california.png';
-import image2 from '../../../../assets/locations/florida.png';
-import image3 from '../../../../assets/locations/illinois.png';
-import image4 from '../../../../assets/locations/new-york.png';
-import image5 from '../../../../assets/locations/texas.png';
-import image6 from '../../../../assets/locations/washington.png';
-import image7 from '../../../../assets/locations/michigan.png';
+import image1 from '../../../../assets/locations/california.webp';
+import image2 from '../../../../assets/locations/florida.webp';
+import image3 from '../../../../assets/locations/illinois.webp';
+import image4 from '../../../../assets/locations/new-york.webp';
+import image5 from '../../../../assets/locations/texas.webp';
+import image6 from '../../../../assets/locations/washington.webp';
+import image7 from '../../../../assets/locations/michigan.webp';
 
 export const dummyFeaturedLocations: {
     id: number;

@@ -39,7 +39,7 @@ const FeatureCard = ({
                 src={featuredPlace.image}
                 alt={featuredPlace.name}
                 className={styles.card__Image}
-                priority
+                // priority
             />
 
             <section className={styles.card__Content}>
