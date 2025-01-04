@@ -115,10 +115,38 @@ const SingleBookingDetailContent = ({
                 <span>{new Date(bookingDetail?.date).toDateString()}</span>
             </p>
 
-            {/* <p>
+            <p>
                 <span>time</span>
                 <span>{formatTimeString(bookingDetail?.time)}</span>
-            </p> */}
+            </p>
+            <p>
+                <span>studio</span>
+                <span>{bookingDetail.place.name}</span>
+            </p>
+
+            <p>
+                <span>studio location</span>
+                <span>{bookingDetail?.location?.address}, {bookingDetail?.location?.city}, {bookingDetail?.location?.state}</span>
+            </p>
+
+            <p>
+                <span>style preferences</span>
+                <span>{bookingDetail.selected_styles.map(style => style.name).join(', ')}</span>
+            </p>
+            
+            <p>
+                <span>class</span>
+                <span>{bookingDetail.class?.name}</span>
+            </p>
+
+            <p>
+                <span>status</span>
+                <span>{bookingDetail.status}</span>
+            </p>
+
+            <Divider />
+
+            <p className={styles.header_min}>personal information</p>
 
             <p>
                 <span>email</span>
@@ -135,25 +163,13 @@ const SingleBookingDetailContent = ({
                 <span>{bookingDetail.phone}</span>
             </p>
 
-            <p>
-                <span>studio</span>
-                <span>{bookingDetail.place.name}</span>
-            </p>
-
-            <p>
-                <span>location</span>
-                <span>{bookingDetail?.location?.address}, {bookingDetail?.location?.city}, {bookingDetail?.location?.state}</span>
-            </p>
-
-            <p>
-                <span>style preferences</span>
-                <span>{bookingDetail.selected_styles.map(style => style.name).join(', ')}</span>
-            </p>
-
-            <p>
-                <span>status</span>
-                <span>{bookingDetail.status}</span>
-            </p>
+            {
+                bookingDetail.is_for_child === false && userDetails?.is_owner === true &&
+                <p>
+                    <span>age</span>
+                    <span>{bookingDetail.age}</span>
+                </p>
+            }
 
             {
                 bookingDetail.is_for_child === true ? <>
@@ -170,11 +186,24 @@ const SingleBookingDetailContent = ({
                         <span>date of birth</span>
                         <span>{new Date(bookingDetail.child_dob ?? '').toDateString()}</span>
                     </p>
+                    
+                    <p>
+                        <span>age</span>
+                        <span>{bookingDetail.age}</span>
+                    </p>
 
                     <p>
                         <span>email</span>
                         <span>{bookingDetail.child_email}</span>
                     </p>
+                    
+                    {
+                        bookingDetail.child_phone_number && bookingDetail.child_phone_number.length > 0 &&
+                        <p>
+                            <span>phone number</span>
+                            <span>{bookingDetail.child_phone_number}</span>
+                        </p>
+                    }
                 </>
                 :
                 <></>
@@ -185,7 +214,7 @@ const SingleBookingDetailContent = ({
             <p className={styles.header_min}>terms agreement</p>
 
             <p>
-                <span>agreed to health declaration</span>
+                <span>agreed to health declaration and other document(s)</span>
                 <span>{bookingDetail.agreed_to_health_declaration === true ? 'yes' : 'no'}</span>
             </p>
 

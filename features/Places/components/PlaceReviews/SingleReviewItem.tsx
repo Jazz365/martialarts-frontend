@@ -14,14 +14,16 @@ const SingleReviewItem = ({
         <section className={styles.review__Card}>
             <section className={styles.review__Top__Content}>
                 <Avatar 
-                    name={review.user.name}
+                    name={review.user.name ?? review.user.username ?? ''}
                     round
                     size='2rem'
                 />
 
                 <section className={styles.review__Detail}>
                     <section className={styles.review__User__Wrap}>
-                        <h3 className={styles.review__User}>{review.user.name}</h3>
+                        <h3 className={styles.review__User}>
+                            {review.user.name ?? review.user.username ?? ''}
+                        </h3>
                         
                         <Rate
                             allowHalf={true}

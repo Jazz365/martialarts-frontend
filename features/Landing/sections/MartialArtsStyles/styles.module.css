@@ -30,6 +30,13 @@
     /* width: max-content; */
     width: calc(calc(100% / 3) - 1rem);
     height: 320px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.style__Item__Detail:hover .style__Image,
+.style__Item__Detail:focus .style__Image {
+    transform: scale(1.2);
 }
 
 /* .style__Item__Detail:not(:first-child) {
@@ -44,6 +51,7 @@
     object-fit: cover;
     border-radius: 12px;
     max-width: 100%;
+    transition: 0.25s ease-in-out;
 }
 
 .mask {

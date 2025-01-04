@@ -131,7 +131,7 @@ export const rateOptions = [
     'hour',
 ]
 
-export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail) => {
+export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEditView=false) => {
     const formattedDetails = Object.keys(details).map(key => {
         const value = details[key as keyof NewPlaceDetail];
         
@@ -146,6 +146,11 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail) => {
                     if (itemValue.imageFile) {
                         itemValue.image = itemValue.imageFile;
                         delete itemValue.imageFile;
+                    }
+
+                    if (key === newPlaceDetailKeysDict.images) return {
+                        id,
+                        ...itemValue
                     }
 
                     return {
@@ -164,9 +169,10 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail) => {
         }
 
         if (key === newPlaceDetailKeysDict.benefits) {
-            const updatedValue = value as string[];
+            const currentValue = value as string[];
+            const updatedValue = currentValue.map(item => item.trim());
             return {
-                [key]: updatedValue.join(', '),
+                [key]: updatedValue.join(','),
             }
         }
 
@@ -217,15 +223,20 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail) => {
                 }
             });
 
+            if (isEditView === true) {
+                const imagesToKeep = imagesDetail.filter(item => typeof item.id === 'number' && typeof item.image === 'string');
+                formData.append('current_place_images', JSON.stringify(imagesToKeep.map(item => item.id)));
+            }
+            
             continue;
         }
 
         if (key === newPlaceDetailKeysDict.documents) {
             const documentDetail = value as IPlaceDocuments[];
 
-            documentDetail.forEach(item => {
+            documentDetail.forEach((item, index) => {
                 if (item.file && item.file instanceof File) {
-                    formData.append(`${key}`, item.file as File)
+                    formData.append(`${key}[${index}]`, item.file as File)
                 }
             });
 

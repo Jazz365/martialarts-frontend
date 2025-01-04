@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { useAppContext } from '@/contexts/AppContext'
-import { IoCloseOutline } from 'react-icons/io5';
+import { IoCalendarNumberOutline, IoCloseOutline } from 'react-icons/io5';
 import Button from '../Button/Button';
 import { PlaceService } from '@/services/placeService';
 import Carousel from '../Carousel/Carousel';
@@ -18,8 +18,11 @@ import { AppConstants } from '@/utils/constants';
 import SelectItem from '../SelectItem/SelectItem';
 import Link from 'next/link';
 import { ImAttachment } from 'react-icons/im';
-import { validateEmail } from '@/helpers/helpers';
+import { calulateYearsDifference, formatDate, generateAvailableTimeIntervalsForPlace, getWeekday, validateEmail } from '@/helpers/helpers';
 import AppPopup from '../AppPopup/AppPopup';
+import DatePicker from "react-datepicker";
+import CustomDatePickerInput from './components/CustomDatePickerInput';
+import CustomDatePickerHeader from './components/CustomDatePickerHeader';
 
 
 const BookingForm = () => {
@@ -43,6 +46,35 @@ const BookingForm = () => {
 
     const placeService = new PlaceService();
     const bookingService = new BookingService();
+    
+    const [
+        openDaysForPlace,
+        openTimesForPlace,
+    ] = [
+        selectedPlace?.place_activity_hours.flatMap(item => 
+            item?.opening_time && item?.opening_time?.length > 0 && item?.closing_time && item?.closing_time?.length > 0 ? [item.day.toLocaleLowerCase()] : []
+        ) ?? [],
+        selectedPlace?.place_activity_hours.flatMap(item => 
+            item?.opening_time && item?.opening_time?.length > 0 && item?.closing_time && item?.closing_time?.length > 0 ? [
+                {
+                    day: item.day,
+                    opening_time: item.opening_time,
+                    closing_time: item.closing_time,
+                }
+            ] : []
+        ) ?? []
+    ];
+
+    const isDayValid = (date: Date) => {
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        // Checks if the selected date is in the past
+        if (date < currentDate) return false;
+
+        const dayOfWeek = date.toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
+        return openDaysForPlace.includes(dayOfWeek);
+    };
 
     const handleDetailUpdate = (
         key: string, 
@@ -93,7 +125,7 @@ const BookingForm = () => {
             setSelectedPlaceDetailsLoading(false);
         });
 
-    }, [selectedPlace, userDetails]);
+    }, [selectedPlace, userDetails, selectedPlaceId]);
 
     const handleGoToPreviousPage = () => {
         if (loading) return;
@@ -160,6 +192,8 @@ const BookingForm = () => {
         setCurrentPage(currentPage + 1);
     }
 
+    console.log(bookingDetails);
+    
     return <>
         <section className={styles.overlay}>
             <section className={styles.content}>
@@ -291,41 +325,57 @@ const BookingForm = () => {
                                 />
 
                                 <section className={styles.input__Row}>
-                                    <TextInputComponent 
-                                        label='appointment date'
-                                        name={bookingDetailsDict.date}
-                                        value={bookingDetails.date}
-                                        onChange={(targetName, targetValue) => {
-                                            const openDatesForPlace = selectedPlace?.place_activity_hours.flatMap(item => 
-                                                item.opening_time.length > 0 && item.closing_time.length > 0 ? [item.day.toLocaleLowerCase()] : []
-                                            ) ?? [];
-
-                                            const isDayValid = (date: Date) => {
-                                                const dayOfWeek = date.toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
-                                                return openDatesForPlace.includes(dayOfWeek);
-                                            };
-
-                                            if (!isDayValid(new Date(targetValue))) return toast.info('Sorry, this studio is not open on this day!');
-
-                                            handleDetailUpdate(targetName, targetValue);
-                                        }}
-                                        borderRadius='12px'
-                                        type='date'
-                                        isRequired
+                                    <label 
+                                        className={styles.label__Detail}
                                         style={{
                                             width: 'calc(50% - 0.5rem)',
                                         }}
-                                        min={new Date().toISOString().split('T')[0]}
-                                    />
+                                    >
+                                        <span>appointment date <RequiredIndicator /></span>
+                                        <DatePicker 
+                                            selected={
+                                                bookingDetails.date.length > 0 ?
+                                                    new Date(bookingDetails.date)
+                                                :
+                                                null
+                                            }
+                                            onChange={(date) => {
+                                                    if (!date) return;
+                                                    handleDetailUpdate(bookingDetailsDict.date, formatDate(date))
+                                                }
+                                            }
+                                            filterDate={isDayValid}
+                                            dayClassName={date => isDayValid(date) ? styles.open__Day : ''}
+                                            icon={
+                                                <IoCalendarNumberOutline />
+                                            }
+                                            customInput={React.createElement(CustomDatePickerInput)}
+                                            // minDate={new Date()}
+                                        />
+                                    </label>
 
-                                    <TextInputComponent 
+                                    <SelectItem 
                                         label='appointment time'
-                                        name={bookingDetailsDict.time}
+                                        isRequired
                                         value={bookingDetails.time}
-                                        onChange={handleDetailUpdate}
-                                        borderRadius='12px'
-                                        type='time'
-                                        // isRequired
+                                        options={
+                                            bookingDetails.date.length < 1 ?
+                                                []
+                                            :
+                                            generateAvailableTimeIntervalsForPlace(
+                                                openTimesForPlace.find(time => 
+                                                    time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
+                                                )
+                                            ).map(time => {
+                                                return {
+                                                    id: time,
+                                                    label: time,
+                                                    value: time,
+                                                }
+                                            })
+                                        }
+                                        isDisabled={bookingDetails.date.length < 1}
+                                        handleChange={(val) => handleDetailUpdate(bookingDetailsDict.time, val)}
                                         style={{
                                             width: 'calc(50% - 0.5rem)',
                                         }}
@@ -387,17 +437,8 @@ const BookingForm = () => {
                                     />
                                 </section>
 
-                                <TextInputComponent 
-                                    label='phone'
-                                    name={bookingDetailsDict.phone}
-                                    value={bookingDetails.phone}
-                                    onChange={handleDetailUpdate}
-                                    borderRadius='12px'
-                                    isRequired
-                                />
-
                                 <SelectItem
-                                    label='location'
+                                    label='studio location'
                                     options={
                                         selectedPlace?.place_locations?.map(location => ({
                                             id: location.id,
@@ -409,6 +450,38 @@ const BookingForm = () => {
                                     handleChange={(val) => handleDetailUpdate(bookingDetailsDict.location_id, val)}
                                     isRequired
                                 />
+                                
+                                <section className={styles.input__Row}>
+                                    <TextInputComponent 
+                                        label='phone'
+                                        name={bookingDetailsDict.phone}
+                                        value={bookingDetails.phone}
+                                        onChange={handleDetailUpdate}
+                                        borderRadius='12px'
+                                        isRequired
+                                        style={{
+                                            width: bookingDetails.is_for_child === false ?
+                                                'calc(60% - 0.5rem)'
+                                            :
+                                            '100%',
+                                        }}
+                                    />
+
+                                    {
+                                        bookingDetails.is_for_child === false &&          
+                                        <TextInputComponent 
+                                            label='age'
+                                            name={bookingDetailsDict.age}
+                                            value={bookingDetails.age}
+                                            onChange={handleDetailUpdate}
+                                            borderRadius='12px'
+                                            isRequired
+                                            style={{
+                                                width: 'calc(40% - 0.5rem)',
+                                            }}
+                                        />
+                                    }
+                                </section>
 
                                 {
                                     bookingDetails.is_for_child === true && <>
@@ -431,6 +504,7 @@ const BookingForm = () => {
 
                                             <TextInputComponent 
                                                 label='child email'
+                                                type='email'
                                                 name={bookingDetailsDict.child_email}
                                                 value={bookingDetails.child_email}
                                                 onChange={handleDetailUpdate}
@@ -443,18 +517,40 @@ const BookingForm = () => {
                                         </section>
 
                                         <section className={styles.input__Row}>
-                                            <TextInputComponent 
-                                                label='child date of birth'
-                                                name={bookingDetailsDict.child_dob}
-                                                value={bookingDetails.child_dob}
-                                                onChange={handleDetailUpdate}
-                                                borderRadius='12px'
-                                                type='date'
-                                                isRequired
+                                            <label 
+                                                className={styles.label__Detail}
                                                 style={{
                                                     width: 'calc(50% - 0.5rem)',
                                                 }}
-                                            />
+                                            >
+                                                <span>child date of birth <RequiredIndicator /></span>
+
+                                                <DatePicker 
+                                                    selected={
+                                                        bookingDetails.child_dob && bookingDetails.child_dob.length > 0 ?
+                                                            new Date(bookingDetails.child_dob)
+                                                        :
+                                                        null
+                                                    }
+                                                    onChange={(date) => {
+                                                            if (!date) return;
+
+                                                            handleDetailUpdate(bookingDetailsDict.child_dob, formatDate(date))
+                                                            handleDetailUpdate(bookingDetailsDict.age, calulateYearsDifference(date));
+                                                        }
+                                                    }
+                                                    icon={
+                                                        <IoCalendarNumberOutline />
+                                                    }
+                                                    // minDate={new Date(new Date().setFullYear(new Date().getFullYear() - 5))}
+                                                    customInput={React.createElement(CustomDatePickerInput)}
+                                                    showMonthDropdown
+                                                    showYearDropdown
+                                                    dropdownMode='select'
+                                                    showPopperArrow={false}
+                                                    renderCustomHeader={(props) => <CustomDatePickerHeader {...props} />}
+                                                />
+                                            </label>
                                             
                                             <TextInputComponent 
                                                 label='child phone'
@@ -473,7 +569,7 @@ const BookingForm = () => {
                             :
                             currentPage === 5 ? <>
                                 <section className={styles.details__Info}>
-                                    <p className={styles.label__Item}>health declaration document(s)</p>
+                                    <p className={styles.label__Item}>Health declaration and other document(s)</p>
 
                                     {
                                         !selectedPlace?.documents_data || selectedPlace.documents_data?.length < 1 ?
@@ -497,7 +593,7 @@ const BookingForm = () => {
                             currentPage === 6 ? <>
                                 <section className={styles.details__Info}>
                                     <TextInputComponent 
-                                        label="I have reviewed and accepted the studio's health declaration form."
+                                        label="I have reviewed and accepted the studio's health declaration form as well as other attached documents."
                                         type='checkbox'
                                         style={{
                                             display: 'flex',

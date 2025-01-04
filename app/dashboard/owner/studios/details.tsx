@@ -60,11 +60,8 @@ const AllPlacesDetails = () => {
                             index={index}
                             key={place.id}
                             isListView={false}
-                            style={{
-                                height: '100%',
-                                maxHeight: '40rem',
-                            }}
                             imageHeight={350}
+                            isInAppStudioUse={true}
                         />
                     }))
             }

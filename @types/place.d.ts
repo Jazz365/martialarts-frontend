@@ -58,8 +58,8 @@ type IPlacePolicy = {
 type IPlaceActivityHours = {
     id?: number | string;
     day: string;
-    opening_time: string;
-    closing_time: string;
+    opening_time?: string;
+    closing_time?: string;
 }
 
 type IPlaceReviews = {

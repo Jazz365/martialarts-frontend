@@ -4,6 +4,8 @@ import styles from './styles.module.css'
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
 
+const defaultPlaceId = 2;
+
 const FeatureCard = ({
     featuredPlace,
 }: {
@@ -33,7 +35,7 @@ const FeatureCard = ({
         <Link 
             className={styles.card__Item}
             // href={''}
-            href={`/places/21`}
+            href={`/places/${defaultPlaceId}`}
         >
             <Image 
                 src={featuredPlace.image}

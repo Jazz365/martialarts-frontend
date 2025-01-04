@@ -15,6 +15,9 @@ import FaqInfo from '../../components/FaqInfo/FaqInfo';
 import NewBooking from '../../components/NewBooking/NewBooking';
 import SinglePlaceLocation from '../../components/SinglePlaceLocation/SinglePlaceLocation';
 import PlaceReviews from '../../components/PlaceReviews/PlaceReviews';
+import NewReviewItem from '../../components/PlaceReviews/NewReviewItem';
+import { useUserContext } from '@/contexts/UserContext';
+import { useAppContext } from '@/contexts/AppContext';
 
 
 const SinglePlaceView = ({
@@ -22,6 +25,14 @@ const SinglePlaceView = ({
 }: {
     id: number | undefined | null;
 }) => {
+    const {
+        userDetails
+    } = useUserContext();
+
+    const {
+        userBookedPlaces
+    } = useAppContext();
+
     const [ foundPlace, setFoundPlace ] = useState<IPlace | null | undefined>(null);
     const [ loading, setLoading ] = useState(false);
     const [ loaded, setLoaded ] = useState(false);
@@ -109,9 +120,30 @@ const SinglePlaceView = ({
 
                 <Divider />
 
-                <PlaceReviews 
+                <PlaceReviews
                     reviews={foundPlace.place_reviews ?? []}
                 />
+
+                {
+                    userDetails && userDetails.is_owner == false && userBookedPlaces.find(place => place.id === foundPlace.id) && <>
+                        <Divider />
+                        
+                        <NewReviewItem
+                            placeId={foundPlace.id}
+                            reviews={foundPlace.place_reviews ?? []}
+                            updateReviews={(reviews) => {
+                                setFoundPlace((prevData) => {
+                                    if (!prevData) return null;
+                                    
+                                    return {
+                                        ...prevData,
+                                        place_reviews: reviews
+                                    }
+                                })
+                            }}
+                        />
+                    </>
+                }
             </section>
 
             <NewBooking

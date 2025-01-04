@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import apiBaseUrl from "./config"
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 class PlaceService {
     private getPlaceEndpoint(endpoint: string, searchParams?: string | null | undefined) {
@@ -207,6 +207,32 @@ class PlaceService {
 
             return jsonRes;
         } catch (error) {
+            throw error;
+        }
+    }
+
+    async addNewReview (
+        token: string, 
+        data={},
+    ): Promise<IPlaceReviews> {
+        try {
+            const res = (await axios.post(`${this.getPlaceEndpoint('reviews')}`, data, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                }
+            })).data;
+
+            toast.success('Successfully added new review!');
+
+            return res as IPlaceReviews;
+        } catch (error) {
+            let errorMsg = 'Something went wrong, please try again later';
+            if (error instanceof AxiosError) {
+                console.log(error.response?.data?.detail);
+            }
+            
+            toast.error(errorMsg);
+            
             throw error;
         }
     }

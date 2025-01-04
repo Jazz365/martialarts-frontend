@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import styles from './styles.module.css'
 import RequiredIndicator from '../RequiredIndicator/RequiredIndicator';
 
@@ -12,6 +12,7 @@ const SelectItem = ({
     handleChange=() => {},
     isDisabled=false,
     isRequired=false,
+    style={},
 }: {
     label: string;
     labelFontSize?: string;
@@ -25,10 +26,12 @@ const SelectItem = ({
     handleChange?: (value: string) => void;
     isDisabled?: boolean;
     isRequired?: boolean;
+    style?: CSSProperties;
 }) => {
     return <>
         <label 
             className={styles.select__Wrap}
+            style={style}
         >
             <span style={{
                 fontSize: labelFontSize,

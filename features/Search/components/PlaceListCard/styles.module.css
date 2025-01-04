@@ -20,13 +20,14 @@
 .list__Card.row {
     align-items: center;
     width: 100%;
-    padding: 0.45rem;
+    padding: 1rem 0.45rem;
     height: 100%;
 }
 
 .list__Card.row.full {
     width: calc(calc(100% / 2) - 0.75rem);
-    max-height: calc(420px + calc(0.45rem * 2));
+    /* max-height: calc(430px + calc(0.45rem * 2)); */
+    height: unset;
 }
 
 .list__Card.col {
@@ -34,11 +35,17 @@
     flex-direction: column;
     padding: 1rem 0.45rem;
     height: 100%;
-    max-height: 40rem;
+    max-height: 44rem;
+}
+
+.list__Card.col.full,
+.list__Card.col.studio {
+    min-height: 48rem;
 }
 
 .list__Card.col.full {
     width: calc(calc(100% / 4) - 1.15rem);
+    /* max-height: 20rem; */
 }
 
 .image {
@@ -67,7 +74,7 @@
 .details {
     flex-direction: column;
     gap: 1.5rem;
-    padding: 0.9rem 1rem 0.9rem 0;
+    padding: 0rem 1rem 0rem 0;
     width: 100%;
     height: 100%;
 }

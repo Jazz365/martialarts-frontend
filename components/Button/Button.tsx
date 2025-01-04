@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 
 const Button = ({
     label,
-    style,
+    style={},
     icon,
     useLink=false,
     linkLocation='',

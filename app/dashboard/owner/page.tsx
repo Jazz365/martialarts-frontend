@@ -26,7 +26,7 @@ const Home = () => {
                 <CustomBarChart
                     title='listing views growth'
                     subtitle='get insights into how well your listings are performing'
-                    data={placesViewStats}
+                    data={placesViewStats ?? []}
                     dataKeyName='views'
                     labelKeyName='name'
                     isLoading={placesViewStatLoading}

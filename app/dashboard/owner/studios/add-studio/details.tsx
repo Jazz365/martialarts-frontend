@@ -24,7 +24,11 @@ import PageLoader from '@/components/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
 import StyleAddModal from '@/components/StyleAddModal/StyleAddModal';
 import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
+import { getAllDaysOfTheWeek } from '@/helpers/helpers';
+import { v4 as uuidv4 } from 'uuid';
 
+
+const daysOfTheWeek = getAllDaysOfTheWeek();
 
 const AddPlaceDetails = () => {
     const [ details, setDetails ] = useState<NewPlaceDetail>(initialNewPlaceDetail);
@@ -67,7 +71,18 @@ const AddPlaceDetails = () => {
         setIsEditView(true);
         setDetailsLoading(true);
 
-        placeService.getSinglePlace(Number(idPassed)).then(res => {
+        placeService.getSinglePlace(Number(idPassed)).then((res) => {
+            const placeActivityHours = res?.place_activity_hours;
+            const formattedActivityHours = daysOfTheWeek.map(day => {
+                const foundDay = placeActivityHours?.find((activity: IPlaceActivityHours) => activity.day === day);
+                return {
+                    id: foundDay?.id ?? uuidv4(),
+                    day,
+                    opening_time: foundDay?.opening_time ?? '',
+                    closing_time: foundDay?.closing_time ?? '',
+                }
+            });
+
             setDetails({
                 ...res,
                 benefits: res?.benefits?.split(','),
@@ -76,7 +91,7 @@ const AddPlaceDetails = () => {
                 master_images: res?.master_images_data,
                 images: res?.images_data,
                 caters_to: res?.place_caters_to?.map((item: ICatersTo) => item.id),
-                activity_hours: res?.place_activity_hours,
+                activity_hours: formattedActivityHours,
                 faqs: res?.place_faqs,
                 policy: res?.policy?.content,
                 documents: res?.documents_data,
@@ -159,8 +174,10 @@ const AddPlaceDetails = () => {
         if (details.images.length < 5) return toast.info('Please upload at least 5 images for your place');
         if (details.benefits.length < 5) return toast.info('Please write at least 5 benefits of your place');
         
-        const formData = generateFormDataForNewPlaceDetails(details);
-
+        const formData = generateFormDataForNewPlaceDetails(details, isEditView);
+        // console.log(formData);
+        // return
+        
         setLoading(true);
 
         if (isEditView) {

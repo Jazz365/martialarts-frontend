@@ -1,8 +1,9 @@
 'use client';
 
 import { useUserContext } from '@/contexts/UserContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
+import { userTypes } from '../UserTypeSelect/utils';
 
 const ProtectedRouteWrap = ({
     children
@@ -11,12 +12,18 @@ const ProtectedRouteWrap = ({
 }) => {
     const { userDetails, userDetailsLoading, isLoggedIn } = useUserContext();
     const router = useRouter();
+    const pathname = usePathname();
     
     useEffect(() => {
-        if (userDetailsLoading || userDetails || isLoggedIn) return;
+        if (userDetailsLoading || userDetails || isLoggedIn) {
+            if (userDetails && userDetails.is_owner === false && pathname.includes(`/${userTypes.owner}`)) return router.replace(pathname.replace(`/${userTypes.owner}`, `/${userTypes.user}`));
+            if (userDetails && userDetails.is_owner === true && pathname.includes(`/${userTypes.user}`)) return router.replace(pathname.replace(`/${userTypes.user}`, `/${userTypes.owner}`)) 
+            
+            return;
+        }
 
-        if (!userDetails) return router.push('/auth/login');  
-    }, [userDetails, userDetailsLoading, isLoggedIn])
+        if (!userDetails) return router.push('/auth/login');
+    }, [userDetails, userDetailsLoading, isLoggedIn, pathname])
 
     return (
         <>{children}</>

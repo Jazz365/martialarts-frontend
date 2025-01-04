@@ -45,5 +45,6 @@ type AppContextType = {
     setBlogsLoaded: (val: boolean) => void;
     showMap: boolean;
     setShowMap: (val: boolean) => void;
+    userBookedPlaces: IPlace[];
     resetUserInfoInContext: () => void;
 }

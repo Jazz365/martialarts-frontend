@@ -5,7 +5,7 @@ import styles from './styles.module.css'
 
 const Carousel = ({
     children,
-    style,
+    style={},
     delay=3000,
 }: {
     style?: CSSProperties;

@@ -37,13 +37,19 @@ const CustomBarChart = ({
             <ResponsiveContainer 
                 width="100%" 
                 height={500}
+                style={{
+                    pointerEvents: data.length < 1 ? 
+                        'none' 
+                    : 
+                    'all'
+                }}
             >
                 <BarChart
                     width={500}
                     height={400}
                     data={data}
                     margin={
-                        isMobile ? 
+                        isMobile ?
                             {}
                         :
                         {

@@ -17,7 +17,7 @@ const Bookings = () => {
     const {
         bookings,
         bookingsLoading,
-    } = useAppContext()
+    } = useAppContext();
 
     return <>
         <section className={styles.content__Wrap}>
@@ -54,8 +54,9 @@ const Bookings = () => {
                 :
                 <section className={styles.bookings}>
                     {
-                        React.Children.toArray(bookings
-                            .filter(booking => booking.status === 'pending')
+                        React.Children.toArray(
+                            bookings
+                            .slice(0, 5)
                             .map(booking => {
                                 return <BookingSummaryItem 
                                     booking={booking}
