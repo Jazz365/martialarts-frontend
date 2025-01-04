@@ -24,4 +24,6 @@ type IBooking = {
     selected_styles: IMartialArtStyle[];
     agreed_to_health_declaration: boolean;
     agreed_to_liability_waiver: boolean;
+    age?: string;
+    class?: ICatersTo;
 }

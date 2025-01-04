@@ -6,6 +6,7 @@ import NextTopLoader from "nextjs-toploader";
 import 'rc-rate/assets/index.css';
 import 'react-calendar/dist/Calendar.css';
 import "react-multi-carousel/lib/styles.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { Toaster } from "sonner";
 

@@ -13,7 +13,8 @@
 .header__Row,
 .place__Details,
 .input__Row,
-.document__Link {
+.document__Link,
+.cutom__Pick__head {
     display: flex;
     align-items: center;
 }
@@ -24,7 +25,8 @@
 .detail__item,
 .options,
 .progress,
-.summary__Item {
+.summary__Item,
+.label__Detail {
     display: flex;
     flex-direction: column;
 }
@@ -151,6 +153,36 @@
 .no__Doc,
 .summary__Item__Detail {
     font-size: 0.75rem;
+}
+
+.open__Day {
+    background-color: var(--open-day-highlight);
+    color: #fff;
+}
+
+.label__Detail {
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    gap: 0.3rem;
+}
+
+.custom__Pick__Date {
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d3d3d3;
+    font-size: 0.8rem;
+    display: block;
+    width: 100%;
+}
+
+.cutom__Pick__head {
+    gap: 1rem;
+    justify-content: center;
+}
+
+.cutom__Pick__head select {
+    outline: none;
+    border: none;
 }
 
 @media screen and (max-width: 767px) {

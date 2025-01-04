@@ -51,7 +51,7 @@ const NewBooking = ({
     
     const tileClassName = ({ date }: { date: Date }) => {
         const dayName = getDayName(date);
-        const openDaysForPlace = place.place_activity_hours.flatMap(item => item.opening_time.length > 0 && item.closing_time.length > 0 ? [item.day.toLocaleLowerCase()] : []);
+        const openDaysForPlace = place.place_activity_hours.flatMap(item => item.opening_time && item?.opening_time?.length > 0 && item.closing_time && item?.closing_time?.length > 0 ? [item.day.toLocaleLowerCase()] : []);
 
         if (openDaysForPlace.includes(dayName)) {
             return styles.open__Day;

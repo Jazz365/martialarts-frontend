@@ -25,7 +25,7 @@ const ActivityHoursEdit = ({
                             <TextInputComponent 
                                 label='open'
                                 type='checkbox'
-                                checked={item.closing_time.length > 0 && item.opening_time.length > 0}
+                                checked={item.closing_time !== undefined && item?.closing_time?.length > 0 && item.opening_time !== undefined && item?.opening_time?.length > 0}
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',

@@ -10,30 +10,60 @@ const SinglePlaceGallery = ({
 }) => {
     const responsive = {
         desktop: {
-          breakpoint: { max: 3000, min: 1024 },
+          breakpoint: {
+            max: 3000,
+            min: 1024
+          },
           items: 3,
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2,
+          partialVisibilityGutter: 40
         },
         mobile: {
-          breakpoint: { max: 464, min: 0 },
+          breakpoint: {
+            max: 464,
+            min: 0
+          },
           items: 1,
+          partialVisibilityGutter: 30
+        },
+        tablet: {
+          breakpoint: {
+            max: 1024,
+            min: 464
+          },
+          items: 2,
+          partialVisibilityGutter: 30
         }
     };
 
     return <>
-        <Carousel 
-            containerClass={styles.carousel__Wrap} 
+        <Carousel
             responsive={responsive}
-            swipeable={true}
-            draggable={true}
+            additionalTransfrom={0}
+            arrows
+            autoPlaySpeed={2000}
+            centerMode={false}
+            className=""
+            containerClass="container-with-dots"
+            dotListClass=""
+            draggable
+            focusOnSelect={false}
+            infinite
+            itemClass=""
+            keyBoardControl
+            minimumTouchDrag={80}
+            pauseOnHover
+            renderArrowsWhenDisabled={false}
+            renderButtonGroupOutside={false}
+            renderDotsOutside={false}
+            rewind={false}
+            rewindWithAnimation={false}
+            rtl={false}
+            shouldResetAutoplay
             showDots={false}
-            infinite={true}
-            // autoPlay={true}
-            // autoPlaySpeed={1000}
-            customTransition="all .5"
+            sliderClass=""
+            slidesToSlide={1}
+            swipeable
+            autoPlay
             transitionDuration={500}
             removeArrowOnDeviceType={["tablet", "mobile"]}
             ssr={true}
@@ -46,8 +76,8 @@ const SinglePlaceGallery = ({
                             src={image.image as string}
                             alt='place'
                             key={image.id}
-                            width={505}
-                            height={600}
+                            width={510}
+                            height={500}
                             className={`${styles.image} ${index === 1 ? styles.main : ''}`}
                             quality={100}
                             priority

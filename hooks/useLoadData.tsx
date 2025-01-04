@@ -24,7 +24,7 @@ export default function useLoadData(
     useEffect(() => {
         const savedToken = AppConstants.getSavedToken();
 
-        if (extraInfo.hasDependency === true && extraInfo.dependency === null) return;
+        if (extraInfo.hasDependency === true && (extraInfo.dependency === null || extraInfo.dependency === false)) return;
 
         if (dataLoaded) return setDataLoading(false);
 

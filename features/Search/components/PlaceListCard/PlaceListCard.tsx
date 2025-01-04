@@ -4,7 +4,6 @@ import Image from 'next/image';
 import React, { CSSProperties, useEffect, useState } from 'react'
 import styles from './styles.module.css';
 import { IoLocationOutline } from 'react-icons/io5';
-import Rate from 'rc-rate';
 import Carousel from '@/components/Carousel/Carousel';
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
@@ -13,12 +12,12 @@ import { useUserContext } from '@/contexts/UserContext';
 import useMobile from '@/hooks/useMobile';
 import { useRouter } from 'next/navigation';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
-import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
 import { useAppContext } from '@/contexts/AppContext';
 import { formatPricingType } from '@/app/dashboard/owner/studios/add-studio/utils';
 
 const maxLengthForGridView = 32;
 const maxBenLengthForListView = 80;
+const maxBenLengthForFullListView = 50;
 const maxGridTitleLength = 14;
 const viewDurations = [1000, 1500, 1800];
 
@@ -26,14 +25,16 @@ const PlaceListCard = ({
   place,
   isListView=true,
   imageHeight,
-  style,
+  style={},
   index,
+  isInAppStudioUse=false,
 }: {
   place: IPlace;
   isListView?: boolean;
   imageHeight?: number;
   style?: CSSProperties;
   index: number;
+  isInAppStudioUse?: boolean;
 }) => {
   const [
     placeLocation,
@@ -52,14 +53,11 @@ const PlaceListCard = ({
     `${place.place_caters_to.map(cat => cat.name).join(', ')}`,
     `${
       place.place_activity_hours
-      .filter(act => act.opening_time.length > 0 && act.closing_time.length > 0)
+      .filter(act => act?.opening_time && act?.opening_time?.length > 0 && act?.closing_time && act?.closing_time?.length > 0)
       .map(act => `${act.day} (${act.opening_time} - ${act.closing_time})`)
       .join(', ')
     }`,
-    isListView === false ?
-      place.benefits.split(',').slice(0, 3)
-    :
-    place.benefits.split(',').slice(0, 4)
+    place.benefits.split(',').slice(0, 5)
   ]
 
   const { userDetails } = useUserContext();
@@ -107,6 +105,12 @@ const PlaceListCard = ({
           :
           ''
         }
+        ${
+          isInAppStudioUse === true ?
+            styles.studio
+          :
+          ''
+        }
       `}
       style={style}
       // href={`/places/${place.id}`}
@@ -128,9 +132,9 @@ const PlaceListCard = ({
               height={
                 isListView && !isMobile ?
                   showMap ?
-                    370
+                    415
                   :
-                  400
+                  415
                 :
                 imageHeight ??
                 340
@@ -271,17 +275,18 @@ const PlaceListCard = ({
           {
             React.Children.toArray(
               placeBenefits
-              .map(benefit => {
+              .map((benefit, benefitIndex) => {
+                const lenForBenefit = !showMap ?  maxBenLengthForFullListView : maxBenLengthForListView;
                 return <li 
                   className={styles.benefit__Item}
-                  key={benefit}
+                  key={benefit + benefitIndex}
                 >
                   {
-                    !isListView ?
+                    (isListView || !showMap) ?
+                      benefit.length > lenForBenefit ?
+                        benefit.slice(0, lenForBenefit) + '...'
+                      :
                       benefit
-                    :
-                    benefit.length > maxBenLengthForListView ?
-                      benefit.slice(0, maxBenLengthForListView) + '...'
                     :
                     benefit
                   }
@@ -289,9 +294,9 @@ const PlaceListCard = ({
             }))
           }
           {
-            !isListView && placeBenefits.length < 3 &&
+            !isListView && placeBenefits.length < 5 &&
             React.Children.toArray(
-              Array.from(Array(3 - placeBenefits.length).keys()).map(key => {
+              Array.from(Array(5 - placeBenefits.length).keys()).map(key => {
                 return <li
                   className={styles.benefit__Item}
                   key={key}

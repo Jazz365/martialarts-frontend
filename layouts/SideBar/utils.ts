@@ -53,7 +53,7 @@ export const userNavLinks: LinkItemDetail[] = [
     },
     {
         id: 3,
-        location: `${generateDashLinkForUser(false)}/places`,
+        location: `${generateDashLinkForUser(false)}/saved-studios`,
         icon: HiOutlineBuildingOffice2,
         text: 'saved studios',
     },

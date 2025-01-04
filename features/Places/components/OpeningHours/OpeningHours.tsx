@@ -16,8 +16,8 @@ const OpeningHours = ({
                 {
                     React.Children.toArray(activityHours.map(activity => {
                         const placeIsClosedOnDay = (
-                            activity.opening_time.length < 1 ||
-                            activity.closing_time.length < 1
+                            !activity.opening_time ||
+                            !activity.closing_time
                         );
 
                         return <li
@@ -29,7 +29,7 @@ const OpeningHours = ({
                                 placeIsClosedOnDay ?
                                 <span className={styles.time__Detail}>closed</span>
                                 :
-                                <span className={styles.time__Detail}>{formatTimeString(activity.opening_time)} - {formatTimeString(activity.closing_time)}</span>
+                                <span className={styles.time__Detail}>{formatTimeString(activity.opening_time ?? '')} - {formatTimeString(activity.closing_time ?? '')}</span>
                             }
                         </li>
                     }))

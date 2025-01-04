@@ -20,10 +20,11 @@ const PlaceReviews = ({
                     React.Children.toArray(reviews.map(review => {
                         return <SingleReviewItem 
                             review={review}
+                            key={review.id}
                         />
                     }))
                 }
-            </section>
+            </section>       
         </section>
     )
 }

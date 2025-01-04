@@ -4,7 +4,7 @@ import BookingForm from "@/components/BookingForm/BookingForm";
 import useLoadData from "@/hooks/useLoadData";
 import { BookingService } from "@/services/bookingService";
 import { PlaceService } from "@/services/placeService";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { useUserContext } from "./UserContext";
 import { BlogService } from "@/services/blogService";
 
@@ -55,6 +55,7 @@ const AppContext = createContext<AppContextType>({
     setBlogsLoading: () => {},
     showMap: true,
     setShowMap: () => {},
+    userBookedPlaces: [],
     resetUserInfoInContext: () => {},
 });
 
@@ -96,6 +97,10 @@ const AppContextProvider = ({
     const [ placesViewStats, setPlacesViewStats ] = useState<IPlaceViewStat[]>([]);
     const [ placesViewStatLoading, setPlacesViewStatLoading ] = useState(true);
     const [ placesViewStatLoaded, setPlacesViewStatLoaded ] = useState(false);
+
+    const userBookedPlaces = useMemo<IPlace[]>(() => {
+        return bookings.filter(booking => booking.status === 'confirmed').flatMap(booking => [booking.place]);
+    }, [bookings]);
     
     const [ showMap, setShowMap ] = useState(true);
 
@@ -185,7 +190,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: userDetails,
+            dependency: userDetails && userDetails.is_owner === true,
         }
     );
 
@@ -245,6 +250,7 @@ const AppContextProvider = ({
             setBlogsLoading,
             showMap,
             setShowMap,
+            userBookedPlaces,
             resetUserInfoInContext,
         }}>
             {children}

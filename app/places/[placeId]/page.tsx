@@ -31,7 +31,8 @@ const Places = async (props: { params: PageParams }) => {
         <NavigationBar 
             showSearchBar
             wrapperStyle={{
-              padding: '1rem 1.5rem'
+              padding: '1rem 1.5rem',
+              zIndex: 1001,
             }}
         />
 

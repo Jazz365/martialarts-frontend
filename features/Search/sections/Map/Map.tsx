@@ -48,7 +48,7 @@ const PlacesMap = ({
         <Map
           defaultZoom={zoom}
           defaultCenter={
-            placeCoordinates.length > 0 ? 
+            placeCoordinates.length > 0 && placeCoordinates[0].lat && placeCoordinates[0].lng ? 
               placeCoordinates[0] 
             : 
             defaultMapCenter
@@ -67,6 +67,8 @@ const PlacesMap = ({
 
           {
             placeCoordinates.map((coord, index) => {
+              if (!coord.lat || !coord.lng || !coord.lng) return <div key={index}></div>
+              
               return <Marker 
                 position={coord} 
                 key={`${index}`}

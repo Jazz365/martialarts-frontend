@@ -28,7 +28,7 @@ const ContactInfo = ({
                     website &&
                     <Link 
                         href={website} 
-                        className={styles.info__Item}
+                        className={`${styles.info__Item} ${styles.link}`}
                         target='_blank'
                         rel='noreferrer noopener'
                     >

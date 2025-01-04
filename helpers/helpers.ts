@@ -51,6 +51,16 @@ export const formatTimeString = (timeStr: string) => {
     return date.toLocaleString('en-US', options);
 }
 
+export const formatDate = (date: Date): string => {
+    if (!date) return "";
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
 export const estimateReadingTime = (textLength: number) => {
     const wordsPerMinute = 200;
     const avgWordLength = 5;
@@ -104,7 +114,7 @@ export const getYoutubeEmbedVideoLink = (url?: string) => {
         return url;
     }
 
-    const videoIdPattern = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const videoIdPattern = /(?:youtube\.com\/(?:shorts\/|(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=))|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const match = url.match(videoIdPattern);
 
     if (match && match[1]) {
@@ -112,4 +122,64 @@ export const getYoutubeEmbedVideoLink = (url?: string) => {
     }
 
     return defaultPlaceYoutubeUrl;
+}
+
+export const getWeekday = (date: Date): string => {
+    const weekday = date.toLocaleString('en-US', { weekday: 'long' });
+    return weekday;
+}
+
+export const generateAvailableTimeIntervalsForPlace = (
+    { 
+        opening_time, 
+        closing_time 
+    }: { 
+        opening_time?: string; 
+        closing_time?: string 
+    } = {}
+): string[] => {
+    if (!opening_time || opening_time?.length < 1 || !closing_time || closing_time?.length < 1) return [];
+
+    const now = new Date();
+    const nowFormmatted = formatDate(now);
+
+    const openingDate = new Date(`${nowFormmatted}T${opening_time}Z`);
+    const closingDate = new Date(`${nowFormmatted}T${closing_time}Z`);
+  
+    const timeIntervals: string[] = [];
+    let currentTime = new Date(openingDate);
+  
+    while (currentTime < closingDate) {
+        const currentTimeString = currentTime.toISOString().slice(11, 19); // format as HH:MM:SS
+        
+        if (currentTime >= now) {
+            timeIntervals.push(currentTimeString);
+        }
+        currentTime.setHours(currentTime.getHours() + 1);
+    }
+    return timeIntervals;
+}
+
+export const checkIfDateIsLessThanNYears = (date: Date, n: number) => {
+    if (n < 1) return true;
+
+    const currentYear = new Date().getFullYear();
+    const selectedYear = date.getFullYear();
+
+    return selectedYear <= currentYear - n;
+};
+
+export const calulateYearsDifference = (date: Date) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    let age = currentDate.getFullYear() - selectedDate.getFullYear();
+
+    // Adjust if the birthday hasn't occurred yet this year
+    const monthDifference = currentDate.getMonth() - selectedDate.getMonth();
+    const dayDifference = currentDate.getDate() - selectedDate.getDate();
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+        age--;
+    }
+
+    return age;
 }

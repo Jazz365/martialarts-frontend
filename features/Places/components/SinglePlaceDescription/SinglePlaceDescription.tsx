@@ -23,8 +23,6 @@ const SinglePlaceDescription = ({
     const [ showFullDescription, setShowFullDescription ] = useState(false);
     const isMobile = useMobile();
 
-    console.log(video);
-    
     return (
         <section className={styles.content__Wrap}>
             <h3 className={styles.header}>about this place</h3>

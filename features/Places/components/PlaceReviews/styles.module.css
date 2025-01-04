@@ -1,19 +1,20 @@
 .content__Wrap,
 .reviews,
-.review__Card {
+.review__Card,
+.new__Review {
     display: flex;
     flex-direction: column;
 }
 
-.reviews,
 .content__Wrap {
     gap: 1.5rem;
 }
 
 .reviews {
-    max-height: 18rem;
+    max-height: 25rem;
     overflow-y: auto;
     scrollbar-width: none;
+    gap: 2rem;
 }
 
 .header,
@@ -22,7 +23,8 @@
     text-transform: capitalize;
 }
 
-.review__Card {
+.review__Card,
+.review__Top__Content {
     gap: 1rem;
 }
 
@@ -32,11 +34,8 @@
     align-items: center;
 }
 
-.review__Top__Content {
-    gap: 1rem;
-}
-
-.review__User__Wrap {
+.review__User__Wrap,
+.new__Review {
     gap: 0.4rem;
 }
 
@@ -51,6 +50,11 @@
 
 .no__Review__Txt {
     font-size: 0.75rem;
+}
+
+.comment {
+    white-space: pre-line;
+    font-size: 0.875rem;
 }
 
 @media screen and (max-width: 767px) {

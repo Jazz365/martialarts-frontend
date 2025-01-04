@@ -13,6 +13,7 @@ export interface BookingDetails {
     child_email?: string;
     selected_styles: number[];
     class_id: string;
+    age: string;
     agreed_to_health_declaration: boolean;
     agreed_to_liability_waiver: boolean;
 }
@@ -30,6 +31,7 @@ export const initialBookingDetails: BookingDetails = {
     agreed_to_health_declaration: false,
     agreed_to_liability_waiver: false,
     class_id: '',
+    age: '',
 }
 
 export const bookingDetailsDict = {
@@ -49,6 +51,7 @@ export const bookingDetailsDict = {
     agreed_to_liability_waiver: 'agreed_to_liability_waiver',
     location_id: 'location_id',
     class_id: 'class_id',
+    age: 'age',
 }
 
 export const formPageDetail = [
@@ -70,7 +73,7 @@ export const formPageDetail = [
     },
     {
         id: 5,
-        name: 'review studio health declaration(s)',
+        name: 'review studio document(s)',
     },
     {
         id: 6,
@@ -94,6 +97,7 @@ export const requiredInfo: {
         bookingDetailsDict.email,
         bookingDetailsDict.phone,
         bookingDetailsDict.location_id,
+        bookingDetailsDict.age,
     ],
     5: [],
     6: [],
