@@ -27,6 +27,8 @@ const CustomDatePickerInput = forwardRef<HTMLButtonElement, CustomDatePickerInpu
             }
         </span>
     }
-  );
+);
+
+CustomDatePickerInput.displayName = 'CustomDatePickerInput';
 
 export default CustomDatePickerInput;

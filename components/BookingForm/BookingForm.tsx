@@ -125,7 +125,7 @@ const BookingForm = () => {
             setSelectedPlaceDetailsLoading(false);
         });
 
-    }, [selectedPlace, userDetails]);
+    }, [selectedPlace, userDetails, selectedPlaceId]);
 
     const handleGoToPreviousPage = () => {
         if (loading) return;
