@@ -6,7 +6,7 @@ import heroImg6 from '../../../../assets/heros/boxing.webp'
 import heroImg7 from '../../../../assets/heros/sambo.webp'
 import heroImg5 from '../../../../assets/heros/Wrestling.webp'
 import Image from 'next/image'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 
 
 const HeroImagesWrap = () => {

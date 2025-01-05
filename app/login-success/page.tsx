@@ -1,7 +1,7 @@
 'use client';
 
 
-import Loader from '@/components/Loader/Loader';
+import Loader from '@/components/loaders/Loader/Loader';
 import { useUserContext } from '@/contexts/UserContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'

@@ -4,6 +4,6 @@ type ILocation = {
     city: string;
     state: string;
     zip_code: string;
-    latitude: number;
-    longitude: number;
+    latitude?: string;
+    longitude?: string;
 }

@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react'
 import styles from './styles.module.css'
 import { dummyFeaturedPlaces } from './utils'
 import FeatureCard from '../../components/FeatureCard/FeatureCard'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll';
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll';
 import PaginationItem from '@/components/PaginationItem/PaginationItem';
 import useMobile from '@/hooks/useMobile';
 import { useAppContext } from '@/contexts/AppContext';

@@ -2,7 +2,7 @@ import Button from '@/components/Button/Button';
 import React from 'react'
 import styles from './styles.module.css'
 import { IoAddOutline, IoTrashOutline } from 'react-icons/io5';
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { toast } from 'sonner';
 import SelectItem from '@/components/SelectItem/SelectItem';
 import { availableLocations } from '@/utils/locations';
@@ -30,8 +30,6 @@ const AddLocationsComponent = ({
             city: '',
             zip_code: '',
             state: '',
-            latitude: 40.748817,
-            longitude: -73.985428,
         });
 
         if (copyOfCurrentItems.length > maxItemCap) return toast.info(`You can only add a maximum of ${maxItemCap} item(s)`)

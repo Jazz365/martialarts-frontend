@@ -90,6 +90,7 @@ export const requiredInfo: {
     2: [
         bookingDetailsDict.class_id,
         bookingDetailsDict.date,
+        bookingDetailsDict.time,
     ],
     3: [],
     4: [

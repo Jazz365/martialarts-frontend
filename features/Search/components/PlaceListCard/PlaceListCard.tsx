@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { CSSProperties, useEffect, useState } from 'react'
 import styles from './styles.module.css';
 import { IoLocationOutline } from 'react-icons/io5';
-import Carousel from '@/components/Carousel/Carousel';
+import Carousel from '@/components/wrapperComponents/Carousel/Carousel';
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
 import { generateDashLinkForUser } from '@/helpers/helpers';

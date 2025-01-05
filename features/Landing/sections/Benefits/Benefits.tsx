@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import { benefitsList } from './utils'
 import BenefitItem from '../../components/BenefitItem/BenefitItem'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 
 const Benefits = () => {
     return <>

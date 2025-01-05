@@ -12,8 +12,8 @@ const testMapCoordinates = [
 ]
 
 const defaultMapCenter = {
-    "lat": 6.451847, 
-    "lng": 3.388139,
+    "lat": 40.708839, 
+    "lng": -74.011133,
 }
 
 

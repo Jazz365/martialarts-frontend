@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 import { dummyMartialStyles } from '@/utils/styles'
 import Image from 'next/image'
 import Link from 'next/link'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
 import Button from '@/components/Button/Button'
 

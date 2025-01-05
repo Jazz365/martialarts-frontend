@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styles from './styles.module.css'
 import { useAppContext } from '@/contexts/AppContext'
 import { IoCalendarNumberOutline, IoCloseOutline } from 'react-icons/io5';
 import Button from '../Button/Button';
 import { PlaceService } from '@/services/placeService';
-import Carousel from '../Carousel/Carousel';
+import Carousel from '../wrapperComponents/Carousel/Carousel';
 import Image from 'next/image';
-import TextInputComponent from '../TextInputComponent/TextInputComponent';
+import TextInputComponent from '../inputs/TextInputComponent/TextInputComponent';
 import { BookingDetails, bookingDetailsDict, bookingUserOptions, formPageDetail, initialBookingDetails, requiredInfo } from './utils';
-import PageLoader from '../PageLoader/PageLoader';
+import PageLoader from '../loaders/PageLoader/PageLoader';
 import { useUserContext } from '@/contexts/UserContext';
 import Divider from '@/features/Places/components/Divider/Divider';
 import RequiredIndicator from '../RequiredIndicator/RequiredIndicator';
@@ -43,6 +43,15 @@ const BookingForm = () => {
     const [ loading, setLoading ] = useState(false);
     const [ selectedPlace, setSelectedPlace ] = useState<IPlace | null>(null);
     const [ showConfirmationModal, setShowConfirmationModal ] = useState(false);
+    
+    const availableTimeSlots = useMemo(() => {
+        if (bookingDetails.date.length < 1) return [];
+        const foundPlaceActivityTime = openTimesForPlace.find(time => 
+            time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
+        );
+
+        return generateAvailableTimeIntervalsForPlace(foundPlaceActivityTime, new Date(bookingDetails.date));
+    }, [bookingDetails.date])
 
     const placeService = new PlaceService();
     const bookingService = new BookingService();
@@ -191,8 +200,6 @@ const BookingForm = () => {
 
         setCurrentPage(currentPage + 1);
     }
-
-    console.log(bookingDetails);
     
     return <>
         <section className={styles.overlay}>
@@ -359,14 +366,7 @@ const BookingForm = () => {
                                         isRequired
                                         value={bookingDetails.time}
                                         options={
-                                            bookingDetails.date.length < 1 ?
-                                                []
-                                            :
-                                            generateAvailableTimeIntervalsForPlace(
-                                                openTimesForPlace.find(time => 
-                                                    time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
-                                                )
-                                            ).map(time => {
+                                            availableTimeSlots.map(time => {
                                                 return {
                                                     id: time,
                                                     label: time,

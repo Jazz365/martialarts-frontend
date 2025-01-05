@@ -8,7 +8,7 @@ import { PlaceService } from '@/services/placeService';
 import { AppConstants } from '@/utils/constants';
 import styles from './styles.module.css'
 import Rate from 'rc-rate';
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import Button from '@/components/Button/Button';
 import { toast } from 'sonner';
 
@@ -83,7 +83,7 @@ const NewReviewItem = ({
             <h5 className={styles.header}>Write a review</h5>
 
             <Rate
-                allowHalf={true}
+                allowHalf={false}
                 value={newReviewDetail.rating}
                 style={{
                     fontSize: '2.5rem',

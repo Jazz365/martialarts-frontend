@@ -1,7 +1,11 @@
+'use client';
+
+
 import React from 'react'
 import styles from './styles.module.css'
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { newPlaceDetailKeysDict } from '@/app/dashboard/owner/studios/add-studio/utils';
+import useMobile from '@/hooks/useMobile';
 
 
 const ActivityHoursEdit = ({
@@ -11,6 +15,8 @@ const ActivityHoursEdit = ({
     activityHours: IPlaceActivityHours[];
     updateSingleItem?: (itemIndex: number, value: string, key: string) => void;
 }) => {
+    const isMobile = useMobile();
+    
     return <>
         <section className={styles.content__Wrap}>
             {
@@ -33,7 +39,7 @@ const ActivityHoursEdit = ({
                                     flexDirection: 'row-reverse',
                                     gap: '0.3rem',
                                 }}
-                                labelFontSize='0.75rem'
+                                labelFontSize={isMobile ? '0.65rem' : '0.75rem'}
                                 handleUpdateChecked={(val) => {
                                     if (val === true) {
                                         updateSingleItem(index, '09:00', newPlaceDetailKeysDict.opening_time);
@@ -55,6 +61,9 @@ const ActivityHoursEdit = ({
                             type='time'
                             value={item.opening_time}
                             onChange={(_name, value: string) => updateSingleItem(index, value, newPlaceDetailKeysDict.opening_time)}
+                            style={{
+                                width: isMobile ? 'calc(50% - 1rem)' : undefined,
+                            }}
                         />
 
                         <TextInputComponent 
@@ -64,6 +73,9 @@ const ActivityHoursEdit = ({
                             type='time'
                             value={item.closing_time}
                             onChange={(_name, value: string) => updateSingleItem(index, value, newPlaceDetailKeysDict.closing_time)}
+                            style={{
+                                width: isMobile ? 'calc(50% - 1rem)' : undefined,
+                            }}
                         />
                     </section>
                 }))

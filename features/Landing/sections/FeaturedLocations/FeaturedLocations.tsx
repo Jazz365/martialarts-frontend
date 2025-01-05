@@ -4,7 +4,7 @@ import { dummyFeaturedLocations } from './utils'
 import Link from 'next/link'
 import Image from 'next/image'
 import { IoLocateOutline } from 'react-icons/io5'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
 
 

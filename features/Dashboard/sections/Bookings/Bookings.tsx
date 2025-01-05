@@ -8,7 +8,7 @@ import { useUserContext } from '@/contexts/UserContext'
 import BookingSummaryItem from '../../components/BookingSummaryItem/BookingSummaryItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { useAppContext } from '@/contexts/AppContext';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 
 
 const Bookings = () => {

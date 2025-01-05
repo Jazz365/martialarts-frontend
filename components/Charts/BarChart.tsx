@@ -4,7 +4,7 @@ import React from 'react'
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import styles from './styles.module.css'
 import useMobile from '@/hooks/useMobile';
-import PageLoader from '../PageLoader/PageLoader';
+import PageLoader from '../loaders/PageLoader/PageLoader';
 
 
 const CustomBarChart = ({

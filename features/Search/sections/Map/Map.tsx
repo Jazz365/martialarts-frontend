@@ -1,15 +1,18 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { useAppContext } from '@/contexts/AppContext';
 import { APIProvider, InfoWindow, Map, Marker} from "@vis.gl/react-google-maps";
 import { defaultMapCenter, testMapCoordinates } from './utils';
+import { IoLocationOutline } from 'react-icons/io5';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 
 interface PlaceCoordinate {
   lat: number;
   lng: number;
   name: string;
+  address: string;
 }
 
 const PlacesMap = ({
@@ -18,16 +21,18 @@ const PlacesMap = ({
   width,
   showContentOnSmallScreen=false,
   zoom=11,
+  loaded=true,
 }: {
   placeCoordinates?: PlaceCoordinate[];
   minHeight?: string;
   width?: string;
   showContentOnSmallScreen?: boolean;
   zoom?: number;
+  loaded?: boolean;
 }) => {
-  const { showMap } = useAppContext();
+  const { showMap, mapKey, mapKeyLoading } = useAppContext();
   const [ selectedLocation, setSelectedLocation ] = useState<PlaceCoordinate | null>(null);
-  const [ showDialog, setShowDialog ] = useState(false)
+  const [ showDialog, setShowDialog ] = useState(false);
 
   const handleMarkerClick = (e: google.maps.MapMouseEvent, clickedCoord: PlaceCoordinate) => {
     setSelectedLocation(clickedCoord);
@@ -41,43 +46,74 @@ const PlacesMap = ({
         width,
       }}
     >
-      <APIProvider
-        // apiKey=''
-        apiKey={process.env.NEXT_PUBLIC_MAP_KEY ?? ''}
-      >
-        <Map
-          defaultZoom={zoom}
-          defaultCenter={
-            placeCoordinates.length > 0 && placeCoordinates[0].lat && placeCoordinates[0].lng ? 
-              placeCoordinates[0] 
-            : 
-            defaultMapCenter
-          }
-          disableDefaultUI
-          style={{ 
-            minHeight, 
-            height: minHeight 
-          }}
+      {
+        !loaded || mapKeyLoading ? <>
+          <PageLoader />
+        </>
+        :
+        
+        <APIProvider
+          apiKey={mapKey ?? ''}
         >
-          {showDialog && (
-            <InfoWindow position={selectedLocation}>
-              <h1>{selectedLocation?.name}</h1>
-            </InfoWindow>
-          )}
+          <Map
+            defaultZoom={zoom}
+            defaultCenter={
+              placeCoordinates.length > 0 && placeCoordinates.find(co => co.lat > 0)?.lat && placeCoordinates.find(co => co.lat > 0)?.lng ? 
+                placeCoordinates.find(co => co.lat > 0)
+              : 
+              defaultMapCenter
+            }
+            disableDefaultUI
+            style={{ 
+              minHeight, 
+              height: minHeight 
+            }}
+          >
+            {showDialog && (
+              <InfoWindow 
+                position={selectedLocation}
+                onClose={() => {
+                  setSelectedLocation(null);
+                  setShowDialog(false);
+                }}
+              >
+                <h1
+                  style={{
+                    fontFamily: 'var(--mako-font)',
+                    fontSize: '1rem',
+                  }}
+                >
+                  {selectedLocation?.name}
+                </h1>
 
-          {
-            placeCoordinates.map((coord, index) => {
-              if (!coord.lat || !coord.lng || !coord.lng) return <div key={index}></div>
-              
-              return <Marker 
-                position={coord} 
-                key={`${index}`}
-                onClick={(e) => handleMarkerClick(e, coord)}
-              />
-            })
-          }
-        </Map>
-      </APIProvider>
+                <p
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.2rem',
+                    fontSize: '0.7rem',
+                  }}
+                >
+                  <IoLocationOutline />
+                  {selectedLocation?.address}
+                </p>
+              </InfoWindow>
+            )}
+
+            {
+              placeCoordinates.map((coord, index) => {
+                if (!coord.lat || !coord.lng || !coord.lng) return <div key={index}></div>
+                
+                return <Marker 
+                  position={coord} 
+                  key={`${index}`}
+                  onClick={(e) => handleMarkerClick(e, coord)}
+                />
+              })
+            }
+          </Map>
+        </APIProvider>
+      }
     </section>
   </>
 }

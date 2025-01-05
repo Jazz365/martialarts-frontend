@@ -11,6 +11,7 @@ import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
 const SearchPageDetails = () => {
     const {
         allPlaces,
+        placesLoading,
     } = useSearchFilterContext();
     
     return (
@@ -18,12 +19,14 @@ const SearchPageDetails = () => {
             <SearchPlacesListing />
             <PlacesMap 
                 placeCoordinates={
-                    allPlaces.flatMap(place => place.place_locations.map(location => ({ 
-                        lat: location.latitude, 
-                        lng: location.longitude,
+                    allPlaces.flatMap(place => place.place_locations.map(location => ({
+                        lat: isNaN(Number(location.latitude)) ? 0 : Number(location.latitude),
+                        lng: isNaN(Number(location.longitude)) ? 0 : Number(location.longitude),
                         name: place.name,
+                        address: location.address,
                     })))
                 }
+                loaded={!placesLoading}
             />
         </section>
     )

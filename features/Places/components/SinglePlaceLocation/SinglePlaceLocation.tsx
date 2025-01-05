@@ -26,10 +26,12 @@ const SinglePlaceLocation = ({
                 zoom={13}
                 placeCoordinates={
                     locations.map(location => {
+                        const [ formattedLat, formattedLon ] = [ Number(location.latitude), Number(location.longitude) ];
                         return {
-                            lat: location.latitude, 
-                            lng: location.longitude,
+                            lat: isNaN(formattedLat) ? 0 : formattedLat,
+                            lng: isNaN(formattedLon) ? 0 : formattedLon, 
                             name: placeName,
+                            address: location.address,
                         }
                     })
                 }

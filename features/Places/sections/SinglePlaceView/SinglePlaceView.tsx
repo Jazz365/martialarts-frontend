@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import SinglePlaceGallery from '../../components/SinglePlaceGallery/SinglePlaceGallery';
 import { PlaceService } from '@/services/placeService';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import SinglePlaceHeader from '../../components/SinglePlaceHeader/SinglePlaceHeader';
 import styles from './styles.module.css'
 import SinglePlaceBenefits from '../../components/SinglePlaceBenefits/SinglePlaceBenefits';

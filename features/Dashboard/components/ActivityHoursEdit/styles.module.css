@@ -21,9 +21,16 @@
 
 @media screen and (max-width: 767px) {
     .single__Item {
-        flex-direction: column;
+        /* flex-direction: column; */
         gap: 1rem;
         align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    
+    .title {
+        flex: 100%;
+        flex-direction: row;
+        gap: 1rem;
     }
     
     .content__Wrap {

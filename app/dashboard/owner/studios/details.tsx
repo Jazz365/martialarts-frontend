@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import styles from './styles.module.css'
 import PlaceListCard from '@/features/Search/components/PlaceListCard/PlaceListCard';
 import { useAppContext } from '@/contexts/AppContext';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import Image from 'next/image';
 import mascot from '../../../../assets/astr.webp'
 

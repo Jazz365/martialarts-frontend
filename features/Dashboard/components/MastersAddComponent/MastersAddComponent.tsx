@@ -6,9 +6,9 @@ import { IoAddOutline, IoCloseCircle } from 'react-icons/io5'
 import styles from './styles.module.css'
 import emptyUserPic from '../../../../assets/avatar.png'
 import Image from 'next/image';
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { v4 as uuidv4 } from 'uuid';
-import FileInputComponent from '@/components/FileInputComponent/FileInputComponent';
+import FileInputComponent from '@/components/inputs/FileInputComponent/FileInputComponent';
 import { convertFileObjectToBinaryStr } from '@/helpers/helpers';
 import { toast } from 'sonner';
 

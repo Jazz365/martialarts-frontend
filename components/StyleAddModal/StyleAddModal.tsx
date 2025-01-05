@@ -6,7 +6,7 @@ import styles from './styles.module.css'
 import { PlaceService } from '@/services/placeService';
 import { useAppContext } from '@/contexts/AppContext';
 import { IoCloseOutline } from 'react-icons/io5';
-import TextInputComponent from '../TextInputComponent/TextInputComponent';
+import TextInputComponent from '../inputs/TextInputComponent/TextInputComponent';
 import Button from '../Button/Button';
 import { toast } from 'sonner';
 import { AppConstants } from '@/utils/constants';

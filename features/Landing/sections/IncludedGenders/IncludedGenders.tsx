@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import GenderImagesWrap from '../../components/GenderImagesWrap/GenderImagesWrap'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 
 
 const IncludedGenders = () => {
