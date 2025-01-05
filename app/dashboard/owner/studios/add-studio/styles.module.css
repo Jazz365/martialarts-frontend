@@ -78,8 +78,16 @@
         flex-direction: column;
     }
 
+    .item__Section__Row.styles__Content {
+        flex-direction: row;
+    }
+
     .features__Wrap {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+
+    .check__Wrap {
+        gap: 0.8rem;
     }
 }

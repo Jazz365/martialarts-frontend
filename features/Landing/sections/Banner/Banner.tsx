@@ -4,7 +4,7 @@ import { IoIosArrowRoundForward } from 'react-icons/io'
 // import happyIllustration from '../../../../assets/happy.svg'
 import astronaut from '../../../../assets/astr.webp'
 import Image from 'next/image'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import Button from '@/components/Button/Button'
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils'
 

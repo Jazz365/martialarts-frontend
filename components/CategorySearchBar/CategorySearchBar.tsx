@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { dummyMartialStyles } from '@/utils/styles';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 import { useAppContext } from '@/contexts/AppContext';
-import Loader from '../Loader/Loader';
+import Loader from '../loaders/Loader/Loader';
 
 
 const CategorySearchBar = ({

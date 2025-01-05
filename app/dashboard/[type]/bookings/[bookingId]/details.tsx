@@ -146,7 +146,8 @@ const SingleBookingDetailContent = ({
 
             <Divider />
 
-            <p className={styles.header_min}>personal information</p>
+            <p className={styles.header_min}>
+                {bookingDetail.is_for_child === false ? 'student' : 'parent'} information</p>
 
             <p>
                 <span>email</span>

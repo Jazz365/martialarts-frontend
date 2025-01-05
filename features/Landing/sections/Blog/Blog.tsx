@@ -4,10 +4,10 @@ import React from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import FadeInOnScroll from '@/components/FadeInOnScroll/FadeInOnScroll'
+import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { useAppContext } from '@/contexts/AppContext';
 import sampleImage1 from '../../../../assets/blogSamples/blog-1.webp';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { estimateReadingTime } from '@/helpers/helpers';
 
 
@@ -42,6 +42,9 @@ const Blog = () => {
                     :
                     <section className={styles.blog__Wrap}>
                         {
+                            blogs.length < 1 ?
+                                <p style={{ fontSize: '0.875rem' }}>No blogs yet</p>
+                            :
                             React.Children.toArray(blogs.map(blog => {
                                 return <Link
                                     href={`/blog/${blog.slug}`}

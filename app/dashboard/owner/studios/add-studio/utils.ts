@@ -85,8 +85,9 @@ export const compulsoryDetailKeys = [
     newPlaceDetailKeysDict.locations,
     newPlaceDetailKeysDict.benefits,
     // newPlaceDetailKeysDict.policy,
-    newPlaceDetailKeysDict.faqs,
+    // newPlaceDetailKeysDict.faqs,
     newPlaceDetailKeysDict.images,
+    newPlaceDetailKeysDict.caters_to,
 ]
 
 export const initialNewPlaceDetail: NewPlaceDetail = {

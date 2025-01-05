@@ -2,7 +2,7 @@ import Button from '@/components/Button/Button';
 import React from 'react'
 import styles from './styles.module.css'
 import { IoAddOutline, IoTrashOutline } from 'react-icons/io5';
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { toast } from 'sonner';
 import RequiredIndicator from '@/components/RequiredIndicator/RequiredIndicator';
 

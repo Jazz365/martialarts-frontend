@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import blogImg from '../../../assets/blogSamples/blog-1.webp';
 import styles from './styles.module.css';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { BlogService } from '@/services/blogService';
 import facebookIcon from '../../../assets/icons/facebook.webp';
 import instagramIcon from '../../../assets/icons/instagram.webp';

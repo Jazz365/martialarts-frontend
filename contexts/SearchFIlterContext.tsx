@@ -102,7 +102,7 @@ const SearchFilterContextProvider = ({
         setAllPlaces,
         setPlacesLoaded,
         {
-            inputParam: `?${searchParams.toString()}`,
+            inputParam: searchParams.toString().length > 0 ? `?${searchParams.toString()}` : '',
         }
     );
 

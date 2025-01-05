@@ -1,5 +1,5 @@
 import Button from '@/components/Button/Button'
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent'
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent'
 import React, { useState } from 'react'
 import styles from './styles.module.css'
 import { toast } from 'sonner'

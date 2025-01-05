@@ -1,7 +1,7 @@
 'use client';
 
 import SelectItem from '@/components/SelectItem/SelectItem';
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent'
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent'
 import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddItemWrapper'
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
@@ -20,7 +20,7 @@ import { PlaceService } from '@/services/placeService';
 import { AppConstants } from '@/utils/constants';
 import { useAppContext } from '@/contexts/AppContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import PageLoader from '@/components/PageLoader/PageLoader';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
 import StyleAddModal from '@/components/StyleAddModal/StyleAddModal';
 import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
@@ -278,7 +278,7 @@ const AddPlaceDetails = () => {
             </section>
 
             <section className={styles.check__Wrap}>
-                <section className={styles.item__Section__Row}>
+                <section className={`${styles.item__Section__Row} ${styles.styles__Content}`}>
                     <p className={styles.title__Item}>martial art styles offered</p>
 
                     <Button 
@@ -457,7 +457,7 @@ const AddPlaceDetails = () => {
                 </section>
 
                 <section className={styles.check__Wrap}>
-                    <p>Class Type</p>
+                    <p>Class Type <RequiredIndicator /></p>
                     
                     {
                         React.Children.toArray(catersTo.map(type => {

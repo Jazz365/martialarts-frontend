@@ -7,6 +7,7 @@ import { PlaceService } from "@/services/placeService";
 import { createContext, useContext, useMemo, useState } from "react";
 import { useUserContext } from "./UserContext";
 import { BlogService } from "@/services/blogService";
+import { MapService } from "@/services/mapService";
 
 const AppContext = createContext<AppContextType>({
     selectedPlaceId: null, 
@@ -56,6 +57,12 @@ const AppContext = createContext<AppContextType>({
     showMap: true,
     setShowMap: () => {},
     userBookedPlaces: [],
+    mapKey: '',
+    setMapKey: () => {},
+    mapKeyLoaded: false,
+    setMapKeyLoaded: () => {},
+    mapKeyLoading: false,
+    setMapKeyLoading: () => {},
     resetUserInfoInContext: () => {},
 });
 
@@ -103,15 +110,20 @@ const AppContextProvider = ({
     }, [bookings]);
     
     const [ showMap, setShowMap ] = useState(true);
+    const [ mapKey, setMapKey ] = useState('');
+    const [ mapKeyLoaded, setMapKeyLoaded ] = useState(false);
+    const [ mapKeyLoading, setMapKeyLoading ] = useState(false);
 
     const [
         placeService,
         bookingService,
         blogService,
+        mapService,
     ] = [
         new PlaceService(),
         new BookingService(),
         new BlogService(),
+        new MapService(),
     ];
 
     const resetUserInfoInContext = () => {
@@ -202,6 +214,14 @@ const AppContextProvider = ({
         setBlogsLoaded,
     );
 
+    useLoadData(
+        mapKeyLoaded,
+        setMapKeyLoading,
+        mapService.getMapDetail.bind(mapService),
+        setMapKey,
+        setMapKeyLoaded,
+    );
+
     return <>
         <AppContext.Provider value={{
             selectedPlaceId,
@@ -251,6 +271,12 @@ const AppContextProvider = ({
             showMap,
             setShowMap,
             userBookedPlaces,
+            mapKey,
+            setMapKey,
+            mapKeyLoaded,
+            setMapKeyLoaded,
+            mapKeyLoading,
+            setMapKeyLoading,
             resetUserInfoInContext,
         }}>
             {children}

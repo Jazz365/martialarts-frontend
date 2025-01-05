@@ -8,7 +8,7 @@ import styles from './styles.module.css'
 import Link from 'next/link'
 import Button from '@/components/Button/Button'
 import UserTypeSelect from '../UserTypeSelect/UserTypeSelect';
-import TextInputComponent from '@/components/TextInputComponent/TextInputComponent';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { AuthDetails, AuthInfoKey, authTypesDict, initialAuthInfo } from './utils';
 import { AuthService } from '@/services/authService';
 import { validateEmail } from '@/helpers/helpers';

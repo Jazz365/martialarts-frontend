@@ -227,12 +227,9 @@ class PlaceService {
             return res as IPlaceReviews;
         } catch (error) {
             let errorMsg = 'Something went wrong, please try again later';
-            if (error instanceof AxiosError) {
-                console.log(error.response?.data?.detail);
-            }
+            if (error instanceof AxiosError && error.response?.data?.errorMsg) errorMsg = error.response?.data?.errorMsg;
             
             toast.error(errorMsg);
-            
             throw error;
         }
     }

@@ -132,27 +132,30 @@ export const getWeekday = (date: Date): string => {
 export const generateAvailableTimeIntervalsForPlace = (
     { 
         opening_time, 
-        closing_time 
+        closing_time,
     }: { 
         opening_time?: string; 
-        closing_time?: string 
-    } = {}
+        closing_time?: string;
+    } = {},
+    date_selected: Date,
 ): string[] => {
-    if (!opening_time || opening_time?.length < 1 || !closing_time || closing_time?.length < 1) return [];
+    if (!opening_time || opening_time?.length < 1 || !closing_time || closing_time?.length < 1 || !date_selected) return [];
 
-    const now = new Date();
-    const nowFormmatted = formatDate(now);
+    const passedDate = new Date(date_selected);
+    const passedDateFormmatted = formatDate(passedDate);
 
-    const openingDate = new Date(`${nowFormmatted}T${opening_time}Z`);
-    const closingDate = new Date(`${nowFormmatted}T${closing_time}Z`);
+    const openingDate = new Date(`${passedDateFormmatted}T${opening_time}`);
+    const closingDate = new Date(`${passedDateFormmatted}T${closing_time}`);
   
+    const lastAvailableTime = new Date(closingDate);
+    lastAvailableTime.setHours(lastAvailableTime.getHours() - 1);
+
     const timeIntervals: string[] = [];
     let currentTime = new Date(openingDate);
-  
-    while (currentTime < closingDate) {
+    
+    while (currentTime.getTime() <= lastAvailableTime.getTime()) {
         const currentTimeString = currentTime.toISOString().slice(11, 19); // format as HH:MM:SS
-        
-        if (currentTime >= now) {
+        if (currentTime.getTime() >= passedDate.getTime()) {
             timeIntervals.push(currentTimeString);
         }
         currentTime.setHours(currentTime.getHours() + 1);

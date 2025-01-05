@@ -64,12 +64,22 @@
         width: 100%;
     }
 
-    .logo,
-    .link__Item span {
+    .logo {
         display: none;
     }
 
     .links__Wrap {
         justify-content: space-between;
+    }
+
+    .link__Item a {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 0.65rem;
+    }
+
+    .link__Item span {
+        font-size: 0.65rem;
     }
 }
