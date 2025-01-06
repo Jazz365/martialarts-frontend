@@ -1,4 +1,4 @@
-import { getAllDaysOfTheWeek } from "@/helpers/helpers";
+import { base64StrToFile, getAllDaysOfTheWeek } from "@/helpers/helpers";
 import { v4 as uuidv4 } from 'uuid';
 
 const pricingTypesDict = {
@@ -149,12 +149,8 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
                         delete itemValue.imageFile;
                     }
 
-                    if (key === newPlaceDetailKeysDict.images) return {
-                        id,
-                        ...itemValue
-                    }
-
                     return {
+                        id,
                         ...itemValue
                     }
                 }
@@ -209,7 +205,12 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
 
             formData.append('master_images_bio', JSON.stringify(masterImagesDetails.map(item => ({ name: item.name, bio: item.bio }))))
             masterImagesDetails.forEach(item => {
-                formData.append(`${key}`, item.image as File)
+                formData.append(`${key}`, item.image as File);
+                
+                if (isEditView === true && typeof item.id === 'number' && typeof item.image === 'string' && item.image_base64_str && item?.image_base64_str?.length > 0) {
+                    const masterImgfile: File = base64StrToFile(item.image_base64_str);
+                    formData.append(`${key}`, masterImgfile);
+                }
             });
 
             continue;

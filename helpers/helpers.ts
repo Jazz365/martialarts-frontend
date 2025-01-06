@@ -186,3 +186,29 @@ export const calulateYearsDifference = (date: Date) => {
 
     return age;
 }
+
+export const base64StrToFile = (base64Str: string, fileName: string = 'image-file'): File => {
+    // Split the Base64 string to get the data part (after the comma)
+    const [base64Prefix, base64Data] = base64Str.split(',');
+  
+    // Determine MIME type (e.g., image/png, image/jpeg)
+    const mimeTypeMatch = base64Prefix.match(/:(.*?);/);
+    const mimeType = mimeTypeMatch ? mimeTypeMatch[1] : 'application/octet-stream';
+  
+    // Decode Base64 string to binary data
+    const byteCharacters = atob(base64Data);
+  
+    // Create a typed array to store the binary data
+    const byteArrays = new Uint8Array(byteCharacters.length);
+  
+    // Copy binary data into the typed array
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteArrays[i] = byteCharacters.charCodeAt(i);
+    }
+  
+    // Create a Blob from the byte arrays
+    const blob = new Blob([byteArrays], { type: mimeType });
+  
+    // Create and return a File object from the Blob
+    return new File([blob], fileName, { type: mimeType });
+}  

@@ -41,6 +41,7 @@ type IPlaceMasterImage = {
     image: string | File;
     bio: string;
     imageFile?: File;
+    image_base64_str?: string;
 }
 
 type IPlaceFaq = {

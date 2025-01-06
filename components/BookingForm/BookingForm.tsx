@@ -44,15 +44,6 @@ const BookingForm = () => {
     const [ selectedPlace, setSelectedPlace ] = useState<IPlace | null>(null);
     const [ showConfirmationModal, setShowConfirmationModal ] = useState(false);
     
-    const availableTimeSlots = useMemo(() => {
-        if (bookingDetails.date.length < 1) return [];
-        const foundPlaceActivityTime = openTimesForPlace.find(time => 
-            time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
-        );
-
-        return generateAvailableTimeIntervalsForPlace(foundPlaceActivityTime, new Date(bookingDetails.date));
-    }, [bookingDetails.date])
-
     const placeService = new PlaceService();
     const bookingService = new BookingService();
     
@@ -73,6 +64,15 @@ const BookingForm = () => {
             ] : []
         ) ?? []
     ];
+
+    const availableTimeSlots = useMemo(() => {
+        if (bookingDetails.date.length < 1) return [];
+        const foundPlaceActivityTime = openTimesForPlace.find(time => 
+            time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
+        );
+
+        return generateAvailableTimeIntervalsForPlace(foundPlaceActivityTime, new Date(bookingDetails.date));
+    }, [bookingDetails.date])
 
     const isDayValid = (date: Date) => {
         const currentDate = new Date();
@@ -159,6 +159,7 @@ const BookingForm = () => {
         if (missingRequiredInfo) return toast.info('Please fill in all required info');
         
         if (currentPage === 4) {
+            if (isNaN(Number(bookingDetails.age))) return toast.info('Please provide a valid age');
             if (bookingDetails.is_for_child === false) return setCurrentPage(currentPage + 1);
 
             if (
@@ -581,6 +582,7 @@ const BookingForm = () => {
                                                 target='_blank'
                                                 rel='noreferrer noopener'
                                                 className={styles.document__Link}
+                                                key={document.id}
                                             >   
                                                 <ImAttachment />
                                                 <span>{document.title}</span>
