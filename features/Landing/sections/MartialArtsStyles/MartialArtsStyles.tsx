@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './styles.module.css'
 import { dummyMartialStyles } from '@/utils/styles'
 import Image from 'next/image'
@@ -17,6 +17,10 @@ const MartialArtsStyles = () => {
         allStyles,
     } = useAppContext();
     
+    const stylesToShow = useMemo(() => {
+        return dummyMartialStyles.filter(style => style.isFeatured === true);
+    }, []);
+    
     return <>
         <section className={styles.content__Wrap}>
             <FadeInOnScroll>
@@ -25,44 +29,41 @@ const MartialArtsStyles = () => {
             
             <section className={styles.styles__Wrap}>
                 {
-                    React.Children.toArray(
-                        dummyMartialStyles
-                        .filter(style => style.isFeatured === true)
-                        .map(style => {
-                            const foundStyle = allStyles.find(
-                                styleItem => cleanStringAndReturnLower(styleItem.name) === cleanStringAndReturnLower(style.name)
-                            );
+                    stylesToShow
+                    .map(style => {
+                        const foundStyle = allStyles.find(
+                            styleItem => cleanStringAndReturnLower(styleItem.name) === cleanStringAndReturnLower(style.name)
+                        );
 
-                            return <>
-                                <FadeInOnScroll 
-                                    viewThreshold={0.5}
-                                    className={styles.style__Item__Detail}
-                                    key={style.id}
+                        return <>
+                            <FadeInOnScroll 
+                                key={style.id}
+                                viewThreshold={0.5}
+                                className={styles.style__Item__Detail}
+                            >
+                                <Link
+                                    href={
+                                        foundStyle ?
+                                            `/search?style_id=${encodeURIComponent(foundStyle.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
+                                        :
+                                        ''
+                                    }
                                 >
-                                    <Link
-                                        href={
-                                            foundStyle ?
-                                                `/search?style_id=${encodeURIComponent(foundStyle.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
-                                            :
-                                            ''
-                                        }
-                                    >
-                                        
-                                        <Image 
-                                            src={style.imageUrl}
-                                            alt={style.name}
-                                            className={styles.style__Image}
-                                            // priority
-                                        />
+                                    
+                                    <Image 
+                                        src={style.imageUrl}
+                                        alt={style.name}
+                                        className={styles.style__Image}
+                                        priority
+                                    />
 
-                                        <section className={styles.mask}>
-                                            <h3 className={styles.style__Name}>{style.name}</h3>
-                                        </section>
-                                    </Link>
-                                </FadeInOnScroll>
-                            </>
-                        })
-                    )
+                                    <section className={styles.mask}>
+                                        <h3 className={styles.style__Name}>{style.name}</h3>
+                                    </section>
+                                </Link>
+                            </FadeInOnScroll>
+                        </>
+                    })
                 }
             </section>
 
