@@ -8,7 +8,6 @@ import { IoAddOutline, IoCloseOutline, IoGridOutline } from 'react-icons/io5'
 import Button from '../../components/Button/Button'
 import CategorySearchBar from '../../components/CategorySearchBar/CategorySearchBar'
 import { useUserContext } from '@/contexts/UserContext'
-import ProfileItem from '../ProfileItem/ProfileItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 import useMobile from '@/hooks/useMobile';

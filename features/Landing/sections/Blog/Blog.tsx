@@ -5,7 +5,7 @@ import styles from './styles.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import sampleImage1 from '../../../../assets/blogSamples/blog-1.webp';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { estimateReadingTime } from '@/helpers/helpers';

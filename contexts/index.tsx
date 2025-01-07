@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import SearchFilterContextProvider from "./SearchFIlterContext";
+import SearchFilterContextProvider from "./SearchFilterContext/SearchFIlterContext";
 import UserContextProvider from "./UserContext";
-import AppContextProvider from "./AppContext";
+import AppContextProvider from "./AppContext/AppContext";
 
 const composeProviders = (...providers: ContextProvider[]): ContextProvider => {
     return ({ children }: ContextProviderProps) =>

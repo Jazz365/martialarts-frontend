@@ -24,14 +24,14 @@ const HeroBanner = () => {
                 className={`${styles.img__Content} ${styles.i_1}`}
                 alt='hero'
                 src={heroImg4}
-                // priority
+                priority
             />
 
             <Image 
                 className={`${styles.img__Content} ${styles.i_2}`}
                 alt='hero'
                 src={heroImg1}
-                // priority
+                priority
             />
         </section>
 

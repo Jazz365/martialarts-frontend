@@ -5,12 +5,11 @@ import React from 'react'
 import styles from './styles.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { dummyMartialStyles } from '@/utils/styles'
 import facebookIcon from '../../assets/icons/facebook.webp'
 import instagramIcon from '../../assets/icons/instagram.webp'
 import tiktokIcon from '../../assets/icons/tiktok.webp'
 import youtubeIcon from '../../assets/icons/youtube.webp'
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 
 const Footer = () => {
     const { allStyles } = useAppContext();

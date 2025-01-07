@@ -12,6 +12,10 @@
     gap: 1.5rem;
 }
 
+.list__Wrap.min__Gap {
+    gap: 1rem;
+}
+
 @media screen and (max-width: 767px) {
     .list__Wrap,
     .list__Wrap.wrap__Row {

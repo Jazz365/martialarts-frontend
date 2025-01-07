@@ -41,6 +41,7 @@ export interface NewPlaceDetail {
     styles: number[];
     gender: string;
     caters_to: number[];
+    age_groups: number[];
     policy: string;
     reviews: {}[];
     is_featured: boolean;
@@ -69,6 +70,7 @@ export const newPlaceDetailKeysDict = {
     styles: 'styles',
     gender: 'gender',
     caters_to: 'caters_to',
+    age_groups: 'age_groups',
     policy: 'policy',
     reviews: 'reviews',
     is_featured: 'is_featured',
@@ -88,6 +90,7 @@ export const compulsoryDetailKeys = [
     // newPlaceDetailKeysDict.faqs,
     newPlaceDetailKeysDict.images,
     newPlaceDetailKeysDict.caters_to,
+    newPlaceDetailKeysDict.age_groups,
 ]
 
 export const initialNewPlaceDetail: NewPlaceDetail = {
@@ -115,6 +118,7 @@ export const initialNewPlaceDetail: NewPlaceDetail = {
     styles: [],
     gender: '',
     caters_to: [],
+    age_groups: [],
     policy: '',
     reviews: [
         {
@@ -149,12 +153,8 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
                         delete itemValue.imageFile;
                     }
 
-                    if (key === newPlaceDetailKeysDict.images) return {
-                        id,
-                        ...itemValue
-                    }
-
                     return {
+                        id,
                         ...itemValue
                     }
                 }
@@ -208,8 +208,15 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
             const masterImagesDetails = value as IPlaceMasterImage[];
 
             formData.append('master_images_bio', JSON.stringify(masterImagesDetails.map(item => ({ name: item.name, bio: item.bio }))))
-            masterImagesDetails.forEach(item => {
-                formData.append(`${key}`, item.image as File)
+            // const existingMasterImages = masterImagesDetails.filter(item => typeof item.id === 'number' && typeof item.image === 'string');
+            // let newImageStartIndex = 1;
+
+            masterImagesDetails.forEach((item, index) => {
+                formData.append(`master_image_new_${index + 1}`, item.image as File);
+                
+                if (typeof item.id === 'number' && typeof item.image === 'string') {
+                    formData.append(`master_image_${item.id}`, item.image as string);
+                }
             });
 
             continue;
@@ -259,7 +266,7 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
             continue;
         }
         
-        if (key === newPlaceDetailKeysDict.styles || key === newPlaceDetailKeysDict.caters_to || key === newPlaceDetailKeysDict.policy || key === newPlaceDetailKeysDict.reviews) {
+        if (key === newPlaceDetailKeysDict.styles || key === newPlaceDetailKeysDict.caters_to || key === newPlaceDetailKeysDict.policy || key === newPlaceDetailKeysDict.reviews || key === newPlaceDetailKeysDict.age_groups) {
             formData.append(key, JSON.stringify(value));
             continue;
         }

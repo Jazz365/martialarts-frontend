@@ -4,7 +4,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import StatItem from '../../components/StatItem/StatItem'
-import { useAppContext } from '@/contexts/AppContext'
+import { useAppContext } from '@/contexts/AppContext/AppContext'
 import { useUserContext } from '@/contexts/UserContext';
 
 const TopStatsRow = () => {

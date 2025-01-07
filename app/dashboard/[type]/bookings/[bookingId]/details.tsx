@@ -2,7 +2,7 @@
 
 import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { formatTimeString } from '@/helpers/helpers';
 import Divider from '@/features/Places/components/Divider/Divider';
 import Button from '@/components/Button/Button';
@@ -137,6 +137,11 @@ const SingleBookingDetailContent = ({
             <p>
                 <span>class</span>
                 <span>{bookingDetail.class?.name}</span>
+            </p>
+
+            <p>
+                <span>selected age group</span>
+                <span>{bookingDetail.age_group?.name}</span>
             </p>
 
             <p>

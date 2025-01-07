@@ -4,10 +4,9 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import { IoClose, IoSearch } from 'react-icons/io5'
 import styles from './styles.module.css'
 import Link from 'next/link'
-import { dummyMartialStyles } from '@/utils/styles';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
-import { useAppContext } from '@/contexts/AppContext';
-import Loader from '../loaders/Loader/Loader';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
+import AlternatingDotsLoader from '../loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 
 
 const CategorySearchBar = ({
@@ -87,7 +86,7 @@ const CategorySearchBar = ({
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}>
-                                <Loader />
+                                <AlternatingDotsLoader />
                             </section>
                         :
                         <ul 
@@ -102,7 +101,7 @@ const CategorySearchBar = ({
                                             key={styleItem.id}
                                         >
                                             <Link
-                                                href={`/search?style=${encodeURIComponent(styleItem.name)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                                href={`/search?style_id=${encodeURIComponent(styleItem.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
                                             >
                                                 {styleItem.name}
                                             </Link>
@@ -121,7 +120,7 @@ const CategorySearchBar = ({
                 <>
                     {
                         stylesLoading ?
-                            <Loader />
+                            <AlternatingDotsLoader />
                         :
                         allStyles.filter(style => style.is_trending === true)?.length < 1 ?
                             <></>
@@ -136,7 +135,7 @@ const CategorySearchBar = ({
                                         .filter(style => style.is_trending === true)
                                         .map(style => {
                                             return <Link
-                                                href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                                href={`/search?style_id=${encodeURIComponent(style.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
                                                 className={styles.trending__Item}
                                                 key={style.id}
                                             >

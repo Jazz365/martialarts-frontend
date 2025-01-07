@@ -8,7 +8,6 @@ import muaythai from '../assets/artStyles/Muay-Thai.webp'
 import capoeira from '../assets/artStyles/Capoeira.webp'
 import kickboxing from '../assets/artStyles/Kickboxing.webp'
 import { StaticImageData } from 'next/image'
-import { v4 as uuidv4 } from 'uuid';
 
 export const dummyMartialStyles: {
     id: string | number;
@@ -18,63 +17,63 @@ export const dummyMartialStyles: {
     isTrending: boolean;
 }[] = [
     {
-        id: uuidv4(),
+        id: 'style-box-1',
         name: 'boxing',
         imageUrl: boxing,
         isFeatured: true,
         isTrending: true,
     },
     {
-        id: uuidv4(),
+        id: 'style-kar-2',
         name: 'karate',
         imageUrl: karate,
         isFeatured: true,
         isTrending: true,
     },
     {
-        id: uuidv4(),
+        id: 'style-taek-3',
         name: 'taekwondo',
         imageUrl: taekwondo,
         isFeatured: true,
         isTrending: true,
     },
     {
-        id: uuidv4(),
+        id: 'style-jud-4',
         name: 'judo',
         imageUrl: judo,
         isFeatured: true,
         isTrending: true,
     },
     {
-        id: uuidv4(),
+        id: 'style-jiu-5',
         name: 'jiu-jitsu',
         imageUrl: jiujustu,
         isFeatured: true,
         isTrending: false,
     },
     {
-        id: uuidv4(),
+        id: 'style-mua-6',
         name: 'muay thai',
         imageUrl: muaythai,
         isFeatured: true,
         isTrending: false,
     },
     {
-        id: uuidv4(),
+        id: 'style-cap-7',
         name: 'capoeira',
         imageUrl: capoeira,
         isFeatured: true,
         isTrending: false,
     },
     {
-        id: uuidv4(),
+        id: 'style-wre-8',
         name: 'wrestling',
         imageUrl: wrestling,
         isFeatured: true,
         isTrending: true,
     },
     {
-        id: uuidv4(),
+        id: 'style-kic-9',
         name: 'kickboxing',
         imageUrl: kickboxing,
         isFeatured: true,

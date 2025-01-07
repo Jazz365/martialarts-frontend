@@ -52,5 +52,11 @@ type AppContextType = {
     setMapKeyLoading: (val: boolean) => void;
     mapKeyLoaded: boolean;
     setMapKeyLoaded: (val: boolean) => void;
+    ageGroups: IPlaceAgeGroups[];
+    setAgeGroups: (val: IPlaceAgeGroups[]) => void;
+    ageGroupsLoading: boolean;
+    setAgeGroupsLoading: (val: boolean) => void;
+    ageGroupsLoaded: boolean;
+    setAgeGroupsLoaded: (val: boolean) => void;
     resetUserInfoInContext: () => void;
 }

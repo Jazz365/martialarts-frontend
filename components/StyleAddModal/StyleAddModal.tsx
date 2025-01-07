@@ -4,7 +4,7 @@
 import React, { useState } from 'react'
 import styles from './styles.module.css'
 import { PlaceService } from '@/services/placeService';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { IoCloseOutline } from 'react-icons/io5';
 import TextInputComponent from '../inputs/TextInputComponent/TextInputComponent';
 import Button from '../Button/Button';

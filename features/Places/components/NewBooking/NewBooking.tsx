@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 import useMobile from '@/hooks/useMobile';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUserContext } from '@/contexts/UserContext';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 
 

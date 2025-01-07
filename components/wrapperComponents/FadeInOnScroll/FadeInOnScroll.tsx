@@ -1,8 +1,8 @@
-'use client';
+// 'use client';
 
 import React, { ReactNode } from 'react'
 import styles from './styles.module.css'
-import { useInView } from 'react-intersection-observer'
+// import { useInView } from 'react-intersection-observer'
 
 
 const FadeInOnScroll = ({
@@ -16,17 +16,19 @@ const FadeInOnScroll = ({
     viewThreshold?: number;
     className?: string;
 }) => {
-    const { ref, inView } = useInView({
-        threshold: viewThreshold,
-        triggerOnce: true,
-    });
+    // const { ref, inView } = useInView({
+    //     threshold: viewThreshold,
+    //     triggerOnce: true,
+    // });
+
+    // FOR THE CLASS PART
+    // ${inView ? styles.in__View : ''}
 
     return (
         <div
-            ref={ref}
+            // ref={ref}
             className={`
                 ${styles.section__Wrap} 
-                ${inView ? styles.in__View : ''}
                 ${className}
             `}
             style={{

@@ -7,7 +7,7 @@ import Button from '@/components/Button/Button'
 import { useUserContext } from '@/contexts/UserContext'
 import BookingSummaryItem from '../../components/BookingSummaryItem/BookingSummaryItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 
 

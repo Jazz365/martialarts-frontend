@@ -5,9 +5,9 @@ import React from 'react'
 import { listingSortOptions, listingViewTypes } from '../Places/utils'
 import PlaceListCard from '../../components/PlaceListCard/PlaceListCard'
 import styles from './styles.module.css';
-import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
+import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import useMobile from '@/hooks/useMobile';
 
 const PlacesSectionView = () => {
@@ -35,6 +35,12 @@ const PlacesSectionView = () => {
                         activeFilters.view === listingViewTypes.listView
                     ) && showMap === true ?
                     ''
+                    :
+                    (
+                        activeFilters.view === listingViewTypes.gridView &&
+                        showMap === true
+                    ) ?
+                        `${styles.wrap__Row} ${styles.min__Gap}`
                     :
                     styles.wrap__Row
                 }

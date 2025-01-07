@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import styles from './styles.module.css'
-import { useAppContext } from '@/contexts/AppContext'
+import { useAppContext } from '@/contexts/AppContext/AppContext'
 import { IoCalendarNumberOutline, IoCloseOutline } from 'react-icons/io5';
 import Button from '../Button/Button';
 import { PlaceService } from '@/services/placeService';
@@ -44,15 +44,6 @@ const BookingForm = () => {
     const [ selectedPlace, setSelectedPlace ] = useState<IPlace | null>(null);
     const [ showConfirmationModal, setShowConfirmationModal ] = useState(false);
     
-    const availableTimeSlots = useMemo(() => {
-        if (bookingDetails.date.length < 1) return [];
-        const foundPlaceActivityTime = openTimesForPlace.find(time => 
-            time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
-        );
-
-        return generateAvailableTimeIntervalsForPlace(foundPlaceActivityTime, new Date(bookingDetails.date));
-    }, [bookingDetails.date])
-
     const placeService = new PlaceService();
     const bookingService = new BookingService();
     
@@ -73,6 +64,15 @@ const BookingForm = () => {
             ] : []
         ) ?? []
     ];
+
+    const availableTimeSlots = useMemo(() => {
+        if (bookingDetails.date.length < 1) return [];
+        const foundPlaceActivityTime = openTimesForPlace.find(time => 
+            time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
+        );
+
+        return generateAvailableTimeIntervalsForPlace(foundPlaceActivityTime, new Date(bookingDetails.date));
+    }, [bookingDetails.date])
 
     const isDayValid = (date: Date) => {
         const currentDate = new Date();
@@ -159,6 +159,7 @@ const BookingForm = () => {
         if (missingRequiredInfo) return toast.info('Please fill in all required info');
         
         if (currentPage === 4) {
+            if (isNaN(Number(bookingDetails.age))) return toast.info('Please provide a valid age');
             if (bookingDetails.is_for_child === false) return setCurrentPage(currentPage + 1);
 
             if (
@@ -254,7 +255,7 @@ const BookingForm = () => {
                                                         src={item.image as string}
                                                         alt={selectedPlace?.name}
                                                         width={0}
-                                                        height={180}
+                                                        height={200}
                                                         style={{
                                                             borderRadius: '24px',
                                                             width: '100%',
@@ -309,6 +310,7 @@ const BookingForm = () => {
                                                         checked={bookingDetails?.selected_styles?.includes(style.id)}
                                                         key={style.id}
                                                         handleUpdateChecked={(val) => handleUpdateCheckboxItems(bookingDetailsDict.selected_styles as keyof BookingDetails, style.id, val)}
+                                                        accentColor='var(--red-color)'
                                                     />
                                                 })
                                             )
@@ -317,19 +319,35 @@ const BookingForm = () => {
                                 </section>
                             </> :
                             currentPage === 2 ? <>
-                                <SelectItem
-                                    label='select class type'
-                                    options={
-                                        selectedPlace?.place_caters_to?.map(item => ({
-                                            id: item.id,
-                                            label: item.name,
-                                            value: `${item.id}`,
-                                        })) ?? []
-                                    }
-                                    value={bookingDetails.class_id}
-                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
-                                    isRequired
-                                />
+                                <section className={styles.input__Row}>
+                                    <SelectItem
+                                        label='select class type'
+                                        options={
+                                            selectedPlace?.place_caters_to?.map(item => ({
+                                                id: item.id,
+                                                label: item.name,
+                                                value: `${item.id}`,
+                                            })) ?? []
+                                        }
+                                        value={bookingDetails.class_id}
+                                        handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
+                                        isRequired
+                                    />
+                                    
+                                    <SelectItem
+                                        label='select age group'
+                                        options={
+                                            selectedPlace?.place_age_groups?.map(item => ({
+                                                id: item.id,
+                                                label: item.name,
+                                                value: `${item.id}`,
+                                            })) ?? []
+                                        }
+                                        value={bookingDetails.age_group_id}
+                                        handleChange={(val) => handleDetailUpdate(bookingDetailsDict.age_group_id, val)}
+                                        isRequired
+                                    />
+                                </section>
 
                                 <section className={styles.input__Row}>
                                     <label 
@@ -403,6 +421,7 @@ const BookingForm = () => {
                                                     onChange={() => handleDetailUpdate(bookingDetailsDict.is_for_child, option.value)}
                                                     label={'I am ' + option.name}
                                                     key={option.id}
+                                                    accentColor='var(--red-color)'
                                                 />
                                             }))
                                         }
@@ -581,6 +600,7 @@ const BookingForm = () => {
                                                 target='_blank'
                                                 rel='noreferrer noopener'
                                                 className={styles.document__Link}
+                                                key={document.id}
                                             >   
                                                 <ImAttachment />
                                                 <span>{document.title}</span>
@@ -605,6 +625,7 @@ const BookingForm = () => {
                                         }}
                                         handleUpdateChecked={(val) => handleDetailUpdate(bookingDetailsDict.agreed_to_health_declaration, val)}
                                         checked={bookingDetails.agreed_to_health_declaration}
+                                        accentColor='var(--red-color)'
                                     />
 
                                     <TextInputComponent 
@@ -620,6 +641,7 @@ const BookingForm = () => {
                                         }}
                                         handleUpdateChecked={(val) => handleDetailUpdate(bookingDetailsDict.agreed_to_liability_waiver, val)}
                                         checked={bookingDetails.agreed_to_liability_waiver}
+                                        accentColor='var(--red-color)'
                                     />
 
                                     <br />
@@ -664,8 +686,8 @@ const BookingForm = () => {
                                 label='back'
                                 style={{
                                     background: 'transparent',
-                                    border: '1px solid #000',
-                                    color: '#000',
+                                    border: '1px solid var(--red-color)',
+                                    color: 'var(--red-color)',
                                     padding: '0.65rem 1.5rem'
                                 }}
                                 handleClick={handleGoToPreviousPage}
@@ -682,7 +704,11 @@ const BookingForm = () => {
                                     'next'
                                 }
                                 style={{
-                                    padding: '0.65rem 1.5rem'
+                                    padding: '0.65rem 1.5rem',
+                                    backgroundColor: 'var(--red-color)',
+                                }}
+                                hoverStyle={{
+                                    backgroundColor: 'black',
                                 }}
                                 handleClick={handleGoToNextPage}
                             />

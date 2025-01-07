@@ -12,7 +12,7 @@ import { useUserContext } from '@/contexts/UserContext';
 import useMobile from '@/hooks/useMobile';
 import { useRouter } from 'next/navigation';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { formatPricingType } from '@/app/dashboard/owner/studios/add-studio/utils';
 
 const maxLengthForGridView = 32;
@@ -132,9 +132,9 @@ const PlaceListCard = ({
               height={
                 isListView && !isMobile ?
                   showMap ?
-                    415
+                    370
                   :
-                  415
+                  400
                 :
                 imageHeight ??
                 340

@@ -9,7 +9,7 @@ import { HiDotsHorizontal } from 'react-icons/hi';
 import { AuthService } from '@/services/authService';
 import { AppConstants } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import useMobile from '@/hooks/useMobile';
 import useClickOutside from '@/hooks/useClickOutside';
 

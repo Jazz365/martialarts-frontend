@@ -14,6 +14,7 @@ export interface BookingDetails {
     selected_styles: number[];
     class_id: string;
     age: string;
+    age_group_id: string;
     agreed_to_health_declaration: boolean;
     agreed_to_liability_waiver: boolean;
 }
@@ -32,6 +33,7 @@ export const initialBookingDetails: BookingDetails = {
     agreed_to_liability_waiver: false,
     class_id: '',
     age: '',
+    age_group_id: '',
 }
 
 export const bookingDetailsDict = {
@@ -52,6 +54,7 @@ export const bookingDetailsDict = {
     location_id: 'location_id',
     class_id: 'class_id',
     age: 'age',
+    age_group_id: 'age_group_id',
 }
 
 export const formPageDetail = [
@@ -89,6 +92,7 @@ export const requiredInfo: {
     ],
     2: [
         bookingDetailsDict.class_id,
+        bookingDetailsDict.age_group_id,
         bookingDetailsDict.date,
         bookingDetailsDict.time,
     ],
