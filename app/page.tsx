@@ -12,14 +12,8 @@ import IncludedGenders from "@/features/Landing/sections/IncludedGenders/Include
 import MaintenanceScreen from "@/components/MaintenanceScreen/MaintenanceScreen";
 import { tempLandingAccessVal } from "@/utils/utils";
 
-export default async function Home({
-  searchParams
-}: {
-  searchParams: {
-    access?: string;
-  }
-}) {
-  const { access } = await searchParams;
+export default async function Home(props: { searchParams: PageSearchParams }) {
+  const { access } = await props.searchParams;
 
   if (access === tempLandingAccessVal) return <>
     <NavigationBar />

@@ -5,6 +5,10 @@ type PageParams = Promise<{
     slug?: string;
 }>;
 
+type PageSearchParams = Promise<{ 
+    access?: string;
+}>;
+
 type ApiError = {
     detail: string;
 }
