@@ -112,11 +112,16 @@ const SinglePlaceView = ({
                     activityHours={foundPlace.place_activity_hours}
                 />
 
-                <Divider />
+                {
+                    foundPlace.place_faqs.length > 0 &&
+                    <>
+                        <Divider />
 
-                <FaqInfo 
-                    placeFaqs={foundPlace.place_faqs}
-                />
+                        <FaqInfo 
+                            placeFaqs={foundPlace.place_faqs}
+                        />
+                    </>
+                }
 
                 <Divider />
 

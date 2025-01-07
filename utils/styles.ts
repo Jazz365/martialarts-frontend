@@ -15,6 +15,7 @@ export const dummyMartialStyles: {
     imageUrl: StaticImageData;
     isFeatured: boolean;
     isTrending: boolean;
+    original_id?: number;
 }[] = [
     {
         id: 'style-box-1',

@@ -207,15 +207,38 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
         if (key === newPlaceDetailKeysDict.master_images) {
             const masterImagesDetails = value as IPlaceMasterImage[];
 
-            formData.append('master_images_bio', JSON.stringify(masterImagesDetails.map(item => ({ name: item.name, bio: item.bio }))))
+            if (isEditView === true) {
+                formData.append('master_images_data_in', JSON.stringify(masterImagesDetails.map(item => {
+                    if (typeof item.id === 'number') {
+                        return { 
+                            id: item.id,
+                            name: item.name, 
+                            bio: item.bio,
+                            action: 'update',
+                        }
+                    }
+
+                    return { 
+                        name: item.name, 
+                        bio: item.bio,
+                        action: 'create',
+                    }
+                })))
+            } else {
+                formData.append('master_images_bio', JSON.stringify(masterImagesDetails.map(item => ({ name: item.name, bio: item.bio }))))
+            }
             // const existingMasterImages = masterImagesDetails.filter(item => typeof item.id === 'number' && typeof item.image === 'string');
             // let newImageStartIndex = 1;
 
             masterImagesDetails.forEach((item, index) => {
-                formData.append(`master_image_new_${index + 1}`, item.image as File);
+                if (isEditView === true) {
+                    formData.append(`master_image_new_${index + 1}`, item.image as File);
                 
-                if (typeof item.id === 'number' && typeof item.image === 'string') {
-                    formData.append(`master_image_${item.id}`, item.image as string);
+                    if (typeof item.id === 'number' && typeof item.image === 'string') {
+                        formData.append(`master_image_${item.id}`, item.image as string);
+                    }
+                } else {
+                    formData.append(`${key}`, item.image as File);
                 }
             });
 
