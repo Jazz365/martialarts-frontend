@@ -208,8 +208,8 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
             const masterImagesDetails = value as IPlaceMasterImage[];
 
             formData.append('master_images_bio', JSON.stringify(masterImagesDetails.map(item => ({ name: item.name, bio: item.bio }))))
-            const existingMasterImages = masterImagesDetails.filter(item => typeof item.id === 'number' && typeof item.image === 'string');
-            let newImageStartIndex = 1;
+            // const existingMasterImages = masterImagesDetails.filter(item => typeof item.id === 'number' && typeof item.image === 'string');
+            // let newImageStartIndex = 1;
 
             masterImagesDetails.forEach((item, index) => {
                 formData.append(`master_image_new_${index + 1}`, item.image as File);

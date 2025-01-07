@@ -96,6 +96,7 @@ const AddPlaceDetails = () => {
                 faqs: res?.place_faqs,
                 policy: res?.policy?.content,
                 documents: res?.documents_data,
+                age_groups: res?.place_age_groups,
             });
             setDetailsLoading(false);
         }).catch(() => {
