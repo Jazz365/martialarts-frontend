@@ -15,11 +15,26 @@ import { cleanStringAndReturnLower } from '@/helpers/formatters';
 const MartialArtsStyles = () => {
     const {
         allStyles,
+        stylesLoading,
     } = useAppContext();
     
     const stylesToShow = useMemo(() => {
-        return dummyMartialStyles.filter(style => style.isFeatured === true);
-    }, []);
+        const featuredStyles = dummyMartialStyles.filter(style => style.isFeatured === true);
+        if (stylesLoading || allStyles.length < 1 || !allStyles) return featuredStyles;
+
+        return featuredStyles.map(style => {
+            const foundStyle = allStyles.find(
+                styleItem => cleanStringAndReturnLower(styleItem.name) === cleanStringAndReturnLower(style.name)
+            );
+
+            if (foundStyle) return {
+                ...style,
+                original_id: foundStyle.id
+            }
+
+            return style
+        });
+    }, [allStyles, stylesLoading]);
     
     return <>
         <section className={styles.content__Wrap}>
@@ -31,10 +46,6 @@ const MartialArtsStyles = () => {
                 {
                     stylesToShow
                     .map(style => {
-                        const foundStyle = allStyles.find(
-                            styleItem => cleanStringAndReturnLower(styleItem.name) === cleanStringAndReturnLower(style.name)
-                        );
-
                         return <>
                             <FadeInOnScroll 
                                 key={style.id}
@@ -43,8 +54,8 @@ const MartialArtsStyles = () => {
                             >
                                 <Link
                                     href={
-                                        foundStyle ?
-                                            `/search?style_id=${encodeURIComponent(foundStyle.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
+                                        style.original_id ?
+                                            `/search?style_id=${encodeURIComponent(style.original_id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
                                         :
                                         ''
                                     }

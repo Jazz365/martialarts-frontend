@@ -27,7 +27,7 @@ const SinglePlaceHeader = ({
 
                 <p className={styles.detail__Item}>
                     <span>Age groups:</span>
-                    <span>All</span>
+                    <span>{place?.place_age_groups?.map(item => item.name).join(', ')}</span>
                 </p>
             </section>
         </section>
