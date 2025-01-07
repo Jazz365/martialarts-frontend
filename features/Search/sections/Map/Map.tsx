@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { APIProvider, InfoWindow, Map, Marker} from "@vis.gl/react-google-maps";
 import { defaultMapCenter, testMapCoordinates } from './utils';
 import { IoLocationOutline } from 'react-icons/io5';

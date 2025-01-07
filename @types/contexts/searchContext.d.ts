@@ -1,7 +1,8 @@
 interface AvailableFilters {
-    style: string[];
+    style_id: string[];
     type_of_place_id: string[];
-    caters_to_ids: string[];
+    caters_to_id: string[];
+    age_group_id: string[];
     place: string[];
     name: string[];
     sort: string;

@@ -17,7 +17,7 @@ import SinglePlaceLocation from '../../components/SinglePlaceLocation/SinglePlac
 import PlaceReviews from '../../components/PlaceReviews/PlaceReviews';
 import NewReviewItem from '../../components/PlaceReviews/NewReviewItem';
 import { useUserContext } from '@/contexts/UserContext';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 
 
 const SinglePlaceView = ({

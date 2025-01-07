@@ -25,7 +25,7 @@ type IPlace = {
     place_styles: IMartialArtStyle[];
     place_caters_to: ICatersTo[];
     documents_data: IPlaceDocuments[];
-    // place_age_groups: IPlaceAgeGroups[];
+    place_age_groups: IPlaceAgeGroups[];
 }
 
 type IPlaceImage = {
@@ -104,5 +104,6 @@ type IPlaceDocuments = {
 }
 
 type IPlaceAgeGroups = {
-
+    id: number;
+    name: string;
 }

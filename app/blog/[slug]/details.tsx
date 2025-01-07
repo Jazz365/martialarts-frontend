@@ -10,7 +10,7 @@ import { BlogService } from '@/services/blogService';
 import facebookIcon from '../../../assets/icons/facebook.webp';
 import instagramIcon from '../../../assets/icons/instagram.webp';
 import BackButton from '@/components/BackButton/BackButton';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import Link from 'next/link';
 import sampleImage1 from '../../../assets/blogSamples/blog-1.webp';
 import NavigationBar from '@/layouts/NavigationBar/NavigationBar';

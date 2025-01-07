@@ -1,52 +1,17 @@
 'use client';
 
 
-import { listingSortOptions, listingViewTypes } from "@/features/Search/sections/Places/utils";
 import useLoadData from "@/hooks/useLoadData";
 import { PlaceService } from "@/services/placeService";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
-
-export type FilterKeyType = keyof AvailableFilters;
-
-export const availableFiltersKeys: (keyof AvailableFilters)[] = [
-    'style',
-    'type_of_place_id',
-    'caters_to_ids',
-    'place',
-    'name',
-    'sort',
-    'view',
-]
-
-const initialActiveFilters = availableFiltersKeys.reduce((acc, key) => {
-    if (key === 'sort' || key === 'view') {
-        acc[key] = key === 'sort' ? 
-            listingSortOptions.sort_by_newest
-            :
-            listingViewTypes.listView
-        ;
-    } else {
-        acc[key] = [];
-    }
-    return acc;
-}, {} as AvailableFilters);
+import { availableFiltersKeys, filterKeysToCombine, initialActiveFilters, initialSearchContextState } from "./utils";
 
 
-const SearchFilterContext = createContext<SearchContextType>({
-    activeFilters: initialActiveFilters,
-    handleUpdateFiltersForCategory: () => {},
-    allPlaces: [],
-    setAllPlaces: () => {},
-    placesLoading: true,
-    setPlacesLoading: () => {},
-    placesLoaded: false,
-    setPlacesLoaded: () => {},
-});
+const SearchFilterContext = createContext<SearchContextType>(initialSearchContextState);
 
 export const useSearchFilterContext = () => useContext(SearchFilterContext);
-
 
 const SearchFilterContextProvider = ({
     children
@@ -95,6 +60,28 @@ const SearchFilterContextProvider = ({
         setPlacesLoaded(false);
     }, [searchParams])
 
+    const combineQueryKeys = (queryStr: string, queryKeys: string[]) => {
+        const searchParams = new URLSearchParams(queryStr);
+    
+        queryKeys.forEach(queryKey => {
+            const values = searchParams.getAll(queryKey);
+    
+            if (values.length > 0) {
+                // Combine values into a single string
+                const combinedValue = values.join(',');
+                const combinedKey = `${queryKey}s`;
+    
+                // Remove all instances of the original key
+                searchParams.delete(queryKey);
+    
+                // Add the new combined key-value pair
+                searchParams.set(combinedKey, combinedValue);
+            }
+        });
+        
+        return `?${searchParams.toString()}`;
+    }
+
     useLoadData(
         placesLoaded,
         setPlacesLoading,
@@ -102,7 +89,13 @@ const SearchFilterContextProvider = ({
         setAllPlaces,
         setPlacesLoaded,
         {
-            inputParam: searchParams.toString().length > 0 ? `?${searchParams.toString()}` : '',
+            inputParam: searchParams.toString().length > 0 ? 
+                combineQueryKeys(
+                    `?${searchParams.toString()}`, 
+                    filterKeysToCombine
+                )
+            : 
+            '',
         }
     );
 

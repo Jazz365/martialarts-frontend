@@ -5,8 +5,8 @@ import FilterItem from '@/features/Search/components/FilterItem/FilterItem'
 import React from 'react'
 import styles from './styles.module.css'
 import { availableLocations } from '@/utils/locations';
-import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
-import { useAppContext } from '@/contexts/AppContext';
+import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import useMobile from '@/hooks/useMobile';
 
@@ -16,6 +16,7 @@ const SearchFilters = () => {
         catersTo,
         allStyles,
         showMap,
+        ageGroups,
         setShowMap,
     } = useAppContext();
 
@@ -27,7 +28,7 @@ const SearchFilters = () => {
             <section className={styles.filters__Wrap}>
                 <FilterItem 
                     title='style'
-                    filterKey='style'
+                    filterKey='style_id'
                     filters={
                         allStyles
                         .sort((a, b) => {
@@ -37,10 +38,10 @@ const SearchFilters = () => {
                         })
                         .map(style => ({ 
                             name: `${style.name}`, 
-                            value: style.name 
+                            value: String(style.id),
                         }))
                     }
-                    currentActiveFiltersForItem={activeFilters.style}
+                    currentActiveFiltersForItem={activeFilters.style_id}
                 />
 
                 <FilterItem 
@@ -52,9 +53,16 @@ const SearchFilters = () => {
                 
                 <FilterItem 
                     title='class type'
-                    filterKey='caters_to_ids'
+                    filterKey='caters_to_id'
                     filters={catersTo.map(type => ({ name: type.name, value: String(type.id) }))}
-                    currentActiveFiltersForItem={activeFilters.caters_to_ids}
+                    currentActiveFiltersForItem={activeFilters.caters_to_id}
+                />
+
+                <FilterItem 
+                    title='age group'
+                    filterKey='age_group_id'
+                    filters={ageGroups.map(type => ({ name: type.name, value: String(type.id) }))}
+                    currentActiveFiltersForItem={activeFilters.age_group_id}
                 />
 
                 <FilterItem 

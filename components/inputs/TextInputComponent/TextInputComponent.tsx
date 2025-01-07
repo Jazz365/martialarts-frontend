@@ -20,6 +20,7 @@ const TextInputComponent = ({
     handleUpdateChecked=()=>{},
     isRequired=false,
     min,
+    accentColor,
 }: {
     label?: string;
     type?: string;
@@ -37,6 +38,7 @@ const TextInputComponent = ({
     handleUpdateChecked?: (val: boolean) => void;
     isRequired?: boolean;
     min?: any;
+    accentColor?: string;
 }) => {
     return (
         <label 
@@ -90,6 +92,7 @@ const TextInputComponent = ({
                     style={{
                         borderRadius,
                         fontSize: inputFontSize,
+                        accentColor,
                     }}
                     placeholder={placeholder}
                     disabled={isDisabled}

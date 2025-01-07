@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import styles from './styles.module.css'
 import { dummyMartialStyles } from '@/utils/styles'
@@ -6,9 +8,15 @@ import Link from 'next/link'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
 import Button from '@/components/Button/Button'
+import { useAppContext } from '@/contexts/AppContext/AppContext'
+import { cleanStringAndReturnLower } from '@/helpers/formatters';
 
 
 const MartialArtsStyles = () => {
+    const {
+        allStyles,
+    } = useAppContext();
+    
     return <>
         <section className={styles.content__Wrap}>
             <FadeInOnScroll>
@@ -21,6 +29,10 @@ const MartialArtsStyles = () => {
                         dummyMartialStyles
                         .filter(style => style.isFeatured === true)
                         .map(style => {
+                            const foundStyle = allStyles.find(
+                                styleItem => cleanStringAndReturnLower(styleItem.name) === cleanStringAndReturnLower(style.name)
+                            );
+
                             return <>
                                 <FadeInOnScroll 
                                     viewThreshold={0.5}
@@ -28,7 +40,12 @@ const MartialArtsStyles = () => {
                                     key={style.id}
                                 >
                                     <Link
-                                        href={`/search?style=${encodeURIComponent(style.name)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                        href={
+                                            foundStyle ?
+                                                `/search?style_id=${encodeURIComponent(foundStyle.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
+                                            :
+                                            ''
+                                        }
                                     >
                                         
                                         <Image 

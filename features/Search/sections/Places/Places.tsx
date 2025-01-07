@@ -6,14 +6,14 @@ import React, { useState } from 'react'
 import { IoStarOutline } from 'react-icons/io5'
 import styles from './styles.module.css'
 import SearchBar from '@/components/SearchBar/SearchBar'
-import { useSearchFilterContext } from '@/contexts/SearchFIlterContext'
+import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext'
 import { listingSortOptions, listingViewTypesList } from './utils';
 import PlacesSectionView from '../PlacesSectionView/PlacesSectionView';
 import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOption';
 import useMobile from '@/hooks/useMobile';
 import { toast } from 'sonner';
 import SingleResultViewOption from '../../components/ResultsViewOption/SingleResultViewOption';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 
 
 const SearchPlacesListing = () => {

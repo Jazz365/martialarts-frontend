@@ -4,7 +4,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import BookingSummaryItem from '@/features/Dashboard/components/BookingSummaryItem/BookingSummaryItem'
-import { useAppContext } from '@/contexts/AppContext'
+import { useAppContext } from '@/contexts/AppContext/AppContext'
 import Link from 'next/link';
 import { bookingStatusList } from './utils';
 import { useSearchParams } from 'next/navigation';

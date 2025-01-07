@@ -172,6 +172,24 @@ class PlaceService {
         }
     }
 
+    async getAllAgeGroups () {
+        try {
+            const res = await fetch(`${this.getPlaceEndpoint('age-groups')}`, {
+                method: 'GET',
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = 'Something went wrong. Please try again later';
+                throw Error(errorMsg);
+            }
+
+            return jsonRes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async searchPlace (queryParams?: string | undefined | null) {
         try {
             const res = await fetch(`${this.getPlaceEndpoint('', queryParams)}`, {

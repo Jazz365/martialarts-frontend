@@ -18,7 +18,7 @@ import RequiredIndicator from '@/components/RequiredIndicator/RequiredIndicator'
 import { toast } from 'sonner';
 import { PlaceService } from '@/services/placeService';
 import { AppConstants } from '@/utils/constants';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
@@ -44,6 +44,7 @@ const AddPlaceDetails = () => {
         stylesLoading,
         placeTypes, 
         catersTo, 
+        ageGroups,
         userPlaces, 
         setUserPlaces,
     } = useAppContext();
@@ -137,7 +138,7 @@ const AddPlaceDetails = () => {
     }
 
     const handleUpdateCheckboxItems = (key: keyof NewPlaceDetail, valueId: number, checkedStatus: boolean) => {
-        const validkeys = [newPlaceDetailKeysDict.styles, newPlaceDetailKeysDict.caters_to];
+        const validkeys = [newPlaceDetailKeysDict.styles, newPlaceDetailKeysDict.caters_to, newPlaceDetailKeysDict.age_groups];
 
         const currentItem = details[key];
         if (!validkeys.includes(key) || !Array.isArray(currentItem)) return;
@@ -474,6 +475,29 @@ const AddPlaceDetails = () => {
                                 checked={details?.caters_to?.includes(type.id)}
                                 handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.caters_to as keyof NewPlaceDetail, type.id, val)}
                                 key={type.id}
+                            />
+                        }))
+                    }
+                </section>
+
+                <section className={styles.check__Wrap}>
+                    <p>Age Groups <RequiredIndicator /></p>
+                    
+                    {
+                        React.Children.toArray(ageGroups.map(group => {
+                            return <TextInputComponent 
+                                label={group.name}
+                                type='checkbox'
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    width: 'max-content',
+                                    flexDirection: 'row-reverse',
+                                    gap: '1rem',
+                                }}
+                                checked={details?.age_groups?.includes(group.id)}
+                                handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.age_groups as keyof NewPlaceDetail, group.id, val)}
+                                key={group.id}
                             />
                         }))
                     }

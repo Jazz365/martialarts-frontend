@@ -5,66 +5,12 @@ import useLoadData from "@/hooks/useLoadData";
 import { BookingService } from "@/services/bookingService";
 import { PlaceService } from "@/services/placeService";
 import { createContext, useContext, useMemo, useState } from "react";
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "../UserContext";
 import { BlogService } from "@/services/blogService";
 import { MapService } from "@/services/mapService";
+import { initialAppContext } from "./utils";
 
-const AppContext = createContext<AppContextType>({
-    selectedPlaceId: null, 
-    setSelectedPlaceId: () => {},
-    allStyles: [],
-    setAllStyles: () => {},
-    stylesLoading: true,
-    setStylesLoading: () => {},
-    stylesLoaded: false,
-    setStylesLoaded: () => {},
-    catersTo: [],
-    setCatersTo: () => {},
-    catersToLoading: true,
-    setCatersToLoading: () => {},
-    catersToLoaded: false,
-    setCatersToLoaded: () => {},
-    placeTypes: [],
-    setPlaceTypes: () => {},
-    placeTypesLoading: true,
-    setPlaceTypesLoading: () => {},
-    placeTypesLoaded: false,
-    setPlaceTypesLoaded: () => {},
-    userPlaces: [],
-    setUserPlaces: () => {},
-    userPlacesLoading: true,
-    setUserPlacesLoading: () => {},
-    userPlacesLoaded: false,
-    setUserPlacesLoaded: () => {},
-    bookings: [],
-    bookingsLoaded: false,
-    bookingsLoading: true,
-    setBookings: () => {},
-    setBookingsLoaded: () => {},
-    setBookingsLoading: () => {},
-    placesViewStats: [],
-    placesViewStatLoaded: false,
-    placesViewStatLoading: true,
-    setPlacesViewStats: () => {},
-    setPlacesViewStatLoaded: () => {},
-    setPlacesViewStatLoading: () => {},
-    blogs: [],
-    setBlogs: () => {},
-    blogsLoaded: false,
-    setBlogsLoaded: () => {},
-    blogsLoading: true,
-    setBlogsLoading: () => {},
-    showMap: true,
-    setShowMap: () => {},
-    userBookedPlaces: [],
-    mapKey: '',
-    setMapKey: () => {},
-    mapKeyLoaded: false,
-    setMapKeyLoaded: () => {},
-    mapKeyLoading: false,
-    setMapKeyLoading: () => {},
-    resetUserInfoInContext: () => {},
-});
+const AppContext = createContext<AppContextType>(initialAppContext);
 
 export const useAppContext = () => useContext(AppContext);
 
@@ -105,11 +51,16 @@ const AppContextProvider = ({
     const [ placesViewStatLoading, setPlacesViewStatLoading ] = useState(true);
     const [ placesViewStatLoaded, setPlacesViewStatLoaded ] = useState(false);
 
+    const [ ageGroups, setAgeGroups ] = useState<IPlaceAgeGroups[]>([]);
+    const [ ageGroupsLoading, setAgeGroupsLoading ] = useState(true);
+    const [ ageGroupsLoaded, setAgeGroupsLoaded ] = useState(false);
+
     const userBookedPlaces = useMemo<IPlace[]>(() => {
         return bookings.filter(booking => booking.status === 'confirmed').flatMap(booking => [booking.place]);
     }, [bookings]);
     
     const [ showMap, setShowMap ] = useState(true);
+    
     const [ mapKey, setMapKey ] = useState('');
     const [ mapKeyLoaded, setMapKeyLoaded ] = useState(false);
     const [ mapKeyLoading, setMapKeyLoading ] = useState(false);
@@ -167,6 +118,14 @@ const AppContextProvider = ({
         placeService.getAllCatersTo.bind(placeService),
         setCatersTo,
         setCatersToLoaded,
+    );
+
+    useLoadData(
+        ageGroupsLoaded,
+        setAgeGroupsLoading,
+        placeService.getAllAgeGroups.bind(placeService),
+        setAgeGroups,
+        setAgeGroupsLoaded,
     );
 
     useLoadData(
@@ -277,6 +236,12 @@ const AppContextProvider = ({
             setMapKeyLoaded,
             mapKeyLoading,
             setMapKeyLoading,
+            ageGroups,
+            setAgeGroups,
+            ageGroupsLoaded,
+            setAgeGroupsLoaded,
+            ageGroupsLoading,
+            setAgeGroupsLoading,
             resetUserInfoInContext,
         }}>
             {children}

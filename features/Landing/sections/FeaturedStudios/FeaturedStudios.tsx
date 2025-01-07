@@ -7,7 +7,7 @@ import FeatureCard from '../../components/FeatureCard/FeatureCard'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll';
 import PaginationItem from '@/components/PaginationItem/PaginationItem';
 import useMobile from '@/hooks/useMobile';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 import Link from 'next/link';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 import Button from '@/components/Button/Button';

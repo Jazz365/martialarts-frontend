@@ -6,7 +6,7 @@ import { IoChevronDown } from 'react-icons/io5';
 import styles from './styles.module.css';
 import Button from '../../../../components/Button/Button';
 import useClickOutside from '@/hooks/useClickOutside';
-import { useSearchFilterContext } from '@/contexts/SearchFIlterContext';
+import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
 
 
 interface FilterValue {

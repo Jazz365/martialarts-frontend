@@ -26,4 +26,5 @@ type IBooking = {
     agreed_to_liability_waiver: boolean;
     age?: string;
     class?: ICatersTo;
+    age_group?: IPlaceAgeGroups;
 }

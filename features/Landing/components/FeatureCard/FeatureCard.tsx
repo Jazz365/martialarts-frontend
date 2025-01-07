@@ -71,7 +71,7 @@ const FeatureCard = ({
                     <span><b className={styles.title}>class times: </b>{featuredPlace?.activity_hours?.opening_time} - {featuredPlace?.activity_hours?.closing_time}</span>
                 </p>
 
-                <br />
+                {/* <br /> */}
 
                 <section className={styles.bottom__Row}>
                     <p className={styles.content__Detail}>
