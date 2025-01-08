@@ -193,7 +193,8 @@
         padding-right: 1rem;
     }
 
-    .selected__place {
+    .selected__place,
+    .input__Row {
         flex-direction: column;
     }
     .progress {
