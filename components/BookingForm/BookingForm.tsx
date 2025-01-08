@@ -23,6 +23,7 @@ import AppPopup from '../AppPopup/AppPopup';
 import DatePicker from "react-datepicker";
 import CustomDatePickerInput from './components/CustomDatePickerInput';
 import CustomDatePickerHeader from './components/CustomDatePickerHeader';
+import useMobile from '@/hooks/useMobile';
 
 
 const BookingForm = () => {
@@ -44,6 +45,8 @@ const BookingForm = () => {
     const [ selectedPlace, setSelectedPlace ] = useState<IPlace | null>(null);
     const [ showConfirmationModal, setShowConfirmationModal ] = useState(false);
     
+    const isMobile = useMobile();
+
     const placeService = new PlaceService();
     const bookingService = new BookingService();
     
@@ -320,40 +323,10 @@ const BookingForm = () => {
                             </> :
                             currentPage === 2 ? <>
                                 <section className={styles.input__Row}>
-                                    <SelectItem
-                                        label='select class type'
-                                        options={
-                                            selectedPlace?.place_caters_to?.map(item => ({
-                                                id: item.id,
-                                                label: item.name,
-                                                value: `${item.id}`,
-                                            })) ?? []
-                                        }
-                                        value={bookingDetails.class_id}
-                                        handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
-                                        isRequired
-                                    />
-                                    
-                                    <SelectItem
-                                        label='select age group'
-                                        options={
-                                            selectedPlace?.place_age_groups?.map(item => ({
-                                                id: item.id,
-                                                label: item.name,
-                                                value: `${item.id}`,
-                                            })) ?? []
-                                        }
-                                        value={bookingDetails.age_group_id}
-                                        handleChange={(val) => handleDetailUpdate(bookingDetailsDict.age_group_id, val)}
-                                        isRequired
-                                    />
-                                </section>
-
-                                <section className={styles.input__Row}>
                                     <label 
                                         className={styles.label__Detail}
                                         style={{
-                                            width: 'calc(50% - 0.5rem)',
+                                            width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                         }}
                                     >
                                         <span>appointment date <RequiredIndicator /></span>
@@ -395,10 +368,37 @@ const BookingForm = () => {
                                         isDisabled={bookingDetails.date.length < 1}
                                         handleChange={(val) => handleDetailUpdate(bookingDetailsDict.time, val)}
                                         style={{
-                                            width: 'calc(50% - 0.5rem)',
+                                            width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                         }}
                                     />
                                 </section>
+                                <SelectItem
+                                    label='select class type'
+                                    options={
+                                        selectedPlace?.place_caters_to?.map(item => ({
+                                            id: item.id,
+                                            label: item.name,
+                                            value: `${item.id}`,
+                                        })) ?? []
+                                    }
+                                    value={bookingDetails.class_id}
+                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
+                                    isRequired
+                                />
+                                
+                                <SelectItem
+                                    label='select age group'
+                                    options={
+                                        selectedPlace?.place_age_groups?.map(item => ({
+                                            id: item.id,
+                                            label: item.name,
+                                            value: `${item.id}`,
+                                        })) ?? []
+                                    }
+                                    value={bookingDetails.age_group_id}
+                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.age_group_id, val)}
+                                    isRequired
+                                />
                             </> :
                             currentPage === 3 ? <>
                                 <section className={styles.detail__item}>
@@ -439,7 +439,7 @@ const BookingForm = () => {
                                         isRequired
                                         borderRadius='12px'
                                         style={{
-                                            width: 'calc(50% - 0.5rem)',
+                                            width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                         }}
                                     />
 
@@ -451,7 +451,7 @@ const BookingForm = () => {
                                         isRequired
                                         borderRadius='12px'
                                         style={{
-                                            width: 'calc(50% - 0.5rem)',
+                                            width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                         }}
                                     />
                                 </section>
@@ -517,7 +517,7 @@ const BookingForm = () => {
                                                 isRequired
                                                 borderRadius='12px'
                                                 style={{
-                                                    width: 'calc(50% - 0.5rem)',
+                                                    width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                                 }}
                                             />
 
@@ -530,7 +530,7 @@ const BookingForm = () => {
                                                 isRequired
                                                 borderRadius='12px'
                                                 style={{
-                                                    width: 'calc(50% - 0.5rem)',
+                                                    width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                                 }}
                                             />
                                         </section>
@@ -539,7 +539,7 @@ const BookingForm = () => {
                                             <label 
                                                 className={styles.label__Detail}
                                                 style={{
-                                                    width: 'calc(50% - 0.5rem)',
+                                                    width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                                 }}
                                             >
                                                 <span>child date of birth <RequiredIndicator /></span>
@@ -578,7 +578,7 @@ const BookingForm = () => {
                                                 onChange={handleDetailUpdate}
                                                 borderRadius='12px'
                                                 style={{
-                                                    width: 'calc(50% - 0.5rem)',
+                                                    width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                                 }}
                                             />
                                         </section>

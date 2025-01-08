@@ -324,8 +324,8 @@ const PlaceListCard = ({
                   background: 'transparent',
                   color: '#000',
                   border: '1px solid #000',
-                  padding: !isListView ? '0.75rem 1rem' : undefined,
-                  fontSize: !isListView ? '0.75rem' : '0.8rem',
+                  padding: !isListView ? '0.75rem 1rem' : '0.65rem 1.2rem',
+                  fontSize: '0.75rem',
                 }}
                 hoverStyle={{
                   background: '#000',
