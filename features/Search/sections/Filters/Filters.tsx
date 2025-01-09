@@ -75,6 +75,7 @@ const SearchFilters = () => {
                         }
                     })}
                     currentActiveFiltersForItem={activeFilters.place}
+                    showCustomSearch
                 />
             </section>
             

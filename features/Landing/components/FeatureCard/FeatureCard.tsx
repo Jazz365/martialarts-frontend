@@ -84,7 +84,11 @@ const FeatureCard = ({
                         label='join class'
                         style={{
                             fontSize: '0.8rem',
-                            padding: '0.75rem 1.4rem'
+                            padding: '0.75rem 1.4rem',
+                            backgroundColor: 'var(--red-color)',
+                        }}
+                        hoverStyle={{
+                            backgroundColor: 'black',
                         }}
                     />
                 </section>

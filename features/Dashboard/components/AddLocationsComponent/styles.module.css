@@ -23,3 +23,40 @@
     align-items: center;
     gap: 1rem;
 }
+
+.single__List__Item > * {
+    max-width: 23%;
+}
+
+.mob__Add__Title {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .single__List__Item {
+        flex-direction: column;
+    }
+
+    .single__List__Item > * {
+        max-width: unset;
+    }
+
+    .del__Icon {
+        display: none;
+    }
+
+    .mob__Add__Title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.6rem;
+        width: max-content;
+        color: #808080;
+        margin-left: auto;
+        cursor: pointer;
+    }
+
+    .items__List {
+        gap: 2rem;
+    }
+}
