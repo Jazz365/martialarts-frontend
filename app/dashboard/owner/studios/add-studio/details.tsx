@@ -6,7 +6,7 @@ import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddIt
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import AddItemComponent from '@/features/Dashboard/components/AddItemComponent/AddItemComponent';
-import { compulsoryDetailKeys, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes } from './utils';
+import { compulsoryDetailKeys, compulsoryDetailKeysDict, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes } from './utils';
 import AddLocationsComponent from '@/features/Dashboard/components/AddLocationsComponent/AddLocationsComponent';
 import MastersAddComponent from '@/features/Dashboard/components/MastersAddComponent/MastersAddComponent';
 import ActivityHoursEdit from '@/features/Dashboard/components/ActivityHoursEdit/ActivityHoursEdit';
@@ -167,8 +167,7 @@ const AddPlaceDetails = () => {
                 (typeof value === 'string' || Array.isArray(value)) && value.length < 1)
             );
         });
-
-        if (missingRequiredDetail) return toast.info('Please fill in all required info');
+        if (missingRequiredDetail) return toast.info(`Please fill in all required info${compulsoryDetailKeysDict[missingRequiredDetail] ? ': found missing ' + '"' + compulsoryDetailKeysDict[missingRequiredDetail] + '"' : ''}`);
         if (isNaN(Number(details.pricing))) return toast.info('Please enter a valid number for the pricing of this new place');
         if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) return toast.info('Found missing city or address in location provided');
         if (details.benefits.find(benefit => benefit.length < 1)) return toast.info('Found missing/empty benefit in provided benefits');
@@ -336,6 +335,7 @@ const AddPlaceDetails = () => {
                 items={details.locations}
                 updateItemsArr={(items: ILocation[]) => handleDetailUpdate(newPlaceDetailKeysDict.locations, items)}
                 updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.locations as keyof NewPlaceDetail, itemIndex, item, key)}
+                useCustomCityDropdownListing={!isEditView}
             />
 
             <AddItemComponent

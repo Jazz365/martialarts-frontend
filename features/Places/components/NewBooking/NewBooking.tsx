@@ -94,11 +94,15 @@ const NewBooking = ({
                 :
                 <>
                     <Button 
-                        label='join us'
+                        label='class registration'
                         style={{
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            backgroundColor: 'var(--red-color)',
+                        }}
+                        hoverStyle={{
+                            backgroundColor: 'black',
                         }}
                         handleClick={handleBookNowBtnClick}
                     />

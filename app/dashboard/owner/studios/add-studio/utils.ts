@@ -93,6 +93,22 @@ export const compulsoryDetailKeys = [
     newPlaceDetailKeysDict.age_groups,
 ]
 
+export const compulsoryDetailKeysDict = {
+    [newPlaceDetailKeysDict.name]: 'place name',
+    [newPlaceDetailKeysDict.description]: 'place description',
+    [newPlaceDetailKeysDict.type_of_place]: 'place type',
+    [newPlaceDetailKeysDict.pricing_type]: 'pricing type',
+    [newPlaceDetailKeysDict.gender]: 'place gender offering',
+    [newPlaceDetailKeysDict.email]: 'contact email',
+    [newPlaceDetailKeysDict.locations]: 'place location',
+    [newPlaceDetailKeysDict.benefits]: 'place benefit',
+    // newPlaceDetailKeysDict.policy,
+    // newPlaceDetailKeysDict.faqs,
+    [newPlaceDetailKeysDict.images]: 'place image',
+    [newPlaceDetailKeysDict.caters_to]: 'place class type',
+    [newPlaceDetailKeysDict.age_groups]: 'place age group',
+}
+
 export const initialNewPlaceDetail: NewPlaceDetail = {
     name: '',
     description: '',

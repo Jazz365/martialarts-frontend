@@ -43,6 +43,7 @@
     padding: 2rem;
     justify-content: space-between;
     gap: 1.5rem;
+    scrollbar-width: none;
 }
 
 .header__Row {

@@ -7,6 +7,8 @@ import styles from './styles.module.css';
 import Button from '../../../../components/Button/Button';
 import useClickOutside from '@/hooks/useClickOutside';
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
+import SearchBar from '@/components/SearchBar/SearchBar';
+import { cleanStringAndReturnLower } from '@/helpers/formatters';
 
 
 interface FilterValue {
@@ -19,11 +21,13 @@ const FilterItem = ({
     filterKey='',
     filters=[],
     currentActiveFiltersForItem=[],
+    showCustomSearch=false,
 }: {
     title: string;
     filterKey: string;
     filters?: FilterValue[];
     currentActiveFiltersForItem?: string[];
+    showCustomSearch?: boolean;
 }) => {
     const {
         handleUpdateFiltersForCategory,
@@ -31,6 +35,9 @@ const FilterItem = ({
 
     const [ selectedFilters, setSelectedFilters ] = useState<string[]>([]);
     const [ showFilterListing, setShowFilterListing ] = useState<boolean>(false);
+    const [ searchValue, setSearchValue ] = useState<string>('');
+    const [ matchedFiltersForSearch, setMatchedFiltersForSearch ] = useState<FilterValue[]>([]);
+
     const filterWrapRef = useRef<HTMLDivElement>(null);
     const listingRef = useRef<HTMLDivElement>(null);
     
@@ -42,11 +49,39 @@ const FilterItem = ({
 
     useEffect(() => {
         setSelectedFilters(currentActiveFiltersForItem);
-    }, [currentActiveFiltersForItem])
+    }, [currentActiveFiltersForItem]);
+
+    useEffect(() => {
+        setMatchedFiltersForSearch(
+            [
+                ...selectedFilters.filter(item => !filters.find(fil => cleanStringAndReturnLower(fil.value) === cleanStringAndReturnLower(item))).map(item => {
+                    return {
+                        name: item,
+                        value: item,
+                    }
+                }),
+                ...filters,
+            ].filter(filter => {
+                if (searchValue.length > 0) return cleanStringAndReturnLower(filter.name).includes(cleanStringAndReturnLower(searchValue));
+
+                return filter;
+            })
+        );
+    }, [filters, searchValue, selectedFilters])
 
     const handleBtnClick = (value: string[]) => {
-        handleUpdateFiltersForCategory(filterKey, value);
+        handleUpdateFiltersForCategory(
+            filterKey,
+            searchValue.length > 0 ?
+                [
+                    ...value,
+                    searchValue,
+                ]
+            :
+            []
+        );
         setShowFilterListing(false);
+        setSearchValue('');
     } 
 
     return <>
@@ -66,9 +101,25 @@ const FilterItem = ({
                     ref={listingRef}
                     onClick={(e) => e.stopPropagation()}
                 >
+                    {
+                        showCustomSearch === true &&
+                        <SearchBar
+                            value={searchValue}
+                            onChange={(_name, val) => setSearchValue(val)}
+                            style={{
+                                padding: '0.65rem 0.7rem',
+                                width: 'calc(100% - calc(1rem * 2)',
+                                margin: '1rem auto 0',
+                            }}
+                        />
+                    }
+
                     <ul className={styles.filter__Listing}>
                         {
-                            React.Children.toArray(filters.map(filter => {
+                            matchedFiltersForSearch.length < 1 ?
+                                <p className={styles.empty__Filters}>{"No results? No worries.\n\njust click on 'save' and we would perform a wide search for you!"}</p>
+                            :
+                            React.Children.toArray(matchedFiltersForSearch.map(filter => {
                                 return <li 
                                     className={styles.single__Filter}
                                     key={`${filter.name} ${filter.value}`}

@@ -5,11 +5,11 @@ import Button from '@/components/Button/Button'
 import React, { useState } from 'react'
 import { IoStarOutline } from 'react-icons/io5'
 import styles from './styles.module.css'
-import SearchBar from '@/components/SearchBar/SearchBar'
+// import SearchBar from '@/components/SearchBar/SearchBar'
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext'
 import { listingSortOptions, listingViewTypesList } from './utils';
 import PlacesSectionView from '../PlacesSectionView/PlacesSectionView';
-import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOption';
+// import ResultsViewOption from '../../components/ResultsViewOption/ResultsViewOption';
 import useMobile from '@/hooks/useMobile';
 import { toast } from 'sonner';
 import SingleResultViewOption from '../../components/ResultsViewOption/SingleResultViewOption';
@@ -21,6 +21,7 @@ const SearchPlacesListing = () => {
     activeFilters,
     handleUpdateFiltersForCategory,
     allPlaces,
+    placesLoaded,
   } = useSearchFilterContext();
 
   const {
@@ -34,7 +35,7 @@ const SearchPlacesListing = () => {
     <section className={`${styles.listing__Wrap} ${showMap === false ? styles.full : ''}`}>
       <section className={styles.listing__Title}>
         <h1 className={styles.header}>
-          <span>{allPlaces.length} results</span>
+          <span>{placesLoaded ? allPlaces.length : 0} results</span>
           {/* <span className={styles.subheader}>Find your perfect martial arts style place</span> */}
         </h1>
 
