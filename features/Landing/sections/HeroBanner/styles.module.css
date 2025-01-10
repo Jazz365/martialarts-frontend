@@ -24,14 +24,14 @@
 }
 
 .header {
-    font-family: var(--mako-font);
+    font-family: var(--mako-font), Arial, Helvetica, sans-serif;
     font-size: 3rem;
     font-weight: 900;
-    position: relative;
-    animation: fadeInFromTop 1.4s ease-in-out;
+    /* position: relative; */
+    animation: fadeInFromTop 0.8s ease-in-out;
     text-transform: capitalize;
     text-align: center;
-    width: 75%;
+    max-width: 75%;
     margin: 0 auto;
 }
 
@@ -59,10 +59,10 @@
 @keyframes fadeInFromTop {
     from {
         opacity: 0;
-        top: -120px;
+        transform: translateY(-120px);
     } to {
         opacity: 1;
-        top: 0;
+        transform: translateY(0);
     }
 }
 

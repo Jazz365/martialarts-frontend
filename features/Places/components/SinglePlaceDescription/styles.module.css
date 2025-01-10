@@ -57,6 +57,7 @@
     gap: 0.5rem;
     text-transform: capitalize;
     font-size: 0.75rem;
+    cursor: pointer;
 }
 
 .description__Content p {
