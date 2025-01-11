@@ -59,10 +59,10 @@
 @keyframes fadeInFromTop {
     from {
         opacity: 0;
-        transform: translateY(-120px);
+        /* transform: translateY(-120px); */
     } to {
         opacity: 1;
-        transform: translateY(0);
+        /* transform: translateY(0); */
     }
 }
 

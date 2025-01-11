@@ -14,7 +14,7 @@ import styles from './styles.module.css'
 
 
 const NavigationBarContent = ({
-    showSearchBar,
+    showSearchBar=false,
 }: {
     showSearchBar?: boolean;
 }) => {
@@ -30,91 +30,90 @@ const NavigationBarContent = ({
     });
 
     return <>
-        {
-            showSearchBar && !isMobile &&
-            <CategorySearchBar
-                hideTrendingStyles={true}
-                wrapperStyle={{
-                    width: '35%',
-                }}
-                searchBarStyle={{
-                    padding: '0.75rem 0.75rem 0.75rem 1.5rem',
-                    width: '100%',
-                }}
-            />
-        }
+        <CategorySearchBar
+            hideTrendingStyles={true}
+            wrapperStyle={{
+                width: '35%',
+                display: showSearchBar && !isMobile ?
+                    'flex'
+                :
+                'none'
+            }}
+            searchBarStyle={{
+                padding: '0.75rem 0.75rem 0.75rem 1.5rem',
+                width: '100%',
+            }}
+        />
 
-        {
-            isMobile &&
-            <>
-                {
-                    showMobileMenu ?
-                        <IoCloseOutline
-                            size={'1.2rem'}
-                            cursor={'pointer'}
-                            onClick={() => setShowMobileMenu(!showMobileMenu)}
-                        />
-                    :
-                    <RxHamburgerMenu
+        <div
+            style={{
+                display: isMobile ? 'block' : 'none',
+            }}
+        >
+            {
+                showMobileMenu ?
+                    <IoCloseOutline
                         size={'1.2rem'}
                         cursor={'pointer'}
                         onClick={() => setShowMobileMenu(!showMobileMenu)}
                     />
-                }
-            </>
-        }
+                :
+                <RxHamburgerMenu
+                    size={'1.2rem'}
+                    cursor={'pointer'}
+                    onClick={() => setShowMobileMenu(!showMobileMenu)}
+                />
+            }
+        </div>
 
         <section 
             className={`${styles.nav__Actions} ${isMobile ? styles.mobile : ''} ${isMobile && showMobileMenu ? styles.show : ''}`}
             ref={actionsRef}
-        >
-            {
-                userDetailsLoading ? 
-                    <>Loading...</>
-                :
-                userDetails ?
-                    <>
-                        <Button
-                            label='dashboard'
-                            useLink={true}
-                            icon={
-                                <IoGridOutline
-                                    color='#fff'
-                                    size='1.1rem'
-                                />
-                            }
-                            linkLocation={generateDashLinkForUser(userDetails.is_owner)}
-                        />
-                    </>
-                :
-                <>
-                    <Button 
-                        label='login'
-                        style={{
-                            backgroundColor: 'transparent',
-                            color: '#000',
-                            fontWeight: '500',
-                            padding: 0
-                        }}
-                        useLink={true}
-                        linkLocation='/auth/login'
+        >   
+            <Button
+                label='dashboard'
+                useLink={true}
+                icon={
+                    <IoGridOutline
+                        color='#fff'
+                        size='1.1rem'
                     />
-                
-                    <Button 
-                        label='boost your studio'
-                        icon={
-                            <IoAddOutline
-                                color='#fff'
-                                size='1.1rem'
-                            />
-                        }
-                        useLink={true}
-                        linkLocation={
-                            `/auth/register?type=${userTypes.owner}`
-                        }
+                }
+                style={{
+                    display: userDetails ? 'flex' : 'none'
+                }}
+                linkLocation={generateDashLinkForUser(userDetails?.is_owner)}
+            />
+
+            <Button 
+                label='login'
+                style={{
+                    backgroundColor: 'transparent',
+                    color: '#000',
+                    fontWeight: '500',
+                    padding: 0,
+                    display: !userDetails ? 'flex' : 'none',
+                }}
+                useLink={true}
+                linkLocation='/auth/login'
+            />
+        
+            <Button 
+                label='boost your studio'
+                icon={
+                    <IoAddOutline
+                        color='#fff'
+                        size='1.1rem'
                     />
-                </>
-            }
+                }
+                style={{
+                    display: !userDetails ? 'flex' : 'none',
+                }}
+                useLink={true}
+                linkLocation={
+                    `/auth/register?type=${userTypes.owner}`
+                }
+            />
         </section>
     </>
 }

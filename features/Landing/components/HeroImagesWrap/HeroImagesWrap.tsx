@@ -20,14 +20,18 @@ const HeroImagesWrap = () => {
                     className={`${styles.img__Content} ${styles.i_1}`}
                     alt='hero'
                     src={heroImg6}
-                    // priority
+                    width={0}
+                    height={0}
+                    priority
                 />
                 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_2}`}
                     alt='hero'
                     src={heroImg3}
-                    // priority
+                    width={0}
+                    height={0}
+                    priority
                 />
 
                 
@@ -35,21 +39,27 @@ const HeroImagesWrap = () => {
                     className={`${styles.img__Content} ${styles.i_main}`}
                     alt='hero'
                     src={mainHeroImg}
-                    // priority
+                    width={0}
+                    height={0}
+                    priority
                 />
 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_3}`}
                     alt='hero'
                     src={heroImg5}
-                    // priority
+                    width={0}
+                    height={0}
+                    priority
                 />
                 
                 <Image 
                     className={`${styles.img__Content} ${styles.i_4}`}
                     alt='hero'
                     src={heroImg7}
-                    // priority
+                    width={0}
+                    height={0}
+                    priority
                 />
             </section>
         </FadeInOnScroll>

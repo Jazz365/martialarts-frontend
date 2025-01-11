@@ -1,6 +1,6 @@
 'use client';
 
-import React, { CSSProperties, useEffect, useState } from 'react'
+import React, { CSSProperties, useEffect, useMemo, useState } from 'react'
 import { IoClose, IoSearch } from 'react-icons/io5'
 import styles from './styles.module.css'
 import Link from 'next/link'
@@ -20,13 +20,14 @@ const CategorySearchBar = ({
 }) => {
     const [ searchValue, setSearchValue ] = useState<string>('');
     const [ inputFocused, setInputFocused ] = useState<boolean>(false);
-    const [ stylesToDisplay, setStylesToDisplay ] = useState<IMartialArtStyle[]>([]);
     const {
         allStyles,
         stylesLoading,  
     } = useAppContext();
 
-    useEffect(() => {
+    const stylesToDisplay = useMemo<IMartialArtStyle[]>(() => {
+        if (!allStyles || !Array.isArray(allStyles)) return [];
+        
         const filteredStyles = allStyles
         .filter(styleItem => styleItem.is_search_style === true)
         .filter(styleItem => {
@@ -42,10 +43,10 @@ const CategorySearchBar = ({
                 return true;
             });
 
-            if (foundStylesFromAllStyles.length > 0) return setStylesToDisplay(foundStylesFromAllStyles);
+            if (foundStylesFromAllStyles.length > 0) return foundStylesFromAllStyles;
         }
 
-        setStylesToDisplay(filteredStyles);
+        return filteredStyles;
     }, [allStyles, searchValue])
 
     return <>

@@ -1,3 +1,5 @@
+'use server'
+
 import React from 'react'
 import styles from './styles.module.css'
 import HeroImagesWrap from '../../components/HeroImagesWrap/HeroImagesWrap';
@@ -24,14 +26,18 @@ const HeroBanner = () => {
                 className={`${styles.img__Content} ${styles.i_1}`}
                 alt='hero'
                 src={heroImg4}
-                // priority
+                width={0}
+                height={0}
+                priority
             />
 
             <Image 
                 className={`${styles.img__Content} ${styles.i_2}`}
                 alt='hero'
                 src={heroImg1}
-                // priority
+                width={0}
+                height={0}
+                priority
             />
         </section>
 
