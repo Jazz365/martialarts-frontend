@@ -26,13 +26,14 @@
 }
 
 .content__Detail {
-    border: 1px solid #d3d3d3;
+    /* border: 1px solid #d3d3d3; */
     padding: 2rem 1rem;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     background-color: #fff;
+    box-shadow: var(--card-box-shadow);
 }
 
 .content__Detail p {

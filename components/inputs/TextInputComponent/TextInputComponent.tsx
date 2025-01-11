@@ -21,6 +21,7 @@ const TextInputComponent = ({
     isRequired=false,
     min,
     accentColor,
+    rows=5,
 }: {
     label?: string;
     type?: string;
@@ -39,6 +40,7 @@ const TextInputComponent = ({
     isRequired?: boolean;
     min?: any;
     accentColor?: string;
+    rows?: number;
 }) => {
     return (
         <label 
@@ -71,7 +73,7 @@ const TextInputComponent = ({
                         name={name}
                         value={value}
                         onChange={({ target }) => onChange(name, target.value)}
-                        rows={5}
+                        rows={rows}
                         style={{
                             borderRadius,
                             fontSize: inputFontSize,

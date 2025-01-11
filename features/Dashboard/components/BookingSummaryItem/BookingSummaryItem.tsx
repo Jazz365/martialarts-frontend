@@ -2,7 +2,7 @@
 
 
 import { formatTimeString, generateDashLinkForUser, getDayOfTheWeek } from '@/helpers/helpers';
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { AiFillClockCircle } from 'react-icons/ai';
 import styles from './styles.module.css'
 import { Tooltip } from 'react-tooltip';
@@ -13,8 +13,10 @@ import { HiOutlineBuildingOffice2 } from 'react-icons/hi2';
 
 const BookingSummaryItem = ({
     booking,
+    style={}
 }: {
     booking: IBooking;
+    style?: CSSProperties;
 }) => {
     const { userDetails } = useUserContext();
 
@@ -22,6 +24,7 @@ const BookingSummaryItem = ({
         <Link 
             className={styles.item__Wrap}
             href={`${generateDashLinkForUser(userDetails?.is_owner)}/bookings/${booking.id}`}
+            style={style}
         >
             <section className={styles.date__Wrap}>
                 <h5 className={styles.date__Day__Txt}>

@@ -46,10 +46,10 @@ const SearchPlacesListing = () => {
                 return <Button 
                   label={isMobile ? '' : type.viewType}
                   style={{
-                    border: activeFilters.view === type.viewType ? 
-                      '1px solid #000'
-                    :
-                    '',
+                    // border: activeFilters.view === type.viewType ? 
+                    //   '1px solid #000'
+                    // :
+                    // '',
                     fontSize: '0.75rem',
                     padding: '0.55rem 1rem',
                     color: activeFilters.view === type.viewType ? 
@@ -61,6 +61,10 @@ const SearchPlacesListing = () => {
                     :
                     'transparent',
                     transition: '0.25s ease-in-out',
+                    boxShadow: activeFilters.view === type.viewType ?
+                      'var(--card-box-shadow)'
+                    :
+                    '',
                   }}
                   handleClick={
                     () => handleUpdateFiltersForCategory('view', type.viewType)
@@ -76,11 +80,12 @@ const SearchPlacesListing = () => {
             label={isMobile ? 'Save' : 'Save search'}
             icon={<IoStarOutline />}
             style={{
-              border: '1px solid #000',
-              backgroundColor: 'transparent',
+              border: '1px solid #d3d3d3',
+              backgroundColor: '#fff',
               color: '#000',
               fontSize: '0.75rem',
-              padding: '0.5rem 1rem'
+              padding: '0.5rem 1rem',
+              boxShadow: 'var(--card-box-shadow)',
             }}
             handleClick={() => toast.success('Feature coming soon!')}
           />

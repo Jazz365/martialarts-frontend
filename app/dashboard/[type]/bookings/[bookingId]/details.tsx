@@ -82,33 +82,6 @@ const SingleBookingDetailContent = ({
 
     return (
         <section className={styles.content__Detail}>
-            {
-                bookingDetail.status === 'pending' &&
-                <Button 
-                    label={
-                        loading ?
-                            'updating...'
-                        :
-                        userDetails?.is_owner === true ?
-                            'confirm'
-                        :
-                        'cancel'
-                    }
-                    style={{
-                        width: 'max-content',
-                        marginLeft: 'auto',
-                        fontSize: '0.75rem',
-                        backgroundColor: 'var(--primary-app-color)',
-                    }}
-                    handleClick={
-                        userDetails?.is_owner === true ?
-                            () => handleConfirmBooking()
-                        :
-                        () => handleCancelBooking()
-                    }
-                />
-            }
-
             <p className={styles.header_min}>basic information</p>
             <p>
                 <span>date</span>
@@ -229,6 +202,34 @@ const SingleBookingDetailContent = ({
                 <span>{bookingDetail.agreed_to_liability_waiver === true ? 'yes' : 'no'}</span>
             </p>
 
+
+            {
+                bookingDetail.status === 'pending' &&
+                <Button 
+                    label={
+                        loading ?
+                            'updating...'
+                        :
+                        userDetails?.is_owner === true ?
+                            'confirm'
+                        :
+                        'cancel'
+                    }
+                    style={{
+                        width: 'max-content',
+                        marginTop: '2rem',
+                        marginRight: 'auto',
+                        fontSize: '0.75rem',
+                        backgroundColor: 'var(--primary-app-color)',
+                    }}
+                    handleClick={
+                        userDetails?.is_owner === true ?
+                            () => handleConfirmBooking()
+                        :
+                        () => handleCancelBooking()
+                    }
+                />
+            }
         </section>
     )   
 }

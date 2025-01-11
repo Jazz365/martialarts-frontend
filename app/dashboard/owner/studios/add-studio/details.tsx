@@ -3,7 +3,7 @@
 import SelectItem from '@/components/SelectItem/SelectItem';
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent'
 import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddItemWrapper'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import AddItemComponent from '@/features/Dashboard/components/AddItemComponent/AddItemComponent';
 import { compulsoryDetailKeys, compulsoryDetailKeysDict, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes } from './utils';
@@ -26,9 +26,11 @@ import StyleAddModal from '@/components/StyleAddModal/StyleAddModal';
 import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
 import { getAllDaysOfTheWeek } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
+import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
+const timeoutToRemoveErrHighlight = 1400;
 
 const AddPlaceDetails = () => {
     const [ details, setDetails ] = useState<NewPlaceDetail>(initialNewPlaceDetail);
@@ -36,6 +38,24 @@ const AddPlaceDetails = () => {
     const [ showStyleAddModal, setShowStyleAddModal ] = useState<boolean>(false);
     const [ loading, setLoading ] = useState(false);
     const [ isEditView, setIsEditView ] = useState(false);
+
+    const [
+        basicInfoRef,
+        galleryRef,
+        featuresRef,
+        mastersRef,
+        activityHoursRef,
+        contactRef,
+        faqRef,
+    ] = [
+        useRef<HTMLDivElement>(null),
+        useRef<HTMLDivElement>(null),
+        useRef<HTMLDivElement>(null),
+        useRef<HTMLDivElement>(null),
+        useRef<HTMLDivElement>(null),
+        useRef<HTMLDivElement>(null),
+        useRef<HTMLDivElement>(null),
+    ];
 
     const searchParams = useSearchParams();
 
@@ -63,6 +83,14 @@ const AddPlaceDetails = () => {
                 [key]: value,
             }
         });
+    }
+
+    const scrollToSectionAndAddErrHighlight = (sectionRef: React.RefObject<HTMLDivElement>) => {
+        sectionRef.current?.scrollIntoView({
+            behavior: 'smooth',
+        });
+        sectionRef.current?.classList.add(styles.highlight__Err);
+        setTimeout(() => sectionRef.current?.classList.remove(styles.highlight__Err), timeoutToRemoveErrHighlight);
     }
 
     useEffect(() => {
@@ -167,13 +195,62 @@ const AddPlaceDetails = () => {
                 (typeof value === 'string' || Array.isArray(value)) && value.length < 1)
             );
         });
-        if (missingRequiredDetail) return toast.info(`Please fill in all required info${compulsoryDetailKeysDict[missingRequiredDetail] ? ': found missing ' + '"' + compulsoryDetailKeysDict[missingRequiredDetail] + '"' : ''}`);
-        if (isNaN(Number(details.pricing))) return toast.info('Please enter a valid number for the pricing of this new place');
-        if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) return toast.info('Found missing city or address in location provided');
-        if (details.benefits.find(benefit => benefit.length < 1)) return toast.info('Found missing/empty benefit in provided benefits');
-        if (details.master_images.find(master => master.name.length < 1 || (!master.imageFile && master.image.toString().length < 1))) return toast.info('Found missing master name or image');
-        if (details.images.length < 5) return toast.info('Please upload at least 5 images for your place');
-        if (details.benefits.length < 5) return toast.info('Please write at least 5 benefits of your place');
+        
+        if (missingRequiredDetail) {
+            if (
+                missingRequiredDetail === newPlaceDetailKeysDict.name ||
+                missingRequiredDetail === newPlaceDetailKeysDict.description ||
+                missingRequiredDetail === newPlaceDetailKeysDict.type_of_place ||
+                missingRequiredDetail === newPlaceDetailKeysDict.pricing_type ||
+                missingRequiredDetail === newPlaceDetailKeysDict.locations ||
+                missingRequiredDetail === newPlaceDetailKeysDict.benefits
+            ) {
+                scrollToSectionAndAddErrHighlight(basicInfoRef);
+            }
+
+            if (
+                missingRequiredDetail === newPlaceDetailKeysDict.gender ||
+                missingRequiredDetail === newPlaceDetailKeysDict.caters_to ||
+                missingRequiredDetail === newPlaceDetailKeysDict.age_groups
+            ) {
+                scrollToSectionAndAddErrHighlight(featuresRef);
+            }
+
+            if (missingRequiredDetail === newPlaceDetailKeysDict.images) scrollToSectionAndAddErrHighlight(galleryRef);
+            if (missingRequiredDetail === newPlaceDetailKeysDict.email) scrollToSectionAndAddErrHighlight(contactRef);
+            
+            return toast.info(`Please fill in all required info${compulsoryDetailKeysDict[missingRequiredDetail] ? ': found missing ' + '"' + compulsoryDetailKeysDict[missingRequiredDetail] + '"' : ''}`);
+        }
+
+        if (isNaN(Number(details.pricing))) {
+            scrollToSectionAndAddErrHighlight(basicInfoRef);
+            return toast.info('Please enter a valid number for the pricing of this new place');
+        }
+
+        if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) {
+            scrollToSectionAndAddErrHighlight(basicInfoRef);
+            return toast.info('Found missing city or address or zip code in location provided');
+        }
+        
+        if (details.benefits.find(benefit => benefit.length < 1)) {
+            scrollToSectionAndAddErrHighlight(basicInfoRef);
+            return toast.info('Found missing/empty benefit in provided benefits');
+        }
+        
+        if (details.master_images.find(master => master.name.length < 1 || (!master.imageFile && master.image.toString().length < 1))) {
+            scrollToSectionAndAddErrHighlight(mastersRef);
+            return toast.info('Found missing master name or image');
+        }
+
+        if (details.images.length < 5) {
+            scrollToSectionAndAddErrHighlight(galleryRef);
+            return toast.info('Please upload at least 5 images for your place');
+        }
+
+        if (details.benefits.length < 5) {
+            scrollToSectionAndAddErrHighlight(basicInfoRef);
+            return toast.info('Please write at least 5 benefits of your place');
+        }
         
         const formData = generateFormDataForNewPlaceDetails(details, isEditView);
         // console.log(formData);
@@ -231,6 +308,7 @@ const AddPlaceDetails = () => {
     
         <AddItemWrapper
             title='basic information'
+            ref={basicInfoRef}
         >
             <TextInputComponent
                 label='place name'
@@ -239,6 +317,7 @@ const AddPlaceDetails = () => {
                 onChange={handleDetailUpdate}
                 borderRadius='12px'
                 isRequired
+                labelFontSize='0.85rem'
             />
 
             <TextInputComponent 
@@ -249,6 +328,8 @@ const AddPlaceDetails = () => {
                 isTextArea={true}
                 borderRadius='12px'
                 isRequired
+                labelFontSize='0.85rem'
+                rows={8}
             />
 
             <section className={styles.item__Section__Row}>
@@ -258,6 +339,9 @@ const AddPlaceDetails = () => {
                     value={details.type_of_place ?? ''}
                     handleChange={(value) => handleDetailUpdate(newPlaceDetailKeysDict.type_of_place, value)}
                     isRequired
+                    style={{
+                        fontSize: '0.85rem'
+                    }}
                 />
 
                 <SelectItem 
@@ -266,6 +350,9 @@ const AddPlaceDetails = () => {
                     value={details.pricing_type ?? ''}
                     handleChange={(value) => handleDetailUpdate(newPlaceDetailKeysDict.pricing_type, value)}
                     isRequired
+                    style={{
+                        fontSize: '0.85rem'
+                    }}
                 />
 
                 <TextInputComponent 
@@ -275,6 +362,7 @@ const AddPlaceDetails = () => {
                     onChange={handleDetailUpdate}
                     borderRadius='12px'
                     type='number'
+                    labelFontSize='0.85rem'
                 />
             </section>
 
@@ -303,7 +391,13 @@ const AddPlaceDetails = () => {
 
                 {
                     stylesLoading ?
-                        <PageLoader />
+                        <section style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                            <AlternatingDotsLoader />
+                        </section>
                     :
                     <section className={styles.listing__Wrap}>
                         {
@@ -350,51 +444,9 @@ const AddPlaceDetails = () => {
         </AddItemWrapper>
 
         <AddItemWrapper
-            title='contact information'
-        >
-            <section className={styles.item__Section__Row}>
-                <TextInputComponent 
-                    label='email'
-                    name={newPlaceDetailKeysDict.email}
-                    type='email'
-                    value={details.email}
-                    onChange={handleDetailUpdate}
-                    borderRadius='12px'
-                    isRequired
-                />
-
-                <TextInputComponent 
-                    label='phone number'
-                    name='phone_number'
-                    value={details.phone_number}
-                    onChange={handleDetailUpdate}
-                    borderRadius='12px'
-                />
-            </section>
-
-            <TextInputComponent 
-                label='website url'
-                name={newPlaceDetailKeysDict.website}
-                value={details.website}
-                onChange={handleDetailUpdate}
-                borderRadius='12px'
-            />
-        </AddItemWrapper>
-
-        <AddItemWrapper
-            title='masters information'
-            extraInfo='(you can add here max 3 mentor images)'
-        >
-            <MastersAddComponent
-                items={details.master_images}
-                updateItemsArr={(items: IPlaceMasterImage[]) => handleDetailUpdate(newPlaceDetailKeysDict.master_images, items)}
-                updateSingleItem={(itemIndex: number, item: string | File, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.master_images as keyof NewPlaceDetail, itemIndex, item, key)}
-            />
-        </AddItemWrapper>
-
-        <AddItemWrapper
             title='place gallery'
             extraInfo='(min 5 images max 15 images)'
+            ref={galleryRef}
         >
             <section className={styles.item__Section__Col}>
                 <TextInputComponent 
@@ -403,6 +455,7 @@ const AddPlaceDetails = () => {
                     value={details.video}
                     onChange={handleDetailUpdate}
                     borderRadius='12px'
+                    labelFontSize='0.85rem'
                 />
 
                 <GalleryEditItem 
@@ -414,6 +467,7 @@ const AddPlaceDetails = () => {
         
         <AddItemWrapper
             title='features information'
+            ref={featuresRef}
         >
             <section className={styles.features__Wrap}>
                 <section className={styles.check__Wrap}>
@@ -507,8 +561,21 @@ const AddPlaceDetails = () => {
         </AddItemWrapper>
 
         <AddItemWrapper
+            title='masters information'
+            extraInfo='(you can add here max 3 mentor images)'
+            ref={mastersRef}
+        >
+            <MastersAddComponent
+                items={details.master_images}
+                updateItemsArr={(items: IPlaceMasterImage[]) => handleDetailUpdate(newPlaceDetailKeysDict.master_images, items)}
+                updateSingleItem={(itemIndex: number, item: string | File, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.master_images as keyof NewPlaceDetail, itemIndex, item, key)}
+            />
+        </AddItemWrapper>
+
+        <AddItemWrapper
             title='activity hours'
             isRequired
+            ref={activityHoursRef}
         >
             <ActivityHoursEdit 
                 activityHours={details.activity_hours}
@@ -517,7 +584,44 @@ const AddPlaceDetails = () => {
         </AddItemWrapper>
 
         <AddItemWrapper
+            title='contact information'
+            ref={contactRef}
+        >
+            <section className={styles.item__Section__Row}>
+                <TextInputComponent 
+                    label='email'
+                    name={newPlaceDetailKeysDict.email}
+                    type='email'
+                    value={details.email}
+                    onChange={handleDetailUpdate}
+                    borderRadius='12px'
+                    isRequired
+                    labelFontSize='0.85rem'
+                />
+
+                <TextInputComponent 
+                    label='phone number'
+                    name='phone_number'
+                    value={details.phone_number}
+                    onChange={handleDetailUpdate}
+                    borderRadius='12px'
+                    labelFontSize='0.85rem'
+                />
+            </section>
+
+            <TextInputComponent 
+                label='website url'
+                name={newPlaceDetailKeysDict.website}
+                value={details.website}
+                onChange={handleDetailUpdate}
+                borderRadius='12px'
+                labelFontSize='0.85rem'
+            />
+        </AddItemWrapper>
+
+        <AddItemWrapper
             title='commonly asked questions'
+            ref={faqRef}
         >
             <AddFaqItem 
                 faqs={details.faqs}

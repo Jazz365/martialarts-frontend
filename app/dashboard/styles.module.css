@@ -8,7 +8,7 @@
 .dash__Content {
     height: 100%;
     width: 100%;
-    background-color: #f2f2f2;
+    background-color: var(--app-bg-color);
 }
 
 .page__Wrap {

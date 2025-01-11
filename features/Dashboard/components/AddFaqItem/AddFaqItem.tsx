@@ -54,6 +54,7 @@ const AddFaqItem = ({
                     value={newFaq.question}
                     onChange={(name: string, value: string) => handleNewFaqUpdate(name, value)}
                     isRequired
+                    labelFontSize='0.85rem'
                 />
 
                 <TextInputComponent 
@@ -64,6 +65,7 @@ const AddFaqItem = ({
                     value={newFaq.answer}
                     onChange={(name: string, value: string) => handleNewFaqUpdate(name, value)}
                     isRequired
+                    labelFontSize='0.85rem'
                 />
 
                 <Button 

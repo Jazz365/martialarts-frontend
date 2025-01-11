@@ -5,11 +5,13 @@
 }
 
 .add__Section {
-    border: 1px solid #d3d3d3;
+    /* border: 1px solid #d3d3d3; */
     border-radius: 6px;
     padding: 2rem 1.5rem;
     gap: 2rem;
     background-color: #fff;
+    box-shadow: var(--card-box-shadow);
+    transition: border-color 0.25s ease-in-out;
 }
 
 .title,

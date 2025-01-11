@@ -5,6 +5,7 @@
     gap: 1rem;
     height: 78dvh;
     overflow: hidden;
+    background-color: var(--app-bg-color);
 }
 
 .nav__Bar {

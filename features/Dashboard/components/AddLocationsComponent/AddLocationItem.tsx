@@ -53,37 +53,37 @@ const AddLocationItem = ({
             />
 
             {
-                showCityCustomDropdown === true ? <>
-                    <SelectItem
-                        label='city'
-                        labelFontSize='0.7rem'
-                        fontSize='0.8rem'
-                        value={item.city}
-                        options={[
-                            {
-                                id: uuidv4(),
-                                value: customLocation,
-                                label: 'enter custom',
-                            },
-                            ...Object.keys(availableLocations).map(item => ({ 
-                                id: item + '--', 
-                                value: item, 
-                                label: item 
-                            }))
-                        ]}
-                        handleChange={(value: string) => 
-                            {
-                                const selectedValue = value;
+                // showCityCustomDropdown === true ? <>
+                //     <SelectItem
+                //         label='city'
+                //         labelFontSize='0.7rem'
+                //         fontSize='0.8rem'
+                //         value={item.city}
+                //         options={[
+                //             {
+                //                 id: uuidv4(),
+                //                 value: customLocation,
+                //                 label: 'enter custom',
+                //             },
+                //             ...Object.keys(availableLocations).map(item => ({ 
+                //                 id: item + '--', 
+                //                 value: item, 
+                //                 label: item 
+                //             }))
+                //         ]}
+                //         handleChange={(value: string) => 
+                //             {
+                //                 const selectedValue = value;
 
-                                if (selectedValue === customLocation) return setShowCityCustomDropdown(false);
+                //                 if (selectedValue === customLocation) return setShowCityCustomDropdown(false);
 
-                                handleUpdateItem(selectedValue, 'city');
-                                handleUpdateItem(availableLocations[selectedValue], 'state');
-                            }
-                        }
-                        isRequired
-                    />
-                </> :
+                //                 handleUpdateItem(selectedValue, 'city');
+                //                 handleUpdateItem(availableLocations[selectedValue], 'state');
+                //             }
+                //         }
+                //         isRequired
+                //     />
+                // </> :
                 <>
                     <TextInputComponent 
                         label='city'

@@ -8,14 +8,19 @@ const AddItemWrapper = ({
     isRequired=false,
     children,
     extraInfo,
+    ref,
 }: {
     title: string;
     children: React.ReactNode;
     isRequired?: boolean;
     extraInfo?: string;
+    ref?: React.RefObject<HTMLDivElement>;
 }) => {
     return <>
-        <section className={styles.add__Section}>
+        <section 
+            className={styles.add__Section}
+            ref={ref}
+        >
             <h2 className={styles.title}>
                 <span>
                     {title}

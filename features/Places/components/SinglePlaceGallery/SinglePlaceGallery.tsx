@@ -42,7 +42,7 @@ const SinglePlaceGallery = ({
       arrows
       autoPlaySpeed={2000}
       centerMode={false}
-      className=""
+      className={styles.carouselll}
       containerClass="container-with-dots"
       dotListClass=""
       draggable

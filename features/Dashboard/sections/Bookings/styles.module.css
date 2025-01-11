@@ -6,11 +6,12 @@
 
 .content__Wrap {
     width: 40%;
-    border: 1px solid #d3d3d3;
+    /* border: 1px solid #d3d3d3; */
     padding: 1.5rem 1rem;
     border-radius: 6px;
     gap: 2rem;
     background-color: #fff;
+    box-shadow: var(--card-box-shadow);
 }
 
 .title__Wrap {
