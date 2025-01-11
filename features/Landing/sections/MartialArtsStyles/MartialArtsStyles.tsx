@@ -65,7 +65,7 @@ const MartialArtsStyles = () => {
                                         src={style.imageUrl}
                                         alt={style.name}
                                         className={styles.style__Image}
-                                        priority
+                                        // priority
                                     />
 
                                     <section className={styles.mask}>

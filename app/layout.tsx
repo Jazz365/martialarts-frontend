@@ -55,22 +55,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <head>
-          <link
-            rel="preload"
-            href="/fonts/Mako/Mako-Regular.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-        </head>
-        <body className={`${mako.variable} ${poppins.variable}`}>
-          <AppProviders>
-            <NextTopLoader color={'var(--primary-app-color)'} showSpinner={false} />
-            <Toaster />
-            {children}
-          </AppProviders>
-        </body>
+      <body className={`${mako.variable} ${poppins.variable}`}>
+        <AppProviders>
+          <NextTopLoader color={'var(--primary-app-color)'} showSpinner={false} />
+          <Toaster />
+          {children}
+        </AppProviders>
+      </body>
     </html>
   );
 }
