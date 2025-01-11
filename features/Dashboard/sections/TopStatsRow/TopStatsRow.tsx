@@ -17,6 +17,8 @@ const TopStatsRow = () => {
         userDetails
     } = useUserContext();
 
+    const totalReviews = userPlaces.flatMap(place => place.place_reviews ?? []);
+
     return <>
         <section className={styles.stats__Wrap}>
             <StatItem
@@ -57,12 +59,20 @@ const TopStatsRow = () => {
 
                     <StatItem 
                         title='total reviews'
-                        count={0}
+                        count={totalReviews.length}
                     />
                     
                     <StatItem 
                         title={'average rating'}
-                        count={0.0}
+                        count={
+                            Number(
+                                Number(
+                                    totalReviews.reduce((a, b) => a + (b.rating ?? 0), 0) / 
+                                    totalReviews.length
+                                ).toFixed(2)
+                            )
+                        }
+                        useDecimal
                     />
                 </>
             }

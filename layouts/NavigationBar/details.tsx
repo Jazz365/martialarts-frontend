@@ -7,7 +7,7 @@ import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import useClickOutside from '@/hooks/useClickOutside';
 import useMobile from '@/hooks/useMobile';
-import React, { Suspense, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { IoAddOutline, IoCloseOutline, IoGridOutline } from 'react-icons/io5';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import styles from './styles.module.css'
@@ -68,12 +68,12 @@ const NavigationBarContent = ({
             className={`${styles.nav__Actions} ${isMobile ? styles.mobile : ''} ${isMobile && showMobileMenu ? styles.show : ''}`}
             ref={actionsRef}
         >
-            <Suspense fallback={<div>Loading...</div>}>
-                {
-                    userDetailsLoading ? 
-                        <>Loading...</>
-                    :
-                    userDetails ?
+            {
+                userDetailsLoading ? 
+                    <>Loading...</>
+                :
+                userDetails ?
+                    <>
                         <Button
                             label='dashboard'
                             useLink={true}
@@ -85,36 +85,36 @@ const NavigationBarContent = ({
                             }
                             linkLocation={generateDashLinkForUser(userDetails.is_owner)}
                         />
-                    :
-                    <>
-                        <Button 
-                            label='login'
-                            style={{
-                                backgroundColor: 'transparent',
-                                color: '#000',
-                                fontWeight: '500',
-                                padding: 0
-                            }}
-                            useLink={true}
-                            linkLocation='/auth/login'
-                        />
-                    
-                        <Button 
-                            label='boost your studio'
-                            icon={
-                                <IoAddOutline
-                                    color='#fff'
-                                    size='1.1rem'
-                                />
-                            }
-                            useLink={true}
-                            linkLocation={
-                                `/auth/register?type=${userTypes.owner}`
-                            }
-                        />
                     </>
-                }
-            </Suspense>
+                :
+                <>
+                    <Button 
+                        label='login'
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: '#000',
+                            fontWeight: '500',
+                            padding: 0
+                        }}
+                        useLink={true}
+                        linkLocation='/auth/login'
+                    />
+                
+                    <Button 
+                        label='boost your studio'
+                        icon={
+                            <IoAddOutline
+                                color='#fff'
+                                size='1.1rem'
+                            />
+                        }
+                        useLink={true}
+                        linkLocation={
+                            `/auth/register?type=${userTypes.owner}`
+                        }
+                    />
+                </>
+            }
         </section>
     </>
 }

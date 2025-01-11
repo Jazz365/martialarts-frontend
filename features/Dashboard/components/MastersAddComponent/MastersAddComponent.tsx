@@ -80,7 +80,7 @@ const MastersAddComponent = ({
                         >
                             <IoCloseCircle 
                                 cursor={'pointer'}
-                                size={'1.5rem'}
+                                size={'2rem'}
                                 style={{
                                     marginLeft: 'auto',
                                 }}
@@ -106,7 +106,7 @@ const MastersAddComponent = ({
 
                             <TextInputComponent
                                 label='name'
-                                labelFontSize='0.7rem'
+                                labelFontSize='0.8rem'
                                 placeholder={'e.g master AA'}
                                 value={item.name}
                                 onChange={(_name, value: string) => updateSingleItem(index, value, 'name')}
@@ -116,7 +116,7 @@ const MastersAddComponent = ({
                             
                             <TextInputComponent
                                 label='bio'
-                                labelFontSize='0.7rem'
+                                labelFontSize='0.8rem'
                                 value={item.bio}
                                 onChange={(_name, value: string) => updateSingleItem(index, value, 'bio')}
                                 isTextArea={true}
@@ -125,7 +125,7 @@ const MastersAddComponent = ({
 
                             <FileInputComponent 
                                 label='image'
-                                labelFontSize='0.7rem'
+                                labelFontSize='0.8rem'
                                 accept='image/*'
                                 onChange={(files) => {
                                     if (files && files[0]) {

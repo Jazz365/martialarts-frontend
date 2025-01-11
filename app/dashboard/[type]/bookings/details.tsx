@@ -73,6 +73,10 @@ const BookingsDetail = () => {
                         return <BookingSummaryItem 
                             booking={booking}
                             key={booking.id}
+                            style={{
+                                boxShadow: 'var(--card-box-shadow)',
+                                border: 'none',
+                            }}
                         />
                     })
                 )

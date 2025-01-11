@@ -78,7 +78,7 @@ const FilterItem = ({
                     searchValue,
                 ]
             :
-            []
+            value
         );
         setShowFilterListing(false);
         setSearchValue('');

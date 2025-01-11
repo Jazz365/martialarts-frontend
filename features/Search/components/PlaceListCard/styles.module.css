@@ -12,7 +12,8 @@
 
 .list__Card {
     gap: 2rem;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+    box-shadow: var(--card-box-shadow);
     border-radius: 12px;
     background-color: #fff;
 }
@@ -20,7 +21,7 @@
 .list__Card.row {
     align-items: center;
     width: 100%;
-    padding: 1rem 0.45rem;
+    padding: 1.2rem 0.45rem;
     height: 100%;
 }
 

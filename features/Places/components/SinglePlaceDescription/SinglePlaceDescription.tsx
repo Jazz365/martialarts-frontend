@@ -7,6 +7,7 @@ import Image from 'next/image';
 import useMobile from '@/hooks/useMobile';
 import Button from '@/components/Button/Button';
 import { getYoutubeEmbedVideoLink } from '@/helpers/helpers';
+import MasterPopup from '../MasterPopup/MasterPopup';
 
 
 const maxDescriptionCap = 800;
@@ -21,9 +22,21 @@ const SinglePlaceDescription = ({
     masters: IPlaceMasterImage[];
 }) => {
     const [ showFullDescription, setShowFullDescription ] = useState(false);
+    const [ showMasterPopup, setShowMasterPopup ] = useState(false);
+    const [ masterDetails, setMasterDetails ] = useState<IPlaceMasterImage | null>(null);
     const isMobile = useMobile();
 
-    return (
+    const handleMasterItemClick = (master: IPlaceMasterImage) => {
+        setMasterDetails(master);
+        setShowMasterPopup(true);
+    }
+
+    const handleHidePopup = () => {
+        setShowMasterPopup(false);
+        setMasterDetails(null);
+    }
+    
+    return <>
         <section className={styles.content__Wrap}>
             <h3 className={styles.header}>about this place</h3>
 
@@ -46,6 +59,7 @@ const SinglePlaceDescription = ({
                                     return <section 
                                         className={styles.master__item}
                                         key={master.id}
+                                        onClick={() => handleMasterItemClick(master)}
                                     >
                                         <Image 
                                             width={isMobile ? 65 : 100}
@@ -105,7 +119,15 @@ const SinglePlaceDescription = ({
                 </section>
             </section>
         </section>
-    )
+
+        {
+            showMasterPopup &&
+            <MasterPopup 
+                master={masterDetails ?? null}
+                hidePopup={handleHidePopup}
+            />
+        }
+    </>
 }
 
 export default SinglePlaceDescription

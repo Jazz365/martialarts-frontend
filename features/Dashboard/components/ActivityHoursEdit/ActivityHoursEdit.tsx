@@ -56,7 +56,7 @@ const ActivityHoursEdit = ({
 
                         <TextInputComponent 
                             label='opening time'
-                            labelFontSize='0.7rem'
+                            labelFontSize='0.8rem'
                             borderRadius='12px'
                             type='time'
                             value={item.opening_time}
@@ -68,7 +68,7 @@ const ActivityHoursEdit = ({
 
                         <TextInputComponent 
                             label='closing time'
-                            labelFontSize='0.7rem'
+                            labelFontSize='0.8rem'
                             borderRadius='12px'
                             type='time'
                             value={item.closing_time}

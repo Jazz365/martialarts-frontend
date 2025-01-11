@@ -82,15 +82,15 @@ export const compulsoryDetailKeys = [
     newPlaceDetailKeysDict.description,
     newPlaceDetailKeysDict.type_of_place,
     newPlaceDetailKeysDict.pricing_type,
-    newPlaceDetailKeysDict.gender,
-    newPlaceDetailKeysDict.email,
     newPlaceDetailKeysDict.locations,
     newPlaceDetailKeysDict.benefits,
-    // newPlaceDetailKeysDict.policy,
-    // newPlaceDetailKeysDict.faqs,
     newPlaceDetailKeysDict.images,
+    newPlaceDetailKeysDict.gender,
     newPlaceDetailKeysDict.caters_to,
     newPlaceDetailKeysDict.age_groups,
+    newPlaceDetailKeysDict.email,
+    // newPlaceDetailKeysDict.policy,
+    // newPlaceDetailKeysDict.faqs,
 ]
 
 export const compulsoryDetailKeysDict = {
@@ -100,13 +100,13 @@ export const compulsoryDetailKeysDict = {
     [newPlaceDetailKeysDict.pricing_type]: 'pricing type',
     [newPlaceDetailKeysDict.gender]: 'place gender offering',
     [newPlaceDetailKeysDict.email]: 'contact email',
-    [newPlaceDetailKeysDict.locations]: 'place location',
-    [newPlaceDetailKeysDict.benefits]: 'place benefit',
+    [newPlaceDetailKeysDict.locations]: 'place location(s)',
+    [newPlaceDetailKeysDict.benefits]: 'place benefits',
     // newPlaceDetailKeysDict.policy,
     // newPlaceDetailKeysDict.faqs,
-    [newPlaceDetailKeysDict.images]: 'place image',
-    [newPlaceDetailKeysDict.caters_to]: 'place class type',
-    [newPlaceDetailKeysDict.age_groups]: 'place age group',
+    [newPlaceDetailKeysDict.images]: 'place image(s)',
+    [newPlaceDetailKeysDict.caters_to]: 'place class type(s)',
+    [newPlaceDetailKeysDict.age_groups]: 'place age group(s)',
 }
 
 export const initialNewPlaceDetail: NewPlaceDetail = {

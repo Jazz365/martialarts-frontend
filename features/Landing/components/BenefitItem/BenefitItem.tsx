@@ -28,7 +28,7 @@ const BenefitItem = ({
             </section>
             
             <section className={styles.content}>
-                <h5 className={styles.header}>{benefit.title}</h5>
+                <h2 className={styles.header}>{benefit.title}</h2>
                 <p className={styles.info}>{benefit.info}</p>
             </section>
         </section>
