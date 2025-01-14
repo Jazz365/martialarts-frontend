@@ -231,9 +231,9 @@ const AddPlaceDetails = () => {
             return toast.info('Please enter a valid number for the pricing of this new place');
         }
 
-        if (details.locations.find(location => location.address.length < 1 || location.city.length < 1 || location.zip_code.length < 1)) {
+        if (details.locations.find(location => location.address.length < 1 || location.city.length < 1)) {
             scrollToSectionAndAddErrHighlight(basicInfoRef);
-            return toast.info('Found missing city or address or zip code in location provided');
+            return toast.info('Found missing city or address in location provided');
         }
         
         if (details.benefits.find(benefit => benefit.length < 1)) {
