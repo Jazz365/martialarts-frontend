@@ -21,6 +21,7 @@ const BackButton = () => {
             background: 'transparent',
             color: '#000',
             fontSize: isMobile ? '0.75rem' : undefined,
+            width: 'max-content',
         }}
         handleClick={() => router.back()}
     />

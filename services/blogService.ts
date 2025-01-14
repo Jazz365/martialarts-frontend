@@ -1,5 +1,5 @@
-import axios from "axios";
 import apiBaseUrl from "./config"
+import { makeAxiosGetRequest, makeGetRequest } from "./functions";
 
 class BlogService {
     private getBlogEndpoint(endpoint: string) {
@@ -8,17 +8,8 @@ class BlogService {
 
     async getAllBlogs () {
         try {
-            const res = await fetch(`${this.getBlogEndpoint('')}`, {
-                method: 'GET',
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            const fetchedBlogs = await makeGetRequest(`${this.getBlogEndpoint('')}`);
+            return fetchedBlogs;
         } catch (error) {
             throw error;
         }
@@ -26,8 +17,8 @@ class BlogService {
 
     async getSingleBlog (blogStr: string): Promise<IBlog> {
         try {
-            const res = (await axios.get(`${this.getBlogEndpoint(blogStr)}`)).data;
-            return res as IBlog;
+            const blogRes = await makeAxiosGetRequest(`${this.getBlogEndpoint(blogStr)}`)
+            return blogRes as IBlog;
         } catch (error) {
             throw error;
         }

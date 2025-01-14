@@ -1,6 +1,12 @@
 import React from 'react'
 import { ReactDatePickerCustomHeaderProps } from 'react-datepicker';
 import styles from '../styles.module.css'
+
+interface CustomDatePickerHeaderProps extends ReactDatePickerCustomHeaderProps {
+    startYear?: number;
+    startFromCurrent?: boolean;
+}
+
 const CustomDatePickerHeader = ({
     date,
     changeYear,
@@ -9,9 +15,18 @@ const CustomDatePickerHeader = ({
     increaseMonth,
     prevMonthButtonDisabled,
     nextMonthButtonDisabled,
-}: ReactDatePickerCustomHeaderProps) => {
+    startYear=1960,
+    startFromCurrent=false,
+}: CustomDatePickerHeaderProps) => {
     const currentYear = new Date().getFullYear();
-    const years = Array.from({ length: currentYear - 1960 + 1 }, (_, i) => 1960 + i).filter(year => year <= currentYear - 5);
+    let years = [];
+
+    if (startFromCurrent) {    
+        years = Array.from({ length: currentYear - startYear + 1 }, (_, i) => currentYear - i);
+    } else {
+        years = Array.from({ length: currentYear - startYear + 1 }, (_, i) => startYear + i).filter(year => year <= currentYear - 5);
+    }
+
     const months = Array.from({ length: 12 }, (_, i) => new Date(0, i).toLocaleString("default", { month: "long" }));
 
     return (

@@ -1,3 +1,5 @@
+import { formatDate } from "@/helpers/helpers";
+
 export interface BookingDetails {
     place_id: number;
     date: string;
@@ -21,7 +23,7 @@ export interface BookingDetails {
 
 export const initialBookingDetails: BookingDetails = {
     place_id: 0,
-    date: '',
+    date: formatDate(new Date()),
     time: '09:00',
     name: '',
     phone: '',

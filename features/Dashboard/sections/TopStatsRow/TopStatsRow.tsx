@@ -65,12 +65,15 @@ const TopStatsRow = () => {
                     <StatItem 
                         title={'average rating'}
                         count={
-                            Number(
+                            totalReviews ?
                                 Number(
-                                    totalReviews.reduce((a, b) => a + (b.rating ?? 0), 0) / 
-                                    totalReviews.length
-                                ).toFixed(2)
-                            )
+                                    Number(
+                                        totalReviews.reduce((a, b) => a + (b.rating ?? 0), 0) / 
+                                        totalReviews.length
+                                    ).toFixed(2)
+                                )
+                            :
+                            0
                         }
                         useDecimal
                     />

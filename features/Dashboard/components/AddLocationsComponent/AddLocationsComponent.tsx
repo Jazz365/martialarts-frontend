@@ -55,6 +55,7 @@ const AddLocationsComponent = ({
                             handleUpdateItem={(value: string, key: string) => updateSingleItem(index, value, key)}
                             handleDeleteItem={() => handleDeleteItem(item.id)}
                             isLastItemIndex={items.length - 1 === index}
+                            key={item.id}
                         />
                     }))
                 }

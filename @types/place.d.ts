@@ -26,6 +26,7 @@ type IPlace = {
     place_caters_to: ICatersTo[];
     documents_data: IPlaceDocuments[];
     place_age_groups: IPlaceAgeGroups[];
+    class_schedules_data: IPlaceClassSchedule[];
 }
 
 type IPlaceImage = {
@@ -106,4 +107,12 @@ type IPlaceDocuments = {
 type IPlaceAgeGroups = {
     id: number;
     name: string;
+}
+
+type IPlaceClassSchedule = {
+    class_id: number;
+    schedules: {
+        day: string;
+        times: string[];
+    }[];
 }

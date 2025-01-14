@@ -26,10 +26,10 @@ const ActivityHoursEdit = ({
                         key={item.id}
                     >
                         <p className={styles.title}>
-                            <span>{item.day}</span>
+                            {/* <span>{item.day}</span> */}
 
                             <TextInputComponent 
-                                label='open'
+                                label={item.day}
                                 type='checkbox'
                                 checked={item.closing_time !== undefined && item?.closing_time?.length > 0 && item.opening_time !== undefined && item?.opening_time?.length > 0}
                                 style={{
@@ -37,9 +37,9 @@ const ActivityHoursEdit = ({
                                     alignItems: 'center',
                                     width: 'max-content',
                                     flexDirection: 'row-reverse',
-                                    gap: '0.3rem',
+                                    gap: '0.6rem',
+                                    cursor: 'pointer',
                                 }}
-                                labelFontSize={isMobile ? '0.65rem' : '0.75rem'}
                                 handleUpdateChecked={(val) => {
                                     if (val === true) {
                                         updateSingleItem(index, '09:00', newPlaceDetailKeysDict.opening_time);
@@ -51,30 +51,55 @@ const ActivityHoursEdit = ({
                                     updateSingleItem(index, '', newPlaceDetailKeysDict.opening_time);
                                     updateSingleItem(index, '', newPlaceDetailKeysDict.closing_time);
                                 }}
+                                labelFontSize='inherit'
+                                accentColor='var(--primary-app-color)'
                             />
                         </p>
 
                         <TextInputComponent 
-                            label='opening time'
+                            // label='opening time'
                             labelFontSize='0.8rem'
                             borderRadius='12px'
                             type='time'
                             value={item.opening_time}
                             onChange={(_name, value: string) => updateSingleItem(index, value, newPlaceDetailKeysDict.opening_time)}
                             style={{
-                                width: isMobile ? 'calc(50% - 1rem)' : undefined,
+                                width: isMobile ? 'calc(45% - 1rem)' : undefined,
+                                opacity: !item.opening_time || item.opening_time.length < 1 ?
+                                    0.45
+                                :
+                                1,
                             }}
                         />
 
+                        <p style={{
+                            fontSize: '0.75rem',
+                            opacity: (
+                                !item.opening_time || 
+                                item.opening_time.length < 1 ||
+                                !item.closing_time || 
+                                item.closing_time.length < 1
+                            )?
+                                0.45
+                            :
+                            1,
+                        }}>
+                            to
+                        </p>
+
                         <TextInputComponent 
-                            label='closing time'
+                            // label='closing time'
                             labelFontSize='0.8rem'
                             borderRadius='12px'
                             type='time'
                             value={item.closing_time}
                             onChange={(_name, value: string) => updateSingleItem(index, value, newPlaceDetailKeysDict.closing_time)}
                             style={{
-                                width: isMobile ? 'calc(50% - 1rem)' : undefined,
+                                width: isMobile ? 'calc(45% - 1rem)' : undefined,
+                                opacity: !item.closing_time || item.closing_time.length < 1 ?
+                                    0.45
+                                :
+                                1,
                             }}
                         />
                     </section>

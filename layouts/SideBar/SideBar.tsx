@@ -11,10 +11,14 @@ import { usePathname } from 'next/navigation';
 import { useUserContext } from '@/contexts/UserContext';
 import { LinkItemDetail, ownerNavLinks, userNavLinks } from './utils';
 import useMobile from '@/hooks/useMobile';
+import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 
 const SideBar = () => {
     const currentPath = usePathname();
-    const { userDetails } = useUserContext();
+    const { 
+        userDetails,
+        userDetailsLoading,
+    } = useUserContext();
     const isMobile = useMobile();
 
     const [ links, setLinks ] = useState<LinkItemDetail[]>([]);
@@ -49,6 +53,13 @@ const SideBar = () => {
 
                 <ul className={styles.links__Wrap}>
                     {
+                        !userDetails ?
+                            <li style={{
+                                margin: '0 auto',
+                            }}>
+                                <AlternatingDotsLoader />
+                            </li>
+                        :
                         React.Children.toArray(links.map(link => {
                             return <li 
                                 className={`${styles.link__Item} ${link.location === currentPath ? styles.active : ''}`}

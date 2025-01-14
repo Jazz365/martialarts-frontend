@@ -22,6 +22,8 @@ const TextInputComponent = ({
     min,
     accentColor,
     rows=5,
+    ref,
+    inputBackgroundColor,
 }: {
     label?: string;
     type?: string;
@@ -41,6 +43,8 @@ const TextInputComponent = ({
     min?: any;
     accentColor?: string;
     rows?: number;
+    ref?: React.RefObject<HTMLInputElement> | React.RefObject<HTMLTextAreaElement>;
+    inputBackgroundColor?: string;
 }) => {
     return (
         <label 
@@ -77,10 +81,12 @@ const TextInputComponent = ({
                         style={{
                             borderRadius,
                             fontSize: inputFontSize,
+                            backgroundColor: inputBackgroundColor,
                         }}
                         placeholder={placeholder}
                         disabled={isDisabled}
                         readOnly={isDisabled}
+                        ref={ref as React.RefObject<HTMLTextAreaElement>}
                     ></textarea>
                 :      
                 <input 
@@ -95,12 +101,14 @@ const TextInputComponent = ({
                         borderRadius,
                         fontSize: inputFontSize,
                         accentColor,
+                        backgroundColor: inputBackgroundColor,
                     }}
                     placeholder={placeholder}
                     disabled={isDisabled}
                     readOnly={isDisabled}
                     checked={checked}
                     min={min}
+                    ref={ref as React.RefObject<HTMLInputElement>}
                 />
             }
         </label>

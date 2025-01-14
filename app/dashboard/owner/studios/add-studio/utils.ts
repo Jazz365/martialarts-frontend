@@ -46,6 +46,7 @@ export interface NewPlaceDetail {
     reviews: {}[];
     is_featured: boolean;
     documents: IPlaceDocuments[];
+    class_schedules_data: IPlaceClassSchedule[];
 }
 
 export const newPlaceDetailKeysDict = {
@@ -75,6 +76,7 @@ export const newPlaceDetailKeysDict = {
     reviews: 'reviews',
     is_featured: 'is_featured',
     documents: 'documents',
+    class_schedules_data: 'class_schedules_data',
 }
 
 export const compulsoryDetailKeys = [
@@ -145,6 +147,7 @@ export const initialNewPlaceDetail: NewPlaceDetail = {
     ],
     is_featured: false,
     documents: [],
+    class_schedules_data: [],
 };
 
 export const rateOptions = [
@@ -304,8 +307,19 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
             formData.append('faqs_data', JSON.stringify(value));
             continue;
         }
-        
-        if (key === newPlaceDetailKeysDict.styles || key === newPlaceDetailKeysDict.caters_to || key === newPlaceDetailKeysDict.policy || key === newPlaceDetailKeysDict.reviews || key === newPlaceDetailKeysDict.age_groups) {
+
+        if (key === newPlaceDetailKeysDict.class_schedules_data) {
+            formData.append('class_schedules', JSON.stringify(value));
+            continue;
+        }
+
+        if (
+            key === newPlaceDetailKeysDict.styles || 
+            key === newPlaceDetailKeysDict.caters_to || 
+            key === newPlaceDetailKeysDict.policy || 
+            key === newPlaceDetailKeysDict.reviews || 
+            key === newPlaceDetailKeysDict.age_groups
+        ) {
             formData.append(key, JSON.stringify(value));
             continue;
         }

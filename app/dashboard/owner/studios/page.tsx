@@ -19,7 +19,7 @@ const PlacesPage = () => {
                 <h1 className={styles.header}>Your studios</h1>
 
                 <Button
-                    label={'add new'}
+                    label={'add'}
                     icon={
                         <IoAddOutline
                             size={'1.1rem'}
