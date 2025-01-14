@@ -94,10 +94,12 @@ const AddLocationItem = ({
                                 className={styles.list__Result}
                                 onMouseDown={(e) => {
                                     e.preventDefault();
+                                    if (!placesService || !window.google || !window.google.maps || !window.google.maps.places) return;
+
                                     placesService?.getDetails(
                                         { placeId: prediction.place_id },
                                         (place, status) => {
-                                            if (place && status === window.google.maps.places.PlacesServiceStatus.OK) {
+                                            if (place && status === window?.google?.maps?.places?.PlacesServiceStatus?.OK) {
                                                 // Parse address components for city, state, and ZIP code
                                                 const addressComponents = place.address_components;
                                                 if (!addressComponents) return;
@@ -214,7 +216,7 @@ const AddLocationItem = ({
                 type='number'
                 // onChange={(_name, value: string) => handleUpdateItem(value, 'zip_code')}
                 borderRadius='12px'
-                isRequired
+                // isRequired
                 style={{
                     maxWidth: isMobile ? '100%' : 'calc(calc(70% / 3) - 1rem - 1.2rem)',
                 }}
