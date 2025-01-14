@@ -1,8 +1,6 @@
-'use client';
+'use server';
 
-// 'use server';
-
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 const makeGetRequest = async (
     apiRoute: string,
@@ -49,7 +47,6 @@ const makeAxiosPostRequest = async (
 
         return res;
     } catch (error) {
-        if (error instanceof AxiosError) console.log(error.response?.data);
         throw error;
     }
 }
