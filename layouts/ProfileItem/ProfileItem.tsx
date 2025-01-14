@@ -6,7 +6,7 @@ import React, { useRef, useState } from 'react'
 import Avatar from 'react-avatar';
 import styles from './styles.module.css'
 import { HiDotsHorizontal } from 'react-icons/hi';
-import { AuthService } from '@/services/authService';
+// import { AuthService } from '@/services/authService';
 import { AppConstants } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
@@ -28,7 +28,7 @@ const ProfileItem = () => {
 
     const router = useRouter();
     
-    const authService = new AuthService();
+    // const authService = new AuthService();
 
     useClickOutside({
         elemRef: menuRef,

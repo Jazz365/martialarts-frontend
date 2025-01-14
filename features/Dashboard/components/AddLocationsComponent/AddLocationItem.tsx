@@ -1,17 +1,19 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
-import SelectItem from '@/components/SelectItem/SelectItem';
-import { availableLocations } from '@/utils/locations';
-import { v4 as uuidv4 } from 'uuid';
+// import SelectItem from '@/components/SelectItem/SelectItem';
+// import { availableLocations } from '@/utils/locations';
+// import { v4 as uuidv4 } from 'uuid';
 import { IoTrashOutline } from 'react-icons/io5';
 import Divider from '@/features/Places/components/Divider/Divider';
 import useMobile from '@/hooks/useMobile';
-
+import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 
 const customLocation = 'custom-user-location';
+const disabledInputColor = '#f2f2f2';
 
 const AddLocationItem = ({
     item,
@@ -30,19 +32,107 @@ const AddLocationItem = ({
     useCustomCityDropdownListing?: boolean;
     handleDeleteItem?: () => void;
     isLastItemIndex?: boolean;
-}) => {
-    const [ showCityCustomDropdown, setShowCityCustomDropdown ] = useState<boolean>(true);
+}) => {    
+    const {
+        mapKey,
+    } = useAppContext();
+
+    const {
+        placesService,
+        placePredictions,
+        getPlacePredictions,
+        isPlacePredictionsLoading,
+    } = useGoogle({
+        apiKey: mapKey,
+    });
+
+    const [ locationAddress, setLocationAddress ] = useState('');
+    // const [ showCityCustomDropdown, setShowCityCustomDropdown ] = useState<boolean>(true);
     const isMobile = useMobile();
-    
+
+    const addressInputRef = useRef<HTMLInputElement>(null);
+
     useEffect(() => {
-        setShowCityCustomDropdown(useCustomCityDropdownListing);
+        setLocationAddress(item.address);
     }, [])
     
     return <>
         <li 
             className={styles.single__List__Item}
         >
-            <TextInputComponent
+            <section 
+                className={styles.cus__Input__Wrap}
+            >
+                <TextInputComponent
+                    label='address'
+                    labelFontSize='0.7rem'
+                    placeholder={'e.g 123 Test Avenue'}
+                    value={locationAddress}
+                    onChange={(_name, value: string) => {
+                        getPlacePredictions({ input: value });
+                        setLocationAddress(value);
+                    }}
+                    borderRadius='12px'
+                    isRequired
+                    ref={addressInputRef}
+                />
+                
+                <ul className={styles.listing}>
+                    {
+                        isPlacePredictionsLoading ?
+                            <li>Loading...</li>
+                        :
+                        locationAddress.length < 1 ?
+                            <li>Start typing to see results</li>
+                        :
+                        placePredictions.length < 1 ?
+                            <li>No matching places found</li>
+                        :
+                        React.Children.toArray(placePredictions.map(prediction => {
+                            return <li
+                                key={prediction.place_id}
+                                className={styles.list__Result}
+                                onMouseDown={(e) => {
+                                    e.preventDefault();
+                                    placesService?.getDetails(
+                                        { placeId: prediction.place_id },
+                                        (place, status) => {
+                                            if (place && status === window.google.maps.places.PlacesServiceStatus.OK) {
+                                                // Parse address components for city, state, and ZIP code
+                                                const addressComponents = place.address_components;
+                                                if (!addressComponents) return;
+
+                                                const city = addressComponents.find((component) =>
+                                                  component.types.includes("locality")
+                                                )?.long_name;
+                                                const state = addressComponents.find((component) =>
+                                                  component.types.includes("administrative_area_level_1")
+                                                )?.long_name;
+                                                const zip = addressComponents.find((component) =>
+                                                  component.types.includes("postal_code")
+                                                )?.long_name;
+
+                                                setLocationAddress(prediction.description);
+
+                                                handleUpdateItem(prediction.description, 'address');
+                                                handleUpdateItem(city ?? '', 'city');
+                                                handleUpdateItem(state ?? '', 'state');
+                                                handleUpdateItem(zip ?? '', 'zip_code');
+
+                                                addressInputRef.current?.blur();
+                                            }
+                                        }
+                                    );
+                                }}
+                            >
+                                {prediction.description}
+                            </li>
+                        }))
+                    }
+                </ul>
+            </section>
+
+            {/* <TextInputComponent
                 label='address'
                 labelFontSize='0.7rem'
                 placeholder={'e.g 123 Test Avenue'}
@@ -50,7 +140,7 @@ const AddLocationItem = ({
                 onChange={(_name, value: string) => handleUpdateItem(value, 'address')}
                 borderRadius='12px'
                 isRequired
-            />
+            /> */}
 
             {
                 // showCityCustomDropdown === true ? <>
@@ -89,9 +179,14 @@ const AddLocationItem = ({
                         label='city'
                         labelFontSize='0.7rem'
                         value={item.city}
-                        onChange={(_name, value: string) => handleUpdateItem(value, 'city')}
+                        // onChange={(_name, value: string) => handleUpdateItem(value, 'city')}
                         borderRadius='12px'
                         isRequired
+                        style={{
+                            maxWidth: isMobile ? '100%' : 'calc(calc(70% / 3) - 1rem - 1.2rem)',
+                        }}
+                        inputBackgroundColor={disabledInputColor}
+                        isDisabled
                     />
                 </>
             }
@@ -100,10 +195,15 @@ const AddLocationItem = ({
                 label='state'
                 labelFontSize='0.7rem'
                 value={item.state}
-                isDisabled={showCityCustomDropdown}
-                onChange={(_name, value: string) => handleUpdateItem(value, 'state')}
+                // isDisabled={showCityCustomDropdown}
+                // onChange={(_name, value: string) => handleUpdateItem(value, 'state')}
                 borderRadius='12px'
                 isRequired
+                style={{
+                    maxWidth: isMobile ? '100%' : 'calc(calc(70% / 3) - 1rem - 1.2rem)',
+                }}
+                inputBackgroundColor={disabledInputColor}
+                isDisabled
             />
 
             <TextInputComponent 
@@ -112,9 +212,14 @@ const AddLocationItem = ({
                 placeholder={'10000'}
                 value={item.zip_code}
                 type='number'
-                onChange={(_name, value: string) => handleUpdateItem(value, 'zip_code')}
+                // onChange={(_name, value: string) => handleUpdateItem(value, 'zip_code')}
                 borderRadius='12px'
                 isRequired
+                style={{
+                    maxWidth: isMobile ? '100%' : 'calc(calc(70% / 3) - 1rem - 1.2rem)',
+                }}
+                inputBackgroundColor={disabledInputColor}
+                isDisabled
             />
 
             <IoTrashOutline

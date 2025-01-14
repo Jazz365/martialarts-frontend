@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import apiBaseUrl from "./config"
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import { makeAxiosPostRequest, makeAxiosPutRequest, makeGetRequest } from "./functions";
 
 class PlaceService {
     private getPlaceEndpoint(endpoint: string, searchParams?: string | null | undefined) {
@@ -9,52 +10,57 @@ class PlaceService {
 
     async createNewPlace (token: string, data={}): Promise<IPlace> {
         try {
-            const res = (await axios.post(`${this.getPlaceEndpoint('create')}`, data, {
-                headers: {
+            const res = await makeAxiosPostRequest(
+                `${this.getPlaceEndpoint('create')}`,
+                data,
+                {
                     'Authorization': `Token ${token}`,
-                }
-            })).data;
-            
+                },
+            );
             toast.success('Successfully created new place!');
 
             return res as IPlace;
         } catch (error) {
             toast.error('Something went wrong, please try again later');
-            
             throw error;
         }
     }
 
     async editPlace (token: string, placeId: number, data={}): Promise<IPlace> {
         try {
-            const res = (await axios.put(`${this.getPlaceEndpoint(`${placeId}/update`)}`, data, {
-                headers: {
+            const res = await makeAxiosPutRequest(
+                `${this.getPlaceEndpoint(`${placeId}/update`)}`,
+                data,
+                {
                     'Authorization': `Token ${token}`,
                 }
-            })).data;
-            
+            );
             toast.success('Successfully edited place details!');
 
             return res as IPlace;
         } catch (error) {
             toast.error('Something went wrong, please try again later');
-            
             throw error;
         }
     }
 
     async getAllPlaces () {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('')}`, {
-                method: 'GET',
-            });
+            const res = await makeGetRequest(`${this.getPlaceEndpoint('')}`)
+            return res;
+        } catch (error) {
+            throw error;
+        }
+    }
 
-            const jsonRes = await res.json();
+    async getSinglePlaceName (placeId: number) {
+        try {
+            const res = await fetch(`${this.getPlaceEndpoint(`get_place_name/${placeId}`)}`);
             if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
+                throw Error('Something went wrong, please try again later');
             }
 
+            const jsonRes = await res.json();
             return jsonRes;
         } catch (error) {
             throw error;
@@ -63,17 +69,8 @@ class PlaceService {
 
     async getSinglePlace (placeId: number) {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint(`${placeId}`)}`, {
-                method: 'GET',
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            const res = await makeGetRequest(`${this.getPlaceEndpoint(`${placeId}`)}`);
+            return res;
         } catch (error) {
             throw error;
         }
@@ -81,20 +78,13 @@ class PlaceService {
 
     async getUserPlaces (token?: string | null) {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('my-places')}`, {
-                method: 'GET',
-                headers: {
+            const res = await makeGetRequest(
+                `${this.getPlaceEndpoint('my-places')}`,
+                {
                     'Authorization': `Token ${token}`,
-                },
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+                }
+            );
+            return res;
         } catch (error) {
             throw error;
         }
@@ -102,17 +92,8 @@ class PlaceService {
 
     async getAllStyles () {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('styles')}`, {
-                method: 'GET',
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            const res = await makeGetRequest(`${this.getPlaceEndpoint('styles')}`);
+            return res;
         } catch (error) {
             throw error;
         }
@@ -120,35 +101,26 @@ class PlaceService {
 
     async createNewStyle (token: string, data={}): Promise<IMartialArtStyle> {
         try {
-            const res = (await axios.post(`${this.getPlaceEndpoint('styles/create')}`, data, {
-                headers: {
+            const res = await makeAxiosPostRequest(
+                `${this.getPlaceEndpoint('styles/create')}`,
+                data,
+                {
                     'Authorization': `Token ${token}`,
                 }
-            })).data;
-
+            );
             toast.success('Successfully added new style!');
 
             return res as IMartialArtStyle;
         } catch (error) {
             toast.error('Something went wrong, please try again later');
-            
             throw error;
         }
     }
 
     async getAllPlaceTypes () {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('place-types')}`, {
-                method: 'GET',
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            const res = await makeGetRequest(`${this.getPlaceEndpoint('place-types')}`);
+            return res;
         } catch (error) {
             throw error;
         }
@@ -156,17 +128,8 @@ class PlaceService {
 
     async getAllCatersTo () {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('caters-to')}`, {
-                method: 'GET',
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            const res = await makeGetRequest(`${this.getPlaceEndpoint('caters-to')}`);
+            return res;
         } catch (error) {
             throw error;
         }
@@ -174,17 +137,8 @@ class PlaceService {
 
     async getAllAgeGroups () {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('age-groups')}`, {
-                method: 'GET',
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            const res = await makeGetRequest(`${this.getPlaceEndpoint('age-groups')}`);
+            return res;
         } catch (error) {
             throw error;
         }
@@ -192,17 +146,8 @@ class PlaceService {
 
     async searchPlace (queryParams?: string | undefined | null) {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('', queryParams)}`, {
-                method: 'GET',
-            });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            const res = await makeGetRequest(`${this.getPlaceEndpoint('', queryParams)}`);
+            return res;
         } catch (error) {
             throw error;
         }
@@ -210,20 +155,10 @@ class PlaceService {
 
     async getPlaceViewStats (token?: string | null) {
         try {
-            const res = await fetch(`${this.getPlaceEndpoint('views-stats')}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Token ${token}`,
-                }
+            const res = await makeGetRequest(`${this.getPlaceEndpoint('views-stats')}`, {
+                'Authorization': `Token ${token}`,
             });
-
-            const jsonRes = await res.json();
-            if (!res.ok) {
-                const errorMsg = 'Something went wrong. Please try again later';
-                throw Error(errorMsg);
-            }
-
-            return jsonRes;
+            return res;
         } catch (error) {
             throw error;
         }
@@ -234,12 +169,13 @@ class PlaceService {
         data={},
     ): Promise<IPlaceReviews> {
         try {
-            const res = (await axios.post(`${this.getPlaceEndpoint('reviews')}`, data, {
-                headers: {
+            const res = await makeAxiosPostRequest(
+                `${this.getPlaceEndpoint('reviews')}`,
+                data,
+                {
                     'Authorization': `Token ${token}`,
                 }
-            })).data;
-
+            );
             toast.success('Successfully added new review!');
 
             return res as IPlaceReviews;

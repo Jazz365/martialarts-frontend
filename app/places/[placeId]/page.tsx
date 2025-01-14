@@ -13,7 +13,7 @@ export async function generateMetadata(props: { params: PageParams }) {
     const placeService = new PlaceService();
 
     try {
-        const res = await placeService.getSinglePlace(Number(placeId));
+        const res = await placeService.getSinglePlaceName(Number(placeId));
         return {
             title: `${res?.name} | Studios`,
         }

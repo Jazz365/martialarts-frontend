@@ -18,6 +18,7 @@
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     transition: 0.3s ease-in-out;
+    will-change: transform;
 }
 
 .card__Image:hover {

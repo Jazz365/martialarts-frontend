@@ -18,13 +18,13 @@ import { AppConstants } from '@/utils/constants';
 import SelectItem from '../SelectItem/SelectItem';
 import Link from 'next/link';
 import { ImAttachment } from 'react-icons/im';
-import { calulateYearsDifference, formatDate, generateAvailableTimeIntervalsForPlace, getWeekday, validateEmail } from '@/helpers/helpers';
+import { calulateYearsDifference, formatDate, getWeekday, validateEmail } from '@/helpers/helpers';
 import AppPopup from '../AppPopup/AppPopup';
 import DatePicker from "react-datepicker";
 import CustomDatePickerInput from './components/CustomDatePickerInput';
 import CustomDatePickerHeader from './components/CustomDatePickerHeader';
 import useMobile from '@/hooks/useMobile';
-
+import { cleanStringAndReturnLower } from '@/helpers/formatters';
 
 const BookingForm = () => {
     const {
@@ -70,12 +70,15 @@ const BookingForm = () => {
 
     const availableTimeSlots = useMemo(() => {
         if (bookingDetails.date.length < 1) return [];
-        const foundPlaceActivityTime = openTimesForPlace.find(time => 
-            time.day.toLocaleLowerCase() === getWeekday(new Date(bookingDetails.date)).toLocaleLowerCase()
-        );
 
-        return generateAvailableTimeIntervalsForPlace(foundPlaceActivityTime, new Date(bookingDetails.date));
-    }, [bookingDetails.date])
+        const foundClassSchedule = selectedPlace?.class_schedules_data?.find(schedule => Number(schedule.class_id) === Number(bookingDetails.class_id));
+        if (!foundClassSchedule) return [];
+
+        const foundAvailableTimesForDate = foundClassSchedule?.schedules.find(item => 
+            cleanStringAndReturnLower(item.day) === cleanStringAndReturnLower(getWeekday(new Date(bookingDetails.date)))
+        );
+        return foundAvailableTimesForDate?.times ?? [];
+    }, [bookingDetails.date, bookingDetails.class_id])
 
     const isDayValid = (date: Date) => {
         const currentDate = new Date();
@@ -322,6 +325,20 @@ const BookingForm = () => {
                                 </section>
                             </> :
                             currentPage === 2 ? <>
+                                <SelectItem
+                                    label='select class type'
+                                    options={
+                                        selectedPlace?.place_caters_to?.map(item => ({
+                                            id: item.id,
+                                            label: item.name,
+                                            value: `${item.id}`,
+                                        })) ?? []
+                                    }
+                                    value={bookingDetails.class_id}
+                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
+                                    isRequired
+                                />
+
                                 <section className={styles.input__Row}>
                                     <label 
                                         className={styles.label__Detail}
@@ -331,12 +348,7 @@ const BookingForm = () => {
                                     >
                                         <span>appointment date <RequiredIndicator /></span>
                                         <DatePicker 
-                                            selected={
-                                                bookingDetails.date.length > 0 ?
-                                                    new Date(bookingDetails.date)
-                                                :
-                                                null
-                                            }
+                                            selected={new Date(bookingDetails.date)}
                                             onChange={(date) => {
                                                     if (!date) return;
                                                     handleDetailUpdate(bookingDetailsDict.date, formatDate(date))
@@ -348,7 +360,15 @@ const BookingForm = () => {
                                                 <IoCalendarNumberOutline />
                                             }
                                             customInput={React.createElement(CustomDatePickerInput)}
-                                            // minDate={new Date()}
+                                            // minDate={new Date(2025, 0, 1)}
+                                            disabled={bookingDetails.class_id.length < 1}
+                                            renderCustomHeader={(props) => 
+                                                <CustomDatePickerHeader 
+                                                    startYear={new Date().getFullYear()} 
+                                                    startFromCurrent={true} 
+                                                    {...props} 
+                                                />
+                                            }
                                         />
                                     </label>
 
@@ -372,19 +392,6 @@ const BookingForm = () => {
                                         }}
                                     />
                                 </section>
-                                <SelectItem
-                                    label='select class type'
-                                    options={
-                                        selectedPlace?.place_caters_to?.map(item => ({
-                                            id: item.id,
-                                            label: item.name,
-                                            value: `${item.id}`,
-                                        })) ?? []
-                                    }
-                                    value={bookingDetails.class_id}
-                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
-                                    isRequired
-                                />
                                 
                                 <SelectItem
                                     label='select age group'
@@ -567,7 +574,12 @@ const BookingForm = () => {
                                                     showYearDropdown
                                                     dropdownMode='select'
                                                     showPopperArrow={false}
-                                                    renderCustomHeader={(props) => <CustomDatePickerHeader {...props} />}
+                                                    renderCustomHeader={(props) => 
+                                                        <CustomDatePickerHeader 
+                                                            startYear={new Date().getFullYear() - 50} 
+                                                            {...props} 
+                                                        />
+                                                    }
                                                 />
                                             </label>
                                             

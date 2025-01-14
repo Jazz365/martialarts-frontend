@@ -27,6 +27,7 @@ import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/Documents
 import { getAllDaysOfTheWeek } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
+import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
 
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
@@ -47,7 +48,9 @@ const AddPlaceDetails = () => {
         activityHoursRef,
         contactRef,
         faqRef,
+        classSchedulesRef,
     ] = [
+        useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
@@ -75,7 +78,7 @@ const AddPlaceDetails = () => {
 
     const handleDetailUpdate = (
         key: string, 
-        value: string | boolean | string[] | number[] | ILocation[] | IPlaceMasterImage[] | IPlaceFaq[] | IPlaceImage[] | IPlaceDocuments[]
+        value: string | boolean | string[] | number[] | ILocation[] | IPlaceMasterImage[] | IPlaceFaq[] | IPlaceImage[] | IPlaceDocuments[] | IPlaceClassSchedule[]
     ) => {
         setDetails((prevDetails) => {
             return {
@@ -125,6 +128,7 @@ const AddPlaceDetails = () => {
                 policy: res?.policy?.content,
                 documents: res?.documents_data,
                 age_groups: res?.place_age_groups?.map((item: IPlaceAgeGroups) => item.id),
+                class_schedules_data: res?.class_schedules_data ?? [],
             });
             setDetailsLoading(false);
         }).catch(() => {
@@ -268,7 +272,7 @@ const AddPlaceDetails = () => {
                     userPlaces[foundEditedPlaceIndex] = res;
                     setUserPlaces(copyOfPlaces);
                 }
-
+                // console.log('edit res -> ', res);
                 router.push(`/places/${res.id}`);
             } catch (error) {
                 setLoading(false);
@@ -283,9 +287,10 @@ const AddPlaceDetails = () => {
                 ...userPlaces,
             ]);
             
+            // console.log('create res -> ', res);
             // setLoading(false);
             router.push(`/places/${res.id}`);
-        } catch (_err) {
+        } catch (error) {
             setLoading(false);   
         }
     }
@@ -371,7 +376,7 @@ const AddPlaceDetails = () => {
                     <p className={styles.title__Item}>martial art styles offered</p>
 
                     <Button 
-                        label='add new'
+                        label='add'
                         icon={
                             <IoAddOutline />
                         }
@@ -417,6 +422,7 @@ const AddPlaceDetails = () => {
                                         checked={details?.styles?.includes(style.id)}
                                         key={style.id}
                                         handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.styles as keyof NewPlaceDetail, style.id, val)}
+                                        accentColor='var(--primary-app-color)'
                                     />
                                 }))
                         }
@@ -485,6 +491,7 @@ const AddPlaceDetails = () => {
                         }}
                         checked={details.free_lesson_available}
                         handleUpdateChecked={(val) => handleDetailUpdate(newPlaceDetailKeysDict.free_lesson_available, val)}
+                        accentColor='var(--primary-app-color)'
                     />
                 </section>
 
@@ -507,6 +514,7 @@ const AddPlaceDetails = () => {
                                 checked={details.gender === gender.name}
                                 onChange={() => handleDetailUpdate(newPlaceDetailKeysDict.gender, gender.name)}
                                 key={gender.id}
+                                accentColor='var(--primary-app-color)'
                             />
                         }))
                     }
@@ -530,6 +538,7 @@ const AddPlaceDetails = () => {
                                 checked={details?.caters_to?.includes(type.id)}
                                 handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.caters_to as keyof NewPlaceDetail, type.id, val)}
                                 key={type.id}
+                                accentColor='var(--primary-app-color)'
                             />
                         }))
                     }
@@ -553,6 +562,7 @@ const AddPlaceDetails = () => {
                                 checked={details?.age_groups?.includes(group.id)}
                                 handleUpdateChecked={(val) => handleUpdateCheckboxItems(newPlaceDetailKeysDict.age_groups as keyof NewPlaceDetail, group.id, val)}
                                 key={group.id}
+                                accentColor='var(--primary-app-color)'
                             />
                         }))
                     }
@@ -581,6 +591,35 @@ const AddPlaceDetails = () => {
                 activityHours={details.activity_hours}
                 updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.activity_hours as keyof NewPlaceDetail, itemIndex, item, key)}
             />
+        </AddItemWrapper>
+        
+        <AddItemWrapper
+            title='class schedules'
+            ref={classSchedulesRef}
+        >
+            {
+                details.caters_to.length < 1 ?
+                    <p
+                        style={{
+                            fontSize: '0.75rem',
+                            textAlign: 'center',
+                        }}
+                    >You will be able to configure class schedules once you configure the <b>Activity hours</b> section and class types from the <b>Features Information</b> section</p>
+                :
+                React.Children.toArray(details.caters_to.map((caterToId, index) => {
+                    return <>
+                        <AddClassSchedule 
+                            key={uuidv4()}
+                            classNumber={index + 1}
+                            classId={caterToId}
+                            classSchedules={details.class_schedules_data ?? []}
+                            studioActivityDays={details.activity_hours}
+                            handleUpdateClassSchedules={(items: IPlaceClassSchedule[]) => handleDetailUpdate(newPlaceDetailKeysDict.class_schedules_data, items)}
+                        />
+                    </>
+                }))
+            }
+            <></>
         </AddItemWrapper>
 
         <AddItemWrapper
