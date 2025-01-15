@@ -1,22 +1,28 @@
 'use client';
 
 import PaginationItem from '@/components/PaginationItem/PaginationItem';
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './styles.module.css'
 import PlaceListCard from '@/features/Search/components/PlaceListCard/PlaceListCard';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import Image from 'next/image';
 import mascot from '../../../../assets/astr.webp'
+import { useRouter, useSearchParams } from 'next/navigation';
+
+const itemsPerPage = 6;
 
 const AllPlacesDetails = () => {
     const {
         userPlaces,
         userPlacesLoading,
     } = useAppContext();
-    
-    const [ currentPage, setCurrentPage ] = useState<number>(1);
-    
+
+    const searchParams = useSearchParams();
+    const router = useRouter();
+
+    const currentPage = !searchParams.get('page') || isNaN(Number(searchParams.get('page'))) ? 1 : Number(searchParams.get('page'));
+
     if (userPlacesLoading) return <>
         <PageLoader />
     </>
@@ -37,8 +43,8 @@ const AllPlacesDetails = () => {
     return <>
         <PaginationItem
             currentPage={currentPage}
-            updateCurrentPage={setCurrentPage}
-            itemsPerPage={6}
+            updateCurrentPage={(page) => router.push(`?page=${page}`)}
+            itemsPerPage={itemsPerPage}
             totalItems={userPlaces.length}
         />
 
@@ -50,9 +56,9 @@ const AllPlacesDetails = () => {
                         currentPage < 2 ?
                             0
                         :
-                            Number(currentPage * 5) - Number(5)
+                            Number(currentPage * itemsPerPage) - Number(itemsPerPage)
                         ,
-                        Number(currentPage * 5)
+                        Number(currentPage * itemsPerPage)
                     )
                     .map((place, index) => {
                         return <PlaceListCard
@@ -65,6 +71,7 @@ const AllPlacesDetails = () => {
                         />
                     }))
             }
+            <div style={{ width: '100%', height: '1rem' }}></div>
         </section>
     </>
 }

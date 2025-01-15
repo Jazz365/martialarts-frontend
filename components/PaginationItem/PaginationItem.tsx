@@ -16,7 +16,7 @@ const PaginationItem = ({
 }) => {
     
     const handleGoForward = () => {
-        if (currentPage < Math.round(totalItems / itemsPerPage)) updateCurrentPage(currentPage + 1)
+        if (currentPage < Math.ceil(totalItems / itemsPerPage)) updateCurrentPage(currentPage + 1)
     }
 
     const handleGoBackward = () => {
@@ -58,7 +58,7 @@ const PaginationItem = ({
                             totalItems < itemsPerPage ?
                                 1
                             :
-                            Math.round(totalItems / itemsPerPage)
+                            Math.ceil(totalItems / itemsPerPage)
                         }
                     </span>
                 </p>
@@ -67,7 +67,7 @@ const PaginationItem = ({
                     <section
                         className={styles.progress}
                         style={{
-                            width: `${Number(currentPage / Math.round(totalItems / itemsPerPage)) * 100}%`
+                            width: `${Number(currentPage / Math.ceil(totalItems / itemsPerPage)) * 100}%`
                         }}
                     ></section>
                 </section>
@@ -75,19 +75,19 @@ const PaginationItem = ({
 
             <IoChevronForward
                 size={
-                    currentPage < Math.round(totalItems / itemsPerPage) ?
+                    currentPage < Math.ceil(totalItems / itemsPerPage) ?
                         '1.2rem'
                     :
                     '0.8rem'
                 }
                 cursor={
-                    currentPage < Math.round(totalItems / itemsPerPage) ?
+                    currentPage < Math.ceil(totalItems / itemsPerPage) ?
                         'pointer'
                     :
                     'default'
                 }
                 color={
-                    currentPage < Math.round(totalItems / itemsPerPage) ?
+                    currentPage < Math.ceil(totalItems / itemsPerPage) ?
                         '#000'
                     :
                     '#808080'

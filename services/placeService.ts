@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import apiBaseUrl from "./config"
-import { AxiosError } from "axios";
-import { makeAxiosPostRequest, makeAxiosPutRequest, makeGetRequest } from "./functions";
+import axios, { AxiosError } from "axios";
+import { makeAxiosPostRequest, makeGetRequest } from "./functions";
 
 class PlaceService {
     private getPlaceEndpoint(endpoint: string, searchParams?: string | null | undefined) {
@@ -10,13 +10,11 @@ class PlaceService {
 
     async createNewPlace (token: string, data={}): Promise<IPlace> {
         try {
-            const res = await makeAxiosPostRequest(
-                `${this.getPlaceEndpoint('create')}`,
-                data,
-                {
+            const res = (await axios.post(`${this.getPlaceEndpoint('create')}`, data, {
+                headers: {
                     'Authorization': `Token ${token}`,
                 },
-            );
+            })).data;
             toast.success('Successfully created new place!');
 
             return res as IPlace;
@@ -28,13 +26,11 @@ class PlaceService {
 
     async editPlace (token: string, placeId: number, data={}): Promise<IPlace> {
         try {
-            const res = await makeAxiosPutRequest(
-                `${this.getPlaceEndpoint(`${placeId}/update`)}`,
-                data,
-                {
+            const res = (await axios.put(`${this.getPlaceEndpoint(`${placeId}/update`)}`, data, {
+                headers: {
                     'Authorization': `Token ${token}`,
-                }
-            );
+                },
+            })).data;
             toast.success('Successfully edited place details!');
 
             return res as IPlace;
