@@ -40,6 +40,8 @@ const SinglePlaceView = ({
     const placeService = new PlaceService();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+        
         if (!id || loaded) return;
 
         setLoading(true);
@@ -54,15 +56,15 @@ const SinglePlaceView = ({
         });
     }, [id])
 
-    useEffect(() => {
-        if (!loaded || !foundPlace) return;
+    // useEffect(() => {
+    //     if (!loaded || !foundPlace) return;
 
-        const timeout = setTimeout(() => {
-            window.scrollTo(0, 0);
-        }, 100);
+    //     const timeout = setTimeout(() => {
+    //         window.scrollTo(0, 0);
+    //     }, 100);
 
-        return () => clearTimeout(timeout);
-    }, [loaded, foundPlace])
+    //     return () => clearTimeout(timeout);
+    // }, [loaded, foundPlace])
 
     if (!id) return <section style={{ height: '70dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></section>
 

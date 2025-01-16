@@ -88,8 +88,17 @@ class PlaceService {
 
     async getAllStyles () {
         try {
-            const res = await makeGetRequest(`${this.getPlaceEndpoint('styles')}`);
-            return res;
+            const res = await fetch(`${this.getPlaceEndpoint('styles')}`, {
+                method: 'GET',
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = 'Something went wrong. Please try again later';
+                throw Error(errorMsg);
+            }
+
+            return jsonRes;
         } catch (error) {
             throw error;
         }
@@ -115,8 +124,17 @@ class PlaceService {
 
     async getAllPlaceTypes () {
         try {
-            const res = await makeGetRequest(`${this.getPlaceEndpoint('place-types')}`);
-            return res;
+            const res = await fetch(`${this.getPlaceEndpoint('place-types')}`, {
+                method: 'GET',
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = 'Something went wrong. Please try again later';
+                throw Error(errorMsg);
+            }
+
+            return jsonRes;
         } catch (error) {
             throw error;
         }
@@ -124,8 +142,17 @@ class PlaceService {
 
     async getAllCatersTo () {
         try {
-            const res = await makeGetRequest(`${this.getPlaceEndpoint('caters-to')}`);
-            return res;
+            const res = await fetch(`${this.getPlaceEndpoint('caters-to')}`, {
+                method: 'GET',
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = 'Something went wrong. Please try again later';
+                throw Error(errorMsg);
+            }
+
+            return jsonRes;
         } catch (error) {
             throw error;
         }
@@ -133,8 +160,17 @@ class PlaceService {
 
     async getAllAgeGroups () {
         try {
-            const res = await makeGetRequest(`${this.getPlaceEndpoint('age-groups')}`);
-            return res;
+            const res = await fetch(`${this.getPlaceEndpoint('age-groups')}`, {
+                method: 'GET',
+            });
+
+            const jsonRes = await res.json();
+            if (!res.ok) {
+                const errorMsg = 'Something went wrong. Please try again later';
+                throw Error(errorMsg);
+            }
+
+            return jsonRes;
         } catch (error) {
             throw error;
         }

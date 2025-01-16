@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import styles from './styles.module.css'
 import RequiredIndicator from '../../RequiredIndicator/RequiredIndicator';
 
@@ -8,15 +8,23 @@ const FileInputComponent = ({
     onChange=()=>{},
     accept,
     isRequired=false,
+    style={},
+    ref,
 }: {
     label?: string;
     labelFontSize?: string;
     onChange?: (files: FileList | null) => void;
     accept?: string;
     isRequired?: boolean;
+    style?: CSSProperties;
+    ref?: React.RefObject<HTMLLabelElement>;
 }) => {
     return <>
-        <label className={styles.input__Wrap}>
+        <label 
+            className={styles.input__Wrap}
+            ref={ref}
+            style={style}
+        >
             {
                 label ?
                     <span 

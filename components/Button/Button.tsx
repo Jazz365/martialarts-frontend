@@ -17,6 +17,8 @@ const Button = ({
     hoverStyle,
     isLeadingIcon=true,
     className='',
+    rel,
+    target,
 }: {
     label: string;
     style?: CSSProperties;
@@ -30,6 +32,8 @@ const Button = ({
     hoverStyle?: CSSProperties;
     isLeadingIcon?: boolean;
     className?: string;
+    rel?: string;
+    target?: string;
 }) => {
     const [ mouseOver, setMouseOver ] = useState(false);
 
@@ -48,6 +52,8 @@ const Button = ({
             }
             onMouseEnter={() => setMouseOver(true)}
             onMouseLeave={() => setMouseOver(false)}
+            rel={rel}
+            target={target}
         >
             {
                 icon && isLeadingIcon === true ?

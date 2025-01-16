@@ -75,7 +75,7 @@ const GalleryEditItem = ({
                 <IoMdAddCircle 
                     size={'4rem'}
                     style={{
-                        fill: 'var(--primary-app-color)',
+                        // fill: 'var(--primary-app-color)',
                     }}
                 />
 

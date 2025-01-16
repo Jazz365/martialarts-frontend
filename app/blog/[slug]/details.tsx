@@ -8,14 +8,16 @@ import styles from './styles.module.css';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { BlogService } from '@/services/blogService';
 import facebookIcon from '../../../assets/icons/facebook.webp';
-import instagramIcon from '../../../assets/icons/instagram.webp';
+import whatsappIcon from '../../../assets/icons/whatsapp.webp';
 import BackButton from '@/components/BackButton/BackButton';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import Link from 'next/link';
 import sampleImage1 from '../../../assets/blogSamples/blog-1.webp';
 import NavigationBar from '@/layouts/NavigationBar/NavigationBar';
 import useMobile from '@/hooks/useMobile';
-import { estimateReadingTime } from '@/helpers/helpers';
+import { copyToClipboard, estimateReadingTime, shareLinkToSocialMedia } from '@/helpers/helpers';
+import { IoCopyOutline } from 'react-icons/io5';
+import { toast } from 'sonner';
 
 
 const maxArticleTitleLength = 40;
@@ -51,6 +53,13 @@ const SingleBlogDetails = ({
       setLoading(false);
     })
   }, [])
+
+  const handleCopyLink = async () => {
+    try {
+      await copyToClipboard(window.location.href);
+      toast.success('Successfully copied link to clipboard!');
+    } catch (error) {}
+  }
 
   return <>
     <NavigationBar
@@ -103,18 +112,28 @@ const SingleBlogDetails = ({
                     style={{
                       objectFit: 'cover',
                       borderRadius: '50%',
+                      cursor: 'pointer',
                     }}
+                    onClick={() => shareLinkToSocialMedia('facebook', window.location.href)}
                   />
 
                   <Image 
-                    src={instagramIcon}
+                    src={whatsappIcon}
                     alt='icon'
                     width={isMobile ? 20 : 30}
                     height={isMobile ? 20 : 30}
                     style={{
                       objectFit: 'cover',
                       borderRadius: '50%',
+                      cursor: 'pointer',
                     }}
+                    onClick={() => shareLinkToSocialMedia('whatsapp', window.location.href)}
+                  />
+
+                  <IoCopyOutline 
+                    size={isMobile ? 20 : 15}
+                    cursor={'pointer'}
+                    onClick={() => handleCopyLink()}
                   />
                 </div>
               </section>

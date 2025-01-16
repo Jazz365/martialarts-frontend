@@ -3,7 +3,14 @@ export class AppConstants {
         return 'MARTIAL_DETAIL'
     }
 
-    static getSavedToken () {
+    static get savedToken () {
         return localStorage.getItem(this.tokenKey);
+    }
+
+    static get socialLinks () {
+        return {
+            instagram: 'https://www.instagram.com/martialarts.guru/',
+            youtube: 'https://www.youtube.com/channel/UC6uU1pZ3QmwzRoKtYH_DiSw',
+        }
     }
 }

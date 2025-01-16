@@ -28,7 +28,7 @@ const StyleAddModal = ({
     const placeService = new PlaceService();
 
     const handleCreateStyle = async () => {
-        const savedToken = AppConstants.getSavedToken();
+        const savedToken = AppConstants.savedToken;
 
         if (!savedToken || loading) return;
         if (newStyleName.length < 1) return toast.info('Please provide a name for your style');

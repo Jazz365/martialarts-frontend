@@ -41,7 +41,7 @@ const NewReviewItem = ({
     }
 
     const handleAddReview = async () => {
-        const token = AppConstants.getSavedToken();
+        const token = AppConstants.savedToken;
 
         if (loading || newReviewDetail.comment.length < 1 || !token || !userDetails) return;
         if (newReviewDetail.rating < 1 || newReviewDetail.rating > 5) return toast.info('Please enter a rating between 1 - 5');

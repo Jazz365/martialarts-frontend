@@ -15,8 +15,7 @@
 }
 
 .title,
-.title span,
-.title__Info {
+.title span {
     font-family: var(--mako-font);
 }
 
@@ -34,7 +33,10 @@
 }
 
 .title__Info {
-    font-size: 0.65rem;
+    font-family: var(--poppins-font);
+    font-size: 0.72rem;
+    font-weight: 400;
+    text-transform: none;
 }
 
 @media screen and (max-width: 767px) {

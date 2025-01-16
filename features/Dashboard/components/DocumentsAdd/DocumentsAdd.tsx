@@ -76,7 +76,7 @@ const DocumentsAdd = ({
                 <IoMdAddCircle
                     size={'4rem'}
                     cursor={'pointer'}
-                    fill='var(--primary-app-color)'
+                    // fill='var(--primary-app-color)'
                 />
 
                 <input 

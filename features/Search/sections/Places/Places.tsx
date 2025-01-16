@@ -129,8 +129,6 @@ const SearchPlacesListing = () => {
         </section>
       </section> */}
       
-      <br/> 
-      
       {/* <ResultsViewOption 
         options={[
           {
@@ -194,12 +192,8 @@ const SearchPlacesListing = () => {
           }
         ]}
       /> */}
-      
-      <br />
 
       <PlacesSectionView />
-
-      <br />
 
       {/* <Button 
         label='load more'
@@ -208,7 +202,10 @@ const SearchPlacesListing = () => {
           alignItems: 'center',
           justifyContent: 'center',
           width: 'max-content',
-          margin: '0 auto'
+          margin: '0 auto',
+          backgroundColor: 'transparent',
+          border: '1px solid black',
+          color: 'black',
         }}
       /> */}
     </section>

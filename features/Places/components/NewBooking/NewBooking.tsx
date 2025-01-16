@@ -62,7 +62,7 @@ const NewBooking = ({
 
     return (
         <section className={styles.content__Wrap}>
-            <h3 className={styles.title}>select your date</h3>
+            <h3 className={styles.title}>ready to start?</h3>
 
             <section className={styles.date__wrap}>
                 <p>available dates</p>
