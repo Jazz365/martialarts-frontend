@@ -22,7 +22,7 @@ export default function useLoadData(
     },
 ) {
     useEffect(() => {
-        const savedToken = AppConstants.getSavedToken();
+        const savedToken = AppConstants.savedToken;
 
         if (extraInfo.hasDependency === true && (extraInfo.dependency === null || extraInfo.dependency === false)) return;
 

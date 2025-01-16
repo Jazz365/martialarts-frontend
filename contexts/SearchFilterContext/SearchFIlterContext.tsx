@@ -23,6 +23,7 @@ const SearchFilterContextProvider = ({
     const [ allPlaces, setAllPlaces ] = useState<IPlace[]>([]);
     const [ placesLoading, setPlacesLoading ] = useState(true);
     const [ placesLoaded, setPlacesLoaded ] = useState(false);
+    // const [ hasMorePages, setHasMorePages ] = useState(true);
 
     const searchParams = useSearchParams();
     const router = useRouter();

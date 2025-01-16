@@ -9,6 +9,7 @@ import AddLocationItem from './AddLocationItem';
 
 const AddLocationsComponent = ({
     label='',
+    subtitle='',
     items=[],
     updateItemsArr=()=>{},
     updateSingleItem=()=>{},
@@ -16,6 +17,7 @@ const AddLocationsComponent = ({
     useCustomCityDropdownListing=true,
 }: {
     label: string;
+    subtitle?: string;
     items?: ILocation[]
     updateItemsArr?: (val: ILocation[]) => void;
     updateSingleItem?: (itemIndex: number, value: string, key: string) => void;
@@ -44,7 +46,13 @@ const AddLocationsComponent = ({
 
     return <>
         <section className={styles.item__Wrap}>
-            <p className={styles.title}>{label} <RequiredIndicator /></p>
+            <p className={styles.title}>
+                <span>{label} <RequiredIndicator /></span>
+                {
+                    subtitle.length > 0 &&
+                    <span className={styles.subtitle}>{subtitle}</span>
+                }
+            </p>
 
             <ul className={styles.items__List}>
                 {

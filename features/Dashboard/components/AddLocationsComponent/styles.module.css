@@ -11,6 +11,13 @@
 .title {
     font-size: 0.85rem;
     text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-size: 0.6rem;
+    text-transform: none;
 }
 
 .items__List {

@@ -26,7 +26,7 @@ const UserContextProvider = ({
     const userService = new UserService();
 
     useEffect(() => {
-        const savedToken = AppConstants.getSavedToken();
+        const savedToken = AppConstants.savedToken;
 
         if (!savedToken) {
             setIsLoggedIn(false);

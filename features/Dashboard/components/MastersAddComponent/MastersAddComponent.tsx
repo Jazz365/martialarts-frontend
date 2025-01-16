@@ -4,13 +4,11 @@ import Button from '@/components/Button/Button';
 import React, { useEffect, useMemo, useState } from 'react'
 import { IoAddOutline, IoCloseCircle } from 'react-icons/io5'
 import styles from './styles.module.css'
-import emptyUserPic from '../../../../assets/avatar.png'
-import Image from 'next/image';
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { v4 as uuidv4 } from 'uuid';
-import FileInputComponent from '@/components/inputs/FileInputComponent/FileInputComponent';
 import { convertFileObjectToBinaryStr } from '@/helpers/helpers';
 import { toast } from 'sonner';
+import MasterProfileItem from './MasterProfileItem';
 
 
 const MastersAddComponent = ({
@@ -88,21 +86,13 @@ const MastersAddComponent = ({
                                 fill='#f90000'
                             />
 
-                            <Image
-                                src={
-                                    masterImage?.length > 0 ?
-                                        masterImage
-                                    :
-                                    emptyUserPic
-                                }
-                                alt='user'
-                                width={120}
-                                height={120}
-                                style={{
-                                    objectFit: 'cover',
-                                    borderRadius: '50%'
-                                }}
+                            <MasterProfileItem 
+                                index={index}
+                                updateSingleItem={updateSingleItem}
+                                masterImage={masterImage}
                             />
+
+                            <br />
 
                             <TextInputComponent
                                 label='name'
@@ -121,18 +111,6 @@ const MastersAddComponent = ({
                                 onChange={(_name, value: string) => updateSingleItem(index, value, 'bio')}
                                 isTextArea={true}
                                 borderRadius='12px'
-                            />
-
-                            <FileInputComponent 
-                                label='image'
-                                labelFontSize='0.8rem'
-                                accept='image/*'
-                                onChange={(files) => {
-                                    if (files && files[0]) {
-                                        updateSingleItem(index, files[0], 'imageFile')
-                                    }
-                                }}
-                                isRequired
                             />
                         </section>
                     }))

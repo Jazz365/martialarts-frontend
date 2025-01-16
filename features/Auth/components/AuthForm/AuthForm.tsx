@@ -322,6 +322,10 @@ const AuthForm = ({
                             fontSize: '0.65rem',
                             color: 'var(--primary-app-color)',
                         }}
+                        useLink
+                        linkLocation='/terms-of-use.pdf'
+                        rel='noreferrer noopener'
+                        target='_blank'
                     />
                     
                     <span>Read our</span>
@@ -334,6 +338,10 @@ const AuthForm = ({
                             fontSize: '0.65rem',
                             color: 'var(--primary-app-color)',
                         }}
+                        useLink
+                        linkLocation='/privacy-policy.pdf'
+                        rel='noreferrer noopener'
+                        target='_blank'
                     />
                 </p>
             }

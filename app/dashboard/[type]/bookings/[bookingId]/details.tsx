@@ -47,7 +47,7 @@ const SingleBookingDetailContent = ({
     }
 
     const handleConfirmBooking = async () => {
-        const authToken = AppConstants.getSavedToken();
+        const authToken = AppConstants.savedToken;
         if (loading || !authToken || !bookingDetail) return;
 
         setLoading(true);
@@ -64,7 +64,7 @@ const SingleBookingDetailContent = ({
     }
 
     const handleCancelBooking = async () => {
-        const authToken = AppConstants.getSavedToken();
+        const authToken = AppConstants.savedToken;
         if (loading || !authToken || !bookingDetail) return;
 
         setLoading(true);

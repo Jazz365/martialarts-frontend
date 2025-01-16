@@ -187,7 +187,7 @@ const AddPlaceDetails = () => {
     }
 
     const handleSaveNewPlace = async () => {
-        const savedToken = AppConstants.getSavedToken();
+        const savedToken = AppConstants.savedToken;
         if (!savedToken) return;
 
         const missingRequiredDetail = compulsoryDetailKeys.find(key => {
@@ -432,6 +432,7 @@ const AddPlaceDetails = () => {
 
             <AddLocationsComponent
                 label='Location(s)'
+                subtitle={'If you have multiple places, you can add several locations'}
                 items={details.locations}
                 updateItemsArr={(items: ILocation[]) => handleDetailUpdate(newPlaceDetailKeysDict.locations, items)}
                 updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.locations as keyof NewPlaceDetail, itemIndex, item, key)}
@@ -440,7 +441,7 @@ const AddPlaceDetails = () => {
 
             <AddItemComponent
                 label='why choose us?'
-                extraInfo='(write at least 5 benefits)'
+                extraInfo='Write 5 benefits'
                 placeholder='e.g Professional staff'
                 isRequired
                 items={details.benefits}
@@ -451,7 +452,7 @@ const AddPlaceDetails = () => {
 
         <AddItemWrapper
             title='place gallery'
-            extraInfo='(min 5 images max 15 images)'
+            extraInfo='We recommend including a youtube video url along with a minimum of 5 and maximum of 15 high-quality images of the place. Please ensure the images are of good resolution and appropriate size'
             ref={galleryRef}
         >
             <section className={styles.item__Section__Col}>
@@ -572,7 +573,7 @@ const AddPlaceDetails = () => {
 
         <AddItemWrapper
             title='masters information'
-            extraInfo='(you can add here max 3 mentor images)'
+            extraInfo='(You can add here max 3 mentor images)'
             ref={mastersRef}
         >
             <MastersAddComponent
@@ -660,6 +661,7 @@ const AddPlaceDetails = () => {
 
         <AddItemWrapper
             title='commonly asked questions'
+            extraInfo='In this section, we recommend adding 3-5 questions with answers'
             ref={faqRef}
         >
             <AddFaqItem 

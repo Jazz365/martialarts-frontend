@@ -148,7 +148,7 @@ const BookingForm = () => {
     }
 
     const handleGoToNextPage = async () => {
-        const authToken = AppConstants.getSavedToken();
+        const authToken = AppConstants.savedToken;
 
         if (loading || !authToken) return;
 
