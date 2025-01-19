@@ -1,0 +1,20 @@
+.place__Card__Carousel {
+    width: 52%;
+    border-radius: 12px;
+}
+
+.place__Card__Carousel.grid {
+    width: 100%;
+}
+
+.image {
+    object-fit: cover;
+    max-width: 100%;
+    width: 100%;
+    height: 420px;
+    border-radius: 12px;
+}
+
+.place__Card__Carousel.grid .image {
+    height: 420px;
+}

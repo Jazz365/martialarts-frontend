@@ -9,8 +9,9 @@ import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import Image from 'next/image';
 import mascot from '../../../../assets/astr.webp'
 import { useRouter, useSearchParams } from 'next/navigation';
+import useMobile from '@/hooks/useMobile';
 
-const itemsPerPage = 6;
+const itemsPerPage = 3;
 
 const AllPlacesDetails = () => {
     const {
@@ -20,6 +21,7 @@ const AllPlacesDetails = () => {
 
     const searchParams = useSearchParams();
     const router = useRouter();
+    const isMobile = useMobile();
 
     const currentPage = !searchParams.get('page') || isNaN(Number(searchParams.get('page'))) ? 1 : Number(searchParams.get('page'));
 
@@ -65,7 +67,7 @@ const AllPlacesDetails = () => {
                             place={place}
                             index={index}
                             key={place.id}
-                            isListView={false}
+                            isListView={!isMobile}
                             imageHeight={300}
                             isInAppStudioUse={true}
                         />

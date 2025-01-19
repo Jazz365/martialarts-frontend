@@ -14,10 +14,12 @@ import { toast } from 'sonner';
 
 
 const NewReviewItem = ({
+    ref,
     placeId,
     reviews,
     updateReviews=() => {},
 }: {
+    ref?: React.RefObject<HTMLDivElement>;
     placeId: number;
     reviews: IPlaceReviews[];
     updateReviews?: (data: IPlaceReviews[]) => void;
@@ -79,7 +81,7 @@ const NewReviewItem = ({
     }
 
     return (
-        <section className={styles.new__Review}>
+        <section className={styles.new__Review} ref={ref}>
             <h5 className={styles.header}>Write a review</h5>
 
             <Rate
