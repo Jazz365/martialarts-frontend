@@ -42,4 +42,6 @@ export const initialSearchContextState: SearchContextType = {
     setPlacesLoading: () => {},
     placesLoaded: false,
     setPlacesLoaded: () => {},
+    moreResultsLink: null,
+    setMoreResultsLink: () => {},
 }

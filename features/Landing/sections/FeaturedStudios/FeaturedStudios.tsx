@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import { dummyFeaturedPlaces } from './utils'
 import FeatureCard from '../../components/FeatureCard/FeatureCard'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll';
-import PaginationItem from '@/components/PaginationItem/PaginationItem';
+// import PaginationItem from '@/components/PaginationItem/PaginationItem';
 import useMobile from '@/hooks/useMobile';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 import Button from '@/components/Button/Button';
 import useClickOutside from '@/hooks/useClickOutside';
@@ -23,6 +23,12 @@ const FeaturedStudios = () => {
     const isMobile = useMobile();
 
     const stylesRef = useRef<HTMLDivElement>(null);
+
+    const featuredStyles = useMemo<IMartialArtStyle[]>(() => {
+        if (!allStyles || !Array.isArray(allStyles)) return [];
+        
+        return allStyles.filter(style => style.is_featured == true);
+    }, [allStyles])
 
     useClickOutside({
         elemRef: stylesRef,
@@ -42,8 +48,7 @@ const FeaturedStudios = () => {
                         >
                             {
                                 React.Children.toArray(
-                                    allStyles
-                                    .filter(style => style.is_featured == true)
+                                    featuredStyles
                                     .map(style => {
                                         return <Button
                                             label={`${style.name} classes`}

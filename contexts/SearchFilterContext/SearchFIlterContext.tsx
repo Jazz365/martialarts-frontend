@@ -23,7 +23,7 @@ const SearchFilterContextProvider = ({
     const [ allPlaces, setAllPlaces ] = useState<IPlace[]>([]);
     const [ placesLoading, setPlacesLoading ] = useState(true);
     const [ placesLoaded, setPlacesLoaded ] = useState(false);
-    // const [ hasMorePages, setHasMorePages ] = useState(true);
+    const [ moreResultsLink, setMoreResultsLink ] = useState<string | null | undefined>(null);
 
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -97,7 +97,11 @@ const SearchFilterContextProvider = ({
                 )
             : 
             '',
-        }
+            useAlternateResDataKey: true,
+            alternateResDataKey: 'results',
+            otherResDataKey: 'next',
+        },
+        (val) => setMoreResultsLink(val),
     );
 
     return <>
@@ -111,6 +115,8 @@ const SearchFilterContextProvider = ({
                 setPlacesLoaded,
                 placesLoading,
                 setPlacesLoading,
+                moreResultsLink,
+                setMoreResultsLink,
             }}
         >
             {children}

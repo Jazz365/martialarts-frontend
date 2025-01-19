@@ -3,18 +3,19 @@
 import React from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
-import Image from 'next/image'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import sampleImage1 from '../../../../assets/blogSamples/blog-1.webp';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { estimateReadingTime } from '@/helpers/helpers';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 
 const maxArticleTitleLength = 40;
 
 const Blog = () => {
     const { blogs, blogsLoading } = useAppContext();
+
     return <>
         <section className={styles.content__Wrap}>
             <FadeInOnScroll>
@@ -51,7 +52,7 @@ const Blog = () => {
                                     className={styles.blog__Article}
                                     key={blog.id}
                                 >
-                                    <Image 
+                                    <MemoizedImage 
                                         alt={blog.title}
                                         src={sampleImage1}
                                         className={styles.article__Img}

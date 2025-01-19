@@ -2,25 +2,25 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 5rem;
+    padding: 3rem;
     justify-content: center;
     align-items: center;
     gap: 2rem;
 }
 
-.hero__Content__Wrap,
-.header__Content {
+.hero__Content__Wrap {
     display: flex;
     flex-direction: column;
-}
-
-.hero__Content__Wrap {
     gap: 3rem;
-    position: relative;
 }
 
 .header__Content {
     gap: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .header {
@@ -31,29 +31,31 @@
     animation: fadeInFromTop 0.8s ease-in-out;
     text-transform: capitalize;
     text-align: center;
-    max-width: 75%;
-    margin: 0 auto;
+    max-width: 50%;
+    /* margin: 0 auto; */
 }
 
 .img__Content {
     max-width: 100%;
     border-radius: 50%;
-    position: absolute;
+    /* position: absolute; */
     object-fit: cover;
+    width: 16rem;
+    height: 16rem;
 }
 
 .img__Content.i_1 {
-    left: -12%;
-    top: -10%;
-    width: 16rem;
-    height: 16rem;
+    /* left: -12%; */
+    /* top: -10%; */
+    /* width: 16rem;
+    height: 16rem; */
 }
 
 .img__Content.i_2 {
-    right: -12%;
-    top: -10%;
-    width: 16rem;
-    height: 16rem;
+    /* right: -12%; */
+    /* top: -10%; */
+    /* width: 16rem;
+    height: 16rem; */
 }
 
 @keyframes fadeInFromTop {
@@ -73,10 +75,16 @@
         padding-right: 1rem;
         gap: 1rem;
     }
+
+    .header__Content {
+        width: 100%;
+        justify-content: center;
+        margin: 0;
+    }
     
     .header {
         font-size: 1.8rem;
-        width: 100%;
+        max-width: 80%;
     }
 
     .img__Content {

@@ -14,6 +14,7 @@ import useMobile from '@/hooks/useMobile';
 import { toast } from 'sonner';
 import SingleResultViewOption from '../../components/ResultsViewOption/SingleResultViewOption';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
+import { makeGetRequest } from '@/services/functions';
 
 
 const SearchPlacesListing = () => {
@@ -22,6 +23,9 @@ const SearchPlacesListing = () => {
     handleUpdateFiltersForCategory,
     allPlaces,
     placesLoaded,
+    moreResultsLink,
+    setMoreResultsLink,
+    setAllPlaces,
   } = useSearchFilterContext();
 
   const {
@@ -30,6 +34,30 @@ const SearchPlacesListing = () => {
 
   const isMobile = useMobile();
   const [ searchVal, setSearchVal ] = useState<string>('');
+  const [ moreResultsLoading, setMoreResultsLoading ] = useState(false);
+
+  const handleLoadMore = async () => {
+    if (!moreResultsLink || moreResultsLoading) return;
+
+    setMoreResultsLoading(true);
+
+    try {
+      const res = await makeGetRequest(moreResultsLink);
+
+      const newResults = Array.isArray(res.results) ? res.results : [];
+      const nextResultLink: string = res.next ?? null;
+      
+      setMoreResultsLoading(false);
+      setAllPlaces([
+        ...allPlaces,
+        ...newResults,
+      ]);
+
+      setMoreResultsLink(nextResultLink);
+    } catch (error) {
+      setMoreResultsLoading(false);
+    }
+  }
 
   return <>
     <section className={`${styles.listing__Wrap} ${showMap === false ? styles.full : ''}`}>
@@ -195,19 +223,28 @@ const SearchPlacesListing = () => {
 
       <PlacesSectionView />
 
-      {/* <Button 
-        label='load more'
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 'max-content',
-          margin: '0 auto',
-          backgroundColor: 'transparent',
-          border: '1px solid black',
-          color: 'black',
-        }}
-      /> */}
+      {
+        moreResultsLink && placesLoaded &&
+        <Button 
+          label={
+            moreResultsLoading ?
+              'loading...'
+            :
+            'load more'
+          }
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 'max-content',
+            margin: '0 auto',
+            backgroundColor: 'transparent',
+            border: '1px solid black',
+            color: 'black',
+          }}
+          handleClick={() => handleLoadMore()}
+        />
+      }
     </section>
   </>
 }

@@ -3,13 +3,13 @@
 import React, { useMemo } from 'react'
 import styles from './styles.module.css'
 import { dummyMartialStyles } from '@/utils/styles'
-import Image from 'next/image'
 import Link from 'next/link'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
 import Button from '@/components/Button/Button'
 import { useAppContext } from '@/contexts/AppContext/AppContext'
 import { cleanStringAndReturnLower } from '@/helpers/formatters';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 
 const MartialArtsStyles = () => {
@@ -60,8 +60,7 @@ const MartialArtsStyles = () => {
                                         ''
                                     }
                                 >
-                                    
-                                    <Image 
+                                    <MemoizedImage 
                                         src={style.imageUrl}
                                         alt={style.name}
                                         className={styles.style__Image}
