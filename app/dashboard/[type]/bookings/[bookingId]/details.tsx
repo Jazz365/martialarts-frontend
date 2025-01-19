@@ -9,6 +9,7 @@ import Button from '@/components/Button/Button';
 import { useUserContext } from '@/contexts/UserContext';
 import { BookingService } from '@/services/bookingService';
 import { AppConstants } from '@/utils/constants';
+import { useRouter } from 'next/navigation';
 
 
 const SingleBookingDetailContent = ({
@@ -27,6 +28,8 @@ const SingleBookingDetailContent = ({
 
     const [ bookingDetail, setBookingDetail ] = useState<IBooking | null | undefined>(null);
     const [ loading, setLoading ] = useState(false);
+
+    const router = useRouter();
 
     const bookingService = new BookingService();
 
@@ -229,6 +232,23 @@ const SingleBookingDetailContent = ({
                         () => handleCancelBooking()
                     }
                 />
+            }
+
+            {
+                bookingDetail.status === 'confirmed' && bookingDetail.email === userDetails?.email &&
+                <>
+                    <Button 
+                        label={'rate studio'}
+                        style={{
+                            width: 'max-content',
+                            marginTop: '2rem',
+                            marginRight: 'auto',
+                            fontSize: '0.75rem',
+                            backgroundColor: 'var(--primary-app-color)',
+                        }}
+                        handleClick={() => router.push(`/places/${bookingDetail.place.id}?review=true`)}
+                    /> 
+                </>
             }
         </section>
     )   

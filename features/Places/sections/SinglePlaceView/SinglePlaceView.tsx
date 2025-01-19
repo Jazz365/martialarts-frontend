@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SinglePlaceGallery from '../../components/SinglePlaceGallery/SinglePlaceGallery';
 import { PlaceService } from '@/services/placeService';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
@@ -18,6 +18,7 @@ import PlaceReviews from '../../components/PlaceReviews/PlaceReviews';
 import NewReviewItem from '../../components/PlaceReviews/NewReviewItem';
 import { useUserContext } from '@/contexts/UserContext';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
+import { useSearchParams } from 'next/navigation';
 
 
 const SinglePlaceView = ({
@@ -37,6 +38,10 @@ const SinglePlaceView = ({
     const [ loading, setLoading ] = useState(false);
     const [ loaded, setLoaded ] = useState(false);
 
+    const searchParams = useSearchParams();
+
+    const reviewSectionRef = useRef<HTMLDivElement>(null);
+
     const placeService = new PlaceService();
 
     useEffect(() => {
@@ -50,6 +55,13 @@ const SinglePlaceView = ({
             setFoundPlace(res);
             setLoaded(true);
             setLoading(false);
+
+            if (searchParams.get('review')) {
+                reviewSectionRef.current?.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
         }).catch(() => {
             setLoaded(true);
             setLoading(false);
@@ -144,6 +156,7 @@ const SinglePlaceView = ({
                         <Divider />
                         
                         <NewReviewItem
+                            ref={reviewSectionRef}
                             placeId={foundPlace.id}
                             reviews={foundPlace.place_reviews ?? []}
                             updateReviews={(reviews) => {

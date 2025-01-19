@@ -5,8 +5,12 @@ import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 const SinglePlaceGallery = ({
   images=[],
+  className,
+  ssr=true,
 }: {
   images: IPlaceImage[];
+  className?: string;
+  ssr?: boolean;
 }) => {
   const responsive = {
     desktop: {
@@ -42,7 +46,7 @@ const SinglePlaceGallery = ({
       arrows
       autoPlaySpeed={2000}
       centerMode={false}
-      className={styles.carouselll}
+      className={`${styles.carouselll} ${className ?? ''}`}
       containerClass="container-with-dots"
       dotListClass=""
       draggable
@@ -66,7 +70,7 @@ const SinglePlaceGallery = ({
       autoPlay
       transitionDuration={500}
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      ssr={true}
+      ssr={ssr}
     >
       {
         React.Children.toArray(

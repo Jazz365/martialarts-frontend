@@ -31,7 +31,9 @@
 }
 
 .all__places > * {
-    width: calc(calc(100% / 3) - 1.5rem) !important;
+    /* width: calc(calc(100% / 3) - 1.5rem) !important; */
+    max-width: 74vw;
+    max-height: 28rem !important;
 }
 
 .empty__places {
@@ -57,5 +59,6 @@
 
     .all__places > * {
         width: 100% !important;
+        max-width: 100%;
     }
 }
