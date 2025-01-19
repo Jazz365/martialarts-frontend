@@ -60,3 +60,10 @@
         font-size: 0.7rem;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .content__Wrap {
+        width: 50%;
+        margin: 0 auto;
+    }
+}

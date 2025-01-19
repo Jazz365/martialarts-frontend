@@ -27,6 +27,7 @@ const SearchPageDetails = () => {
                     })))
                 }
                 loaded={!placesLoading}
+                className={styles.map__Detail__Wrap}
             />
         </section>
     )

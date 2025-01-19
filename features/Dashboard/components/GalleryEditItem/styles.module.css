@@ -83,3 +83,10 @@
         height: 16rem;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .add__New__Item,
+    .place__Image__Wrap {
+        width: calc(50% - 1rem);
+    }
+}

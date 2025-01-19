@@ -212,3 +212,10 @@
         padding-right: 0;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .list__Card.row,
+    .list__Card.row.full {
+        width: 100%;
+    }
+}

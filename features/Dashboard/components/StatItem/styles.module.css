@@ -19,3 +19,9 @@
     font-family: var(--mako-font);
     font-size: 1.8rem;
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .stat__Item {
+        width: calc(50% - 1rem);
+    }
+}

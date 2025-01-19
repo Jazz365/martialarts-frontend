@@ -100,7 +100,8 @@
         padding-right: 1.5rem;
     }
 
-    .location__Item {
-        width: calc(calc(100% / 2) - 1rem);
-    }
+    .locations__Wrap {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }    
 }

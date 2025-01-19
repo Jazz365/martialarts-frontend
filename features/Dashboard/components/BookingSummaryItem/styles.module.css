@@ -84,3 +84,9 @@
 .status.cancelled {
     background-color: #e3342f;
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .item__Wrap {
+        width: 100%;
+    }
+}

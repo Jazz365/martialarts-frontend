@@ -38,3 +38,9 @@
         width: 100%;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .master__Item {
+        width: 100%;
+    }
+}

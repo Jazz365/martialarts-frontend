@@ -59,3 +59,10 @@
         width: 100%;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .file__label,
+    .documents_wrap {
+        width: 50%;
+    }
+}
