@@ -27,14 +27,14 @@ export const dummyFeaturedPlaces:{
 }[] = [
     {
         id: 1,
-        name: 'Shaolin Arts Prime Dojo',
+        name: 'Featured Studio',
         location: {
-            address: '101 Dummy Street',
-            city: 'Surulere',
-            state: 'lagos',
+            address: '',
+            city: 'Chicago',
+            state: 'Illinois',
         },
         image: image1,
-        average_rating: 4.95,
+        average_rating: 5.0,
         activity_hours: {
             opening_time: '08:00',
             closing_time: '20:00',
@@ -48,32 +48,28 @@ export const dummyFeaturedPlaces:{
                 "id": 1,
                 "name": "Judo"
             },
-            {
-                "id": 2,
-                "name": "capoeira"
-            }
         ],
         place_caters_to: [
             {
-                "id": 1,
+                "id": 2,
                 "name": "beginner"
             },
             {
-                "id": 2,
+                "id": 4,
                 "name": "advanced"
             },
         ],
     },
     {
         id: 2,
-        name: 'Silent Hollow',
+        name: 'Featured Studio',
         location: {
-            address: '105 Dummy Street',
-            city: 'Surulere',
-            state: 'lagos',
+            address: '',
+            city: 'Nevada',
+            state: 'Las Vegas',
         },
         image: image2,
-        average_rating: 4.85,
+        average_rating: 5.0,
         activity_hours: {
             opening_time: '08:00',
             closing_time: '20:00',
@@ -84,35 +80,31 @@ export const dummyFeaturedPlaces:{
         price: 100,
         place_styles: [
             {
-                "id": 3,
+                "id": 1,
                 "name": "Judo"
             },
-            {
-                "id": 4,
-                "name": "capoeira"
-            }
         ],
         place_caters_to: [
             {
-                "id": 1,
+                "id": 2,
                 "name": "beginner"
             },
             {
-                "id": 2,
+                "id": 4,
                 "name": "advanced"
             },
         ],
     },
     {
         id: 3,
-        name: 'Bloodrock Peak',
+        name: 'Featured Studio',
         location: {
-            address: '106 Dummy Street',
-            city: 'Surulere',
-            state: 'lagos',
+            address: '',
+            city: 'Atlanta',
+            state: 'Georgia',
         },
         image: image3,
-        average_rating: 4.85,
+        average_rating: 5.0,
         activity_hours: {
             opening_time: '08:00',
             closing_time: '20:00',
@@ -123,35 +115,31 @@ export const dummyFeaturedPlaces:{
         price: 100,
         place_styles: [
             {
-                "id": 5,
+                "id": 1,
                 "name": "Judo"
             },
-            {
-                "id": 2,
-                "name": "capoeira"
-            }
         ],
         place_caters_to: [
             {
-                "id": 1,
+                "id": 2,
                 "name": "beginner"
             },
             {
-                "id": 2,
+                "id": 4,
                 "name": "advanced"
             },
         ],
     },
     {
         id: 4,
-        name: 'Shadow Vale',
+        name: 'Featured Studio',
         location: {
-            address: '108 Dummy Street',
-            city: 'Surulere',
-            state: 'lagos',
+            address: '',
+            city: 'Colorado',
+            state: 'Denver',
         },
         image: image4,
-        average_rating: 4.5,
+        average_rating: 5.0,
         activity_hours: {
             opening_time: '08:00',
             closing_time: '20:00',
@@ -165,35 +153,11 @@ export const dummyFeaturedPlaces:{
                 "id": 1,
                 "name": "Judo"
             },
-            {
-                "id": 2,
-                "name": "capoeira"
-            },
-            {
-                "id": 4,
-                "name": "muay thai"
-            },
-            {
-                "id": 6,
-                "name": "mma"
-            },
-            {
-                "id": 7,
-                "name": "muay thai"
-            }
         ],
         place_caters_to: [
             {
-                "id": 1,
-                "name": "adults"
-            },
-            {
                 "id": 2,
                 "name": "beginner"
-            },
-            {
-                "id": 3,
-                "name": "minors"
             },
             {
                 "id": 4,

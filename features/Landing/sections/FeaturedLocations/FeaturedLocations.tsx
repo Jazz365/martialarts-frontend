@@ -2,10 +2,9 @@ import React from 'react'
 import styles from './styles.module.css'
 import { dummyFeaturedLocations } from './utils'
 import Link from 'next/link'
-import Image from 'next/image'
-import { IoLocateOutline } from 'react-icons/io5'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
 
 
 const FeaturedLocations = () => {
@@ -24,7 +23,7 @@ const FeaturedLocations = () => {
                                 href={`/search?place=${location.name}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
                                 className={`${styles.location__Item} ${index === 0 ? styles.main : ''}`}
                             >
-                                <Image 
+                                <MemoizedImage 
                                     src={location.image}
                                     alt={location.name}
                                     className={styles.location__Image}

@@ -3,10 +3,10 @@ import styles from './styles.module.css'
 import { IoIosArrowRoundForward } from 'react-icons/io'
 // import happyIllustration from '../../../../assets/happy.svg'
 import astronaut from '../../../../assets/astr.webp'
-import Image from 'next/image'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import Button from '@/components/Button/Button'
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils'
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
 
 const Banner = () => {
     return <>
@@ -47,7 +47,7 @@ const Banner = () => {
                         />
                     </section>
 
-                    <Image 
+                    <MemoizedImage 
                         alt={'banner illustration'}
                         src={astronaut}
                         className={styles.banner__Img}

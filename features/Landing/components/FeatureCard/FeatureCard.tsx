@@ -1,12 +1,14 @@
 import Image, { StaticImageData } from 'next/image';
-import React from 'react'
+import React, { memo } from 'react'
 import styles from './styles.module.css'
-import Link from 'next/link';
+// import Link from 'next/link';
 import Button from '@/components/Button/Button';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import { toast } from 'sonner';
 
 const defaultPlaceId = 2;
 
-const FeatureCard = ({
+const FeatureCard = memo(({
     featuredPlace,
 }: {
     featuredPlace: {
@@ -32,12 +34,12 @@ const FeatureCard = ({
     }
 }) => {
     return <>
-        <Link 
+        <section 
             className={styles.card__Item}
             // href={''}
-            href={`/places/${defaultPlaceId}`}
+            // href={`/places/${defaultPlaceId}`}
         >
-            <Image 
+            <MemoizedImage 
                 src={featuredPlace.image}
                 alt={featuredPlace.name}
                 className={styles.card__Image}
@@ -90,11 +92,12 @@ const FeatureCard = ({
                         hoverStyle={{
                             backgroundColor: 'black',
                         }}
+                        handleClick={() => toast.info("This part is still under construction")}
                     />
                 </section>
             </section>
-        </Link>
+        </section>
     </>
-}
+})
 
 export default FeatureCard

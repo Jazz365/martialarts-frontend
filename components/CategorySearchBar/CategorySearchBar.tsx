@@ -1,12 +1,13 @@
 'use client';
 
-import React, { CSSProperties, useEffect, useMemo, useState } from 'react'
+import React, { CSSProperties, useMemo, useState } from 'react'
 import { IoClose, IoSearch } from 'react-icons/io5'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import AlternatingDotsLoader from '../loaders/AlternatingDotsLoader/AlternatingDotsLoader';
+import TrendingStyles from './TrendingStyles';
 
 
 const CategorySearchBar = ({
@@ -114,42 +115,8 @@ const CategorySearchBar = ({
                     }
                 </section>
             </section>
-
-            {
-                hideTrendingStyles ? <></>
-                    :
-                <>
-                    {
-                        stylesLoading ?
-                            <AlternatingDotsLoader />
-                        :
-                        allStyles.filter(style => style.is_trending === true)?.length < 1 ?
-                            <></>
-                        :
-                        <section className={styles.trending__Wrap}>
-                            <p>Trending styles</p>
-
-                            <section className={styles.trending__Items}>
-                                {
-                                    React.Children.toArray(
-                                        allStyles
-                                        .filter(style => style.is_trending === true)
-                                        .map(style => {
-                                            return <Link
-                                                href={`/search?style_id=${encodeURIComponent(style.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
-                                                className={styles.trending__Item}
-                                                key={style.id}
-                                            >
-                                                {style.name}
-                                            </Link>
-                                        })
-                                    )
-                                }
-                            </section>
-                        </section>
-                    }
-                </>
-            }
+            
+            <TrendingStyles hideTrendingStyles={hideTrendingStyles} />
         </section>
     </>
 }

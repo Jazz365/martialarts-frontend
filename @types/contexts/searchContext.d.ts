@@ -18,4 +18,6 @@ type SearchContextType = {
     setPlacesLoading: (val: boolean) => void;
     placesLoaded: boolean;
     setPlacesLoaded: (val: boolean) => void;
+    moreResultsLink: string | null | undefined;
+    setMoreResultsLink: React.Dispatch<React.SetStateAction<string | null | undefined>>;
 }

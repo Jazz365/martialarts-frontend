@@ -6,6 +6,9 @@ interface InfoParams {
     inputParam?: string;
     hasDependency?: boolean;
     dependency?: any;
+    useAlternateResDataKey?: boolean;
+    alternateResDataKey?: string;
+    otherResDataKey?: string,
 }
 
 export default function useLoadData(
@@ -19,7 +22,11 @@ export default function useLoadData(
         inputParam: '',
         hasDependency: false,
         dependency: null,
+        useAlternateResDataKey: false,
+        alternateResDataKey: '',
+        otherResDataKey: '',
     },
+    setOtherData?: (val: any) => void,
 ) {
     useEffect(() => {
         const savedToken = AppConstants.savedToken;
@@ -40,8 +47,12 @@ export default function useLoadData(
             null
         ).then((res: any) => {
             setDataLoading(false);
-            setData(res);
             setDataLoaded(true);
+            
+            if (setOtherData && extraInfo.otherResDataKey) setOtherData(res[extraInfo.otherResDataKey]);
+
+            if (extraInfo.useAlternateResDataKey === true && extraInfo.alternateResDataKey) return setData(res[extraInfo.alternateResDataKey]);
+            setData(res);
         }).catch(() => {
             setDataLoading(false);
         })
