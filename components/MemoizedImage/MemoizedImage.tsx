@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from 'next/image'
-import React, { memo } from 'react'
+import React, { CSSProperties, memo } from 'react'
 
 const MemoizedImage = memo(({
     className,
@@ -8,13 +8,17 @@ const MemoizedImage = memo(({
     width=0,
     height=0,
     priority=false,
+    quality,
+    style={},
 }: {
     className?: string;
-    src: StaticImageData;
+    src: StaticImageData | string;
     alt: string;
     width?: number;
     height?: number;
     priority?: boolean;
+    quality?: number;
+    style?: CSSProperties;
 }) => {
     return <Image 
         className={className}
@@ -23,6 +27,8 @@ const MemoizedImage = memo(({
         width={width}
         height={height}
         priority={priority}
+        quality={quality}
+        style={style}
     />
 })
 

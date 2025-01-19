@@ -14,7 +14,7 @@ const Carousel = ({
 }) => {
     const [emblaRef] = useEmblaCarousel(
         {
-            loop: true,
+            loop: false,
         },
         [Autoplay({
             delay,

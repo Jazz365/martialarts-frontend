@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { CSSProperties, useEffect, useState } from 'react'
+import React, { CSSProperties, memo, useEffect, useState } from 'react'
 import styles from './styles.module.css';
 import { IoLocationOutline } from 'react-icons/io5';
 import Carousel from '@/components/wrapperComponents/Carousel/Carousel';
@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { formatPricingType } from '@/app/dashboard/owner/studios/add-studio/utils';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 const maxLengthForGridView = 32;
 const maxBenLengthForListView = 80;
@@ -21,13 +22,14 @@ const maxBenLengthForFullListView = 50;
 const maxGridTitleLength = 14;
 const viewDurations = [1000, 1500, 1800];
 
-const PlaceListCard = ({
+const PlaceListCard = memo(({
   place,
   isListView=true,
   imageHeight,
   style={},
   index,
   isInAppStudioUse=false,
+  useFullView=false,
 }: {
   place: IPlace;
   isListView?: boolean;
@@ -35,6 +37,7 @@ const PlaceListCard = ({
   style?: CSSProperties;
   index: number;
   isInAppStudioUse?: boolean;
+  useFullView?: boolean;
 }) => {
   const [
     placeLocation,
@@ -100,7 +103,7 @@ const PlaceListCard = ({
           styles.col
         }
         ${
-          showMap === false ?
+          showMap === false || useFullView === true ?
             styles.full
           :
           ''
@@ -116,7 +119,8 @@ const PlaceListCard = ({
       // href={`/places/${place.id}`}
     >
       <Carousel
-        delay={Number(index + 1) * viewDurations[Math.floor(Math.random() * viewDurations.length)]}
+        // delay={Number(index + 1) * viewDurations[Math.floor(Math.random() * viewDurations.length)]}
+        delay={viewDurations[1]}
         style={{ 
           width: isListView && !isMobile ? 
             420 
@@ -127,7 +131,7 @@ const PlaceListCard = ({
       >
         {
           React.Children.toArray(place.images_data.map(imageItem => {
-            return <Image
+            return <MemoizedImage
               width={0}
               height={
                 isListView && !isMobile ?
@@ -143,7 +147,6 @@ const PlaceListCard = ({
               src={imageItem.image as string}
               key={imageItem.id}
               className={styles.image}
-              priority
             />
           }))
         }
@@ -339,6 +342,6 @@ const PlaceListCard = ({
       </section>
     </section>
   )
-}
+})
 
 export default PlaceListCard

@@ -3,11 +3,11 @@
 
 import React, { useState } from 'react'
 import styles from './styles.module.css'
-import Image from 'next/image';
 import useMobile from '@/hooks/useMobile';
 import Button from '@/components/Button/Button';
 import { getYoutubeEmbedVideoLink } from '@/helpers/helpers';
 import MasterPopup from '../MasterPopup/MasterPopup';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 
 const maxDescriptionCap = 800;
@@ -61,7 +61,7 @@ const SinglePlaceDescription = ({
                                         key={master.id}
                                         onClick={() => handleMasterItemClick(master)}
                                     >
-                                        <Image 
+                                        <MemoizedImage 
                                             width={isMobile ? 65 : 100}
                                             height={isMobile ? 65 : 100}
                                             alt={master.name}

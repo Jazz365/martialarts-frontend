@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import React from 'react'
 import styles from './styles.module.css'
 import Carousel from "react-multi-carousel";
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 const SinglePlaceGallery = ({
   images=[],
@@ -72,7 +72,7 @@ const SinglePlaceGallery = ({
         React.Children.toArray(
           images
           .map((image, index) => {
-            return <Image
+            return <MemoizedImage
               src={image.image as string}
               alt='place'
               key={image.id}
@@ -80,7 +80,7 @@ const SinglePlaceGallery = ({
               height={500}
               className={`${styles.image} ${index === 1 ? styles.main : ''}`}
               quality={100}
-              priority
+              priority={true}
               style={{
                 pointerEvents: 'none'
               }}
