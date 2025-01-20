@@ -131,10 +131,11 @@
 
 @media (min-width: 767.98px) and (max-width: 1200px) {
     .banner__Wrap.main {
-        width: 54vw;
+        /* width: 54vw; */
     }
 
     .banner__Wrap {
-        width: 18vw;
+        /* width: 18vw; */
+        width: 33%;
     }
 }

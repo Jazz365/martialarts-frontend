@@ -36,3 +36,10 @@
         padding: 2rem 1rem;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .wrapper {
+        padding: 1.5rem;
+        flex-direction: column;
+    }
+}

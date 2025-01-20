@@ -18,3 +18,9 @@
         padding-right: 1rem;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .map__Detail__Wrap {
+        display: none;
+    }
+}

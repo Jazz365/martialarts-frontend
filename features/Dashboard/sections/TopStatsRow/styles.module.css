@@ -10,3 +10,9 @@
         flex-direction: column;
     }
 }
+
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .stats__Wrap {
+        flex-wrap: wrap;
+    }
+}

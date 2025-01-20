@@ -11,7 +11,7 @@
 .hero__Content__Wrap {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    /* gap: 3rem; */
 }
 
 .header__Content {
@@ -42,6 +42,8 @@
     object-fit: cover;
     width: 16rem;
     height: 16rem;
+    position: relative;
+    top: 2rem;
 }
 
 .img__Content.i_1 {
@@ -90,14 +92,33 @@
     .img__Content {
         display: none;
     }
+
+    .hero__Content__Wrap {
+        gap: 3rem;
+    }
 }
 
 @media (min-width: 767.98px) and (max-width: 1200px) {
+    .hero__Content__Wrap {
+        gap: 3rem;
+    }
+    
     .hero__Wrap {
         flex-direction: column;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .header__Content {
+        width: 100%;
+        justify-content: center;
     }
 
     .header {
-        width: 90%;
+        max-width: 75%;
+    }
+
+    .img__Content {
+        display: none;
     }
 }

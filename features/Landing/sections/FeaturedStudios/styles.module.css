@@ -112,4 +112,26 @@
         flex: unset;
         max-width: unset;
     }
+
+    .header__Row {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .header__Styles {
+        overflow-x: auto;
+        max-width: 100%;
+        flex-wrap: nowrap;
+        width: 85%;
+    }
+
+    .style__item {
+        white-space: nowrap;
+    }
+
+    .header__Row__Actions {
+        justify-content: center;
+    }
 }

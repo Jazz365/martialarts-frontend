@@ -47,6 +47,7 @@ const SubscriptionCard = ({
                     background: 'transparent',
                     color: 'var(--primary-app-color)',
                 }}
+                className={styles.act__Btn}
             />
         </section>
     </>

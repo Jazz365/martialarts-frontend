@@ -115,7 +115,7 @@
 }
 
 @media (min-width: 767.98px) and (max-width: 1200px) {
-    .footer__Wrapper {
+    .footer {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
         flex-direction: column;

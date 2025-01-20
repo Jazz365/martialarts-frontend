@@ -22,6 +22,7 @@ const PlacesMap = ({
   showContentOnSmallScreen=false,
   zoom=11,
   loaded=true,
+  className,
 }: {
   placeCoordinates?: PlaceCoordinate[];
   minHeight?: string;
@@ -29,6 +30,7 @@ const PlacesMap = ({
   showContentOnSmallScreen?: boolean;
   zoom?: number;
   loaded?: boolean;
+  className?: string;
 }) => {
   const { showMap, mapKey, mapKeyLoading } = useAppContext();
   const [ selectedLocation, setSelectedLocation ] = useState<PlaceCoordinate | null>(null);
@@ -41,7 +43,7 @@ const PlacesMap = ({
 
   return <>
     <section 
-      className={`${styles.content__Wrap} ${showMap === false ? styles.hide : ''} ${showContentOnSmallScreen === true ? styles.main : ''}`}
+      className={`${styles.content__Wrap} ${showMap === false ? styles.hide : ''} ${showContentOnSmallScreen === true ? styles.main : ''} ${className ?? ''}`}
       style={{
         width,
       }}

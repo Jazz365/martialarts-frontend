@@ -18,7 +18,7 @@
     transition: 0.2s all ease-in-out;
     z-index: 2;
     background-color: #f3f3f6;
-    width: 55%;
+    width: 35%;
 }
 
 .search__ICon__Wrap {
@@ -145,14 +145,28 @@
         white-space: unset;
         width: max-content;
     }
+}
+
+@media screen and (max-width: 767px) {
+    .trending__Wrap p {
+        display: none;
+    }
 
     .search__Bar {
         width: 100%;
     }
 }
 
-@media screen and (max-width: 767px) {
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .search__Bar {
+        width: 75%;
+    }
+
     .trending__Wrap p {
         display: none;
+    }
+    
+    .trending__Wrap {
+        flex-direction: column;
     }
 }

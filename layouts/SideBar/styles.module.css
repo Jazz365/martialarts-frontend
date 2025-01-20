@@ -44,6 +44,12 @@
     color: var(--primary-app-color);
 }
 
+@media (min-width: 767.98px) and (max-width: 1200px) {
+    .side__Nav {
+        width: 30%;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .side__Nav,
     .links__Wrap {
