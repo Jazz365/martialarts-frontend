@@ -46,6 +46,11 @@ export const metadata: Metadata = {
       url: 'https://github.com/Josh-Ay', 
     },
   ],
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default function RootLayout({

@@ -1,11 +1,12 @@
 'use client';
 
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PlacesMap from '@/features/Search/sections/Map/Map'
 import SearchPlacesListing from '@/features/Search/sections/Places/Places'
 import styles from './styles.module.css'
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
+import AppPopup from '@/components/AppPopup/AppPopup';
 // import { testMapCoordinates } from '@/features/Search/sections/Map/utils';
 
 const SearchPageDetails = () => {
@@ -13,8 +14,14 @@ const SearchPageDetails = () => {
         allPlaces,
         placesLoading,
     } = useSearchFilterContext();
+
+    const [ showPopup, setShowPopup ] = useState<boolean>(false);
     
-    return (
+    useEffect(() => {
+        setShowPopup(true);
+    }, [])
+
+    return <>
         <section className={styles.content__Wrap}>
             <SearchPlacesListing />
             <PlacesMap 
@@ -30,7 +37,14 @@ const SearchPageDetails = () => {
                 className={styles.map__Detail__Wrap}
             />
         </section>
-    )
+
+        {
+            showPopup &&
+            <AppPopup 
+                hidePopup={() => setShowPopup(false)}
+            />
+        }
+    </>
 }
 
 export default SearchPageDetails

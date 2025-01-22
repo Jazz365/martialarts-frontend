@@ -4,6 +4,11 @@
   margin: 0;
   font-family: var(--poppins-font);
   scrollbar-width: thin;
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -21,4 +26,66 @@ a {
 
 html {
   scroll-behavior: smooth;
+}
+
+img {
+  content-visibility: auto;
+  contain: content;
+  max-width: 100%;
+  height: auto;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Add this to prevent scroll jank */
+@media screen and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Prevent layout shifts */
+main {
+  contain: layout;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.image-loading {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-loaded {
+  opacity: 1;
+}
+
+/* Prevent layout shifts */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #f0f0f0; /* Light grey placeholder */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
