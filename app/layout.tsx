@@ -46,11 +46,6 @@ export const metadata: Metadata = {
       url: 'https://github.com/Josh-Ay', 
     },
   ],
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
 };
 
 export default function RootLayout({
@@ -60,6 +55,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+      </head>
       <body className={`${mako.variable} ${poppins.variable}`}>
         <AppProviders>
           <NextTopLoader color={'var(--primary-app-color)'} showSpinner={false} />

@@ -12,6 +12,7 @@
     "@vis.gl/react-google-maps": "^1.4.2",
     "axios": "^1.7.9",
     "core-js-pure": "^3.39.0",
+    "critters": "^0.0.23",
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "next": "15.0.3",
