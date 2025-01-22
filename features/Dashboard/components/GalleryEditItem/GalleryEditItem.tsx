@@ -3,9 +3,9 @@ import { IoMdAddCircle } from 'react-icons/io'
 import styles from './styles.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import { convertFileObjectToBinaryStr } from '@/helpers/helpers';
-import Image from 'next/image';
 import { IoClose } from 'react-icons/io5';
 import { toast } from 'sonner';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 
 const maxCap = 15;
@@ -103,12 +103,13 @@ const GalleryEditItem = ({
                                 />
                             </div>
 
-                            <Image 
+                            <MemoizedImage 
                                 src={image.image as string}
                                 alt='place'
                                 width={0}
                                 height={0}
                                 className={styles.place__Image}
+                                unoptimized
                             />
                         </div>
                     })

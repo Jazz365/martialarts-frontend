@@ -4,10 +4,10 @@
 import FileInputComponent from '@/components/inputs/FileInputComponent/FileInputComponent'
 import React, { useRef } from 'react'
 import styles from './styles.module.css'
-import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import { IoPencilOutline } from 'react-icons/io5';
 import emptyUserPic from '../../../../assets/avatar.png'
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 const MasterProfileItem = ({
     index=-1,
@@ -22,7 +22,7 @@ const MasterProfileItem = ({
 
     return <>
         <section className={styles.profile__Wrap}>
-            <Image
+            <MemoizedImage
                 src={
                     masterImage && masterImage?.length > 0 ?
                         masterImage

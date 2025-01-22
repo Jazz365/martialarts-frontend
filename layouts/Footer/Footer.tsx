@@ -1,9 +1,8 @@
 'use client';
 
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './styles.module.css'
-import Image from 'next/image'
 import Link from 'next/link'
 import facebookIcon from '../../assets/icons/facebook.webp'
 import instagramIcon from '../../assets/icons/instagram.webp'
@@ -11,15 +10,23 @@ import tiktokIcon from '../../assets/icons/tiktok.webp'
 import youtubeIcon from '../../assets/icons/youtube.webp'
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { AppConstants } from '@/utils/constants';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import Loader from '@/components/loaders/Loader/Loader';
+import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 
 const Footer = () => {
-    const { allStyles } = useAppContext();
+    const { allStyles, stylesLoading } = useAppContext();
+
+    const popularStyles = useMemo(() => {
+        if (!allStyles || !Array.isArray(allStyles)) return [];
+        return allStyles.filter(style => style.is_popular === true);
+    }, [allStyles]);
 
     return <>
         <footer className={styles.footer}>
             <section className={styles.footer__Wrapper}>
                 <section className={styles.logo__Wrap}>
-                    <Image 
+                    <MemoizedImage 
                         src={'/logo-new.png'}
                         alt='logo'
                         width={180}
@@ -56,8 +63,12 @@ const Footer = () => {
 
                         <ul className={styles.footer__Links}>
                             {
-                                React.Children.toArray(allStyles
-                                    .filter(style => style.is_popular === true)
+                                stylesLoading ? <section style={{ margin: '1rem auto 0' }}>
+                                    <AlternatingDotsLoader />
+                                </section>
+                                :
+                                React.Children.toArray(
+                                    popularStyles
                                     .map(style => {
                                         return <li
                                             key={style.id}
@@ -75,7 +86,7 @@ const Footer = () => {
 
                         <ul className={styles.footer__Links}>
                             <li>
-                                <Link href={'mailto:team@martialarts.guru'}>Email: team@martialarts.guru</Link>
+                                <Link href={`mailto:${AppConstants.guruSupportMail}`}>Email: {AppConstants.guruSupportMail}</Link>
                             </li>
                             {/* <li>
                                 <Link href={''}>Phone: +911 911 911</Link>
@@ -86,7 +97,7 @@ const Footer = () => {
                             <Link
                                 href={''}
                             >
-                                <Image 
+                                <MemoizedImage 
                                     src={facebookIcon}
                                     alt='facebook'
                                     className={styles.footer__Icon}
@@ -98,7 +109,7 @@ const Footer = () => {
                                 rel='noreferrer noopener'
                                 target='_blank'
                             >
-                                <Image 
+                                <MemoizedImage 
                                     src={instagramIcon}
                                     alt='instagram'
                                     className={styles.footer__Icon}
@@ -108,7 +119,7 @@ const Footer = () => {
                             <Link
                                 href={''}
                             >
-                                <Image 
+                                <MemoizedImage 
                                     src={tiktokIcon}
                                     alt='tiktok'
                                     className={styles.footer__Icon}
@@ -120,7 +131,7 @@ const Footer = () => {
                                 rel='noreferrer noopener'
                                 target='_blank'
                             >
-                                <Image 
+                                <MemoizedImage 
                                     src={youtubeIcon}
                                     alt='youtube'
                                     className={styles.footer__Icon}

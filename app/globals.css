@@ -32,7 +32,7 @@ img {
   content-visibility: auto;
   contain: content;
   max-width: 100%;
-  height: auto;
+  /* height: auto; */
   transform: translateZ(0);
   will-change: transform;
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import Image, { StaticImageData } from 'next/image'
 import React, { CSSProperties, memo } from 'react'
 
@@ -10,6 +12,8 @@ const MemoizedImage = memo(({
     priority=false,
     quality,
     style={},
+    unoptimized,
+    onClick=()=>{},
 }: {
     className?: string;
     src: StaticImageData | string;
@@ -19,6 +23,8 @@ const MemoizedImage = memo(({
     priority?: boolean;
     quality?: number;
     style?: CSSProperties;
+    unoptimized?: boolean;
+    onClick?: () => void;
 }) => {
     return <Image 
         className={className}
@@ -29,6 +35,8 @@ const MemoizedImage = memo(({
         priority={priority}
         quality={quality}
         style={style}
+        unoptimized={unoptimized}
+        onClick={onClick}
     />
 })
 

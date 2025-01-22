@@ -85,7 +85,7 @@ const PlaceCardCarousel = ({
                             width={0}
                             height={0}
                             className={`${styles.image}`}
-                            quality={100}
+                            quality={50}
                             style={{
                                 pointerEvents: 'none',
                             }}

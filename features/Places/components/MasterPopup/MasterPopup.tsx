@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoClose } from 'react-icons/io5';
 import styles from './styles.module.css'
-import Image from 'next/image';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 
 const MasterPopup = ({
@@ -27,12 +27,13 @@ const MasterPopup = ({
                         }}
                     />
 
-                    <Image 
+                    <MemoizedImage 
                         src={master.image as string}
                         alt={master.name}
                         width={0}
                         height={0}
                         className={styles.master__Img}
+                        unoptimized
                     />
                 </section>
 

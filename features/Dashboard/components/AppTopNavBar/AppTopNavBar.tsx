@@ -1,14 +1,14 @@
-import Image from 'next/image'
 import React from 'react'
 import logo from '../../../../assets/FAVICON-plain.png'
 import styles from './styles.module.css'
 import ProfileItem from '@/layouts/ProfileItem/ProfileItem'
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
 
 
 const AppTopNavBar = () => {
     return (
         <section className={styles.nav__Wrap}>
-            <Image 
+            <MemoizedImage 
                 src={logo}
                 alt='logo'
                 width={40}

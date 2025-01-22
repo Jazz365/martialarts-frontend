@@ -27,6 +27,7 @@ const PlaceImageSlide = memo(({
             className={className}
             quality={quality}
             // priority={true}
+            unoptimized={true}
         />
     </>
 })

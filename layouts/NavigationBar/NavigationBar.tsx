@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import React, { CSSProperties } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import NavigationBarContent from './details'
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
 
 
 const NavigationBar = ({
@@ -22,7 +22,7 @@ const NavigationBar = ({
             <Link 
                 href={'/'}
             >
-                <Image 
+                <MemoizedImage 
                     src={'/logo-new.png'}
                     alt='logo'
                     width={180}

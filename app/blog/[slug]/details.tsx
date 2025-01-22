@@ -1,7 +1,6 @@
 'use client';
 
 
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import blogImg from '../../../assets/blogSamples/blog-1.webp';
 import styles from './styles.module.css';
@@ -18,6 +17,7 @@ import useMobile from '@/hooks/useMobile';
 import { copyToClipboard, estimateReadingTime, shareLinkToSocialMedia } from '@/helpers/helpers';
 import { IoCopyOutline } from 'react-icons/io5';
 import { toast } from 'sonner';
+import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
 
 const maxArticleTitleLength = 40;
@@ -76,7 +76,7 @@ const SingleBlogDetails = ({
       <br />
 
       <section className={styles.blog__Detail__Content}>
-        <Image
+        <MemoizedImage
           src={blogImg}
           alt='blog'
           priority
@@ -104,7 +104,7 @@ const SingleBlogDetails = ({
                 <div className={styles.share__Wrap}>
                   <p>Share: </p>
 
-                  <Image 
+                  <MemoizedImage 
                     src={facebookIcon}
                     alt='icon'
                     width={isMobile ? 20 : 30}
@@ -117,7 +117,7 @@ const SingleBlogDetails = ({
                     onClick={() => shareLinkToSocialMedia('facebook', window.location.href)}
                   />
 
-                  <Image 
+                  <MemoizedImage 
                     src={whatsappIcon}
                     alt='icon'
                     width={isMobile ? 20 : 30}
@@ -166,7 +166,7 @@ const SingleBlogDetails = ({
                           className={styles.blog__Article}
                           key={blog.id}
                         >
-                          <Image
+                          <MemoizedImage
                             alt={blog.title}
                             src={sampleImage1}
                             className={styles.article__Img}

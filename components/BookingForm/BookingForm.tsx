@@ -5,7 +5,6 @@ import { IoCalendarNumberOutline, IoCloseOutline } from 'react-icons/io5';
 import Button from '../Button/Button';
 import { PlaceService } from '@/services/placeService';
 import Carousel from '../wrapperComponents/Carousel/Carousel';
-import Image from 'next/image';
 import TextInputComponent from '../inputs/TextInputComponent/TextInputComponent';
 import { BookingDetails, bookingDetailsDict, bookingUserOptions, formPageDetail, initialBookingDetails, requiredInfo } from './utils';
 import PageLoader from '../loaders/PageLoader/PageLoader';
@@ -25,6 +24,7 @@ import CustomDatePickerInput from './components/CustomDatePickerInput';
 import CustomDatePickerHeader from './components/CustomDatePickerHeader';
 import useMobile from '@/hooks/useMobile';
 import { cleanStringAndReturnLower } from '@/helpers/formatters';
+import MemoizedImage from '../MemoizedImage/MemoizedImage';
 
 const BookingForm = () => {
     const {
@@ -257,7 +257,7 @@ const BookingForm = () => {
                                         >
                                             {
                                                 React.Children.toArray(selectedPlace?.images_data.map(item => {
-                                                    return <Image 
+                                                    return <MemoizedImage 
                                                         src={item.image as string}
                                                         alt={selectedPlace?.name}
                                                         width={0}
@@ -268,6 +268,7 @@ const BookingForm = () => {
                                                             objectFit: 'cover',
                                                         }}
                                                         key={item.id}
+                                                        unoptimized
                                                     />
                                                 }))
                                             }
