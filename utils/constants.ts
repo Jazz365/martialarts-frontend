@@ -13,4 +13,8 @@ export class AppConstants {
             youtube: 'https://www.youtube.com/channel/UC6uU1pZ3QmwzRoKtYH_DiSw',
         }
     }
+
+    static get guruSupportMail () {
+        return 'team@martialarts.guru';
+    }
 }
