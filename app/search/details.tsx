@@ -1,7 +1,7 @@
 'use client';
 
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PlacesMap from '@/features/Search/sections/Map/Map'
 import SearchPlacesListing from '@/features/Search/sections/Places/Places'
 import styles from './styles.module.css'
@@ -13,13 +13,9 @@ const SearchPageDetails = () => {
     const {
         allPlaces,
         placesLoading,
+        showPopupForFilterPage,
+        setShowPopupForFilterPage,
     } = useSearchFilterContext();
-
-    const [ showPopup, setShowPopup ] = useState<boolean>(false);
-    
-    useEffect(() => {
-        setShowPopup(true);
-    }, [])
 
     return <>
         <section className={styles.content__Wrap}>
@@ -39,9 +35,9 @@ const SearchPageDetails = () => {
         </section>
 
         {
-            showPopup &&
+            showPopupForFilterPage &&
             <AppPopup 
-                hidePopup={() => setShowPopup(false)}
+                hidePopup={() => setShowPopupForFilterPage(false)}
             />
         }
     </>

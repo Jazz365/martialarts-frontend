@@ -12,17 +12,19 @@
     /* position: absolute; */
     object-fit: cover;
     width: 20%;
-    max-height: 20rem;
+    max-height: 18rem;
     position: relative;
 }
 
-.img__Content.i_main {
+.img__Content.i_main,
+.img__Content.i_1,
+.img__Content.i_4 {
     top: -4rem;
 }
 
 .img__Content.i_2,
 .img__Content.i_3 {
-    top: 4rem;
+    top: 3rem;
 }
 
 @media screen and (max-width: 767px) {
