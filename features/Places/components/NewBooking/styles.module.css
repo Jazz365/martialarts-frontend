@@ -35,7 +35,7 @@
 }
 
 .open__Day {
-    background-color: var(--open-day-highlight);
+    background-color: var(--open-day-highlight) !important;
     color: #fff;
 }
 
