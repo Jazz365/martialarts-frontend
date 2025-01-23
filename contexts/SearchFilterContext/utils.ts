@@ -44,4 +44,6 @@ export const initialSearchContextState: SearchContextType = {
     setPlacesLoaded: () => {},
     moreResultsLink: null,
     setMoreResultsLink: () => {},
+    showPopupForFilterPage: true, 
+    setShowPopupForFilterPage: () => {},
 }

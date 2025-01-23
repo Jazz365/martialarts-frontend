@@ -70,6 +70,8 @@ const PlaceListCard = memo(({
         images={place.images_data ? place.images_data.slice(0, 3) : []}
         placeName={place.name}
         isListView={isListView}
+        isMobile={isMobile}
+        showMap={showMap}
       />
       
       <section 

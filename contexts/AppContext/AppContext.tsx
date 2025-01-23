@@ -92,19 +92,6 @@ const AppContextProvider = ({
     }
     
     useLoadData(
-        userPlacesLoaded,
-        setUserPlacesLoading,
-        placeService.getUserPlaces.bind(placeService),
-        setUserPlaces,
-        setUserPlacesLoaded,
-        {
-            authorisationRequired: true,
-            hasDependency: true,
-            dependency: userDetails,
-        },
-    );
-
-    useLoadData(
         stylesLoaded,
         setStylesLoading,
         placeService.getAllStyles.bind(placeService),
@@ -113,11 +100,28 @@ const AppContextProvider = ({
     );
 
     useLoadData(
+        userPlacesLoaded,
+        setUserPlacesLoading,
+        placeService.getUserPlaces.bind(placeService),
+        setUserPlaces,
+        setUserPlacesLoaded,
+        {
+            authorisationRequired: true,
+            hasDependency: true,
+            dependency: userDetails && stylesLoaded === true,
+        },
+    );
+
+    useLoadData(
         catersToLoaded,
         setCatersToLoading,
         placeService.getAllCatersTo.bind(placeService),
         setCatersTo,
         setCatersToLoaded,
+        {
+            hasDependency: true,
+            dependency:  stylesLoaded === true
+        },
     );
 
     useLoadData(
@@ -126,6 +130,10 @@ const AppContextProvider = ({
         placeService.getAllAgeGroups.bind(placeService),
         setAgeGroups,
         setAgeGroupsLoaded,
+        {
+            hasDependency: true,
+            dependency:  stylesLoaded === true
+        },
     );
 
     useLoadData(
@@ -134,6 +142,10 @@ const AppContextProvider = ({
         placeService.getAllPlaceTypes.bind(placeService),
         setPlaceTypes,
         setPlaceTypesLoaded,
+        {
+            hasDependency: true,
+            dependency:  stylesLoaded === true
+        },
     );
 
     useLoadData(
@@ -148,7 +160,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: userDetails,
+            dependency: userDetails && stylesLoaded === true,
         }
     );
 
@@ -161,7 +173,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: userDetails && userDetails.is_owner === true,
+            dependency: userDetails && userDetails.is_owner === true && stylesLoaded === true,
         }
     );
 
@@ -171,6 +183,10 @@ const AppContextProvider = ({
         blogService.getAllBlogs.bind(blogService),
         setBlogs,
         setBlogsLoaded,
+        {
+            hasDependency: true,
+            dependency:  stylesLoaded === true
+        },
     );
 
     useLoadData(
@@ -179,6 +195,10 @@ const AppContextProvider = ({
         mapService.getMapDetail.bind(mapService),
         setMapKey,
         setMapKeyLoaded,
+        {
+            hasDependency: true,
+            dependency:  stylesLoaded === true
+        },
     );
 
     return <>

@@ -23,6 +23,9 @@ const SearchFilterContextProvider = ({
     const [ allPlaces, setAllPlaces ] = useState<IPlace[]>([]);
     const [ placesLoading, setPlacesLoading ] = useState(true);
     const [ placesLoaded, setPlacesLoaded ] = useState(false);
+
+    const [ showPopupForFilterPage, setShowPopupForFilterPage ] = useState(false);
+
     const [ moreResultsLink, setMoreResultsLink ] = useState<string | null | undefined>(null);
 
     const searchParams = useSearchParams();
@@ -43,6 +46,10 @@ const SearchFilterContextProvider = ({
 
         router.push(`?${newSearchParams.toString()}`);
     }
+    
+    useEffect(() => {
+        setShowPopupForFilterPage(true);
+    }, [])
     
     useEffect(() => {
         setActiveFilters((prevFilters) => {
@@ -117,6 +124,8 @@ const SearchFilterContextProvider = ({
                 setPlacesLoading,
                 moreResultsLink,
                 setMoreResultsLink,
+                showPopupForFilterPage,
+                setShowPopupForFilterPage,
             }}
         >
             {children}

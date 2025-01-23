@@ -20,4 +20,6 @@ type SearchContextType = {
     setPlacesLoaded: (val: boolean) => void;
     moreResultsLink: string | null | undefined;
     setMoreResultsLink: React.Dispatch<React.SetStateAction<string | null | undefined>>;
+    showPopupForFilterPage: boolean;
+    setShowPopupForFilterPage: (val: boolean) => void;
 }
