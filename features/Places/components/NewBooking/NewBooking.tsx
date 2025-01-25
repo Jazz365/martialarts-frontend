@@ -47,13 +47,16 @@ const NewBooking = ({
     const getDayName = (date: Date) => {
         const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
         return date.toLocaleString('en-US', options).toLowerCase(); // 'monday', 'tuesday', etc.
-      };
+    };
     
     const tileClassName = ({ date }: { date: Date }) => {
         const dayName = getDayName(date);
         const openDaysForPlace = place.place_activity_hours.flatMap(item => item.opening_time && item?.opening_time?.length > 0 && item.closing_time && item?.closing_time?.length > 0 ? [item.day.toLocaleLowerCase()] : []);
 
-        if (openDaysForPlace.includes(dayName)) {
+        const todayAtMid = new Date();
+        todayAtMid.setHours(0, 0, 0, 0);
+
+        if (openDaysForPlace.includes(dayName) && date > todayAtMid) {
             return styles.open__Day;
         }
 
