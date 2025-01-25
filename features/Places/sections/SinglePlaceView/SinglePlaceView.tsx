@@ -47,12 +47,15 @@ const SinglePlaceView = ({
     useEffect(() => {
         window.scrollTo(0, 0);
         
-        if (!id || loaded) return;
+        if (!id || loaded) return window.scrollTo(0, 0);
 
         setLoading(true);
 
         placeService.getSinglePlace(id).then(res => {
             setFoundPlace(res);
+            
+            window.scrollTo(0, 0);
+
             setLoaded(true);
             setLoading(false);
 

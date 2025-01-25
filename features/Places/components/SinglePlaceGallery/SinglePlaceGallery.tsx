@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import styles from './styles.module.css'
 import Carousel from "react-multi-carousel";
 import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 
-const SinglePlaceGallery = ({
+const SinglePlaceGallery = memo(({
   images=[],
   className,
   ssr=true,
@@ -87,7 +87,10 @@ const SinglePlaceGallery = ({
               priority={true}
               unoptimized={true}
               style={{
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                contain: 'unset',
+                contentVisibility: 'unset',
+                willChange: 'unset',
               }}
             />
           })
@@ -95,6 +98,6 @@ const SinglePlaceGallery = ({
       }
     </Carousel>
   </>
-}
+})
 
 export default SinglePlaceGallery

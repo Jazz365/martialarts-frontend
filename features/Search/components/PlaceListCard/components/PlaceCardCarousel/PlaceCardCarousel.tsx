@@ -1,12 +1,12 @@
-import React from 'react'
-import { default as ReactMultiCarousel } from "react-multi-carousel";
-import styles from "./styles.module.css"
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import React, { memo } from 'react'
+// import { default as ReactMultiCarousel } from "react-multi-carousel";
+// import styles from "./styles.module.css"
+// import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 import PlaceImageSlide from '../../PlaceImageSlide';
 import Carousel from '@/components/wrapperComponents/Carousel/Carousel';
 
 
-const PlaceCardCarousel = ({
+const PlaceCardCarousel = memo(({
     placeName,
     images=[],
     isListView,
@@ -54,15 +54,14 @@ const PlaceCardCarousel = ({
                         style={{
                             pointerEvents: 'none',
                             objectFit: 'cover',
-                            contain: 'unset'
+                            willChange: 'unset',
                         }}
                     />
                 }))
             }
         </Carousel>
     </>
-}
-
+});
 // const PlaceCardCarousel = ({
 //     placeName,
 //     images=[],
