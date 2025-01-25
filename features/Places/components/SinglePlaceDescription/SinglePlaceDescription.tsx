@@ -69,6 +69,7 @@ const SinglePlaceDescription = ({
                                             style={{
                                                 borderRadius: '50%',
                                                 objectFit: 'cover',
+                                                willChange: 'unset',
                                             }}
                                         />
 

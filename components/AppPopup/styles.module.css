@@ -29,6 +29,9 @@
 .illus {
     display: block;
     margin: 0 auto;
+    contain: unset;
+    content-visibility: unset;
+    will-change: unset;
 }
 
 .header {

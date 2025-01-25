@@ -52,6 +52,9 @@
     right: 2rem;
     top: 50%;
     transform: translateY(-50%);
+    contain: unset;
+    content-visibility: unset;
+    will-change: unset;
 }
 
 @media screen and (max-width: 767px) {
