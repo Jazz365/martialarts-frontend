@@ -15,9 +15,9 @@ const ProgressBar = ({
 
     useEffect(() => {
         function move() {
-            var width = 1;
-            var intervalPerRun = durationInMS / 100; 
-            var id = setInterval(frame, intervalPerRun ? intervalPerRun : 100);
+            let width = 1;
+            const intervalPerRun = durationInMS / 100; 
+            const id = setInterval(frame, intervalPerRun ? intervalPerRun : 100);
 
             function frame() {
                 if (width >= 100) {
