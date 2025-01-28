@@ -64,6 +64,16 @@
     .header {
         font-size: 1.2rem;
     }
+
+    .listing__Title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .header__Actions {
+        width: 100%;
+    }
 }
 
 @media (min-width: 767.98px) and (max-width: 1200px) {
