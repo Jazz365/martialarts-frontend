@@ -18,6 +18,12 @@ const TopStatsRow = () => {
     } = useUserContext();
 
     const totalReviews = userPlaces.flatMap(place => place.place_reviews ?? []);
+    const averageRating = Number(
+        Number(
+            totalReviews.reduce((a, b) => a + (b.rating ?? 0), 0) / 
+            totalReviews.length
+        ).toFixed(2)
+    );
 
     return <>
         <section className={styles.stats__Wrap}>
@@ -65,13 +71,8 @@ const TopStatsRow = () => {
                     <StatItem 
                         title={'average rating'}
                         count={
-                            totalReviews ?
-                                Number(
-                                    Number(
-                                        totalReviews.reduce((a, b) => a + (b.rating ?? 0), 0) / 
-                                        totalReviews.length
-                                    ).toFixed(2)
-                                )
+                            !isNaN(averageRating) ?
+                                averageRating   
                             :
                             0
                         }

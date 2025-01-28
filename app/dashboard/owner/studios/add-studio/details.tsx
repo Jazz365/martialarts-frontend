@@ -28,6 +28,7 @@ import { getAllDaysOfTheWeek } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
+import ProgressBar from '@/components/ProgressBar/ProgressBar';
 
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
@@ -39,6 +40,7 @@ const AddPlaceDetails = () => {
     const [ showStyleAddModal, setShowStyleAddModal ] = useState<boolean>(false);
     const [ loading, setLoading ] = useState(false);
     const [ isEditView, setIsEditView ] = useState(false);
+    const [ estimatedUploadTimeInMS, setEstimatedUploadTimeInMS ] = useState(6000);
 
     const [
         basicInfoRef,
@@ -255,6 +257,28 @@ const AddPlaceDetails = () => {
             scrollToSectionAndAddErrHighlight(basicInfoRef);
             return toast.info('Please write at least 5 benefits of your place');
         }
+        
+        const uploadSpeedPerKB = 650;
+        const totalFilesAdded: File[] = [
+            ...details.images.flatMap(item => 
+                item.imageFile || item.image instanceof File 
+                    ? [item.imageFile ?? item.image as File] 
+                    : []
+            ),
+            ...details.master_images.flatMap(item => 
+                item.imageFile || item.image instanceof File 
+                    ? [item.imageFile ?? item.image as File] 
+                    : []
+            ),
+            ...details.documents.flatMap(item => 
+                item.file && item.file instanceof File 
+                    ? [item.file] 
+                    : []
+            ),
+        ];
+
+        const estimatedUploadTimeInMS = totalFilesAdded.reduce((a, b) => a + b.size, 0) / (uploadSpeedPerKB * 1024) * 1000;
+        setEstimatedUploadTimeInMS(estimatedUploadTimeInMS <= 0 ? 3000 : estimatedUploadTimeInMS);
         
         const formData = generateFormDataForNewPlaceDetails(details, isEditView);
         // console.log(formData);
@@ -680,26 +704,27 @@ const AddPlaceDetails = () => {
             />
         </AddItemWrapper>
 
-        <Button 
-            label={
-                loading ? 
+        {
+            loading ?
+                <ProgressBar 
+                    durationInMS={estimatedUploadTimeInMS}
+                />
+            :
+            <Button 
+                label={
                     isEditView ?
-                        'updating...'
+                        'update'
                     :
-                    'creating...'
-                :
-                isEditView ?
-                    'update'
-                :
-                'submit'
-            }
-            style={{
-                width: 'max-content',
-                backgroundColor: 'var(--primary-app-color)',
-            }}
-            handleClick={handleSaveNewPlace}
-            disabled={loading}
-        />
+                    'submit'
+                }
+                style={{
+                    width: 'max-content',
+                    backgroundColor: 'var(--primary-app-color)',
+                }}
+                handleClick={handleSaveNewPlace}
+                disabled={loading}
+            />
+        }
 
         {
             showStyleAddModal && <>
