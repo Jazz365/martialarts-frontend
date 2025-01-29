@@ -98,7 +98,7 @@ const FeaturedStudios = () => {
                 </section>
             </FadeInOnScroll>
 
-            <p style={{ fontSize: '0.75rem', marginTop: '1rem' }}>This part is under construction</p>
+            {/* <p style={{ fontSize: '0.75rem', marginTop: '1rem' }}>This part is under construction</p> */}
         </section>
     </>
 }

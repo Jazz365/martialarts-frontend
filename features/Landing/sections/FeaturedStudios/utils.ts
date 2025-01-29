@@ -1,8 +1,8 @@
 import { StaticImageData } from 'next/image';
-import image1 from '../../../../assets/places/sample-1.webp';
-import image2 from '../../../../assets/places/sample-2.webp';
-import image3 from '../../../../assets/places/sample-3.webp';
-import image4 from '../../../../assets/places/sample-4.webp';
+import image1 from '../../../../assets/places/1.webp';
+import image2 from '../../../../assets/places/2.webp';
+import image3 from '../../../../assets/places/3.webp';
+import image4 from '../../../../assets/places/4.webp';
 
 export const dummyFeaturedPlaces:{
     id: number;
