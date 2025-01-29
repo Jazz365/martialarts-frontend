@@ -38,6 +38,20 @@ const MemoizedImage = memo(({
         unoptimized={unoptimized}
         onClick={onClick}
     />
+
+    // return <img 
+    //     className={className}
+    //     src={src}
+    //     alt={alt}
+    //     width={width}
+    //     height={height}
+    //     loading={priority ? 'eager' : 'lazy'}
+    //     // priority={priority}
+    //     // quality={quality}
+    //     style={style}
+    //     // unoptimized={unoptimized}
+    //     onClick={onClick}
+    // />
 })
 
 MemoizedImage.displayName = 'MemoizedImage';
