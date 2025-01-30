@@ -7,6 +7,7 @@ import SearchPlacesListing from '@/features/Search/sections/Places/Places'
 import styles from './styles.module.css'
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
 import AppPopup from '@/components/AppPopup/AppPopup';
+import useScrollToTop from '@/hooks/useScrollToTop';
 // import { testMapCoordinates } from '@/features/Search/sections/Map/utils';
 
 const SearchPageDetails = () => {
@@ -16,6 +17,8 @@ const SearchPageDetails = () => {
         showPopupForFilterPage,
         setShowPopupForFilterPage,
     } = useSearchFilterContext();
+
+    useScrollToTop();
 
     return <>
         <section className={styles.content__Wrap}>
