@@ -15,7 +15,6 @@ import { toast } from 'sonner';
 import SingleResultViewOption from '../../components/ResultsViewOption/SingleResultViewOption';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { makeGetRequest } from '@/services/functions';
-import useScrollToTop from '@/hooks/useScrollToTop';
 
 
 const SearchPlacesListing = () => {
@@ -36,8 +35,6 @@ const SearchPlacesListing = () => {
   const isMobile = useMobile();
   const [ searchVal, setSearchVal ] = useState<string>('');
   const [ moreResultsLoading, setMoreResultsLoading ] = useState(false);
-
-  useScrollToTop();
 
   const handleLoadMore = async () => {
     if (!moreResultsLink || moreResultsLoading) return;
