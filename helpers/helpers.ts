@@ -45,10 +45,13 @@ export const convertFileObjectToBinaryStr = (fileObj: File): Promise<string | Ar
 }
 
 export const formatTimeString = (timeStr: string) => {
-    const date = new Date(`1970-01-01T${timeStr}Z`);
-    const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
-
-    return date.toLocaleString('en-US', options);
+    const [hours, minutes, seconds] = timeStr.split(':').map(Number);
+  
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const hour12 = hours % 12 || 12;  // Convert 0 to 12 for midnight
+    const minutesFormatted = minutes.toString().padStart(2, '0');
+  
+    return `${hour12}:${minutesFormatted}${period}`;
 }
 
 export const formatDate = (date: Date): string => {
