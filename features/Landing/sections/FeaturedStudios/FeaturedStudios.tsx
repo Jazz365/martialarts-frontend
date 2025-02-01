@@ -9,7 +9,7 @@ import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeIn
 import useMobile from '@/hooks/useMobile';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 // import Link from 'next/link';
-import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
+// import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 import Button from '@/components/Button/Button';
 import useClickOutside from '@/hooks/useClickOutside';
 
@@ -26,8 +26,12 @@ const FeaturedStudios = () => {
 
     const featuredStyles = useMemo<IMartialArtStyle[]>(() => {
         if (!allStyles || !Array.isArray(allStyles)) return [];
+
+        const featuredStyles = allStyles.filter(style => style.is_featured == true);
         
-        return allStyles.filter(style => style.is_featured == true);
+        setCurrentSelectedStyle(featuredStyles[0]?.id ?? null);
+
+        return featuredStyles;
     }, [allStyles])
 
     useClickOutside({

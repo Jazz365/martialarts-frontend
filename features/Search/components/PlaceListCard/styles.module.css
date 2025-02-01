@@ -136,11 +136,22 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 
+    position: relative;
+    padding-left: 0.875rem;
+}
+
+.list__Card.col .benefits li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: black;
 }
 
 .price {
-    text-align: right;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
 .price__Intro {
@@ -160,9 +171,6 @@
 
 .list__Card.col .actions__Wrap .price {
     font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
 }
 
 .offerings_row {

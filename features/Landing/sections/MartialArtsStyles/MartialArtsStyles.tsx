@@ -39,7 +39,7 @@ const MartialArtsStyles = () => {
     return <>
         <section className={styles.content__Wrap}>
             <FadeInOnScroll>
-                <h2 className={styles.header}>Find your ideal martial art style</h2>
+                <h2 className={styles.header}>What martial arts do you want to learn?</h2>
             </FadeInOnScroll>
             
             <section className={styles.styles__Wrap}>

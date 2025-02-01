@@ -192,7 +192,7 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
             const currentValue = value as string[];
             const updatedValue = currentValue.map(item => item.trim());
             return {
-                [key]: updatedValue.join(','),
+                [key]: updatedValue.join('\n'),
             }
         }
 

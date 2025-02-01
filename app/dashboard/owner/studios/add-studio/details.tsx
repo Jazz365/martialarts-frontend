@@ -119,7 +119,7 @@ const AddPlaceDetails = () => {
 
             setDetails({
                 ...res,
-                benefits: res?.benefits?.split(','),
+                benefits: res?.benefits?.split('\n'),
                 styles: res?.place_styles?.map((item: IMartialArtStyle) => item.id),
                 locations: res?.place_locations,
                 master_images: res?.master_images_data,
