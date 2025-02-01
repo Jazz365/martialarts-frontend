@@ -105,7 +105,7 @@ const SinglePlaceView = ({
                 <Divider />
 
                 <SinglePlaceBenefits 
-                    benefits={foundPlace.benefits?.split(',')}
+                    benefits={foundPlace.benefits?.split('\n')}
                 />
 
                 <Divider />

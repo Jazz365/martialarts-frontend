@@ -19,16 +19,16 @@ export const subscriptionPlans: SubscriptionPlan[] = [
             'Full flexibility to manage your account at any time',
         ]
     },
-    {
-        id: 2,
-        title: 'per student',
-        pricing: 25,
-        paymentInterval: 'booking',
-        benefits: [
-            'One-time fee per student upon attendance.',
-            'Credit Card details are required for enrollment.',
-            'Unlimited listings and access to all features.',
-            'Full flexibility to manage your account at any time.',
-        ]
-    }
+    // {
+    //     id: 2,
+    //     title: 'per student',
+    //     pricing: 25,
+    //     paymentInterval: 'booking',
+    //     benefits: [
+    //         'One-time fee per student upon attendance.',
+    //         'Credit Card details are required for enrollment.',
+    //         'Unlimited listings and access to all features.',
+    //         'Full flexibility to manage your account at any time.',
+    //     ]
+    // }
 ]
