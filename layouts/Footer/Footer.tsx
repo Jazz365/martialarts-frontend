@@ -1,7 +1,7 @@
 'use client';
 
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import facebookIcon from '../../assets/icons/facebook.webp'
@@ -13,14 +13,28 @@ import { AppConstants } from '@/utils/constants';
 import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
 import Loader from '@/components/loaders/Loader/Loader';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
+import PdfViewer from '@/components/PdfViewer/PdfViewer';
+import Button from '@/components/Button/Button';
 
 const Footer = () => {
     const { allStyles, stylesLoading } = useAppContext();
+    const [ showPdfViewer, setShowPdfViewer ] = useState(false);
+    const [ pdfToShow, setPdfToShow ] = useState<string | null>(null);
 
     const popularStyles = useMemo(() => {
         if (!allStyles || !Array.isArray(allStyles)) return [];
         return allStyles.filter(style => style.is_popular === true);
     }, [allStyles]);
+
+    const handleShowPDF = (pdf: string) => {
+        setPdfToShow(pdf);
+        setShowPdfViewer(true);
+    }
+
+    const handleClosePDFViewer = () => {
+        setShowPdfViewer(false);
+        setPdfToShow(null);
+    }
 
     return <>
         <footer className={styles.footer}>
@@ -149,24 +163,38 @@ const Footer = () => {
                 </div>
                 
                 <div className={styles.copyright__Content}>
-                    <Link 
-                        href={'/terms-of-use.pdf'}
-                        target='_blank'
-                        rel='noreferrer noopener'
-                    >
-                        Terms of use
-                    </Link>
+                    <Button 
+                        label='Terms of use'
+                        handleClick={() => handleShowPDF('/terms-of-use.pdf')}
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: 'inherit',
+                            fontSize: '0.7rem',
+                            padding: 0,
+                        }}
+                    />
 
-                    <Link 
-                        href={'/privacy-policy.pdf'}
-                        target='_blank'
-                        rel='noreferrer noopener'
-                    >
-                        Privacy Policy
-                    </Link>
+                    <Button 
+                        label='Privacy Policy'
+                        handleClick={() => handleShowPDF('/privacy-policy.pdf')}
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: 'inherit',
+                            fontSize: '0.7rem',
+                            padding: 0,
+                        }}
+                    />
                 </div>
             </section>
         </footer>
+
+        {
+            showPdfViewer &&
+            <PdfViewer 
+                linkToPdfFile={pdfToShow}
+                handleCloseViewer={handleClosePDFViewer}
+            />
+        }
     </>
 }
 

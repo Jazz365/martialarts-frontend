@@ -41,9 +41,6 @@ const PlaceCardCarousel = memo(({
                         width={0}
                         height={
                             isListView && !isMobile ?
-                              showMap ?
-                                370
-                              :
                               400
                             :
                             imageHeight ??
