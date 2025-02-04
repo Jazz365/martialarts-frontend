@@ -8,6 +8,7 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import styles from './styles.module.css';
 import { AiOutlineClose } from 'react-icons/ai';
 import useClickOutside from '@/hooks/useClickOutside';
+import PageLoader from '../loaders/PageLoader/PageLoader';
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -26,11 +27,13 @@ const PdfViewer = ({
     handleCloseViewer: () => void;
 }) => {
     const [numPages, setNumPages] = useState<number>();
+    const [loading, setLoading] = useState(true);
 
     const contentRef = useRef<HTMLDivElement>(null);
 
     function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
         setNumPages(numPages);
+        setLoading(false);
     }
 
     useClickOutside({
@@ -51,8 +54,12 @@ const PdfViewer = ({
                 <Document 
                     file={linkToPdfFile} 
                     onLoadSuccess={onDocumentLoadSuccess}
+                    loading={loading}
                 >
                     {
+                        loading ? 
+                            <PageLoader /> 
+                        :
                         Array.from(new Array(numPages), (_el, index) => (
                             <Page
                                 key={`page_${index + 1}`}
