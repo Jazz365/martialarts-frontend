@@ -17,6 +17,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { userTypes } from '../UserTypeSelect/utils';
 import { AppConstants } from '@/utils/constants';
 import { useUserContext } from '@/contexts/UserContext';
+import PdfViewer from '@/components/PdfViewer/PdfViewer';
 
 
 const AuthForm = ({
@@ -30,6 +31,8 @@ const AuthForm = ({
     const [ details, setDetails ] = useState<AuthDetails>({});
 
     const { setIsLoggedIn, setUserDetails } = useUserContext();
+    const [ showPdfViewer, setShowPdfViewer ] = useState(false);
+    const [ pdfToShow, setPdfToShow ] = useState<string | null>(null);
 
     const params = useSearchParams();
     const router = useRouter();
@@ -44,6 +47,16 @@ const AuthForm = ({
                 [key]: value
             }
         })
+    }
+
+    const handleShowPDF = (pdf: string) => {
+        setPdfToShow(pdf);
+        setShowPdfViewer(true);
+    }
+
+    const handleClosePDFViewer = () => {
+        setShowPdfViewer(false);
+        setPdfToShow(null);
     }
 
     useEffect(() => {
@@ -322,10 +335,11 @@ const AuthForm = ({
                             fontSize: '0.65rem',
                             color: 'var(--primary-app-color)',
                         }}
-                        useLink
-                        linkLocation='/terms-of-use.pdf'
-                        rel='noreferrer noopener'
-                        target='_blank'
+                        handleClick={() => handleShowPDF('/terms-of-use.pdf')}
+                        // useLink
+                        // linkLocation='/terms-of-use.pdf'
+                        // rel='noreferrer noopener'
+                        // target='_blank'
                     />
                     
                     <span>Read our</span>
@@ -338,14 +352,24 @@ const AuthForm = ({
                             fontSize: '0.65rem',
                             color: 'var(--primary-app-color)',
                         }}
-                        useLink
-                        linkLocation='/privacy-policy.pdf'
-                        rel='noreferrer noopener'
-                        target='_blank'
+                        handleClick={() => handleShowPDF('/privacy-policy.pdf')}
+                        // useLink
+                        // linkLocation='/privacy-policy.pdf'
+                        // rel='noreferrer noopener'
+                        // target='_blank'
                     />
                 </p>
             }
         </section>
+
+        
+        {
+            showPdfViewer &&
+            <PdfViewer
+                linkToPdfFile={pdfToShow}
+                handleCloseViewer={handleClosePDFViewer}
+            />
+        }
     </>
 }
 
