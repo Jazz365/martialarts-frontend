@@ -87,7 +87,7 @@ const TermsPopup = ({
                 <h3>5. Booking and Registration Process</h3>
                 <ul>
                   <li><strong>Student Registration:</strong> After students register for a class, they will receive a booking
-                    confirmation. However, the class owner must confirm the student's registration.</li>
+                    confirmation. However, the class owner must confirm the student&apos;s registration.</li>
                   <li><strong>Owner Responsibility:</strong> Owners are responsible for verifying bookings and managing
                     class schedules. Owners may contact students directly for any necessary
                     communication regarding their registration.</li>
