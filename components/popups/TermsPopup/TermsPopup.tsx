@@ -4,7 +4,7 @@ import Button from '@/components/buttons/Button/Button';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const TermsPopup = ({
-  buttonStyle={
+  buttonStyle = {
     backgroundColor: 'transparent',
     color: 'inherit',
     fontSize: '0.7rem',
@@ -18,7 +18,7 @@ const TermsPopup = ({
   return (
     <>
       <Button
-        label='Terms of use'
+        label='Terms of Use'
         handleClick={() => setOpen(true)}
         style={buttonStyle}
       />
@@ -39,62 +39,63 @@ const TermsPopup = ({
               <section>
                 <h3>1. Introduction</h3>
                 <p>
-                  Welcome to [Your Platform Name], a marketplace that connects martial arts studio owners and potential students.
+                  Welcome to martialarts.guru, a marketplace that connects martial arts studio owners and potential students.
                   By accessing or using the platform, you agree to comply with and be bound by these Terms of Use.
+                  If you do not agree with these terms, you may not use the platform.
                 </p>
               </section>
 
               <section>
                 <h3>2. Subscription and Cancellation</h3>
                 <ul>
-                  <li><strong>Monthly Subscription Fee:</strong> $29 per month.</li>
-                  <li><strong>No Refund Policy:</strong> Payments are non-refundable.</li>
-                  <li><strong>Cancellation:</strong> Takes effect at the end of the billing cycle.</li>
+                  <li><strong>Monthly Subscription Fee:</strong> Studio owners must pay $29 per month to list and manage their classes.</li>
+                  <li><strong>No Refund Policy:</strong> All payments are non-refundable.</li>
+                  <li><strong>Cancellation:</strong> Owners can cancel anytime, effective at the end of the billing cycle.</li>
                 </ul>
               </section>
 
               <section>
                 <h3>3. Account Registration</h3>
                 <ul>
-                  <li><strong>Owner Accounts:</strong> Studio owners must create an account.</li>
-                  <li><strong>Student Accounts:</strong> Students can register for classes.</li>
+                  <li><strong>Owner Accounts:</strong> Owners must register to list classes and manage profiles.</li>
+                  <li><strong>Student Accounts:</strong> Students can create accounts to register for classes.</li>
                 </ul>
               </section>
 
               <section>
                 <h3>4. Platform Limitations</h3>
                 <ul>
-                  <li><strong>Platform as a Tool:</strong> The platform serves as a directory and booking system.</li>
-                  <li><strong>No Responsibility:</strong> We are not responsible for class quality.</li>
+                  <li><strong>Platform as a Tool:</strong> The platform is a directory and booking system.</li>
+                  <li><strong>No Responsibility:</strong> We do not facilitate communication or guarantee class quality.</li>
                 </ul>
               </section>
 
               <section>
                 <h3>5. Booking and Registration</h3>
                 <ul>
-                  <li><strong>Student Registration:</strong> Booking confirmation is pending owner approval.</li>
-                  <li><strong>Owner Responsibility:</strong> Owners manage class schedules.</li>
+                  <li><strong>Student Registration:</strong> Bookings require owner confirmation.</li>
+                  <li><strong>Owner Responsibility:</strong> Owners manage schedules and bookings.</li>
                 </ul>
               </section>
 
               <section>
                 <h3>6. Disputes and Issues</h3>
-                <p>We are not responsible for disputes between owners and students.</p>
+                <p>We do not mediate disputes between owners and students.</p>
               </section>
 
               <section>
                 <h3>7. Termination and Cancellation</h3>
                 <ul>
                   <li><strong>Owner Termination:</strong> Owners may cancel anytime.</li>
-                  <li><strong>Platform Termination:</strong> We may terminate accounts for violations.</li>
+                  <li><strong>Platform Termination:</strong> Accounts violating terms may be terminated.</li>
                 </ul>
               </section>
 
               <section>
                 <h3>8. Limitation of Liability</h3>
                 <ul>
-                  <li><strong>Platform Limitations:</strong> We are not liable for damages.</li>
-                  <li><strong>Data Privacy:</strong> Owners are responsible for compliance.</li>
+                  <li><strong>Platform Limitations:</strong> We are not liable for any damages.</li>
+                  <li><strong>Data Privacy:</strong> Owners are responsible for compliance with regulations.</li>
                 </ul>
               </section>
 
@@ -106,11 +107,9 @@ const TermsPopup = ({
 
             <div className={styles.termsFooter}>
               <Button 
-                label='close'
+                label='Close'
                 handleClick={() => setOpen(false)}
-                style={{
-                  marginLeft: 'auto'
-                }}
+                style={{ marginLeft: 'auto' }}
               />
             </div>
           </div>

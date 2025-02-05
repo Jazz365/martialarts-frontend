@@ -38,54 +38,64 @@ const PrivacyPopup = ({
             <div className={styles.privacyContent}>
               <section>
                 <h3>1. Introduction</h3>
-                <p>At [Your Platform Name], we value your privacy and are committed to protecting your personal information.</p>
+                <p>At martialarts.guru, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and protect your data when you use our platform.</p>
               </section>
 
               <section>
                 <h3>2. Data We Collect</h3>
                 <ul>
-                  <li><strong>Owner Data:</strong> Business name, contact details, and payment information.</li>
-                  <li><strong>Student Data:</strong> Contact information and booking details.</li>
+                  <li><strong>Owner Data:</strong> When you create an owner account, we collect your business name, contact details (email, phone number), payment details for subscriptions, and other information necessary to manage your listings.</li>
+                  <li><strong>Student Data:</strong> When you register as a student, we collect your contact information (name, email address) and booking details.</li>
                 </ul>
               </section>
 
               <section>
                 <h3>3. How We Use Your Data</h3>
                 <ul>
-                  <li>To manage your account and subscription</li>
-                  <li>To process payments</li>
-                  <li>To facilitate class registrations</li>
-                  <li>To communicate platform updates</li>
+                  <li>To manage your account and subscription,</li>
+                  <li>To process payments,</li>
+                  <li>To facilitate class registrations,</li>
+                  <li>To communicate with you about platform updates and your account activity.</li>
                 </ul>
               </section>
 
               <section>
-                <h3>4. Data Security</h3>
-                <p>We use encryption and secure servers to protect your data, but no method is 100% secure.</p>
+                <h3>4. Data Collection by Owners</h3>
+                <p>While we collect basic personal information for account and subscription management, the owners of martial arts studios listed on our platform are responsible for collecting and managing additional personal data, such as health declarations, from students. Owners are responsible for complying with all applicable laws and regulations regarding the collection and storage of sensitive data.</p>
               </section>
 
               <section>
-                <h3>5. Data Retention</h3>
-                <p>We retain data as necessary or as required by law. You can request deletion at [your contact email].</p>
+                <h3>5. Data Security</h3>
+                <p>We take reasonable measures to secure the personal data we collect, including using encryption and secure servers. However, no data transmission over the internet or method of electronic storage can be guaranteed 100% secure. We cannot guarantee absolute security of your data.</p>
               </section>
 
               <section>
-                <h3>6. Data Sharing</h3>
-                <p>We don’t sell data but may share it with trusted providers who comply with security standards.</p>
+                <h3>6. Data Retention</h3>
+                <p>We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy or as required by law. If you wish to delete your account or request that your data be removed, please contact us at team@martialarts.guru.</p>
               </section>
 
               <section>
-                <h3>7. Owner Responsibilities</h3>
+                <h3>7. Sharing of Data</h3>
+                <p>We do not sell, rent, or lease your personal information to third parties. However, we may share your information with trusted third parties that help us operate the platform (e.g., payment processors like PayPal). These third parties are required to protect your data and use it only for the services they provide.</p>
+              </section>
+
+              <section>
+                <h3>8. Data Deletion and Management</h3>
+                <p>You can request to delete your account and personal information at any time by contacting us at team@martialarts.guru. Please note that certain data may be retained for accounting and legal purposes.</p>
+              </section>
+
+              <section>
+                <h3>9. Owner Responsibilities</h3>
                 <ul>
-                  <li>Comply with data privacy laws (e.g., HIPAA)</li>
-                  <li>Protect student data security</li>
-                  <li>Provide privacy policies for collected data</li>
+                  <li>Ensuring compliance with all applicable data privacy laws, such as HIPAA (for health-related data), or any other relevant regulations.</li>
+                  <li>Protecting the privacy and security of the personal data you collect from students.</li>
+                  <li>Providing your own privacy policy to students regarding their data.</li>
                 </ul>
               </section>
 
               <section>
-                <h3>8. Changes to Policy</h3>
-                <p>Policy updates will be posted here and communicated via email or notifications.</p>
+                <h3>10. Changes to This Privacy Policy</h3>
+                <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page, and we will notify you of significant updates via email or through the platform. Your continued use of the platform after any changes constitutes your acceptance of the updated Privacy Policy.</p>
               </section>
             </div>
 
