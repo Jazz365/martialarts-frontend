@@ -2,7 +2,7 @@
 
 import React from 'react'
 import styles from './styles.module.css'
-import BackButton from '@/components/BackButton/BackButton';
+import BackButton from '@/components/buttons/BackButton/BackButton';
 import SingleBookingDetailContent from './details';
 
 

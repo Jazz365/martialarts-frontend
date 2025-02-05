@@ -40,7 +40,10 @@ const PlaceCardCarousel = memo(({
                         key={image.id}
                         width={0}
                         height={
-                            isListView && !isMobile ?
+                            isListView && !isMobile ? 
+                                showMap ?
+                                    380
+                                :
                               400
                             :
                             imageHeight ??
@@ -52,6 +55,8 @@ const PlaceCardCarousel = memo(({
                             pointerEvents: 'none',
                             objectFit: 'cover',
                             willChange: 'unset',
+                            contain: 'unset',
+                            contentVisibility: 'unset',
                         }}
                     />
                 }))

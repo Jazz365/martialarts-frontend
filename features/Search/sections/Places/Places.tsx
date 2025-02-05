@@ -1,7 +1,7 @@
 'use client';
 
 
-import Button from '@/components/Button/Button'
+import Button from '@/components/buttons/Button/Button'
 import React, { useState } from 'react'
 import { IoStarOutline } from 'react-icons/io5'
 import styles from './styles.module.css'

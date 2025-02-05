@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
 import styles from './styles.module.css'
-import RequiredIndicator from '../../RequiredIndicator/RequiredIndicator';
+import RequiredIndicator from '../../common/RequiredIndicator/RequiredIndicator';
 
 
 const TextInputComponent = ({

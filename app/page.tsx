@@ -9,7 +9,7 @@ import Banner from "@/features/Landing/sections/Banner/Banner";
 import Blog from "@/features/Landing/sections/Blog/Blog";
 import Footer from "@/layouts/Footer/Footer";
 import IncludedGenders from "@/features/Landing/sections/IncludedGenders/IncludedGenders";
-import MaintenanceScreen from "@/components/MaintenanceScreen/MaintenanceScreen";
+import MaintenanceScreen from "@/components/common/MaintenanceScreen/MaintenanceScreen";
 import { tempLandingAccessVal } from "@/utils/utils";
 
 export default async function Home(props: { searchParams: PageSearchParams }) {

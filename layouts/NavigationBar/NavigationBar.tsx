@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import NavigationBarContent from './details'
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage'
 
 
 const NavigationBar = ({

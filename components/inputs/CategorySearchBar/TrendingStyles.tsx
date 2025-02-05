@@ -1,9 +1,9 @@
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import React, { memo, useMemo } from 'react'
-import AlternatingDotsLoader from '../loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 import styles from './styles.module.css'
 import Link from 'next/link';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
+import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 
 
 const TrendingStyles = memo(({

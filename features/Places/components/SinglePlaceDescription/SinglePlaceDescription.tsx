@@ -4,10 +4,10 @@
 import React, { useState } from 'react'
 import styles from './styles.module.css'
 import useMobile from '@/hooks/useMobile';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import { getYoutubeEmbedVideoLink } from '@/helpers/helpers';
 import MasterPopup from '../MasterPopup/MasterPopup';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
 const maxDescriptionCap = 800;
@@ -70,6 +70,8 @@ const SinglePlaceDescription = ({
                                                 borderRadius: '50%',
                                                 objectFit: 'cover',
                                                 willChange: 'unset',
+                                                contentVisibility: 'unset',
+                                                contain: 'unset',
                                             }}
                                         />
 

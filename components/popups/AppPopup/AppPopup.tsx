@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import { IoClose } from 'react-icons/io5'
-import astronaut from '../../assets/astr.webp'
+import astronaut from '../../../assets/astr.webp'
 import Image from 'next/image'
 
 

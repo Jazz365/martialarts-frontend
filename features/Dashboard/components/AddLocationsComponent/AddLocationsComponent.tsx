@@ -1,10 +1,10 @@
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import React from 'react'
 import styles from './styles.module.css'
 import { IoAddOutline } from 'react-icons/io5';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
-import RequiredIndicator from '@/components/RequiredIndicator/RequiredIndicator';
+import RequiredIndicator from '@/components/common/RequiredIndicator/RequiredIndicator';
 import AddLocationItem from './AddLocationItem';
 
 const AddLocationsComponent = ({

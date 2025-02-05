@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import { Metadata } from 'next';
 import AllPlacesDetails from './details';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import { IoAddOutline } from 'react-icons/io5';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 

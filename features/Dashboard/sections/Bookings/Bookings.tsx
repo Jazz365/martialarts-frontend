@@ -3,7 +3,7 @@
 
 import React from 'react'
 import styles from './styles.module.css'
-import Button from '@/components/Button/Button'
+import Button from '@/components/buttons/Button/Button'
 import { useUserContext } from '@/contexts/UserContext'
 import BookingSummaryItem from '../../components/BookingSummaryItem/BookingSummaryItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';

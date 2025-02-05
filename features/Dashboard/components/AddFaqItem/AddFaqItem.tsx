@@ -1,4 +1,4 @@
-import Button from '@/components/Button/Button'
+import Button from '@/components/buttons/Button/Button'
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent'
 import React, { useState } from 'react'
 import styles from './styles.module.css'

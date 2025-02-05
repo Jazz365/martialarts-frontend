@@ -1,4 +1,4 @@
-import Button from '@/components/Button/Button'
+import Button from '@/components/buttons/Button/Button'
 import React from 'react'
 import { userTypes, userTypesDict } from './utils';
 import styles from './styles.module.css';

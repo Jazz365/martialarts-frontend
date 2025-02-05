@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { IoLocationOutline } from 'react-icons/io5';
 import { useUserContext } from '@/contexts/UserContext';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import useMobile from '@/hooks/useMobile';
 
 const maxGridTitleLength = 14;

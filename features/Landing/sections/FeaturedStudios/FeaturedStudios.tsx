@@ -10,7 +10,7 @@ import useMobile from '@/hooks/useMobile';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 // import Link from 'next/link';
 // import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import useClickOutside from '@/hooks/useClickOutside';
 
 
@@ -23,6 +23,7 @@ const FeaturedStudios = () => {
     const isMobile = useMobile();
 
     const stylesRef = useRef<HTMLDivElement>(null);
+    const currentPlacesRef = useRef<HTMLDivElement>(null);
 
     const featuredStyles = useMemo<IMartialArtStyle[]>(() => {
         if (!allStyles || !Array.isArray(allStyles)) return [];
@@ -36,6 +37,7 @@ const FeaturedStudios = () => {
 
     useClickOutside({
         elemRef: stylesRef,
+        alternateElementRef: currentPlacesRef,
         handleClickOutside: () => setCurrentSelectedStyle(null),
     });
     
@@ -75,7 +77,7 @@ const FeaturedStudios = () => {
             </FadeInOnScroll>
             
             <FadeInOnScroll viewThreshold={isMobile ? 0.15 : 0.55}>
-                <section className={styles.items__Wrap}>
+                <section className={styles.items__Wrap} ref={currentPlacesRef}>
                     {
                         React.Children.toArray(
                             dummyFeaturedPlaces

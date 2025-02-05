@@ -4,7 +4,7 @@
 import { useUserContext } from '@/contexts/UserContext'
 import React from 'react'
 import styles from './styles.module.css'
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import { IoAddOutline, IoSearchOutline } from 'react-icons/io5';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';

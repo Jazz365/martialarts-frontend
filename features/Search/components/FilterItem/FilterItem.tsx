@@ -4,10 +4,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { IoChevronDown } from 'react-icons/io5';
 import styles from './styles.module.css';
-import Button from '../../../../components/Button/Button';
+import Button from '../../../../components/buttons/Button/Button';
 import useClickOutside from '@/hooks/useClickOutside';
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
-import SearchBar from '@/components/SearchBar/SearchBar';
+import SearchBar from '@/components/inputs/SearchBar/SearchBar';
 import { cleanStringAndReturnLower } from '@/helpers/formatters';
 
 

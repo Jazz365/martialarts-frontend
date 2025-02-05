@@ -1,6 +1,6 @@
 'use client';
 
-import PaginationItem from '@/components/PaginationItem/PaginationItem';
+import PaginationItem from '@/components/common/PaginationItem/PaginationItem';
 import React from 'react'
 import styles from './styles.module.css'
 import PlaceListCard from '@/features/Search/components/PlaceListCard/PlaceListCard';

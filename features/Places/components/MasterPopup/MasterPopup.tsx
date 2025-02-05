@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoClose } from 'react-icons/io5';
 import styles from './styles.module.css'
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
 const MasterPopup = ({

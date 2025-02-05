@@ -1,6 +1,6 @@
 'use client';
 
-import SelectItem from '@/components/SelectItem/SelectItem';
+import SelectItem from '@/components/inputs/SelectItem/SelectItem';
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent'
 import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddItemWrapper'
 import React, { useEffect, useRef, useState } from 'react'
@@ -11,10 +11,10 @@ import AddLocationsComponent from '@/features/Dashboard/components/AddLocationsC
 import MastersAddComponent from '@/features/Dashboard/components/MastersAddComponent/MastersAddComponent';
 import ActivityHoursEdit from '@/features/Dashboard/components/ActivityHoursEdit/ActivityHoursEdit';
 import AddFaqItem from '@/features/Dashboard/components/AddFaqItem/AddFaqItem';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import GalleryEditItem from '@/features/Dashboard/components/GalleryEditItem/GalleryEditItem';
 import { genderTypes } from '@/utils/genderTypes';
-import RequiredIndicator from '@/components/RequiredIndicator/RequiredIndicator';
+import RequiredIndicator from '@/components/common/RequiredIndicator/RequiredIndicator';
 import { toast } from 'sonner';
 import { PlaceService } from '@/services/placeService';
 import { AppConstants } from '@/utils/constants';
@@ -22,13 +22,13 @@ import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
-import StyleAddModal from '@/components/StyleAddModal/StyleAddModal';
 import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
 import { getAllDaysOfTheWeek } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
-import ProgressBar from '@/components/ProgressBar/ProgressBar';
+import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
+import StyleAddModal from '@/components/popups/StyleAddModal/StyleAddModal';
 
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
@@ -728,7 +728,7 @@ const AddPlaceDetails = () => {
 
         {
             showStyleAddModal && <>
-                <StyleAddModal 
+                <StyleAddModal
                     hideModal={() => setShowStyleAddModal(false)}
                 />
             </>

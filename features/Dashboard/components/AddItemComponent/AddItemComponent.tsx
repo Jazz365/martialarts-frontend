@@ -1,10 +1,10 @@
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import React from 'react'
 import styles from './styles.module.css'
 import { IoAddOutline, IoTrashOutline } from 'react-icons/io5';
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { toast } from 'sonner';
-import RequiredIndicator from '@/components/RequiredIndicator/RequiredIndicator';
+import RequiredIndicator from '@/components/common/RequiredIndicator/RequiredIndicator';
 
 
 const AddItemComponent = ({
