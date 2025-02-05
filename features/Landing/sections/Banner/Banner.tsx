@@ -4,9 +4,9 @@ import { IoIosArrowRoundForward } from 'react-icons/io'
 // import happyIllustration from '../../../../assets/happy.svg'
 import astronaut from '../../../../assets/astr.webp'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
-import Button from '@/components/Button/Button'
+import Button from '@/components/buttons/Button/Button'
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils'
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage'
 
 const Banner = () => {
     return <>

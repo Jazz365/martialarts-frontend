@@ -4,10 +4,10 @@
 import FileInputComponent from '@/components/inputs/FileInputComponent/FileInputComponent'
 import React, { useRef } from 'react'
 import styles from './styles.module.css'
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import { IoPencilOutline } from 'react-icons/io5';
 import emptyUserPic from '../../../../assets/avatar.png'
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 const MasterProfileItem = ({
     index=-1,

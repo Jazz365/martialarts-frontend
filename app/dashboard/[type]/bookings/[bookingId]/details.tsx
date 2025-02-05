@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { formatTimeString } from '@/helpers/helpers';
 import Divider from '@/features/Places/components/Divider/Divider';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import { useUserContext } from '@/contexts/UserContext';
 import { BookingService } from '@/services/bookingService';
 import { AppConstants } from '@/utils/constants';

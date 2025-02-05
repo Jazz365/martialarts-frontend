@@ -2,7 +2,7 @@ import React from 'react'
 import logo from '../../../../assets/FAVICON-plain.png'
 import styles from './styles.module.css'
 import ProfileItem from '@/layouts/ProfileItem/ProfileItem'
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage'
 
 
 const AppTopNavBar = () => {

@@ -2,23 +2,23 @@ import React, { useEffect, useMemo, useState } from 'react'
 import styles from './styles.module.css'
 import { useAppContext } from '@/contexts/AppContext/AppContext'
 import { IoCalendarNumberOutline, IoCloseOutline } from 'react-icons/io5';
-import Button from '../Button/Button';
+import Button from '../../buttons/Button/Button';
 import { PlaceService } from '@/services/placeService';
-import Carousel from '../wrapperComponents/Carousel/Carousel';
-import TextInputComponent from '../inputs/TextInputComponent/TextInputComponent';
+import Carousel from '../../wrapperComponents/Carousel/Carousel';
+import TextInputComponent from '../../inputs/TextInputComponent/TextInputComponent';
 import { BookingDetails, bookingDetailsDict, bookingUserOptions, formPageDetail, initialBookingDetails, requiredInfo } from './utils';
-import PageLoader from '../loaders/PageLoader/PageLoader';
+import PageLoader from '../../loaders/PageLoader/PageLoader';
 import { useUserContext } from '@/contexts/UserContext';
 import Divider from '@/features/Places/components/Divider/Divider';
 import RequiredIndicator from '../RequiredIndicator/RequiredIndicator';
 import { toast } from 'sonner';
 import { BookingService } from '@/services/bookingService';
 import { AppConstants } from '@/utils/constants';
-import SelectItem from '../SelectItem/SelectItem';
+import SelectItem from '../../inputs/SelectItem/SelectItem';
 import Link from 'next/link';
 import { ImAttachment } from 'react-icons/im';
 import { calulateYearsDifference, formatDate, getWeekday, validateEmail } from '@/helpers/helpers';
-import AppPopup from '../AppPopup/AppPopup';
+import AppPopup from '../../popups/AppPopup/AppPopup';
 import DatePicker from "react-datepicker";
 import CustomDatePickerInput from './components/CustomDatePickerInput';
 import CustomDatePickerHeader from './components/CustomDatePickerHeader';

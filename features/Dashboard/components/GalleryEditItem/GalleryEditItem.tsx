@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { convertFileObjectToBinaryStr } from '@/helpers/helpers';
 import { IoClose } from 'react-icons/io5';
 import { toast } from 'sonner';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
 const maxCap = 15;

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import logo from '../../../../assets/FAVICON-plain.png'
 import styles from './styles.module.css'
 import Link from 'next/link'
-import Button from '@/components/Button/Button'
+import Button from '@/components/buttons/Button/Button'
 import UserTypeSelect from '../UserTypeSelect/UserTypeSelect';
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { AuthDetails, AuthInfoKey, authTypesDict, initialAuthInfo } from './utils';
@@ -17,7 +17,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { userTypes } from '../UserTypeSelect/utils';
 import { AppConstants } from '@/utils/constants';
 import { useUserContext } from '@/contexts/UserContext';
-import PdfViewer from '@/components/PdfViewer/PdfViewer';
+import PdfViewer from '@/components/common/PdfViewer/PdfViewer';
+import TermsPopup from '@/components/popups/TermsPopup/TermsPopup';
+import PrivacyPopup from '@/components/popups/PrivacyPopup/PrivacyPopup';
 
 
 const AuthForm = ({
@@ -327,49 +329,41 @@ const AuthForm = ({
                 <p className={styles.legal__Info}>
                     <span>By continuing, you agree to our named</span>
                     {' '}
-                    <Button 
-                        label='terms of use'
-                        style={{
-                            padding: 0,
-                            backgroundColor: 'transparent',
-                            fontSize: '0.65rem',
-                            color: 'var(--primary-app-color)',
-                        }}
-                        handleClick={() => handleShowPDF('/terms-of-use.pdf')}
-                        // useLink
-                        // linkLocation='/terms-of-use.pdf'
-                        // rel='noreferrer noopener'
-                        // target='_blank'
+                    <TermsPopup 
+                        buttonStyle={
+                            {
+                                padding: 0,
+                                backgroundColor: 'transparent',
+                                fontSize: '0.65rem',
+                                color: 'var(--primary-app-color)',
+                            }
+                        }
                     />
                     
                     <span>Read our</span>
-                    
-                    <Button 
-                        label='Privacy Policy'
-                        style={{
-                            padding: 0,
-                            backgroundColor: 'transparent',
-                            fontSize: '0.65rem',
-                            color: 'var(--primary-app-color)',
-                        }}
-                        handleClick={() => handleShowPDF('/privacy-policy.pdf')}
-                        // useLink
-                        // linkLocation='/privacy-policy.pdf'
-                        // rel='noreferrer noopener'
-                        // target='_blank'
+
+                    <PrivacyPopup 
+                        buttonStyle={
+                            {
+                                padding: 0,
+                                backgroundColor: 'transparent',
+                                fontSize: '0.65rem',
+                                color: 'var(--primary-app-color)',
+                            }
+                        }
                     />
                 </p>
             }
         </section>
 
         
-        {
+        {/* {
             showPdfViewer &&
             <PdfViewer
                 linkToPdfFile={pdfToShow}
                 handleCloseViewer={handleClosePDFViewer}
             />
-        }
+        } */}
     </>
 }
 

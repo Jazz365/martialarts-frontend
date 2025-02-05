@@ -1,7 +1,7 @@
 'use client';
 
 
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import React, { useState } from 'react'
 import Calendar from 'react-calendar';
 import styles from './styles.module.css';

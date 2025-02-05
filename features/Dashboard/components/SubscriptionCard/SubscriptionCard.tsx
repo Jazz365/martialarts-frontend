@@ -2,7 +2,7 @@ import { SubscriptionPlan } from '@/utils/subscriptionPlans'
 import React from 'react'
 import styles from './styles.module.css'
 import { AiOutlineCheck } from 'react-icons/ai';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 
 
 const SubscriptionCard = ({

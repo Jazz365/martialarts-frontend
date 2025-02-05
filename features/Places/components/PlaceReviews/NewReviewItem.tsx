@@ -9,7 +9,7 @@ import { AppConstants } from '@/utils/constants';
 import styles from './styles.module.css'
 import Rate from 'rc-rate';
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import { toast } from 'sonner';
 
 

@@ -8,7 +8,7 @@ import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { BlogService } from '@/services/blogService';
 import facebookIcon from '../../../assets/icons/facebook.webp';
 import whatsappIcon from '../../../assets/icons/whatsapp.webp';
-import BackButton from '@/components/BackButton/BackButton';
+import BackButton from '@/components/buttons/BackButton/BackButton';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import Link from 'next/link';
 import sampleImage1 from '../../../assets/blogSamples/blog-1.webp';
@@ -17,7 +17,7 @@ import useMobile from '@/hooks/useMobile';
 import { copyToClipboard, estimateReadingTime, shareLinkToSocialMedia } from '@/helpers/helpers';
 import { IoCopyOutline } from 'react-icons/io5';
 import { toast } from 'sonner';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
 const maxArticleTitleLength = 40;

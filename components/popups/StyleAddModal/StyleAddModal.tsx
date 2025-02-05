@@ -6,10 +6,10 @@ import styles from './styles.module.css'
 import { PlaceService } from '@/services/placeService';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { IoCloseOutline } from 'react-icons/io5';
-import TextInputComponent from '../inputs/TextInputComponent/TextInputComponent';
-import Button from '../Button/Button';
 import { toast } from 'sonner';
 import { AppConstants } from '@/utils/constants';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
+import Button from '@/components/buttons/Button/Button';
 
 
 const StyleAddModal = ({
@@ -64,7 +64,7 @@ const StyleAddModal = ({
                     />
                 </section>
 
-                <TextInputComponent 
+                <TextInputComponent
                     label='name of style'
                     value={newStyleName}
                     onChange={(_targetName, targetValue) => setNewStyleName(targetValue)}
@@ -72,7 +72,7 @@ const StyleAddModal = ({
                     placeholder='Enter style name here'
                 />
 
-                <Button 
+                <Button
                     label={
                         loading ?
                             'saving...'

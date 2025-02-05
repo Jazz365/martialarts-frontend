@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link';
 import { genderImgsInfo } from './utils';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
 const GenderImagesWrap = () => {

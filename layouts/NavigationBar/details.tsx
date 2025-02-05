@@ -1,7 +1,6 @@
 'use client';
 
-import Button from '@/components/Button/Button';
-import CategorySearchBar from '@/components/CategorySearchBar/CategorySearchBar';
+import Button from '@/components/buttons/Button/Button';
 import { useUserContext } from '@/contexts/UserContext';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 import { generateDashLinkForUser } from '@/helpers/helpers';
@@ -11,6 +10,7 @@ import React, { useRef, useState } from 'react'
 import { IoAddOutline, IoCloseOutline, IoGridOutline } from 'react-icons/io5';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import styles from './styles.module.css'
+import CategorySearchBar from '@/components/inputs/CategorySearchBar/CategorySearchBar';
 
 
 const NavigationBarContent = ({

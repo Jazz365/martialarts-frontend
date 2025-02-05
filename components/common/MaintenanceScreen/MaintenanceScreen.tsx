@@ -2,10 +2,10 @@
 
 
 import React, { useEffect, useState } from 'react'
-import maintenanceImg from '../../assets/maintenance.webp'
+import maintenanceImg from '../../../assets/maintenance.webp'
 import Image from 'next/image'
 import styles from './styles.module.css'
-import AppPopup from '../AppPopup/AppPopup';
+import AppPopup from '../../popups/AppPopup/AppPopup';
 
 const MaintenanceScreen = () => {
     const [ showPopup, setShowPopup ] = useState(false);

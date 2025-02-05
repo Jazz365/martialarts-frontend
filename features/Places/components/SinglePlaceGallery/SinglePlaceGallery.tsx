@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import styles from './styles.module.css'
 import Carousel from "react-multi-carousel";
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 const SinglePlaceGallery = memo(({
   images=[],
@@ -80,7 +80,7 @@ const SinglePlaceGallery = memo(({
               src={image.image as string}
               alt='place'
               key={image.id}
-              width={510}
+              width={0}
               height={500}
               className={`${styles.image} ${index === 1 ? styles.main : ''}`}
               quality={100}

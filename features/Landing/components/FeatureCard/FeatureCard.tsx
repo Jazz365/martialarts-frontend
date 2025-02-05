@@ -2,8 +2,8 @@ import Image, { StaticImageData } from 'next/image';
 import React, { memo } from 'react'
 import styles from './styles.module.css'
 // import Link from 'next/link';
-import Button from '@/components/Button/Button';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import Button from '@/components/buttons/Button/Button';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 import { toast } from 'sonner';
 
 const defaultPlaceId = 2;

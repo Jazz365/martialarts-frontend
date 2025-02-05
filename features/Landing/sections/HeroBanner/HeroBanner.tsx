@@ -3,10 +3,10 @@
 import React from 'react'
 import styles from './styles.module.css'
 import HeroImagesWrap from '../../components/HeroImagesWrap/HeroImagesWrap';
-import CategorySearchBar from '../../../../components/CategorySearchBar/CategorySearchBar';
 import heroImg1 from '../../../../assets/heros/judo.webp'
 import heroImg4 from '../../../../assets/heros/taekwondo.webp'
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
+import CategorySearchBar from '@/components/inputs/CategorySearchBar/CategorySearchBar';
 
 const HeroBanner = () => {
     return <section className={styles.hero__Wrap}>

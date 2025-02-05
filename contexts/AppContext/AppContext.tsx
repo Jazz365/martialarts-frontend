@@ -1,6 +1,6 @@
 'use client';
 
-import BookingForm from "@/components/BookingForm/BookingForm";
+import BookingForm from "@/components/common/BookingForm/BookingForm";
 import useLoadData from "@/hooks/useLoadData";
 import { BookingService } from "@/services/bookingService";
 import { PlaceService } from "@/services/placeService";

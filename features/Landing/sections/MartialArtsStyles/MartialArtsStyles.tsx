@@ -6,10 +6,10 @@ import { dummyMartialStyles } from '@/utils/styles'
 import Link from 'next/link'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
-import Button from '@/components/Button/Button'
+import Button from '@/components/buttons/Button/Button'
 import { useAppContext } from '@/contexts/AppContext/AppContext'
 import { cleanStringAndReturnLower } from '@/helpers/formatters';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
 const MartialArtsStyles = () => {

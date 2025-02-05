@@ -4,7 +4,7 @@ import { dummyFeaturedLocations } from './utils'
 import Link from 'next/link'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage'
 
 
 const FeaturedLocations = () => {

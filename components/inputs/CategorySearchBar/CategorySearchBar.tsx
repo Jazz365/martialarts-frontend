@@ -6,8 +6,8 @@ import styles from './styles.module.css'
 import Link from 'next/link'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
-import AlternatingDotsLoader from '../loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 import TrendingStyles from './TrendingStyles';
+import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 
 
 const CategorySearchBar = ({

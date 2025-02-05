@@ -1,4 +1,4 @@
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage'
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage'
 import React, { CSSProperties, memo } from 'react'
 
 const PlaceImageSlide = memo(({

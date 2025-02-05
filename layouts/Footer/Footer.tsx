@@ -10,11 +10,13 @@ import tiktokIcon from '../../assets/icons/tiktok.webp'
 import youtubeIcon from '../../assets/icons/youtube.webp'
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { AppConstants } from '@/utils/constants';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 import Loader from '@/components/loaders/Loader/Loader';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
-import PdfViewer from '@/components/PdfViewer/PdfViewer';
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
+import PdfViewer from '@/components/common/PdfViewer/PdfViewer';
+import TermsPopup from '@/components/popups/TermsPopup/TermsPopup';
+import PrivacyPopup from '@/components/popups/PrivacyPopup/PrivacyPopup';
 
 const Footer = () => {
     const { allStyles, stylesLoading } = useAppContext();
@@ -163,37 +165,21 @@ const Footer = () => {
                 </div>
                 
                 <div className={styles.copyright__Content}>
-                    <Button 
-                        label='Terms of use'
-                        handleClick={() => handleShowPDF('/terms-of-use.pdf')}
-                        style={{
-                            backgroundColor: 'transparent',
-                            color: 'inherit',
-                            fontSize: '0.7rem',
-                            padding: 0,
-                        }}
-                    />
-
-                    <Button 
-                        label='Privacy Policy'
-                        handleClick={() => handleShowPDF('/privacy-policy.pdf')}
-                        style={{
-                            backgroundColor: 'transparent',
-                            color: 'inherit',
-                            fontSize: '0.7rem',
-                            padding: 0,
-                        }}
-                    />
+                    <TermsPopup />
+                    <PrivacyPopup />
                 </div>
             </section>
         </footer>
 
         {
-            showPdfViewer &&
-            <PdfViewer 
-                linkToPdfFile={pdfToShow}
-                handleCloseViewer={handleClosePDFViewer}
-            />
+            // showPdfViewer &&
+            // <TermsPopup 
+            //     triggerElem={}
+            // />
+            // <PdfViewer 
+            //     linkToPdfFile={pdfToShow}
+            //     handleCloseViewer={handleClosePDFViewer}
+            // />
         }
     </>
 }

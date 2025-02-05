@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button/Button';
+import Button from '@/components/buttons/Button/Button';
 import React, { useEffect, useMemo, useState } from 'react'
 import { IoAddOutline, IoCloseCircle } from 'react-icons/io5'
 import styles from './styles.module.css'

@@ -3,6 +3,7 @@
 }
 
 .image {
+    width: 100%;
     object-fit: cover;
     animation: fadeIn 0.35s ease-in-out;
 }

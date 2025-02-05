@@ -8,7 +8,7 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import styles from './styles.module.css';
 import { AiOutlineClose } from 'react-icons/ai';
 import useClickOutside from '@/hooks/useClickOutside';
-import PageLoader from '../loaders/PageLoader/PageLoader';
+import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(

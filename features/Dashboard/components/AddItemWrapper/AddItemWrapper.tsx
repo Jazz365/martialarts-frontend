@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
 import styles from './styles.module.css'
-import RequiredIndicator from '@/components/RequiredIndicator/RequiredIndicator';
+import RequiredIndicator from '@/components/common/RequiredIndicator/RequiredIndicator';
 
 
 const AddItemWrapper = ({

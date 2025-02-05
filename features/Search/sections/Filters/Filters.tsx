@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 import { availableLocations } from '@/utils/locations';
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
-import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import ToggleSwitch from '@/components/inputs/ToggleSwitch/ToggleSwitch';
 import useMobile from '@/hooks/useMobile';
 
 const SearchFilters = () => {

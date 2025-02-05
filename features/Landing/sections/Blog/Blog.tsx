@@ -8,7 +8,7 @@ import { useAppContext } from '@/contexts/AppContext/AppContext';
 import sampleImage1 from '../../../../assets/blogSamples/blog-1.webp';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { estimateReadingTime } from '@/helpers/helpers';
-import MemoizedImage from '@/components/MemoizedImage/MemoizedImage';
+import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
 const maxArticleTitleLength = 40;
