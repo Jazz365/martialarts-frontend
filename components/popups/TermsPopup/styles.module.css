@@ -48,13 +48,13 @@
 }
 
 .termsContent h3 {
-  font-size: 1rem;
+  font-size: 0.875rem;
   margin-bottom: 5px;
 }
 
 .termsContent p,
 .termsContent ul {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: #333;
 }
 
