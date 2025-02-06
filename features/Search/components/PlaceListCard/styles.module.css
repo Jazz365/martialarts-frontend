@@ -128,8 +128,12 @@
     font-size: 0.7rem;
     letter-spacing: 0.03em;
     padding-left: 1rem;
-    gap: 1.15dvh;
+    gap: 1.2dvh;
     text-transform: capitalize;
+}
+
+.list__Card.studio .benefits {
+    gap: 1.35dvh;
 }
 
 .list__Card.col .benefits li {
