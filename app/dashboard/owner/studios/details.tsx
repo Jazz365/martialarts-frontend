@@ -10,6 +10,7 @@ import Image from 'next/image';
 import mascot from '../../../../assets/astr.webp'
 import { useRouter, useSearchParams } from 'next/navigation';
 import useMobile from '@/hooks/useMobile';
+import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
 
 const itemsPerPage = 3;
 
@@ -18,6 +19,10 @@ const AllPlacesDetails = () => {
         userPlaces,
         userPlacesLoading,
     } = useAppContext();
+
+    const {
+        allPlaces
+    } = useSearchFilterContext();
 
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -29,7 +34,7 @@ const AllPlacesDetails = () => {
         <PageLoader />
     </>
 
-    if (userPlaces.length < 1) return <section className={styles.empty__places}>
+    if (allPlaces.length < 1) return <section className={styles.empty__places}>
         <Image
             src={mascot}
             alt='mascot img'
@@ -47,13 +52,13 @@ const AllPlacesDetails = () => {
             currentPage={currentPage}
             updateCurrentPage={(page) => router.push(`?page=${page}`)}
             itemsPerPage={itemsPerPage}
-            totalItems={userPlaces.length}
+            totalItems={allPlaces.length}
         />
 
         <section className={styles.all__places}>
             {
                 React.Children.toArray(
-                    userPlaces
+                    allPlaces
                     .slice(
                         currentPage < 2 ?
                             0
