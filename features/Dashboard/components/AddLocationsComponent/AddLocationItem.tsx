@@ -42,9 +42,9 @@ const AddLocationItem = ({
         placePredictions,
         getPlacePredictions,
         isPlacePredictionsLoading,
-    } = useGoogle({
+    } = mapKey ? useGoogle({
         apiKey: mapKey,
-    });
+    }) : {};
 
     const [ locationAddress, setLocationAddress ] = useState('');
     // const [ showCityCustomDropdown, setShowCityCustomDropdown ] = useState<boolean>(true);
@@ -69,7 +69,7 @@ const AddLocationItem = ({
                     placeholder={'e.g 123 Test Avenue'}
                     value={locationAddress}
                     onChange={(_name, value: string) => {
-                        getPlacePredictions({ input: value });
+                        if (getPlacePredictions) getPlacePredictions({ input: value });
                         setLocationAddress(value);
                     }}
                     borderRadius='12px'
@@ -85,7 +85,9 @@ const AddLocationItem = ({
                         locationAddress.length < 1 ?
                             <li>Start typing to see results</li>
                         :
-                        placePredictions.length < 1 ?
+                        !placePredictions ? <><li></li></>
+                        :
+                        placePredictions?.length < 1 ?
                             <li>No matching places found</li>
                         :
                         React.Children.toArray(placePredictions.map(prediction => {

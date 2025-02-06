@@ -9,13 +9,11 @@ import Banner from "@/features/Landing/sections/Banner/Banner";
 import Blog from "@/features/Landing/sections/Blog/Blog";
 import Footer from "@/layouts/Footer/Footer";
 import IncludedGenders from "@/features/Landing/sections/IncludedGenders/IncludedGenders";
-import MaintenanceScreen from "@/components/common/MaintenanceScreen/MaintenanceScreen";
-import { tempLandingAccessVal } from "@/utils/utils";
+// import MaintenanceScreen from "@/components/common/MaintenanceScreen/MaintenanceScreen";
+// import { tempLandingAccessVal } from "@/utils/utils";
 
-export default async function Home(props: { searchParams: PageSearchParams }) {
-  const { access } = await props.searchParams;
-
-  if (access === tempLandingAccessVal) return <>
+export default function Home() {
+  return <>
     <NavigationBar />
     <main className={styles.main}>
       <HeroBanner />
@@ -29,9 +27,5 @@ export default async function Home(props: { searchParams: PageSearchParams }) {
     </main>
 
     <Footer />
-  </>
-  
-  return <>
-    <MaintenanceScreen />
   </>
 }
