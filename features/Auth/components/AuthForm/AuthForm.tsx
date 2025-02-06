@@ -326,33 +326,33 @@ const AuthForm = ({
 
             {
                 authInfo.isRegisterForm === true &&
-                <p className={styles.legal__Info}>
-                    <span>By continuing, you agree to our named</span>
-                    {' '}
-                    <TermsPopup 
-                        buttonStyle={
-                            {
-                                padding: 0,
-                                backgroundColor: 'transparent',
-                                fontSize: '0.65rem',
-                                color: 'var(--primary-app-color)',
-                            }
-                        }
-                    />
-                    
-                    <span>Read our</span>
+<p className={styles.legal__Info}>
+    <span>By continuing, you agree to our named</span>
+    {' '}
+    <div className={styles.popup__Wrapper}> {/* Add this wrapper */}
+        <TermsPopup 
+            buttonStyle={{
+                padding: 0,
+                backgroundColor: 'transparent',
+                fontSize: '0.65rem',
+                color: 'var(--primary-app-color)',
+            }}
+        />
+    </div>
+    
+    <span>Read our</span>
 
-                    <PrivacyPopup 
-                        buttonStyle={
-                            {
-                                padding: 0,
-                                backgroundColor: 'transparent',
-                                fontSize: '0.65rem',
-                                color: 'var(--primary-app-color)',
-                            }
-                        }
-                    />
-                </p>
+    <div className={styles.popup__Wrapper}> {/* Add this wrapper */}
+        <PrivacyPopup 
+            buttonStyle={{
+                padding: 0,
+                backgroundColor: 'transparent',
+                fontSize: '0.65rem',
+                color: 'var(--primary-app-color)',
+            }}
+        />
+    </div>
+</p>
             }
         </section>
 

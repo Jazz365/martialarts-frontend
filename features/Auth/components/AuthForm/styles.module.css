@@ -25,7 +25,31 @@
 .legal__Info {
     gap: 0.4rem;
     font-size: 0.65rem;
+    /* Remove white-space: nowrap from here */
+}
+
+/* Add specific white-space: nowrap only to direct span children */
+.legal__Info > span {
     white-space: nowrap;
+}
+
+/* Add styles for popup content */
+.legal__Info :global(.termsContent),
+.legal__Info :global(.privacyContent) {
+    white-space: normal;
+    text-align: justify;
+    width: 100%;
+    max-width: 800px;
+}
+
+.legal__Info :global(.termsContent p),
+.legal__Info :global(.privacyContent p),
+.legal__Info :global(.termsContent li),
+.legal__Info :global(.privacyContent li) {
+    white-space: normal;
+    text-align: justify;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
 }
 
 .input__Col {
@@ -42,8 +66,10 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
-
+    
     .legal__Info {
         flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
     }
 }
