@@ -70,6 +70,10 @@ const AllPlacesDetails = () => {
                             isListView={!isMobile}
                             imageHeight={300}
                             isInAppStudioUse={true}
+                            style={{
+                                height: 'unset !important',
+                                maxWidth: '95%',
+                            }}
                         />
                     }))
             }

@@ -1,3 +1,4 @@
+import axios from "axios";
 import apiBaseUrl from "./config"
 
 class UserService {
@@ -21,6 +22,23 @@ class UserService {
             }
 
             return jsonRes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async initiateSubscription (token: string) {
+        try {
+            const res = await axios.post(
+                `${this.getUserEndpoint('subscription/create')}`, 
+                {}, 
+                {
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                    },
+                },
+            );
+            return res;
         } catch (error) {
             throw error;
         }
