@@ -97,8 +97,6 @@ const PlaceListCard = memo(({
           place={place}
           isListView={isListView}
         />
-
-        <br />
         
         <PlaceCardActions 
           place={place}

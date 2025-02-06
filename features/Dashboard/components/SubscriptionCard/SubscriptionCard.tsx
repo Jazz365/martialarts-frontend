@@ -1,8 +1,13 @@
+'use client';
+
+
 import { SubscriptionPlan } from '@/utils/subscriptionPlans'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './styles.module.css'
 import { AiOutlineCheck } from 'react-icons/ai';
 import Button from '@/components/buttons/Button/Button';
+import { AppConstants } from '@/utils/constants';
+import { UserService } from '@/services/userService';
 
 
 const SubscriptionCard = ({
@@ -10,6 +15,26 @@ const SubscriptionCard = ({
 }: {
     plan: SubscriptionPlan;
 }) => {
+    const [ loading, setLoading ] = useState(false);
+    
+    const userService = new UserService();
+
+    const handleSubscribeToPlan = async (plan: SubscriptionPlan) => {
+        const authToken = AppConstants.savedToken;
+        if (!authToken || loading) return;
+
+        setLoading(true);
+
+        try {
+            const res = await userService.initiateSubscription(authToken);
+            console.log(res);
+
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
+    }
+
     return <>
         <section className={styles.sub__Card}>
             <h5 className={styles.title}>{plan.title}</h5>
@@ -31,7 +56,7 @@ const SubscriptionCard = ({
             </section>
 
             <Button 
-                label="let's go"
+                label={loading ? "please wait..." : "let's go"}
                 style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -48,6 +73,8 @@ const SubscriptionCard = ({
                     color: 'var(--primary-app-color)',
                 }}
                 className={styles.act__Btn}
+                handleClick={() => handleSubscribeToPlan(plan)}
+                disabled={loading}
             />
         </section>
     </>
