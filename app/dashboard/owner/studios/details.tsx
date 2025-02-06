@@ -71,7 +71,7 @@ const AllPlacesDetails = () => {
                             imageHeight={300}
                             isInAppStudioUse={true}
                             style={{
-                                height: 'unset !important',
+                                height: 'unset',
                                 maxWidth: '95%',
                             }}
                         />
