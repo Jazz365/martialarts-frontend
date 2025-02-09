@@ -42,7 +42,7 @@ export interface NewPlaceDetail {
     gender: string;
     caters_to: number[];
     age_groups: number[];
-    policy: string;
+    place_policy: IPlacePolicy;
     reviews: {}[];
     is_featured: boolean;
     documents: IPlaceDocuments[];
@@ -72,7 +72,7 @@ export const newPlaceDetailKeysDict = {
     gender: 'gender',
     caters_to: 'caters_to',
     age_groups: 'age_groups',
-    policy: 'policy',
+    place_policy: 'place_policy',
     reviews: 'reviews',
     is_featured: 'is_featured',
     documents: 'documents',
@@ -137,7 +137,7 @@ export const initialNewPlaceDetail: NewPlaceDetail = {
     gender: '',
     caters_to: [],
     age_groups: [],
-    policy: '',
+    place_policy: { content: '' },
     reviews: [
         {
             "rating": 5,
@@ -203,13 +203,13 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
             }
         }
 
-        if (key === newPlaceDetailKeysDict.policy) {
-            return {
-                [key]: {
-                    content: value,
-                },
-            }
-        }
+        // if (key === newPlaceDetailKeysDict.place_policy) {
+        //     return {
+        //         [key]: {
+        //             content: value,
+        //         },
+        //     }
+        // }
 
         return {
             [key]: value
@@ -316,7 +316,7 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
         if (
             key === newPlaceDetailKeysDict.styles || 
             key === newPlaceDetailKeysDict.caters_to || 
-            key === newPlaceDetailKeysDict.policy || 
+            key === newPlaceDetailKeysDict.place_policy || 
             key === newPlaceDetailKeysDict.reviews || 
             key === newPlaceDetailKeysDict.age_groups
         ) {
@@ -328,4 +328,28 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
     }
     
     return formData;
+}
+
+export const saveFormDataToFile = (formData: FormData) => {
+    let dataStr = "";
+
+    // Loop through the FormData and format the data as a string
+    formData.forEach((value, key) => {
+        dataStr += `${key}: ${value}\n`;
+    });
+
+    // Create a Blob from the string data
+    const blob = new Blob([dataStr], { type: 'text/plain' });
+
+    // Create a temporary link to trigger the download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'formData.txt';
+
+    // Simulate a click on the link to download the file
+    link.click();
+
+    // Cleanup: Revoke the object URL and remove the link from the document
+    URL.revokeObjectURL(link.href);
+    document.body.removeChild(link);
 }

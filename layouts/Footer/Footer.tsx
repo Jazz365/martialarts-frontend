@@ -17,6 +17,7 @@ import Button from '@/components/buttons/Button/Button';
 import PdfViewer from '@/components/common/PdfViewer/PdfViewer';
 import TermsPopup from '@/components/popups/TermsPopup/TermsPopup';
 import PrivacyPopup from '@/components/popups/PrivacyPopup/PrivacyPopup';
+import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 
 const Footer = () => {
     const { allStyles, stylesLoading } = useAppContext();
@@ -79,9 +80,11 @@ const Footer = () => {
 
                         <ul className={styles.footer__Links}>
                             {
-                                stylesLoading ? <section style={{ margin: '1rem auto 0' }}>
-                                    <AlternatingDotsLoader />
-                                </section>
+                                stylesLoading ? <>
+                                    <section style={{ margin: '1rem auto 0' }}>
+                                        <AlternatingDotsLoader />
+                                    </section>
+                                </>
                                 :
                                 React.Children.toArray(
                                     popularStyles
@@ -89,7 +92,11 @@ const Footer = () => {
                                         return <li
                                             key={style.id}
                                         >
-                                            <Link href={''}>{style.name}</Link>
+                                            <Link
+                                                href={`/search?style_id=${encodeURIComponent(style.id)}&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`}
+                                            >
+                                                {style.name}
+                                            </Link>
                                         </li>
                                     })
                                 )

@@ -16,7 +16,7 @@ type IPlace = {
     images_data: IPlaceImage[];
     master_images_data: IPlaceMasterImage[];
     place_faqs: IPlaceFaq[];
-    policy: IPlacePolicy;
+    place_policy: IPlacePolicy;
     place_activity_hours: IPlaceActivityHours[];
     place_reviews: IPlaceReviews[];
     benefits: string;
@@ -52,9 +52,9 @@ type IPlaceFaq = {
 }
 
 type IPlacePolicy = {
-    id: number;
+    // id: number;
     content: string;
-    document: string;
+    // document: string;
 }
 
 type IPlaceActivityHours = {

@@ -1,7 +1,14 @@
+import { AppConstants } from "@/utils/constants";
+
 export const validateEmail = (email: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
     return re.test(email);
 };
+
+export const validateLink = (url: string): boolean => {
+    const regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    return regex.test(url);
+}
 
 export const getDayOfTheWeek = (date: Date) => {
     const day = new Date(date).getDay();
@@ -109,8 +116,7 @@ export const getTimeAgoFromDate = (date: string) => {
 }
 
 export const getYoutubeEmbedVideoLink = (url?: string) => {
-    const defaultPlaceYoutubeUrl = "https://www.youtube.com/embed/bxuYDT-BWaI";
-    if (!url) return defaultPlaceYoutubeUrl;
+    if (!url) return AppConstants.defaultPlaceYoutubeUrl;
 
     const embedPattern = /^https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/;
     if (embedPattern.test(url)) {
@@ -124,7 +130,7 @@ export const getYoutubeEmbedVideoLink = (url?: string) => {
         return `https://www.youtube.com/embed/${match[1]}`;
     }
 
-    return defaultPlaceYoutubeUrl;
+    return AppConstants.defaultPlaceYoutubeUrl;
 }
 
 export const getWeekday = (date: Date): string => {
