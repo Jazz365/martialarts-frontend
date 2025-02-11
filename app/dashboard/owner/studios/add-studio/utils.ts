@@ -290,6 +290,19 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
                 }
             });
 
+            const documentLinks = documentDetail.filter(doc => doc.document_type == 'link').map(doc => {
+                return {
+                    title: doc.title,
+                    url: doc.document_link,
+                }
+            });
+            formData.append('document_links', JSON.stringify(documentLinks));
+
+            if (isEditView === true) {
+                const documentsToKeep = documentDetail.filter(item => typeof item.id === 'number');
+                formData.append('current_documents', JSON.stringify(documentsToKeep.map(item => item.id)));
+            }
+
             continue;
         }
 
@@ -323,6 +336,8 @@ export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEd
             formData.append(key, JSON.stringify(value));
             continue;
         }
+
+        if (key === 'documents_data') continue;
 
         formData.append(key, value);
     }

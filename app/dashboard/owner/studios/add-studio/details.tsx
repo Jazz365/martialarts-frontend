@@ -23,7 +23,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
 import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
-import { getAllDaysOfTheWeek, validateLink } from '@/helpers/helpers';
+import { getAllDaysOfTheWeek, getOrdinalPosition, validateLink } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
@@ -128,6 +128,8 @@ const AddPlaceDetails = () => {
                 }
             });
 
+            console.log('current place ->>', res);
+            
             setDetails({
                 ...res,
                 benefits: res?.benefits?.split('\n'),
@@ -269,11 +271,11 @@ const AddPlaceDetails = () => {
             return toast.info('Please write at least 5 benefits of your place');
         }
 
-        if (details.place_policy && details.place_policy.content && details.place_policy.content.length > 0) {
-            const validPolicyContentLink = validateLink(details.place_policy.content);
-            if (!validPolicyContentLink) {
+        if (details.documents.length > 0) {
+            const invalidDocumentLinkIndex = details.documents.findIndex(doc => doc.document_type === 'link' && !validateLink(doc.document_link ?? ''));
+            if (invalidDocumentLinkIndex !== -1) {
                 scrollToSectionAndAddErrHighlight(documentsAddRef);
-                return toast.info('Please provide a valid document link');
+                return toast.info(`The ${getOrdinalPosition(invalidDocumentLinkIndex + 1)} document link you provided is invalid. Please provide a valid document link`);
             }
         }
         
@@ -719,15 +721,6 @@ const AddPlaceDetails = () => {
             extraInfo='Drag here health declaration or other documents for the student to confirm before joining class'
             ref={documentsAddRef}
         >
-            <TextInputComponent 
-                label='document link'
-                name={newPlaceDetailKeysDict.place_policy}
-                value={details?.place_policy?.content ?? ''}
-                onChange={handleDetailUpdate}
-                borderRadius='12px'
-                labelFontSize='0.85rem'
-            />
-
             <DocumentsAdd 
                 items={details.documents}
                 updateItemsArr={(items: IPlaceDocuments[]) => handleDetailUpdate(newPlaceDetailKeysDict.documents, items)}

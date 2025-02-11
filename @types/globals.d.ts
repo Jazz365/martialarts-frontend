@@ -3,6 +3,7 @@ type PageParams = Promise<{
     placeId?: number;
     bookingId?: number;
     slug?: string;
+    userId?: number;
 }>;
 
 type PageSearchParams = Promise<{ 

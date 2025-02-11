@@ -227,3 +227,22 @@ export const copyToClipboard = async (content: string) => {
         await navigator.clipboard.writeText(content)
     } catch (error) {}
 }
+
+export const getOrdinalPosition = (num: number): string => {
+    const suffixes = ["th", "st", "nd", "rd"];
+    const value = Math.abs(num);
+    const lastDigit = value % 10;
+    const lastTwoDigits = value % 100;
+  
+    // Determine suffix
+    let suffix = suffixes[0]; // Default to "th"
+    if (lastDigit === 1 && lastTwoDigits !== 11) {
+      suffix = suffixes[1]; // "st"
+    } else if (lastDigit === 2 && lastTwoDigits !== 12) {
+      suffix = suffixes[2]; // "nd"
+    } else if (lastDigit === 3 && lastTwoDigits !== 13) {
+      suffix = suffixes[3]; // "rd"
+    }
+  
+    return `${num}${suffix}`;
+} 

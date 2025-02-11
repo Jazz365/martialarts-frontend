@@ -102,6 +102,13 @@ type IPlaceDocuments = {
     document: string;
     uploaded_at: string;
     file?: File;
+    document_link?: string;
+    document_type?: keyof typeof IPlaceDocumentType;
+}
+
+enum IPlaceDocumentType {
+    file='file',
+    link='link'
 }
 
 type IPlaceAgeGroups = {

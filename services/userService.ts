@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import apiBaseUrl from "./config"
+import { toast } from "sonner";
 
 class UserService {
     getUserEndpoint(endpoint: string) {
@@ -40,6 +41,12 @@ class UserService {
             );
             return res;
         } catch (error) {
+            if (error instanceof AxiosError) {
+                toast.info(error.response?.data?.detail ?? error.message);
+            } else {
+                toast.error('Something went wrong while trying to initiate a new subscription, please try again later');
+            }
+            
             throw error;
         }
     }
