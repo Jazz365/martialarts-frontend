@@ -82,7 +82,7 @@ const DocumentsAdd = ({
             document_type: 'link',
         }
 
-        updateItemsArr([ newDocumentLink, ...items ]);
+        updateItemsArr([ ...items, newDocumentLink ]);
     }
 
     const handleSingleDocLinkUpdate = (

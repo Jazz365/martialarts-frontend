@@ -128,7 +128,7 @@ const AddPlaceDetails = () => {
                 }
             });
 
-            console.log('current place ->>', res);
+            // console.log('current place ->>', res);
             
             setDetails({
                 ...res,

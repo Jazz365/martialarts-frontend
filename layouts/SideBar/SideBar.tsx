@@ -53,7 +53,7 @@ const SideBar = () => {
 
                 <ul className={styles.links__Wrap}>
                     {
-                        !userDetails ?
+                        userDetailsLoading ?
                             <li style={{
                                 margin: '0 auto',
                             }}>
