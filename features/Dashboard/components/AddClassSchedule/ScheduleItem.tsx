@@ -27,12 +27,22 @@ const ScheduleItem = ({
     const [
         foundClassSchedule,
         foundClassScheduleIndex,
+        scheduleDisabled,
     ] = [
         currentSchedules.find(item => 
             item.class_id === classId
         ),
         currentSchedules.findIndex(item => 
             item.class_id === classId
+        ),
+        activityDays.find(activity => 
+            cleanStringAndReturnLower(activity.day) === cleanStringAndReturnLower(day) && 
+            (
+                !activity.opening_time || 
+                activity.opening_time.length < 1 ||
+                !activity.closing_time || 
+                activity.closing_time.length < 1
+            )
         ),
     ];
 
@@ -135,15 +145,7 @@ const ScheduleItem = ({
         <section 
             className={
                 `${styles.row__Detail} 
-                ${activityDays.find(activity => 
-                    cleanStringAndReturnLower(activity.day) === cleanStringAndReturnLower(day) && 
-                    (
-                        !activity.opening_time || 
-                        activity.opening_time.length < 1 ||
-                        !activity.closing_time || 
-                        activity.closing_time.length < 1
-                    )
-                ) ? styles.disabled : ''}`
+                ${scheduleDisabled ? styles.disabled : ''}`
             }
             key={uuidv4()}
         >
@@ -166,6 +168,12 @@ const ScheduleItem = ({
                 isMulti
                 onCreateOption={handleAddTime}
                 onChange={handleTimesChange}
+                placeholder={
+                    scheduleDisabled ? 
+                        null 
+                    :
+                    'You can add a time simply by entering it, for example, 3am, 10pm.'
+                }
             />
         </section>
     )

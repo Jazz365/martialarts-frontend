@@ -17,4 +17,8 @@ export class AppConstants {
     static get guruSupportMail () {
         return 'team@martialarts.guru';
     }
+
+    static get defaultPlaceYoutubeUrl () {
+        return "https://www.youtube.com/embed/bxuYDT-BWaI";
+    }
 }

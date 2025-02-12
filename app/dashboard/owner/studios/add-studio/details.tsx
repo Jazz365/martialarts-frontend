@@ -6,7 +6,7 @@ import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddIt
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import AddItemComponent from '@/features/Dashboard/components/AddItemComponent/AddItemComponent';
-import { compulsoryDetailKeys, compulsoryDetailKeysDict, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes } from './utils';
+import { compulsoryDetailKeys, compulsoryDetailKeysDict, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes, saveFormDataToFile } from './utils';
 import AddLocationsComponent from '@/features/Dashboard/components/AddLocationsComponent/AddLocationsComponent';
 import MastersAddComponent from '@/features/Dashboard/components/MastersAddComponent/MastersAddComponent';
 import ActivityHoursEdit from '@/features/Dashboard/components/ActivityHoursEdit/ActivityHoursEdit';
@@ -23,7 +23,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
 import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
-import { getAllDaysOfTheWeek } from '@/helpers/helpers';
+import { getAllDaysOfTheWeek, getOrdinalPosition, validateLink } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
@@ -51,7 +51,9 @@ const AddPlaceDetails = () => {
         contactRef,
         faqRef,
         classSchedulesRef,
+        documentsAddRef,
     ] = [
+        useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
@@ -83,6 +85,15 @@ const AddPlaceDetails = () => {
         value: string | boolean | string[] | number[] | ILocation[] | IPlaceMasterImage[] | IPlaceFaq[] | IPlaceImage[] | IPlaceDocuments[] | IPlaceClassSchedule[]
     ) => {
         setDetails((prevDetails) => {
+            if (key === newPlaceDetailKeysDict.place_policy) {
+                return {
+                    ...prevDetails,
+                    place_policy: {
+                        content: value as string,
+                    },
+                }
+            };
+
             return {
                 ...prevDetails,
                 [key]: value,
@@ -117,6 +128,8 @@ const AddPlaceDetails = () => {
                 }
             });
 
+            // console.log('current place ->>', res);
+            
             setDetails({
                 ...res,
                 benefits: res?.benefits?.split('\n'),
@@ -127,7 +140,7 @@ const AddPlaceDetails = () => {
                 caters_to: res?.place_caters_to?.map((item: ICatersTo) => item.id),
                 activity_hours: formattedActivityHours,
                 faqs: res?.place_faqs,
-                policy: res?.policy?.content,
+                place_policy: res?.place_policy,
                 documents: res?.documents_data,
                 age_groups: res?.place_age_groups?.map((item: IPlaceAgeGroups) => item.id),
                 class_schedules_data: res?.class_schedules_data ?? [],
@@ -257,6 +270,14 @@ const AddPlaceDetails = () => {
             scrollToSectionAndAddErrHighlight(basicInfoRef);
             return toast.info('Please write at least 5 benefits of your place');
         }
+
+        if (details.documents.length > 0) {
+            const invalidDocumentLinkIndex = details.documents.findIndex(doc => doc.document_type === 'link' && !validateLink(doc.document_link ?? ''));
+            if (invalidDocumentLinkIndex !== -1) {
+                scrollToSectionAndAddErrHighlight(documentsAddRef);
+                return toast.info(`The ${getOrdinalPosition(invalidDocumentLinkIndex + 1)} document link you provided is invalid. Please provide a valid document link`);
+            }
+        }
         
         const uploadSpeedPerKB = 650;
         const totalFilesAdded: File[] = [
@@ -282,6 +303,7 @@ const AddPlaceDetails = () => {
         
         const formData = generateFormDataForNewPlaceDetails(details, isEditView);
         // console.log(formData);
+        // saveFormDataToFile(formData);
         // return
         
         setLoading(true);
@@ -697,6 +719,7 @@ const AddPlaceDetails = () => {
         <AddItemWrapper
             title='documents'
             extraInfo='Drag here health declaration or other documents for the student to confirm before joining class'
+            ref={documentsAddRef}
         >
             <DocumentsAdd 
                 items={details.documents}

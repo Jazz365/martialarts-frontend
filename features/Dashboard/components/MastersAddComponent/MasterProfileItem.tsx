@@ -34,7 +34,10 @@ const MasterProfileItem = ({
                 height={120}
                 style={{
                     objectFit: 'cover',
-                    borderRadius: '50%'
+                    borderRadius: '50%',
+                    willChange: 'unset',
+                    contentVisibility: 'unset',
+                    contain: 'unset',
                 }}
             />
 

@@ -110,6 +110,11 @@ const GalleryEditItem = ({
                                 height={0}
                                 className={styles.place__Image}
                                 unoptimized
+                                style={{
+                                    willChange: 'unset',
+                                    contentVisibility: 'unset',
+                                    contain: 'unset',
+                                }}
                             />
                         </div>
                     })

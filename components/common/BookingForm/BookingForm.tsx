@@ -609,7 +609,12 @@ const BookingForm = () => {
                                         :
                                         React.Children.toArray(selectedPlace?.documents_data.map(document => {
                                             return <Link
-                                                href={document.document}
+                                                href={
+                                                    document.document_type === 'file' ?
+                                                        document.document
+                                                    :
+                                                    document.document_link ?? ''
+                                                }
                                                 target='_blank'
                                                 rel='noreferrer noopener'
                                                 className={styles.document__Link}

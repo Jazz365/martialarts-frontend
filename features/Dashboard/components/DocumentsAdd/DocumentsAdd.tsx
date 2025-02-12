@@ -1,11 +1,14 @@
 'use client';
 
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styles from './styles.module.css'
 import { IoMdAddCircle } from 'react-icons/io'
 import { v4 as uuidv4 } from 'uuid';
 import { IoClose } from 'react-icons/io5';
+import Button from '@/components/buttons/Button/Button';
+import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
+import { IoTrashOutline } from 'react-icons/io5';
 
 
 const DocumentsAdd = ({
@@ -18,7 +21,11 @@ const DocumentsAdd = ({
     const [ isOver, setOver ] = useState(false);
 
     const documents = useMemo<IPlaceDocuments[]>(() => {
-        return items;
+        return items.filter(doc => doc.document_type === 'file');
+    }, [items]);
+
+    const documentLinks = useMemo<IPlaceDocuments[]>(() => {
+        return items.filter(doc => doc.document_type === 'link');
     }, [items]);
 
     const handleFilesChange = async (files: FileList | null) => {
@@ -64,8 +71,35 @@ const DocumentsAdd = ({
     const handleDeleteFile = (id: string | number) => {
         updateItemsArr(items.filter(doc => doc.id !== id));
     }
+
+    const handleAddNewDocumentLink = () => {
+        const newDocumentLink: IPlaceDocuments = {
+            id: uuidv4(),
+            title: '',
+            document: '',
+            uploaded_at: new Date().toString(),
+            document_link: '',
+            document_type: 'link',
+        }
+
+        updateItemsArr([ ...items, newDocumentLink ]);
+    }
+
+    const handleSingleDocLinkUpdate = (
+        id: string | number, 
+        name: 'title' | 'document_link', 
+        val: string
+    ) => {
+        const copyOfItems = items.slice();
+        const foundDocLink = copyOfItems.find(item => item.id === id);
+        if (!foundDocLink) return;
+
+        foundDocLink[name] = val;
+
+        updateItemsArr(copyOfItems);
+    }
     
-    return (
+    return <>
         <section className={styles.wrapper}>
             <label 
                 className={`${styles.file__label} ${isOver ? styles.over : ''}`}
@@ -105,7 +139,71 @@ const DocumentsAdd = ({
                 }
             </section>
         </section>
-    )
+
+        <section className={styles.links__Wrapper}>
+            <h3 className={styles.link__Header}>Links</h3>
+
+            {
+                documentLinks.length > 0 &&
+                <section className={styles.documents__LInks__Wrap}>
+                    {
+                        React.Children.toArray(documentLinks.map(docLink => {
+                            return <>
+                                <section 
+                                    className={styles.single__Doc__Link}
+                                    key={docLink.id}
+                                >
+                                    <TextInputComponent 
+                                        label='title'
+                                        value={docLink.title}
+                                        onChange={(_name, val) => handleSingleDocLinkUpdate(docLink.id, 'title', val)}
+                                        borderRadius='12px'
+                                        labelFontSize='0.85rem'
+                                        style={{
+                                            width: '40%'
+                                        }}
+                                    />
+
+                                    <TextInputComponent 
+                                        label='link'
+                                        value={docLink.document_link ?? ''}
+                                        onChange={(_name, val) => handleSingleDocLinkUpdate(docLink.id, 'document_link', val)}
+                                        borderRadius='12px'
+                                        labelFontSize='0.85rem'
+                                    />
+
+                                    <IoTrashOutline 
+                                        size={'1.8rem'}
+                                        color='#f90000'
+                                        cursor={'pointer'}
+                                        onClick={() => handleDeleteFile(docLink.id)}
+                                    />
+                                </section>
+                            </>
+                        }))
+                    }
+                </section>
+            }
+
+            <Button
+                label='add'
+                style={{
+                    padding: '0.5rem 1.5rem',
+                    fontSize: '0.75rem',
+                    width: 'max-content',
+                    backgroundColor: 'transparent',
+                    border: '1px solid #000',
+                    color: '#000',
+                }}
+                hoverStyle={{
+                    backgroundColor: 'var(--primary-app-color)',
+                    borderColor: 'var(--primary-app-color)',
+                    color: '#fff'
+                }}
+                handleClick={handleAddNewDocumentLink}
+            />
+        </section>
+    </>
 }
 
-export default DocumentsAdd
+export default DocumentsAdd;

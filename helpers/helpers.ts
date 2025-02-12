@@ -1,7 +1,14 @@
+import { AppConstants } from "@/utils/constants";
+
 export const validateEmail = (email: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
     return re.test(email);
 };
+
+export const validateLink = (url: string): boolean => {
+    const regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    return regex.test(url);
+}
 
 export const getDayOfTheWeek = (date: Date) => {
     const day = new Date(date).getDay();
@@ -109,8 +116,7 @@ export const getTimeAgoFromDate = (date: string) => {
 }
 
 export const getYoutubeEmbedVideoLink = (url?: string) => {
-    const defaultPlaceYoutubeUrl = "https://www.youtube.com/embed/bxuYDT-BWaI";
-    if (!url) return defaultPlaceYoutubeUrl;
+    if (!url) return AppConstants.defaultPlaceYoutubeUrl;
 
     const embedPattern = /^https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/;
     if (embedPattern.test(url)) {
@@ -124,7 +130,7 @@ export const getYoutubeEmbedVideoLink = (url?: string) => {
         return `https://www.youtube.com/embed/${match[1]}`;
     }
 
-    return defaultPlaceYoutubeUrl;
+    return AppConstants.defaultPlaceYoutubeUrl;
 }
 
 export const getWeekday = (date: Date): string => {
@@ -221,3 +227,22 @@ export const copyToClipboard = async (content: string) => {
         await navigator.clipboard.writeText(content)
     } catch (error) {}
 }
+
+export const getOrdinalPosition = (num: number): string => {
+    const suffixes = ["th", "st", "nd", "rd"];
+    const value = Math.abs(num);
+    const lastDigit = value % 10;
+    const lastTwoDigits = value % 100;
+  
+    // Determine suffix
+    let suffix = suffixes[0]; // Default to "th"
+    if (lastDigit === 1 && lastTwoDigits !== 11) {
+      suffix = suffixes[1]; // "st"
+    } else if (lastDigit === 2 && lastTwoDigits !== 12) {
+      suffix = suffixes[2]; // "nd"
+    } else if (lastDigit === 3 && lastTwoDigits !== 13) {
+      suffix = suffixes[3]; // "rd"
+    }
+  
+    return `${num}${suffix}`;
+} 

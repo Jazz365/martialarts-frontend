@@ -26,10 +26,8 @@ const SubscriptionCard = ({
         setLoading(true);
 
         try {
-            const res = await userService.initiateSubscription(authToken);
-            console.log(res);
-
-            setLoading(false);
+            const res = (await userService.initiateSubscription(authToken)).data;
+            window.location.href = res.approval_url;
         } catch (error) {
             setLoading(false);
         }
