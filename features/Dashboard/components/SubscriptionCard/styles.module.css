@@ -42,6 +42,24 @@
     text-transform: capitalize;
 }
 
+.title__Wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.billing__Detail {
+    font-size: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #808080;
+}
+
+.billing__Info {
+    color: #000;
+}
+
 @media (min-width: 767.98px) and (max-width: 1200px) {
     .act__Btn {
         margin-top: auto;
