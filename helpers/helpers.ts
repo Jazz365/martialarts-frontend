@@ -61,14 +61,16 @@ export const formatTimeString = (timeStr: string) => {
     return `${hour12}:${minutesFormatted}${period}`;
 }
 
-export const formatDate = (date: Date): string => {
+export const formatDate = (date: Date, returnFormatAsString: boolean = false): string => {
     if (!date) return "";
 
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const month = date.toLocaleString('default', { month: 'long' });
+    const monthNumber = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
 
-    return `${year}-${month}-${day}`;
+    if (returnFormatAsString === true) return `${day} ${month} ${year}`;
+    return `${year}-${monthNumber}-${day}`;
 }
 
 export const estimateReadingTime = (textLength: number) => {

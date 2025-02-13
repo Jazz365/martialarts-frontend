@@ -9,6 +9,7 @@ import { IoClose } from 'react-icons/io5';
 import Button from '@/components/buttons/Button/Button';
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
 import { IoTrashOutline } from 'react-icons/io5';
+import useMobile from '@/hooks/useMobile';
 
 
 const DocumentsAdd = ({
@@ -19,6 +20,7 @@ const DocumentsAdd = ({
     updateItemsArr: (items: IPlaceDocuments[]) => void;
 }) => {
     const [ isOver, setOver ] = useState(false);
+    const isMobile = useMobile();
 
     const documents = useMemo<IPlaceDocuments[]>(() => {
         return items.filter(doc => doc.document_type === 'file');
@@ -160,7 +162,7 @@ const DocumentsAdd = ({
                                         borderRadius='12px'
                                         labelFontSize='0.85rem'
                                         style={{
-                                            width: '40%'
+                                            width: '30%'
                                         }}
                                     />
 
@@ -170,6 +172,9 @@ const DocumentsAdd = ({
                                         onChange={(_name, val) => handleSingleDocLinkUpdate(docLink.id, 'document_link', val)}
                                         borderRadius='12px'
                                         labelFontSize='0.85rem'
+                                        style={{
+                                            width: isMobile ? 'calc(100% - 30% - 1rem)' : undefined
+                                        }}
                                     />
 
                                     <IoTrashOutline 
@@ -177,7 +182,21 @@ const DocumentsAdd = ({
                                         color='#f90000'
                                         cursor={'pointer'}
                                         onClick={() => handleDeleteFile(docLink.id)}
+                                        style={{
+                                            display: isMobile ? 'none' : 'block'
+                                        }}
                                     />
+
+                                    <div 
+                                        className={styles.mob__Add__Title}
+                                        onClick={() => handleDeleteFile(docLink.id)}
+                                    >
+                                        <span>Delete link</span>
+                                        <IoTrashOutline
+                                            size={'0.65rem'}
+                                            color='#f90000'
+                                        />
+                                    </div>
                                 </section>
                             </>
                         }))

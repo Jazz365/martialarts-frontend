@@ -45,6 +45,9 @@
     .content__Wrap {
         padding-left: 1rem;
         padding-right: 1rem;
+        height: unset;
+        min-height: unset;
+        max-height: 100%;
     }
 
     .all__places {

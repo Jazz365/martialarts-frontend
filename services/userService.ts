@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import apiBaseUrl from "./config"
 import { toast } from "sonner";
+import { makeGetRequest } from "./functions";
 
 class UserService {
     getUserEndpoint(endpoint: string) {
@@ -48,6 +49,43 @@ class UserService {
             }
             
             throw error;
+        }
+    }
+
+    async activateSubscription (token: string) {
+        try {
+            const res = await axios.post(
+                `${this.getUserEndpoint('subscription/activate')}`, 
+                {}, 
+                {
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                    },
+                },
+            );
+            return res;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                toast.info(error.response?.data?.detail ?? error.message);
+            } else {
+                toast.error('Something went wrong while trying to confirm your new subscription, please contact support');
+            }
+            
+            throw error;
+        }
+    }
+
+    async getOwnerProfile (token?: string | null) {
+        try {
+            const res = await makeGetRequest(
+                `${this.getUserEndpoint('owner-profile')}`,
+                {
+                    'Authorization': `Token ${token}`,
+                }
+            );
+            return res
+        } catch (error) {
+            
         }
     }
 }
