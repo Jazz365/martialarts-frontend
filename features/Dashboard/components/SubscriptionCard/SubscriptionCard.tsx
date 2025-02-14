@@ -27,7 +27,6 @@ const SubscriptionCard = ({
 
     const userService = new UserService();
     const isActivePlan = true; // to be updated when details about the plan are included in the subscription
-    console.log(userSubscription);
     
     useEffect(() => {
         setSubscriptionDetailLoaded(false);
