@@ -13,10 +13,11 @@ export const subscriptionPlans: SubscriptionPlan[] = [
         pricing: 29,
         paymentInterval: 'month',
         benefits: [
-            'Monthly subscription',
+            'Enjoy a 1-month free trial.',
+            'Monthly subscription.',
             'No commitment - cancel anytime.',
             'Unlimited listings and access to all features.',
-            'Full flexibility to manage your account at any time',
+            'Full flexibility to manage your account at any time.',
         ]
     },
     // {

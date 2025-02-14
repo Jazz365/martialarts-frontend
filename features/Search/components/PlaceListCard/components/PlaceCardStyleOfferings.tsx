@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import styles from '../styles.module.css'
 import useMobile from '@/hooks/useMobile';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
+import { formatTimeString } from '@/helpers/helpers';
 
 const PlaceCardStyleOfferings = ({
   place,
@@ -31,7 +32,16 @@ const PlaceCardStyleOfferings = ({
     `${
     place.place_activity_hours
     .filter(act => act?.opening_time && act?.opening_time?.length > 0 && act?.closing_time && act?.closing_time?.length > 0)
-    .map(act => `${act.day} (${act.opening_time} - ${act.closing_time})`)
+    .map(act => {
+      const [
+        openingTimeFormatted,
+        closingTimeFormatted,
+      ] = [
+        formatTimeString(act.opening_time ?? ''),
+        formatTimeString(act.closing_time ?? ''),
+      ];
+      return `${act.day} (${openingTimeFormatted} - ${closingTimeFormatted})`;
+    })
     .join(', ')
     }`,
   ]

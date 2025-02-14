@@ -51,7 +51,8 @@ const Footer = () => {
                         className={styles.logo}
                     />
                     <p className={styles.logo__Subtitle}>
-                        Bringing You the Best Martial Arts Studios and Classes Near You
+                        Martial Arts Classes to Build Strength and Confidence
+                        {/* Bringing You the Best Martial Arts Studios and Classes Near You */}
                     </p>
                 </section>
 

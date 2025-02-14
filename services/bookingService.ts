@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import apiBaseUrl from "./config";
 import { makeAxiosPatchRequest, makeAxiosPostRequest, makeGetRequest } from "./functions";
+import axios from "axios";
 
 class BookingService {
     private getBookingEndpoint(endpoint: string) {
@@ -9,13 +10,15 @@ class BookingService {
 
     async createNewBooking (token: string, data={}) {
         try {
-            const res = await makeAxiosPostRequest(
+            const res = (await axios.post(
                 `${this.getBookingEndpoint('create')}`,
                 data,
                 {
-                    'Authorization': `Token ${token}`,
-                },
-            );
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                    },
+                }
+            )).data;
             toast.success('Successfully created new booking!');
 
             return res as IBooking;

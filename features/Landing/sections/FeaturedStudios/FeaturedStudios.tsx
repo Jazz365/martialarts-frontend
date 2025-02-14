@@ -11,7 +11,7 @@ import { useAppContext } from '@/contexts/AppContext/AppContext';
 // import Link from 'next/link';
 // import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
 import Button from '@/components/buttons/Button/Button';
-import useClickOutside from '@/hooks/useClickOutside';
+// import useClickOutside from '@/hooks/useClickOutside';
 
 
 const maxItemsPerPage = 4;
@@ -35,11 +35,11 @@ const FeaturedStudios = () => {
         return featuredStyles;
     }, [allStyles])
 
-    useClickOutside({
-        elemRef: stylesRef,
-        alternateElementRef: currentPlacesRef,
-        handleClickOutside: () => setCurrentSelectedStyle(null),
-    });
+    // useClickOutside({
+    //     elemRef: stylesRef,
+    //     alternateElementRef: currentPlacesRef,
+    //     handleClickOutside: () => setCurrentSelectedStyle(null),
+    // });
     
     return <>
         <section className={styles.content__Wrap}>

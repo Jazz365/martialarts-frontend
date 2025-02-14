@@ -347,7 +347,7 @@ const BookingForm = () => {
                                             width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                         }}
                                     >
-                                        <span>appointment date <RequiredIndicator /></span>
+                                        <span>select date <RequiredIndicator /></span>
                                         <DatePicker 
                                             selected={new Date(bookingDetails.date)}
                                             onChange={(date) => {
@@ -374,7 +374,7 @@ const BookingForm = () => {
                                     </label>
 
                                     <SelectItem 
-                                        label='appointment time'
+                                        label='select time'
                                         isRequired
                                         value={bookingDetails.time}
                                         options={
@@ -488,6 +488,9 @@ const BookingForm = () => {
                                         isRequired
                                         style={{
                                             width: bookingDetails.is_for_child === false ?
+                                                isMobile ? 
+                                                    '100%'
+                                                :
                                                 'calc(60% - 0.5rem)'
                                             :
                                             '100%',
@@ -504,7 +507,10 @@ const BookingForm = () => {
                                             borderRadius='12px'
                                             isRequired
                                             style={{
-                                                width: 'calc(40% - 0.5rem)',
+                                                width: isMobile ? 
+                                                    '100%'
+                                                :
+                                                'calc(40% - 0.5rem)',
                                             }}
                                         />
                                     }
@@ -647,7 +653,7 @@ const BookingForm = () => {
                                     />
 
                                     <TextInputComponent 
-                                        label={`I understand and accept the risks involved in martial arts classes and waive all liability ${bookingDetails.is_for_child === true ? 'for my child' : '.'}`}
+                                        label={`I understand and accept the risks involved in martial arts classes and waive all liability${bookingDetails.is_for_child === true ? ' for my child.' : '.'}`}
                                         type='checkbox'
                                         style={{
                                             display: 'flex',
