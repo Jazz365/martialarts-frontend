@@ -95,6 +95,8 @@ const AuthForm = ({
 
 
     const handleSubmitDetails = async () => {
+        if (loading) return;
+        
         const numberofDetailsEntered = Object.keys(details).length;
         const minDetailsRequired = authInfo.isForgotPassForm === false ? 2 : 1;
         if (numberofDetailsEntered < minDetailsRequired || loading) return toast.info('Please fill in all required details');

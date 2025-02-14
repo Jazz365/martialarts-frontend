@@ -15,7 +15,7 @@ const Banner = () => {
                 <section className={styles.banner}>
                     <section className={styles.banner__Text}>
                         <section className={styles.banner__Header}>
-                            <h2 className={styles.header}>List your classes & studio</h2>
+                            <h2 className={styles.header}>Spotlight your classes & studio</h2>
 
                             <p className={styles.info}>easy to add, simple to manage</p>
                         </section>

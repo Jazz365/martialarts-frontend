@@ -5,13 +5,33 @@ import Link from 'next/link'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils'
 import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage'
+import Button from '@/components/buttons/Button/Button'
 
 
 const FeaturedLocations = () => {
     return <>
         <section className={styles.content__Wrap}>
             <FadeInOnScroll>
-                <h2 className={styles.header}>Explore martial arts near you</h2>
+                <section className={styles.header__Wrap}>
+                    <h2 className={styles.header}>Explore martial arts near you</h2>
+
+                    <Button
+                        label='more'
+                        style={{
+                            width: 'max-content',
+                            background: 'transparent',
+                            color: '#000',
+                            border: '1px solid #000',
+                        }}
+                        useLink
+                        linkLocation='/search'
+                        hoverStyle={{
+                            background: '#000',
+                            color: '#fff'
+                        }}
+                        className={styles.more__Btn__Lg}
+                    />
+                </section>
             </FadeInOnScroll>
 
             <FadeInOnScroll>
@@ -43,6 +63,23 @@ const FeaturedLocations = () => {
                     }
                 </section>
             </FadeInOnScroll>
+
+            <Button
+                label='more'
+                style={{
+                    width: 'max-content',
+                    background: 'transparent',
+                    color: '#000',
+                    border: '1px solid #000',
+                }}
+                useLink
+                linkLocation='/search'
+                hoverStyle={{
+                    background: '#000',
+                    color: '#fff'
+                }}
+                className={styles.more__Btn__Sm}
+            />
         </section>
     </>
 }
