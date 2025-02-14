@@ -24,9 +24,10 @@ const SubscriptionCard = ({
         subscriptionDetailLoading,
         setSubscriptionDetailLoaded,
     } = useUserContext();
-    
+
     const userService = new UserService();
     const isActivePlan = true; // to be updated when details about the plan are included in the subscription
+    console.log(userSubscription);
     
     useEffect(() => {
         setSubscriptionDetailLoaded(false);
@@ -51,7 +52,7 @@ const SubscriptionCard = ({
             <section className={styles.title__Wrap}>
                 <h5 className={styles.title}>{plan.title}</h5>
                 {
-                    isActivePlan && userSubscription?.subscription_active === true &&
+                    isActivePlan && userSubscription?.subscription && userSubscription?.subscription_active === true &&
                     <HiBadgeCheck 
                         size={'1.6rem'}
                         color='var(--primary-app-color)'
@@ -76,24 +77,24 @@ const SubscriptionCard = ({
             </section>
 
             {
-                isActivePlan && userSubscription?.subscription_active === true &&
+                isActivePlan && userSubscription?.subscription && userSubscription?.subscription_active === true &&
                 <section className={styles.billing__Detail}>
                     {
-                        userSubscription?.subscription.is_in_trial === true ?
+                        userSubscription?.subscription?.is_in_trial === true ?
                             <>
                                 <p className={styles.billing__Info}>Free trial active</p>
-                                <p><b className={styles.billing__Info}>Trial ends on: </b>{formatDate(new Date(userSubscription.subscription.trial_end_date), true)}</p>
+                                <p><b className={styles.billing__Info}>Trial ends on: </b>{formatDate(new Date(userSubscription?.subscription?.trial_end_date ?? ''), true)}</p>
                             </>
                         :
                         <>
-                            <p><b className={styles.billing__Info}>Next billing date: </b>{formatDate(new Date(userSubscription?.subscription.next_billing_date ?? ''), true)}</p>
+                            <p><b className={styles.billing__Info}>Next billing date: </b>{formatDate(new Date(userSubscription?.subscription?.next_billing_date ?? ''), true)}</p>
                         </>
                     }
                 </section>
             }
 
             {
-                isActivePlan && userSubscription?.subscription_active !== true &&
+                isActivePlan && !userSubscription?.subscription &&
                 <Button 
                     label={
                         (loading || subscriptionDetailLoading) ? 
