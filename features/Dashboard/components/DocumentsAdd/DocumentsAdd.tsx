@@ -39,6 +39,7 @@ const DocumentsAdd = ({
                 title: file.name,
                 document: '',
                 uploaded_at: new Date().toString(),
+                document_type: 'file' as 'file',
                 file,
             }
         });

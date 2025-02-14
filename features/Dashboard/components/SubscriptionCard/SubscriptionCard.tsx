@@ -2,7 +2,7 @@
 
 
 import { SubscriptionPlan } from '@/utils/subscriptionPlans'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { AiOutlineCheck } from 'react-icons/ai';
 import Button from '@/components/buttons/Button/Button';
@@ -22,10 +22,15 @@ const SubscriptionCard = ({
     const {
         userSubscription,
         subscriptionDetailLoading,
+        setSubscriptionDetailLoaded,
     } = useUserContext();
     
     const userService = new UserService();
     const isActivePlan = true; // to be updated when details about the plan are included in the subscription
+    
+    useEffect(() => {
+        setSubscriptionDetailLoaded(false);
+    }, [])
     
     const handleSubscribeToPlan = async (plan: SubscriptionPlan) => {
         const authToken = AppConstants.savedToken;
