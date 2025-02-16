@@ -27,6 +27,7 @@ const GalleryEditItem = ({
                 id: uuidv4(),
                 image: '',
                 imageFile: file,
+                imageFileType: file.type,
             }
         });
 

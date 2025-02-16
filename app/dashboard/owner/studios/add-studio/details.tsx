@@ -6,7 +6,7 @@ import AddItemWrapper from '@/features/Dashboard/components/AddItemWrapper/AddIt
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import AddItemComponent from '@/features/Dashboard/components/AddItemComponent/AddItemComponent';
-import { compulsoryDetailKeys, compulsoryDetailKeysDict, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes, saveFormDataToFile } from './utils';
+import { cleanNewPlaceDetailForStorageSaveOperation, compulsoryDetailKeys, compulsoryDetailKeysDict, formatSavedNewPlaceDetailInStorage, generateFormDataForNewPlaceDetails, initialNewPlaceDetail, NewPlaceDetail, newPlaceDetailKeysDict, pricingTypes, SAVED_PLACE_DETAIL_IN_STORAGE, saveFormDataToFile } from './utils';
 import AddLocationsComponent from '@/features/Dashboard/components/AddLocationsComponent/AddLocationsComponent';
 import MastersAddComponent from '@/features/Dashboard/components/MastersAddComponent/MastersAddComponent';
 import ActivityHoursEdit from '@/features/Dashboard/components/ActivityHoursEdit/ActivityHoursEdit';
@@ -29,6 +29,7 @@ import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/Al
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import StyleAddModal from '@/components/popups/StyleAddModal/StyleAddModal';
+import PaymentPopup from '@/components/popups/PaymentPopup/PaymentPopup';
 
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
@@ -36,11 +37,12 @@ const timeoutToRemoveErrHighlight = 1400;
 
 const AddPlaceDetails = () => {
     const [ details, setDetails ] = useState<NewPlaceDetail>(initialNewPlaceDetail);
-    const [ detailsLoading, setDetailsLoading ] = useState<boolean>(false);
+    const [ detailsLoading, setDetailsLoading ] = useState<boolean>(true);
     const [ showStyleAddModal, setShowStyleAddModal ] = useState<boolean>(false);
     const [ loading, setLoading ] = useState(false);
     const [ isEditView, setIsEditView ] = useState(false);
     const [ estimatedUploadTimeInMS, setEstimatedUploadTimeInMS ] = useState(6000);
+    const [ showPaymentModal, setShowPaymentModal ] = useState(false);
 
     const [
         basicInfoRef,
@@ -109,12 +111,34 @@ const AddPlaceDetails = () => {
         setTimeout(() => sectionRef.current?.classList.remove(styles.highlight__Err), timeoutToRemoveErrHighlight);
     }
 
+    const handleSavePlaceToStorage = async () => {
+        const placeDetailToSaveToStorage = await cleanNewPlaceDetailForStorageSaveOperation(details);
+        localStorage.setItem(SAVED_PLACE_DETAIL_IN_STORAGE, JSON.stringify(placeDetailToSaveToStorage));
+    }
+
+    const loadSavedPlaceFromStorage = () => {
+        const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
+        if (!savedPlace) return setDetailsLoading(false);
+
+        try {
+            const parsedSavedPlace = JSON.parse(savedPlace);
+            const formattedSavedPlace = formatSavedNewPlaceDetailInStorage(parsedSavedPlace);
+            setDetails(formattedSavedPlace);
+        } catch (error) {
+            console.log('error parsing saved place -> ', error);
+        } finally {
+            setDetailsLoading(false);
+        }
+    }
+
     useEffect(() => {
         const idPassed = searchParams.get('id');
-        if (!idPassed || isNaN(Number(idPassed))) return setIsEditView(false);
+        if (!idPassed || isNaN(Number(idPassed))) {
+            loadSavedPlaceFromStorage();
+            return setIsEditView(false);
+        }
 
         setIsEditView(true);
-        setDetailsLoading(true);
 
         placeService.getSinglePlace(Number(idPassed)).then((res) => {
             const placeActivityHours = res?.place_activity_hours;
@@ -335,8 +359,14 @@ const AddPlaceDetails = () => {
             
             // console.log('create res -> ', res);
             // setLoading(false);
+            localStorage.removeItem(SAVED_PLACE_DETAIL_IN_STORAGE);
             router.push(`/places/${res.id}`);
-        } catch (error) {
+        } catch (error: any) {
+            if (error?.response?.status === 403) {
+                console.log('payment required');
+                setShowPaymentModal(true); 
+            }
+            
             setLoading(false);   
         }
     }
@@ -753,6 +783,15 @@ const AddPlaceDetails = () => {
             showStyleAddModal && <>
                 <StyleAddModal
                     hideModal={() => setShowStyleAddModal(false)}
+                />
+            </>
+        }
+
+        {
+            showPaymentModal && <>
+                <PaymentPopup 
+                    handleHideModal={() => setShowPaymentModal(false)}
+                    handleSaveCurrentPlaceDetail={() => handleSavePlaceToStorage()}
                 />
             </>
         }

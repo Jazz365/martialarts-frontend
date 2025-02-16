@@ -67,7 +67,8 @@ const MasterProfileItem = ({
             accept='image/*'
             onChange={(files) => {
                 if (files && files[0]) {
-                    updateSingleItem(index, files[0], 'imageFile')
+                    updateSingleItem(index, files[0], 'imageFile');
+                    updateSingleItem(index, files[0].type, 'imageFileType')
                 }
             }}
             style={{

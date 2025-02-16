@@ -34,6 +34,7 @@ type IPlaceImage = {
     image: string | File;
     imageFile?: File;
     uploaded_at?: string;
+    imageFileType?: string;
 }
 
 type IPlaceMasterImage = {
@@ -43,6 +44,7 @@ type IPlaceMasterImage = {
     bio: string;
     imageFile?: File;
     image_base64_str?: string;
+    imageFileType?: string;
 }
 
 type IPlaceFaq = {
@@ -102,6 +104,8 @@ type IPlaceDocuments = {
     document: string;
     uploaded_at: string;
     file?: File;
+    fileBase64Str?: string;
+    fileType?: string;
     document_link?: string;
     document_type?: keyof typeof IPlaceDocumentType;
 }
