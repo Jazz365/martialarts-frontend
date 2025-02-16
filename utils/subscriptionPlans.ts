@@ -3,6 +3,8 @@ export interface SubscriptionPlan {
     title: string;
     pricing: number;
     paymentInterval: string;
+    currencySymbol: string;
+    currency: string;
     benefits: string[];
 }
 
@@ -12,6 +14,8 @@ export const subscriptionPlans: SubscriptionPlan[] = [
         title: 'monthly plan',
         pricing: 29,
         paymentInterval: 'month',
+        currencySymbol: '$',
+        currency: 'USD',
         benefits: [
             'Enjoy a 1-month free trial.',
             'Monthly subscription.',

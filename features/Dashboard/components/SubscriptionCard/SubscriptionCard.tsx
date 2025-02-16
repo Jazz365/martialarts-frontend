@@ -11,6 +11,7 @@ import { UserService } from '@/services/userService';
 import { useUserContext } from '@/contexts/UserContext';
 import { HiBadgeCheck } from 'react-icons/hi';
 import { formatDate } from '@/helpers/helpers';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const SubscriptionCard = ({
@@ -60,14 +61,17 @@ const SubscriptionCard = ({
             </section>
 
             <p className={styles.pricing__Wrap}>
-                <span className={styles.pricing}>${plan.pricing}</span>
+                <span className={styles.pricing}>{plan.currencySymbol}{plan.pricing}</span>
                 <span>/{plan.paymentInterval}</span>
             </p>
 
             <section className={styles.benefits}>
                 {
                     React.Children.toArray(plan.benefits.map(benefit => {
-                        return <p className={styles.benefit__item}>
+                        return <p 
+                            key={uuidv4()} 
+                            className={styles.benefit__item}
+                        >
                             <AiOutlineCheck />
                             <span>{benefit}</span>
                         </p>

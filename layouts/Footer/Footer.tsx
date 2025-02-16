@@ -108,7 +108,7 @@ const Footer = () => {
                     <section className={styles.footer__Content__Wrap}>
                         <h4 className={styles.header}>Contact Us</h4>
 
-                        <ul className={styles.footer__Links}>
+                        <ul className={`${styles.footer__Links} ${styles.no__Transform}`}>
                             <li>
                                 <Link href={`mailto:${AppConstants.guruSupportMail}`}>Email: {AppConstants.guruSupportMail}</Link>
                             </li>

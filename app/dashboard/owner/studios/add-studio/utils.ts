@@ -1,5 +1,7 @@
-import { getAllDaysOfTheWeek } from "@/helpers/helpers";
+import { base64ToFile, convertFileObjectToBinaryStr, getAllDaysOfTheWeek, getExtensionFromMimeType } from "@/helpers/helpers";
 import { v4 as uuidv4 } from 'uuid';
+
+export const SAVED_PLACE_DETAIL_IN_STORAGE = 'saved-place-detail';
 
 const pricingTypesDict = {
     monthlyPricing: 'monthly',
@@ -154,6 +156,77 @@ export const rateOptions = [
     'month',
     'hour',
 ]
+
+export const cleanNewPlaceDetailForStorageSaveOperation = async (details: NewPlaceDetail): Promise<NewPlaceDetail> => {
+    const copyOfDetails: NewPlaceDetail = JSON.parse(JSON.stringify(details));
+
+    copyOfDetails.documents = await Promise.all(details.documents.map(async (doc) => {
+        const copyOfDoc = {...doc};
+        if (copyOfDoc.file && copyOfDoc.file instanceof File) {
+            try {
+                copyOfDoc.fileBase64Str = await convertFileObjectToBinaryStr(copyOfDoc.file) as string;
+            } catch (error) {}
+
+            delete copyOfDoc.file;
+        }
+
+        return copyOfDoc;
+    }));
+
+    copyOfDetails.images = details.images.map(image => {
+        const copyOfImage = { ...image };
+        if (copyOfImage.imageFile && copyOfImage.imageFile instanceof File) delete copyOfImage.imageFile;
+        return copyOfImage;
+    });
+
+    copyOfDetails.master_images = details.master_images.map(masterItem => {
+        const copyOfMasterItem = { ...masterItem };
+        if (copyOfMasterItem.imageFile && copyOfMasterItem.imageFile instanceof File) delete copyOfMasterItem.imageFile;
+        return copyOfMasterItem;
+    });
+
+    return copyOfDetails;
+}
+
+export const formatSavedNewPlaceDetailInStorage = (details: NewPlaceDetail): NewPlaceDetail => {
+    const copyOfDetails: NewPlaceDetail = JSON.parse(JSON.stringify(details));
+
+    copyOfDetails.documents = details.documents.map((item) => {
+        const copyOfItem = {...item};
+        if (item.fileBase64Str && item.fileBase64Str?.length > 0 && item.fileType && item.fileType?.length > 0) {
+            try {
+                copyOfItem.file = base64ToFile(item.fileBase64Str, item.title, item.fileType);
+            } catch (error) {}
+        }
+        return copyOfItem;
+    });
+
+    copyOfDetails.images = details.images.map((item) => {
+        const copyOfItem = {...item};
+        const imageBase64Str = item.image as string;
+        if (imageBase64Str && imageBase64Str?.length > 0 && item.imageFileType && item.imageFileType?.length > 0) {
+            try {
+                const fileExtension = getExtensionFromMimeType(item.imageFileType);
+                copyOfItem.imageFile = base64ToFile(imageBase64Str, `${item.id}.${fileExtension}`, item.imageFileType);
+            } catch (error) {}
+        }
+        return copyOfItem;
+    });
+
+    copyOfDetails.master_images = details.master_images.map((item) => {
+        const copyOfItem = {...item};
+        const imageBase64Str = item.image as string;
+        if (imageBase64Str && imageBase64Str?.length > 0 && item.imageFileType && item.imageFileType?.length > 0) {
+            try {
+                const fileExtension = getExtensionFromMimeType(item.imageFileType);
+                copyOfItem.imageFile = base64ToFile(imageBase64Str, `${item.id}.${fileExtension}`, item.imageFileType);
+            } catch (error) {}
+        }
+        return copyOfItem;
+    });
+
+    return copyOfDetails;
+}
 
 export const generateFormDataForNewPlaceDetails = (details: NewPlaceDetail, isEditView=false) => {
     const formattedDetails = Object.keys(details).map(key => {

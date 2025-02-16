@@ -248,3 +248,105 @@ export const getOrdinalPosition = (num: number): string => {
   
     return `${num}${suffix}`;
 } 
+
+export const base64ToFile = (base64Data: string, fileName: string, mimeType: string): File => {
+    // Split the base64 data into the metadata and the actual base64 data
+    const base64String = base64Data.split(',')[1]; // Remove the "data:image/jpeg;base64," part
+
+    // Decode the base64 string
+    const binaryString = atob(base64String); 
+
+    // Convert the binary string to a byte array
+    const byteArray = new Uint8Array(binaryString.length);
+
+    for (let i = 0; i < binaryString.length; i++) {
+        byteArray[i] = binaryString.charCodeAt(i);
+    }
+
+    // Create a Blob from the byte array
+    const blob = new Blob([byteArray], { type: mimeType });
+
+    // Create a File object from the Blob
+    const file = new File([blob], fileName, { type: mimeType });
+
+    return file;
+}
+
+export const getExtensionFromMimeType = (mimeType: string): string | null => {
+    const mimeTypeMap: { [key: string]: string } = {
+        'image/jpeg': 'jpg',
+        'image/png': 'png',
+        'image/gif': 'gif',
+        'image/webp': 'webp',
+        'image/bmp': 'bmp',
+        'image/tiff': 'tiff',
+        'image/svg+xml': 'svg',
+        'image/vnd.microsoft.icon': 'ico',
+        'image/x-icon': 'ico',
+        
+        'audio/mpeg': 'mp3',
+        'audio/wav': 'wav',
+        'audio/ogg': 'oga',
+        'audio/webm': 'weba',
+        'audio/mp4': 'm4a',
+        'audio/x-wav': 'wav',
+        'audio/pcm': 'pcm',
+        
+        'video/mp4': 'mp4',
+        'video/webm': 'webm',
+        'video/ogg': 'ogv',
+        'video/mpeg': 'mpg',
+        'video/x-msvideo': 'avi',
+        'video/x-flv': 'flv',
+        'video/quicktime': 'mov',
+        'video/3gpp': '3gp',
+        'video/x-matroska': 'mkv',
+        
+        'text/plain': 'txt',
+        'text/html': 'html',
+        'text/css': 'css',
+        'text/javascript': 'js',
+        'text/csv': 'csv',
+        'text/xml': 'xml',
+        'text/markdown': 'md',
+        
+        'application/json': 'json',
+        'application/xml': 'xml',
+        'application/pdf': 'pdf',
+        'application/zip': 'zip',
+        'application/gzip': 'gz',
+        'application/x-tar': 'tar',
+        'application/x-rar-compressed': 'rar',
+        'application/x-7z-compressed': '7z',
+        'application/vnd.ms-excel': 'xls',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+        'application/msword': 'doc',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+        'application/vnd.powerpoint': 'ppt',
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
+        'application/octet-stream': 'bin',
+        
+        'font/woff': 'woff',
+        'font/woff2': 'woff2',
+        'font/otf': 'otf',
+        'font/ttf': 'ttf',
+        
+        'application/javascript': 'js',
+        'application/x-javascript': 'js',
+        'application/ld+json': 'jsonld',
+        
+        'application/vnd.ms-fontobject': 'eot',
+        'application/x-font-ttf': 'ttf',
+        'application/x-font-otf': 'otf',
+        
+        'application/vnd.mozilla.xul+xml': 'xul',
+        'application/x-shockwave-flash': 'swf',
+        
+        'application/rtf': 'rtf',
+        'application/x-www-form-urlencoded': 'urlencoded',
+        'application/x-httpd-php': 'php',
+        'text/rtf': 'rtf',
+    };
+
+    return mimeTypeMap[mimeType] || null;
+}

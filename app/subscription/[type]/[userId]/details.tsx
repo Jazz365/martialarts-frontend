@@ -1,6 +1,7 @@
 'use client';
 
 
+import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/owner/studios/add-studio/utils';
 import Loader from '@/components/loaders/Loader/Loader'
 import { useUserContext } from '@/contexts/UserContext';
 import { UserService } from '@/services/userService';
@@ -25,7 +26,8 @@ const SubscriptionCallbackDetails = ({
 
     useEffect(() => {
         const authToken = AppConstants.savedToken;
-
+        const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
+        
         if (!authToken || !type || !userDetails) return;
 
         const activateSubscription = async () => {
@@ -37,12 +39,14 @@ const SubscriptionCallbackDetails = ({
 
                     await userService.activateSubscription(authToken);
                     toast.success('Successfully subscribed to plan!');
+                } else {
+                    toast.error('Failed to activate subscription, please contact support');
                 }
             } catch (error) {
                 console.log(error);
             } finally {
                 setDataLoading(false);
-                router.push('/dashboard/owner/subscription');
+                router.push(`/dashboard/owner/${savedPlace ? '/studios/add-studio' : 'subscription'}`);
             }
         }
 

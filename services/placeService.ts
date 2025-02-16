@@ -19,7 +19,11 @@ class PlaceService {
 
             return res as IPlace;
         } catch (error) {
-            toast.error('Something went wrong, please try again later');
+            let errorMsg = 'Something went wrong, please try again later';
+            if (error instanceof AxiosError) {
+                errorMsg = error.response?.data?.detail ?? error.message;
+            }
+            toast.error(errorMsg);
             throw error;
         }
     }
@@ -35,7 +39,11 @@ class PlaceService {
 
             return res as IPlace;
         } catch (error) {
-            toast.error('Something went wrong, please try again later');
+            let errorMsg = 'Something went wrong, please try again later';
+            if (error instanceof AxiosError) {
+                errorMsg = error.response?.data?.detail ?? error.message;
+            }
+            toast.error(errorMsg);
             throw error;
         }
     }

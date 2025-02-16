@@ -22,7 +22,7 @@
 .content {
     background-color: #fff;
     width: 30%;
-    min-height: 30%;
+    /* min-height: 30%; */
     height: max-content;
     max-height: 75%;
     overflow-y: auto;
@@ -36,4 +36,10 @@
 .header {
     font-family: var(--mako-font);
     font-size: 1.5rem;
+}
+
+@media screen and (max-width: 767px){
+    .content {
+        width: 95%;
+    }
 }
