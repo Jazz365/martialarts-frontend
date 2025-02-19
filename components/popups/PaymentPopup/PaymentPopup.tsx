@@ -10,25 +10,26 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from '@/components/buttons/Button/Button';
 import { AppConstants } from '@/utils/constants';
 import { UserService } from '@/services/userService';
+import { useAppContext } from '@/contexts/AppContext/AppContext';
 
 
-const PaymentPopup = ({
-    handleHideModal = () => {},
-    handleSaveCurrentPlaceDetail = () => {},
-}: {
-    handleHideModal?: () => void;
-    handleSaveCurrentPlaceDetail?: () => void;
-}) => {
+const PaymentPopup = () => {
+    const {
+        showPaymentModal, 
+        setShowPaymentModal
+    } = useAppContext();
+
     const [ selectedPlan, setSelectedPlan ] = useState<number | null>(null);
     const [ loading, setLoading ] = useState(false);
 
     const userService = new UserService();
 
+    const handleHideModal = () => setShowPaymentModal(false);
+
     const handleSubscribeToPlan = async () => {
         const authToken = AppConstants.savedToken;
         if (!authToken || loading || !selectedPlan) return;
 
-        handleSaveCurrentPlaceDetail();
         setLoading(true);
 
         try {
@@ -38,6 +39,8 @@ const PaymentPopup = ({
             setLoading(false);
         }
     }
+
+    if (!showPaymentModal) return <></>
 
     return (
         <section className={styles.overlay}>

@@ -40,7 +40,7 @@ const SubscriptionCallbackDetails = ({
                     await userService.activateSubscription(authToken);
                     toast.success('Successfully subscribed to plan!');
                 } else {
-                    toast.error('Failed to activate subscription, please contact support');
+                    toast.error('Failed to activate subscription, please contact support if you were debited');
                 }
             } catch (error) {
                 console.log(error);

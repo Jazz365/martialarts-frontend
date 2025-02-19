@@ -28,7 +28,7 @@ const AddLocationItem = ({
         state: string;
         zip_code: string;
     };
-    handleUpdateItem?: (value: string, key: string) => void;
+    handleUpdateItem?: (value: string | number | undefined, key: string) => void;
     useCustomCityDropdownListing?: boolean;
     handleDeleteItem?: () => void;
     isLastItemIndex?: boolean;
@@ -116,12 +116,30 @@ const AddLocationItem = ({
                                                   component.types.includes("postal_code")
                                                 )?.long_name;
 
+                                                const lat = Number(place.geometry?.location?.lat());
+                                                const lng = Number(place.geometry?.location?.lng());
+
                                                 setLocationAddress(prediction.description);
 
                                                 handleUpdateItem(prediction.description, 'address');
                                                 handleUpdateItem(city ?? '', 'city');
                                                 handleUpdateItem(state ?? '', 'state');
                                                 handleUpdateItem(zip ?? '', 'zip_code');
+                                                handleUpdateItem(
+                                                    isNaN(lat) ? 
+                                                        undefined
+                                                    : 
+                                                    lat, 
+                                                    'latitude',
+                                                );
+
+                                                handleUpdateItem(
+                                                    isNaN(lng) ? 
+                                                        undefined
+                                                    : 
+                                                    lng, 
+                                                    'longitude',
+                                                );
 
                                                 addressInputRef.current?.blur();
                                             }

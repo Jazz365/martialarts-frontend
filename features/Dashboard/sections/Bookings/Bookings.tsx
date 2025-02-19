@@ -57,6 +57,10 @@ const Bookings = () => {
                         React.Children.toArray(
                             bookings
                             .slice(0, 5)
+                            .filter((booking) => {
+                                if (userDetails?.is_owner === true) return booking.status === 'pending'
+                                return booking.status === 'confirmed';
+                            })
                             .map(booking => {
                                 return <BookingSummaryItem 
                                     booking={booking}

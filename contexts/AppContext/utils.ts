@@ -58,5 +58,7 @@ export const initialAppContext: AppContextType = {
     setAgeGroupsLoading: () => {},
     ageGroupsLoaded: false,
     setAgeGroupsLoaded: () => {},
+    showPaymentModal: false,
+    setShowPaymentModal: () => {},
     resetUserInfoInContext: () => {},
 }

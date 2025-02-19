@@ -28,6 +28,8 @@ const SubscriptionCard = ({
 
     const userService = new UserService();
     const isActivePlan = true; // to be updated when details about the plan are included in the subscription
+
+    const userSubscriptionIsActive = isActivePlan && userSubscription?.subscription && userSubscription?.subscription_active === true && userSubscription.subscription.status === 'ACTIVE';
     
     useEffect(() => {
         setSubscriptionDetailLoaded(false);
@@ -52,7 +54,7 @@ const SubscriptionCard = ({
             <section className={styles.title__Wrap}>
                 <h5 className={styles.title}>{plan.title}</h5>
                 {
-                    isActivePlan && userSubscription?.subscription && userSubscription?.subscription_active === true &&
+                    userSubscriptionIsActive &&
                     <HiBadgeCheck 
                         size={'1.6rem'}
                         color='var(--primary-app-color)'
@@ -80,7 +82,7 @@ const SubscriptionCard = ({
             </section>
 
             {
-                isActivePlan && userSubscription?.subscription && userSubscription?.subscription_active === true &&
+                userSubscriptionIsActive &&
                 <section className={styles.billing__Detail}>
                     {
                         userSubscription?.subscription?.is_in_trial === true ?
@@ -97,7 +99,7 @@ const SubscriptionCard = ({
             }
 
             {
-                isActivePlan && !userSubscription?.subscription &&
+                !userSubscriptionIsActive &&
                 <Button 
                     label={
                         (loading || subscriptionDetailLoading) ? 

@@ -55,6 +55,8 @@ const AppContextProvider = ({
     const [ ageGroupsLoading, setAgeGroupsLoading ] = useState(true);
     const [ ageGroupsLoaded, setAgeGroupsLoaded ] = useState(false);
 
+    const [ showPaymentModal, setShowPaymentModal ] = useState(false);
+
     const userBookedPlaces = useMemo<IPlace[]>(() => {
         return bookings.filter(booking => booking.status === 'confirmed').flatMap(booking => [booking.place]);
     }, [bookings]);
@@ -262,6 +264,8 @@ const AppContextProvider = ({
             setAgeGroupsLoaded,
             ageGroupsLoading,
             setAgeGroupsLoading,
+            showPaymentModal,
+            setShowPaymentModal,
             resetUserInfoInContext,
         }}>
             {children}

@@ -3,8 +3,13 @@ interface ISubscription {
     subscription: ISubscriptionDetail;
 }
 
+enum SubscriptionStatus {
+    PENDING,
+    ACTIVE,
+}
+
 interface ISubscriptionDetail {
-    status: string;
+    status: keyof typeof SubscriptionStatus;
     start_date: string;
     next_billing_date?: string;
     is_in_trial: boolean;
