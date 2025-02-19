@@ -22,6 +22,7 @@ const NewBooking = ({
 }) => {
     const {
         userDetails,
+        userDetailsLoading,
     } = useUserContext();
 
     const {
@@ -91,26 +92,20 @@ const NewBooking = ({
                 />
             </section>
 
-            {
-                userDetails?.is_owner === true ?
-                    <></>
-                :
-                <>
-                    <Button 
-                        label='class registration'
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            backgroundColor: 'var(--red-color)',
-                        }}
-                        hoverStyle={{
-                            backgroundColor: 'black',
-                        }}
-                        handleClick={handleBookNowBtnClick}
-                    />
-                </>
-            }
+            <Button 
+                label={userDetailsLoading ? 'please wait...' : 'class registration'}
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'var(--red-color)',
+                }}
+                hoverStyle={{
+                    backgroundColor: 'black',
+                }}
+                handleClick={handleBookNowBtnClick}
+                disabled={userDetailsLoading}
+            />
         </section>
     )
 }

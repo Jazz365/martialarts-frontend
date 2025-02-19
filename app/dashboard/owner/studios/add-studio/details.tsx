@@ -112,8 +112,8 @@ const AddPlaceDetails = () => {
         setTimeout(() => sectionRef.current?.classList.remove(styles.highlight__Err), timeoutToRemoveErrHighlight);
     }
 
-    const handleSavePlaceToStorage = async () => {
-        const placeDetailToSaveToStorage = await cleanNewPlaceDetailForStorageSaveOperation(details);
+    const handleSavePlaceToStorage = async (place: NewPlaceDetail) => {
+        const placeDetailToSaveToStorage = await cleanNewPlaceDetailForStorageSaveOperation(place);
         localStorage.setItem(SAVED_PLACE_DETAIL_IN_STORAGE, JSON.stringify(placeDetailToSaveToStorage));
     }
 
@@ -121,20 +121,24 @@ const AddPlaceDetails = () => {
         const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
         if (!savedPlace) return setDetailsLoading(false);
 
+        let formattedSavedPlace: NewPlaceDetail | null = null;
+
         try {
             const parsedSavedPlace = JSON.parse(savedPlace);
-            const formattedSavedPlace = formatSavedNewPlaceDetailInStorage(parsedSavedPlace);
+            formattedSavedPlace = formatSavedNewPlaceDetailInStorage(parsedSavedPlace);
             setDetails(formattedSavedPlace);
         } catch (error) {
             console.log('error parsing saved place -> ', error);
         } finally {
+            if (!formattedSavedPlace) return setDetailsLoading(false);
+
             setTimeout(() => {
                 buttonRef.current?.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
-                handleSaveNewPlace();
-            }, 1800);
+                handleSaveNewPlace(formattedSavedPlace);
+            }, 1500);
         }
     }
 
@@ -232,14 +236,17 @@ const AddPlaceDetails = () => {
         handleDetailUpdate(key, currentItemsCopy.filter(item => item !== valueId));
     }
 
-    const handleSaveNewPlace = async () => {
+    const handleSaveNewPlace = async (passedDetails: NewPlaceDetail | null = null) => {
         setDetailsLoading(false);
+
+        let detailsToSubmit: NewPlaceDetail = details;
+        if (passedDetails) detailsToSubmit = passedDetails;
 
         const savedToken = AppConstants.savedToken;
         if (!savedToken || loading) return;
 
         const missingRequiredDetail = compulsoryDetailKeys.find(key => {
-            const value = details[key as keyof NewPlaceDetail];
+            const value = detailsToSubmit[key as keyof NewPlaceDetail];
           
             return (
                 !value || 
@@ -274,38 +281,38 @@ const AddPlaceDetails = () => {
             return toast.info(`Please fill in all required info${compulsoryDetailKeysDict[missingRequiredDetail] ? ': found missing ' + '"' + compulsoryDetailKeysDict[missingRequiredDetail] + '"' : ''}`);
         }
 
-        if (isNaN(Number(details.pricing))) {
+        if (isNaN(Number(detailsToSubmit.pricing))) {
             scrollToSectionAndAddErrHighlight(basicInfoRef);
             return toast.info('Please enter a valid number for the pricing of this new place');
         }
 
-        if (details.locations.find(location => location.address.length < 1 || location.city.length < 1)) {
+        if (detailsToSubmit.locations.find(location => location.address.length < 1 || location.city.length < 1)) {
             scrollToSectionAndAddErrHighlight(basicInfoRef);
             return toast.info('Found missing city or address in location provided');
         }
         
-        if (details.benefits.find(benefit => benefit.length < 1)) {
+        if (detailsToSubmit.benefits.find(benefit => benefit.length < 1)) {
             scrollToSectionAndAddErrHighlight(basicInfoRef);
             return toast.info('Found missing/empty benefit in provided benefits');
         }
         
-        if (details.master_images.find(master => master.name.length < 1 || (!master.imageFile && master.image.toString().length < 1))) {
+        if (detailsToSubmit.master_images.find(master => master.name.length < 1 || (!master.imageFile && master.image.toString().length < 1))) {
             scrollToSectionAndAddErrHighlight(mastersRef);
             return toast.info('Found missing master name or image');
         }
 
-        if (details.images.length < 5) {
+        if (detailsToSubmit.images.length < 5) {
             scrollToSectionAndAddErrHighlight(galleryRef);
             return toast.info('Please upload at least 5 images for your place');
         }
 
-        if (details.benefits.length < 5) {
+        if (detailsToSubmit.benefits.length < 5) {
             scrollToSectionAndAddErrHighlight(basicInfoRef);
             return toast.info('Please write at least 5 benefits of your place');
         }
 
-        if (details.documents.length > 0) {
-            const invalidDocumentLinkIndex = details.documents.findIndex(doc => doc.document_type === 'link' && !validateLink(doc.document_link ?? ''));
+        if (detailsToSubmit.documents.length > 0) {
+            const invalidDocumentLinkIndex = detailsToSubmit.documents.findIndex(doc => doc.document_type === 'link' && !validateLink(doc.document_link ?? ''));
             if (invalidDocumentLinkIndex !== -1) {
                 scrollToSectionAndAddErrHighlight(documentsAddRef);
                 return toast.info(`The ${getOrdinalPosition(invalidDocumentLinkIndex + 1)} document link you provided is invalid. Please provide a valid document link`);
@@ -314,17 +321,17 @@ const AddPlaceDetails = () => {
         
         const uploadSpeedPerKB = 650;
         const totalFilesAdded: File[] = [
-            ...details.images.flatMap(item => 
+            ...detailsToSubmit.images.flatMap(item => 
                 item.imageFile || item.image instanceof File 
                     ? [item.imageFile ?? item.image as File] 
                     : []
             ),
-            ...details.master_images.flatMap(item => 
+            ...detailsToSubmit.master_images.flatMap(item => 
                 item.imageFile || item.image instanceof File 
                     ? [item.imageFile ?? item.image as File] 
                     : []
             ),
-            ...details.documents.flatMap(item => 
+            ...detailsToSubmit.documents.flatMap(item => 
                 item.file && item.file instanceof File 
                     ? [item.file] 
                     : []
@@ -334,8 +341,8 @@ const AddPlaceDetails = () => {
         const estimatedUploadTimeInMS = totalFilesAdded.reduce((a, b) => a + b.size, 0) / (uploadSpeedPerKB * 1024) * 1000;
         setEstimatedUploadTimeInMS(estimatedUploadTimeInMS <= 0 ? 3000 : estimatedUploadTimeInMS);
         
-        const formData = generateFormDataForNewPlaceDetails(details, isEditView);
-        // console.log(details);
+        const formData = generateFormDataForNewPlaceDetails(detailsToSubmit, isEditView);
+        // console.log(detailsToSubmit);
         // console.log(formData);
         // saveFormDataToFile(formData);
         // return
@@ -374,7 +381,7 @@ const AddPlaceDetails = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 console.log('payment required');
-                handleSavePlaceToStorage();
+                handleSavePlaceToStorage(detailsToSubmit);
                 setShowPaymentModal(true); 
             }
             
@@ -785,7 +792,7 @@ const AddPlaceDetails = () => {
                     width: 'max-content',
                     backgroundColor: 'var(--primary-app-color)',
                 }}
-                handleClick={handleSaveNewPlace}
+                handleClick={() => handleSaveNewPlace()}
                 disabled={loading}
                 ref={buttonRef}
             />
