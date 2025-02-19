@@ -121,4 +121,6 @@ const Button = forwardRef(({
     </>
 });
 
+Button.displayName = 'CustomButton';
+
 export default Button
