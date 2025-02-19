@@ -2,11 +2,11 @@
 
 
 import Link from 'next/link';
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, forwardRef, useState } from 'react'
 import styles from './styles.module.css';
 
 
-const Button = ({
+const Button = forwardRef(({
     label,
     style={},
     icon,
@@ -34,7 +34,7 @@ const Button = ({
     className?: string;
     rel?: string;
     target?: string;
-}) => {
+}, ref) => {
     const [ mouseOver, setMouseOver ] = useState(false);
 
     if (useLink === true) return <>
@@ -54,6 +54,7 @@ const Button = ({
             onMouseLeave={() => setMouseOver(false)}
             rel={rel}
             target={target}
+            ref={ref as React.Ref<HTMLAnchorElement>}
         >
             {
                 icon && isLeadingIcon === true ?
@@ -94,6 +95,7 @@ const Button = ({
             }
             onMouseEnter={() => setMouseOver(true)}
             onMouseLeave={() => setMouseOver(false)}
+            ref={ref as React.Ref<HTMLButtonElement>}
         >
             {
                 icon && isLeadingIcon === true ?
@@ -117,6 +119,6 @@ const Button = ({
             }
         </button>
     </>
-}
+});
 
 export default Button

@@ -29,7 +29,6 @@ import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/Al
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import StyleAddModal from '@/components/popups/StyleAddModal/StyleAddModal';
-import PaymentPopup from '@/components/popups/PaymentPopup/PaymentPopup';
 
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
@@ -42,8 +41,7 @@ const AddPlaceDetails = () => {
     const [ loading, setLoading ] = useState(false);
     const [ isEditView, setIsEditView ] = useState(false);
     const [ estimatedUploadTimeInMS, setEstimatedUploadTimeInMS ] = useState(6000);
-    const [ showPaymentModal, setShowPaymentModal ] = useState(false);
-
+    
     const [
         basicInfoRef,
         galleryRef,
@@ -54,6 +52,7 @@ const AddPlaceDetails = () => {
         faqRef,
         classSchedulesRef,
         documentsAddRef,
+        buttonRef,
     ] = [
         useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
@@ -64,6 +63,7 @@ const AddPlaceDetails = () => {
         useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
         useRef<HTMLDivElement>(null),
+        useRef<HTMLElement>(null),
     ];
 
     const searchParams = useSearchParams();
@@ -76,6 +76,7 @@ const AddPlaceDetails = () => {
         ageGroups,
         userPlaces, 
         setUserPlaces,
+        setShowPaymentModal,
     } = useAppContext();
 
     const router = useRouter();
@@ -127,7 +128,13 @@ const AddPlaceDetails = () => {
         } catch (error) {
             console.log('error parsing saved place -> ', error);
         } finally {
-            setDetailsLoading(false);
+            setTimeout(() => {
+                buttonRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                handleSaveNewPlace();
+            }, 1800);
         }
     }
 
@@ -178,7 +185,7 @@ const AddPlaceDetails = () => {
     const handleUpdateArrayItem = (
         key: keyof NewPlaceDetail, 
         index: number, 
-        value: string | File, 
+        value: string | File | number | undefined, 
         itemKey: string | null = null,
     ) => {
         setDetails(prevDetails => {
@@ -226,8 +233,10 @@ const AddPlaceDetails = () => {
     }
 
     const handleSaveNewPlace = async () => {
+        setDetailsLoading(false);
+
         const savedToken = AppConstants.savedToken;
-        if (!savedToken) return;
+        if (!savedToken || loading) return;
 
         const missingRequiredDetail = compulsoryDetailKeys.find(key => {
             const value = details[key as keyof NewPlaceDetail];
@@ -326,6 +335,7 @@ const AddPlaceDetails = () => {
         setEstimatedUploadTimeInMS(estimatedUploadTimeInMS <= 0 ? 3000 : estimatedUploadTimeInMS);
         
         const formData = generateFormDataForNewPlaceDetails(details, isEditView);
+        // console.log(details);
         // console.log(formData);
         // saveFormDataToFile(formData);
         // return
@@ -364,6 +374,7 @@ const AddPlaceDetails = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 console.log('payment required');
+                handleSavePlaceToStorage();
                 setShowPaymentModal(true); 
             }
             
@@ -511,7 +522,7 @@ const AddPlaceDetails = () => {
                 subtitle={'If you have multiple places, you can add several locations'}
                 items={details.locations}
                 updateItemsArr={(items: ILocation[]) => handleDetailUpdate(newPlaceDetailKeysDict.locations, items)}
-                updateSingleItem={(itemIndex: number, item: string, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.locations as keyof NewPlaceDetail, itemIndex, item, key)}
+                updateSingleItem={(itemIndex: number, item: string | number | undefined, key: string) => handleUpdateArrayItem(newPlaceDetailKeysDict.locations as keyof NewPlaceDetail, itemIndex, item, key)}
                 useCustomCityDropdownListing={!isEditView}
             />
 
@@ -776,6 +787,7 @@ const AddPlaceDetails = () => {
                 }}
                 handleClick={handleSaveNewPlace}
                 disabled={loading}
+                ref={buttonRef}
             />
         }
 
@@ -783,15 +795,6 @@ const AddPlaceDetails = () => {
             showStyleAddModal && <>
                 <StyleAddModal
                     hideModal={() => setShowStyleAddModal(false)}
-                />
-            </>
-        }
-
-        {
-            showPaymentModal && <>
-                <PaymentPopup 
-                    handleHideModal={() => setShowPaymentModal(false)}
-                    handleSaveCurrentPlaceDetail={() => handleSavePlaceToStorage()}
                 />
             </>
         }

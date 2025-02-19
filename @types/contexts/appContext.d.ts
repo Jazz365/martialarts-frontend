@@ -58,5 +58,7 @@ type AppContextType = {
     setAgeGroupsLoading: (val: boolean) => void;
     ageGroupsLoaded: boolean;
     setAgeGroupsLoaded: (val: boolean) => void;
+    showPaymentModal: boolean;
+    setShowPaymentModal: (val: boolean) => void;
     resetUserInfoInContext: () => void;
 }
