@@ -96,7 +96,7 @@ const AddLocationItem = ({
                                 className={styles.list__Result}
                                 onMouseDown={(e) => {
                                     e.preventDefault();
-                                    if (!placesService || !window.google || !window.google.maps || !window.google.maps.places) return;
+                                    if (!placesService || !window?.google || !window?.google?.maps || !window?.google?.maps?.places) return;
 
                                     placesService?.getDetails(
                                         { placeId: prediction.place_id },
