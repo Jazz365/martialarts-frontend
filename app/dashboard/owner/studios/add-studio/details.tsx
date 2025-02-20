@@ -132,12 +132,16 @@ const AddPlaceDetails = () => {
         } finally {
             if (!formattedSavedPlace) return setDetailsLoading(false);
 
+            handleSaveNewPlace(formattedSavedPlace);
+
+            const activeElement = document.activeElement as HTMLElement | null;
+            if (activeElement && typeof activeElement.blur === 'function') activeElement.blur();
+
             setTimeout(() => {
                 buttonRef.current?.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
-                handleSaveNewPlace(formattedSavedPlace);
             }, 1500);
         }
     }
@@ -342,7 +346,7 @@ const AddPlaceDetails = () => {
         setEstimatedUploadTimeInMS(estimatedUploadTimeInMS <= 0 ? 3000 : estimatedUploadTimeInMS);
         
         const formData = generateFormDataForNewPlaceDetails(detailsToSubmit, isEditView);
-        // console.log(detailsToSubmit);
+        console.log('details to submit ->', detailsToSubmit);
         // console.log(formData);
         // saveFormDataToFile(formData);
         // return
