@@ -142,7 +142,7 @@ const AddPlaceDetails = () => {
                     behavior: 'smooth',
                     block: 'start'
                 });
-            }, 1500);
+            }, 1800);
         }
     }
 
@@ -241,8 +241,6 @@ const AddPlaceDetails = () => {
     }
 
     const handleSaveNewPlace = async (passedDetails: NewPlaceDetail | null = null) => {
-        setDetailsLoading(false);
-
         let detailsToSubmit: NewPlaceDetail = details;
         if (passedDetails) detailsToSubmit = passedDetails;
 
