@@ -344,7 +344,7 @@ const AddPlaceDetails = () => {
         setEstimatedUploadTimeInMS(estimatedUploadTimeInMS <= 0 ? 3000 : estimatedUploadTimeInMS);
         
         const formData = generateFormDataForNewPlaceDetails(detailsToSubmit, isEditView);
-        console.log('details to submit ->', detailsToSubmit);
+        // console.log('details to submit ->', detailsToSubmit);
         // console.log(formData);
         // saveFormDataToFile(formData);
         // return
@@ -387,7 +387,8 @@ const AddPlaceDetails = () => {
                 setShowPaymentModal(true); 
             }
             
-            setLoading(false);   
+            setLoading(false);
+            setDetailsLoading(false);
         }
     }
 
