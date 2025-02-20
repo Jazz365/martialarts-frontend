@@ -20,6 +20,7 @@ import { useUserContext } from '@/contexts/UserContext';
 import PdfViewer from '@/components/common/PdfViewer/PdfViewer';
 import TermsPopup from '@/components/popups/TermsPopup/TermsPopup';
 import PrivacyPopup from '@/components/popups/PrivacyPopup/PrivacyPopup';
+import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/owner/studios/add-studio/utils';
 
 
 const AuthForm = ({
@@ -109,6 +110,7 @@ const AuthForm = ({
             try {
                 const res = await authService.loginUser(details);
                 localStorage.setItem(AppConstants.tokenKey, res?.token);
+                localStorage.removeItem(SAVED_PLACE_DETAIL_IN_STORAGE);
 
                 setIsLoggedIn(true);
 
@@ -170,6 +172,7 @@ const AuthForm = ({
             });
 
             localStorage.setItem(AppConstants.tokenKey, res?.token);
+            localStorage.removeItem(SAVED_PLACE_DETAIL_IN_STORAGE);
 
             if (nextUrl) return router.push(`/login-success?next=${nextUrl}`);
             router.push('/login-success');

@@ -25,6 +25,7 @@ const SearchPlacesListing = () => {
     placesLoaded,
     moreResultsLink,
     setMoreResultsLink,
+    totalResults,
     setAllPlaces,
   } = useSearchFilterContext();
 
@@ -63,7 +64,7 @@ const SearchPlacesListing = () => {
     <section className={`${styles.listing__Wrap} ${showMap === false ? styles.full : ''}`}>
       <section className={styles.listing__Title}>
         <h1 className={styles.header}>
-          <span>{placesLoaded ? allPlaces.length : 0} results</span>
+          <span>{placesLoaded ? totalResults : 0} results</span>
           {/* <span className={styles.subheader}>Find your perfect martial arts style place</span> */}
         </h1>
 

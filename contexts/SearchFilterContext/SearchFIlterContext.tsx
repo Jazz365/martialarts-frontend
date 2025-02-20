@@ -21,6 +21,7 @@ const SearchFilterContextProvider = ({
     const [ activeFilters, setActiveFilters ] = useState<AvailableFilters>(initialActiveFilters);
 
     const [ allPlaces, setAllPlaces ] = useState<IPlace[]>([]);
+    const [ totalResults, setTotalResults ] = useState(0);
     const [ placesLoading, setPlacesLoading ] = useState(true);
     const [ placesLoaded, setPlacesLoaded ] = useState(false);
 
@@ -106,9 +107,12 @@ const SearchFilterContextProvider = ({
             '',
             useAlternateResDataKey: true,
             alternateResDataKey: 'results',
-            otherResDataKey: 'next',
+            otherResDataKeys: ['next', 'count'],
         },
-        (val) => setMoreResultsLink(val),
+        (val) => {
+            setTotalResults(val['count'] ?? 0);
+            setMoreResultsLink(val['next']);
+        },
     );
 
     return <>
@@ -126,6 +130,8 @@ const SearchFilterContextProvider = ({
                 setMoreResultsLink,
                 showPopupForFilterPage,
                 setShowPopupForFilterPage,
+                totalResults,
+                setTotalResults,
             }}
         >
             {children}
