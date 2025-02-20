@@ -8,7 +8,7 @@ interface InfoParams {
     dependency?: any;
     useAlternateResDataKey?: boolean;
     alternateResDataKey?: string;
-    otherResDataKeys: string[];
+    otherResDataKeys?: string[];
 }
 
 export default function useLoadData(
@@ -49,7 +49,7 @@ export default function useLoadData(
             setDataLoading(false);
             setDataLoaded(true);
             
-            if (setOtherData && extraInfo.otherResDataKeys.length > 0) {
+            if (setOtherData && extraInfo.otherResDataKeys && extraInfo.otherResDataKeys.length > 0) {
                 const otherDataVals = extraInfo.otherResDataKeys.reduce((acc: any, key: any) => {
                     if (key in res) {
                         acc[key] = res[key];
