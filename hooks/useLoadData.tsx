@@ -8,7 +8,7 @@ interface InfoParams {
     dependency?: any;
     useAlternateResDataKey?: boolean;
     alternateResDataKey?: string;
-    otherResDataKey?: string,
+    otherResDataKeys: string[];
 }
 
 export default function useLoadData(
@@ -24,7 +24,7 @@ export default function useLoadData(
         dependency: null,
         useAlternateResDataKey: false,
         alternateResDataKey: '',
-        otherResDataKey: '',
+        otherResDataKeys: [],
     },
     setOtherData?: (val: any) => void,
 ) {
@@ -49,7 +49,16 @@ export default function useLoadData(
             setDataLoading(false);
             setDataLoaded(true);
             
-            if (setOtherData && extraInfo.otherResDataKey) setOtherData(res[extraInfo.otherResDataKey]);
+            if (setOtherData && extraInfo.otherResDataKeys.length > 0) {
+                const otherDataVals = extraInfo.otherResDataKeys.reduce((acc: any, key: any) => {
+                    if (key in res) {
+                        acc[key] = res[key];
+                    }
+                    return acc;
+                }, {} as Record<string, any>);
+                
+                setOtherData(otherDataVals);
+            }
 
             if (extraInfo.useAlternateResDataKey === true && extraInfo.alternateResDataKey) return setData(res[extraInfo.alternateResDataKey]);
             setData(res);

@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import useMobile from '@/hooks/useMobile';
 import useClickOutside from '@/hooks/useClickOutside';
+import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/owner/studios/add-studio/utils';
 
 
 const ProfileItem = () => {
@@ -44,6 +45,7 @@ const ProfileItem = () => {
         resetUserInfoInContext();
         
         localStorage.removeItem(AppConstants.tokenKey);
+        localStorage.removeItem(SAVED_PLACE_DETAIL_IN_STORAGE);
         router.push('/auth/login');
     }
 

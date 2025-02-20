@@ -22,4 +22,6 @@ type SearchContextType = {
     setMoreResultsLink: React.Dispatch<React.SetStateAction<string | null | undefined>>;
     showPopupForFilterPage: boolean;
     setShowPopupForFilterPage: (val: boolean) => void;
+    totalResults: number;
+    setTotalResults: (val: number) => void;
 }
