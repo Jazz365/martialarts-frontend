@@ -19,6 +19,7 @@ import NewReviewItem from '../../components/PlaceReviews/NewReviewItem';
 import { useUserContext } from '@/contexts/UserContext';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { useSearchParams } from 'next/navigation';
+import { blurFocusFromCurrentPage } from '@/helpers/helpers';
 
 
 const SinglePlaceView = ({
@@ -45,6 +46,7 @@ const SinglePlaceView = ({
     const placeService = new PlaceService();
 
     useEffect(() => {
+        blurFocusFromCurrentPage();
         window.scrollTo(0, 0);
         
         if (!id || loaded) return window.scrollTo(0, 0);

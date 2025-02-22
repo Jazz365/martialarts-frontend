@@ -23,7 +23,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { IoAddOutline } from 'react-icons/io5';
 import DocumentsAdd from '@/features/Dashboard/components/DocumentsAdd/DocumentsAdd';
-import { getAllDaysOfTheWeek, getOrdinalPosition, validateLink } from '@/helpers/helpers';
+import { blurFocusFromCurrentPage, getAllDaysOfTheWeek, getOrdinalPosition, validateLink } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
@@ -36,7 +36,7 @@ const timeoutToRemoveErrHighlight = 1400;
 
 const AddPlaceDetails = () => {
     const [ details, setDetails ] = useState<NewPlaceDetail>(initialNewPlaceDetail);
-    const [ detailsLoading, setDetailsLoading ] = useState<boolean>(true);
+    const [ detailsLoading, setDetailsLoading ] = useState<boolean>(false);
     const [ showStyleAddModal, setShowStyleAddModal ] = useState<boolean>(false);
     const [ loading, setLoading ] = useState(false);
     const [ isEditView, setIsEditView ] = useState(false);
@@ -112,48 +112,48 @@ const AddPlaceDetails = () => {
         setTimeout(() => sectionRef.current?.classList.remove(styles.highlight__Err), timeoutToRemoveErrHighlight);
     }
 
-    const handleSavePlaceToStorage = async (place: NewPlaceDetail) => {
-        const placeDetailToSaveToStorage = await cleanNewPlaceDetailForStorageSaveOperation(place);
-        localStorage.setItem(SAVED_PLACE_DETAIL_IN_STORAGE, JSON.stringify(placeDetailToSaveToStorage));
-    }
+    // const handleSavePlaceToStorage = async (place: NewPlaceDetail) => {
+    //     const placeDetailToSaveToStorage = await cleanNewPlaceDetailForStorageSaveOperation(place);
+    //     localStorage.setItem(SAVED_PLACE_DETAIL_IN_STORAGE, JSON.stringify(placeDetailToSaveToStorage));
+    // }
 
-    const loadSavedPlaceFromStorage = () => {
-        const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
-        if (!savedPlace) return setDetailsLoading(false);
+    // const loadSavedPlaceFromStorage = () => {
+    //     const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
+    //     if (!savedPlace) return setDetailsLoading(false);
 
-        let formattedSavedPlace: NewPlaceDetail | null = null;
+    //     let formattedSavedPlace: NewPlaceDetail | null = null;
 
-        try {
-            const parsedSavedPlace = JSON.parse(savedPlace);
-            formattedSavedPlace = formatSavedNewPlaceDetailInStorage(parsedSavedPlace);
-            setDetails(formattedSavedPlace);
-        } catch (error) {
-            console.log('error parsing saved place -> ', error);
-        } finally {
-            if (!formattedSavedPlace) return setDetailsLoading(false);
+    //     try {
+    //         const parsedSavedPlace = JSON.parse(savedPlace);
+    //         formattedSavedPlace = formatSavedNewPlaceDetailInStorage(parsedSavedPlace);
+    //         setDetails(formattedSavedPlace);
+    //     } catch (error) {
+    //         console.log('error parsing saved place -> ', error);
+    //     } finally {
+    //         if (!formattedSavedPlace) return setDetailsLoading(false);
 
-            handleSaveNewPlace(formattedSavedPlace);
+    //         handleSaveNewPlace(formattedSavedPlace);
 
-            const activeElement = document.activeElement as HTMLElement | null;
-            if (activeElement && typeof activeElement.blur === 'function') activeElement.blur();
+    //         blurFocusFromCurrentPage();
 
-            setTimeout(() => {
-                buttonRef.current?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 1800);
-        }
-    }
+    //         setTimeout(() => {
+    //             buttonRef.current?.scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'start'
+    //             });
+    //         }, 1800);
+    //     }
+    // }
 
     useEffect(() => {
         const idPassed = searchParams.get('id');
         if (!idPassed || isNaN(Number(idPassed))) {
-            loadSavedPlaceFromStorage();
+            // loadSavedPlaceFromStorage();
             return setIsEditView(false);
         }
 
         setIsEditView(true);
+        setDetailsLoading(true);
 
         placeService.getSinglePlace(Number(idPassed)).then((res) => {
             const placeActivityHours = res?.place_activity_hours;
@@ -383,12 +383,12 @@ const AddPlaceDetails = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 console.log('payment required');
-                handleSavePlaceToStorage(detailsToSubmit);
+                // handleSavePlaceToStorage(detailsToSubmit);
                 setShowPaymentModal(true); 
             }
             
             setLoading(false);
-            setDetailsLoading(false);
+            // setDetailsLoading(false);
         }
     }
 

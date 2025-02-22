@@ -54,7 +54,7 @@ class UserService {
 
     async activateSubscription (token: string) {
         try {
-            const res = await axios.post(
+            const res = (await axios.post(
                 `${this.getUserEndpoint('subscription/activate')}`, 
                 {}, 
                 {
@@ -62,7 +62,7 @@ class UserService {
                         'Authorization': `Token ${token}`,
                     },
                 },
-            );
+            )).data;
             return res;
         } catch (error) {
             if (error instanceof AxiosError) {

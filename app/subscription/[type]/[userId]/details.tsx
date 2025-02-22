@@ -26,7 +26,8 @@ const SubscriptionCallbackDetails = ({
 
     useEffect(() => {
         const authToken = AppConstants.savedToken;
-        const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
+        let savedPlace: number | null = null;
+        // const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
         
         if (!authToken || !type || !userDetails) return;
 
@@ -37,8 +38,9 @@ const SubscriptionCallbackDetails = ({
                 if (type.toLocaleLowerCase() === 'success') {
                     setDataLoading(true);
 
-                    await userService.activateSubscription(authToken);
-                    toast.success('Successfully subscribed to plan!');
+                    const res = await userService.activateSubscription(authToken);
+                    savedPlace = res?.most_recent_published_id as number;
+                    toast.success(`Successfully subscribed to plan!${res?.message ?? ''}`);
                 } else {
                     toast.error('Failed to activate subscription, please contact support if you were debited');
                 }
