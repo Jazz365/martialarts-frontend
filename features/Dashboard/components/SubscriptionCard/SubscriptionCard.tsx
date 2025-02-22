@@ -10,7 +10,7 @@ import { AppConstants } from '@/utils/constants';
 import { UserService } from '@/services/userService';
 import { useUserContext } from '@/contexts/UserContext';
 import { HiBadgeCheck } from 'react-icons/hi';
-import { formatDate } from '@/helpers/helpers';
+import { blurFocusFromCurrentPage, formatDate } from '@/helpers/helpers';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -32,6 +32,7 @@ const SubscriptionCard = ({
     const userSubscriptionIsActive = isActivePlan && userSubscription?.subscription && userSubscription?.subscription_active === true && userSubscription.subscription.status === 'ACTIVE';
     
     useEffect(() => {
+        blurFocusFromCurrentPage();
         setSubscriptionDetailLoaded(false);
     }, [])
     

@@ -38,6 +38,7 @@ const ProfileItem = () => {
     
     const handleLogout = async () => {
         // await authService.logoutUser();
+        router.push('/auth/login');
 
         setIsLoggedIn(false);
         setUserDetails(null);
@@ -46,7 +47,6 @@ const ProfileItem = () => {
         
         localStorage.removeItem(AppConstants.tokenKey);
         localStorage.removeItem(SAVED_PLACE_DETAIL_IN_STORAGE);
-        router.push('/auth/login');
     }
 
     return (

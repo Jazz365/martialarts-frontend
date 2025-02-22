@@ -350,3 +350,8 @@ export const getExtensionFromMimeType = (mimeType: string): string | null => {
 
     return mimeTypeMap[mimeType] || null;
 }
+
+export const blurFocusFromCurrentPage = () => {
+    const activeElement = document.activeElement as HTMLElement | null;
+    if (activeElement && typeof activeElement.blur === 'function') activeElement.blur();
+}
