@@ -40,7 +40,7 @@ const SubscriptionCallbackDetails = ({
 
                     const res = await userService.activateSubscription(authToken);
                     savedPlace = res?.most_recent_published_id as number;
-                    toast.success(`Successfully subscribed to plan!${res?.message ?? ''}`);
+                    toast.success(`Successfully subscribed to plan!${res?.message ? ' ' + res?.message as string : ''}`);
                 } else {
                     toast.error('Failed to activate subscription, please contact support if you were debited');
                 }
@@ -48,7 +48,12 @@ const SubscriptionCallbackDetails = ({
                 console.log(error);
             } finally {
                 setDataLoading(false);
-                router.push(`/dashboard/owner/${savedPlace ? '/studios/add-studio' : 'subscription'}`);
+                router.push(
+                    savedPlace ?
+                        `/places/${savedPlace}`
+                    :
+                    '/dashboard/owner/subscription'
+                );
             }
         }
 
