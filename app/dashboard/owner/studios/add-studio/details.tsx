@@ -321,7 +321,7 @@ const AddPlaceDetails = () => {
             }
         }
         
-        const uploadSpeedPerKB = 650;
+        const uploadSpeedPerKB = 800;
         const totalFilesAdded: File[] = [
             ...detailsToSubmit.images.flatMap(item => 
                 item.imageFile || item.image instanceof File 

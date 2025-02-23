@@ -32,7 +32,8 @@ const SinglePlaceView = ({
     } = useUserContext();
 
     const {
-        userBookedPlaces
+        userBookedPlaces,
+        setUserPlacesLoaded,
     } = useAppContext();
 
     const [ foundPlace, setFoundPlace ] = useState<IPlace | null | undefined>(null);
@@ -60,6 +61,7 @@ const SinglePlaceView = ({
 
             setLoaded(true);
             setLoading(false);
+            setUserPlacesLoaded(false);
 
             if (searchParams.get('review')) {
                 reviewSectionRef.current?.scrollIntoView({ 
