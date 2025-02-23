@@ -33,6 +33,17 @@ const SingleBookingDetailContent = ({
 
     const bookingService = new BookingService();
 
+    const date = new Date(bookingDetail?.date + "T00:00:00Z"); 
+    const formattedDate = date.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+        timeZone: "UTC",
+    });
+    
+    const bookingDateFormatted = formattedDate.replaceAll(",", "");
+
     useEffect(() => {
         if (!bookingId) return;
 
@@ -88,12 +99,14 @@ const SingleBookingDetailContent = ({
             <p className={styles.header_min}>basic information</p>
             <p>
                 <span>date</span>
-                <span>{new Date(bookingDetail?.date).toDateString()}</span>
+                <span>
+                    {bookingDateFormatted}
+                </span>
             </p>
 
             <p>
                 <span>time</span>
-                <span>{formatTimeString(bookingDetail?.time)}</span>
+                <span>{bookingDetail?.time}</span>
             </p>
             <p>
                 <span>studio</span>
