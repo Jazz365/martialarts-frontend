@@ -127,7 +127,7 @@
     flex-direction: column;
     font-size: 0.7rem;
     letter-spacing: 0.03em;
-    padding-left: 1rem;
+    padding-left: 0.2rem;
     gap: 1.2dvh;
     text-transform: capitalize;
 }
@@ -136,7 +136,23 @@
     gap: 1.35dvh;
 }
 
-.list__Card.col .benefits li {
+.benefit__Item {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    padding-left: 0.65rem;
+}
+
+.benefit__Item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: black;
+}
+
+/* .list__Card.col .benefits li {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 
@@ -150,7 +166,7 @@
     left: 0;
     top: 0;
     color: black;
-}
+} */
 
 .price {
     display: flex;
