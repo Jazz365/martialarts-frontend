@@ -58,8 +58,7 @@ const Bookings = () => {
                             bookings
                             .slice(0, 5)
                             .filter((booking) => {
-                                if (userDetails?.is_owner === true) return booking.status === 'pending'
-                                return booking.status === 'confirmed';
+                                return booking.status !== 'cancelled';
                             })
                             .map(booking => {
                                 return <BookingSummaryItem 
