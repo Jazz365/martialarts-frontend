@@ -11,8 +11,6 @@ import { estimateReadingTime } from '@/helpers/helpers';
 import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
-const maxArticleTitleLength = 40;
-
 const Blog = () => {
     const { blogs, blogsLoading } = useAppContext();
 
@@ -61,12 +59,7 @@ const Blog = () => {
 
                                     <div className={styles.mask}>
                                         <h3 className={`${styles.header} ${styles.article__Title}`}>
-                                            {
-                                                blog.title.length > maxArticleTitleLength ?
-                                                    blog.title.slice(0, maxArticleTitleLength) + '...'
-                                                :
-                                                blog.title
-                                            }
+                                            {blog.title}
                                         </h3>
 
                                         <div className={styles.article__Footer}>

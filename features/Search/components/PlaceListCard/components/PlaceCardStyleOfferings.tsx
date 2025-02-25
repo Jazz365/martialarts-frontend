@@ -1,27 +1,12 @@
-'use client';
-
-
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from '../styles.module.css'
-import useMobile from '@/hooks/useMobile';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { formatTimeString } from '@/helpers/helpers';
 
 const PlaceCardStyleOfferings = ({
   place,
-  isListView,
 }: {
   place: IPlace;
-  isListView: boolean;
 }) => {
-  const [ maxofferingLength, setMaxOfferingLength] = useState(70);
-  
-  const isMobile = useMobile();
-  
-  const {
-    showMap,
-  } = useAppContext();
-
   const [
     placeStyles,
     placeCatersTo,
@@ -46,54 +31,26 @@ const PlaceCardStyleOfferings = ({
     }`,
   ]
 
-  useEffect(() => {
-    if (isMobile) {
-      return setMaxOfferingLength(30);
-    }
-
-    if (isListView) {
-      if (showMap === false) return setMaxOfferingLength(50);
-      return setMaxOfferingLength(70);
-    }
-
-    setMaxOfferingLength(30);
-  }, [isMobile, isListView, showMap])
-
   return (
     <section className={styles.offerings_row}>
       <p className={styles.offerings}>
         <span>Styles offered:</span>
-        <span>
-          {
-            placeStyles.length > maxofferingLength ?
-              placeStyles.slice(0, maxofferingLength) + '...'
-            :
-            placeStyles
-          }
+        <span className={styles.offering__Info}>
+          {placeStyles}
         </span>
       </p>
 
       <p className={styles.offerings}>
         <span>Skill levels:</span>
-        <span>
-          {
-            placeCatersTo.length > maxofferingLength ?
-              placeCatersTo.slice(0, maxofferingLength) + '...'
-            :
-            placeCatersTo
-          }
+        <span className={styles.offering__Info}>
+          {placeCatersTo}
         </span>
       </p>
 
       <p className={styles.offerings}>
         <span>Class times:</span>
-        <span>
-          {
-            placeTimes.length > maxofferingLength ?
-              placeTimes.slice(0, maxofferingLength) + '...'
-            :
-            placeTimes
-          }
+        <span className={styles.offering__Info}>
+          {placeTimes}
         </span>
       </p>
     </section>

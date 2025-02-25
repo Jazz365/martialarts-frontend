@@ -7,8 +7,6 @@ import { useUserContext } from '@/contexts/UserContext';
 import Button from '@/components/buttons/Button/Button';
 import useMobile from '@/hooks/useMobile';
 
-const maxGridTitleLength = 14;
-const maxLengthForGridView = 32;
 
 const PlaceCardTitle = ({
     place,
@@ -42,15 +40,7 @@ const PlaceCardTitle = ({
                 className={`${styles.header} ${styles.place__Name}`}
                 href={`/places/${place.id}`}
               >
-                {
-                  isListView && !isMobile ?
-                    placeName
-                  :
-                  placeName.length > maxGridTitleLength ?
-                    placeName.slice(0, maxGridTitleLength) + '...'
-                  :
-                  placeName
-                }
+                {placeName}
               </Link>
               
               {
@@ -98,13 +88,7 @@ const PlaceCardTitle = ({
             <p className={styles.detail__Item}>
               <IoLocationOutline size={'1.2rem'} />
               <span className={styles.location}>
-                {
-                  placeLocation.length > maxLengthForGridView && 
-                  !isListView ?
-                    placeLocation.slice(0, maxLengthForGridView) + '...'
-                  :
-                  placeLocation
-                }
+                {placeLocation}
               </span>      
             </p>
           </section>

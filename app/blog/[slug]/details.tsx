@@ -20,8 +20,6 @@ import { toast } from 'sonner';
 import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 
 
-const maxArticleTitleLength = 40;
-
 const SingleBlogDetails = ({
   slug,
 }: {
@@ -174,12 +172,7 @@ const SingleBlogDetails = ({
 
                           <div className={styles.mask}>
                             <h3 className={`${styles.header} ${styles.article__Title}`}>
-                              {
-                                blog.title.length > maxArticleTitleLength ?
-                                  blog.title.slice(0, maxArticleTitleLength) + '...'
-                                :
-                                blog.title
-                              }
+                              {blog.title}
                             </h3>
 
                             <div className={styles.article__Footer}>

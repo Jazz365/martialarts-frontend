@@ -90,7 +90,6 @@ const PlaceListCard = memo(({
         
         <PlaceCardStyleOfferings 
           place={place}
-          isListView={isListView}
         />
 
         <PlaceCardBenefits 
