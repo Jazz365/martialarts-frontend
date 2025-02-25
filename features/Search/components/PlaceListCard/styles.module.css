@@ -136,10 +136,16 @@
     gap: 1.35dvh;
 }
 
-.benefit__Item {
+.place__Name,
+.location,
+.benefit__Item,
+.offering__Info {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.benefit__Item {
     position: relative;
     padding-left: 0.65rem;
 }

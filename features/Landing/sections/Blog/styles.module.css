@@ -63,6 +63,9 @@
     width: 100%;
     color: #fff;
     font-size: 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .article__Footer {
