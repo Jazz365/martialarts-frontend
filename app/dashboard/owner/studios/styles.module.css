@@ -30,6 +30,8 @@
     flex-wrap: wrap;
     height: 100%;
     justify-content: center;
+    max-width: 70dvw;
+    margin: 0 auto;
 }
 
 .empty__places {
@@ -54,6 +56,7 @@
     .all__places {
         flex-direction: column;
         flex-wrap: nowrap;
+        max-width: 100dvw;
     }
 
     .all__places > * {
