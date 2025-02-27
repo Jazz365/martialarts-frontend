@@ -39,7 +39,7 @@ const Greeting = () => {
                 useLink={true}
                 linkLocation={
                     userDetails?.is_owner === true ?
-                        `${generateDashLinkForUser(userDetails.is_owner)}/studios/add-studio`
+                        `${generateDashLinkForUser({ isOwner: true })}/studios/add-studio`
                     :
                     `/search?view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`
                 }

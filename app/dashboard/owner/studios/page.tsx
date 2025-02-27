@@ -1,4 +1,3 @@
-
 import React from 'react'
 import styles from './styles.module.css'
 import { Metadata } from 'next';
@@ -26,7 +25,7 @@ const PlacesPage = () => {
                         />
                     }
                     useLink={true}
-                    linkLocation={`${generateDashLinkForUser(true)}/studios/add-studio`}
+                    linkLocation={`${generateDashLinkForUser({ isOwner: true })}/studios/add-studio`}
                     style={{
                         backgroundColor: 'var(--primary-app-color)'
                     }}

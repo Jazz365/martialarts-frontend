@@ -44,7 +44,7 @@ const Bookings = () => {
                         fontSize: '0.8rem'
                     }}
                     useLink={true}
-                    linkLocation={`${generateDashLinkForUser(userDetails?.is_owner)}/bookings`}
+                    linkLocation={`${generateDashLinkForUser({ isAdmin: userDetails?.is_admin, isOwner: userDetails?.is_owner })}/bookings`}
                 />
             </section>
 

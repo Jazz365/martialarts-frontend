@@ -126,6 +126,7 @@ const SinglePlaceView = ({
                     email={foundPlace.email}
                     website={foundPlace.website}
                     phoneNumber={foundPlace.phone_number}
+                    address={foundPlace?.place_locations[0]?.address}
                 />
 
                 <Divider />

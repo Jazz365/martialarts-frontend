@@ -40,7 +40,7 @@ const BookingsDetail = () => {
             {
                 React.Children.toArray(bookingStatusList.map(stat => {
                     return <Link
-                        href={stat.length < 1 ? `${generateDashLinkForUser(userDetails?.is_owner)}/bookings` : `?status=${stat}`}
+                        href={stat.length < 1 ? `${generateDashLinkForUser({ isAdmin: userDetails?.is_admin, isOwner: userDetails?.is_owner })}/bookings` : `?status=${stat}`}
                         key={stat}
                         className={`
                             ${styles.link__item} 

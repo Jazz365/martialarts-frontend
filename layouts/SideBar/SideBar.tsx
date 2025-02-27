@@ -9,7 +9,7 @@ import Link from 'next/link'
 import styles from './styles.module.css'
 import { usePathname } from 'next/navigation';
 import { useUserContext } from '@/contexts/UserContext';
-import { LinkItemDetail, ownerNavLinks, userNavLinks } from './utils';
+import { adminNavLinks, LinkItemDetail, ownerNavLinks, userNavLinks } from './utils';
 import useMobile from '@/hooks/useMobile';
 import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/AlternatingDotsLoader';
 
@@ -26,11 +26,9 @@ const SideBar = () => {
     useEffect(() => {
         if (!userDetails) return setLinks([]);
 
-        if (userDetails.is_owner === true) {
-            setLinks(ownerNavLinks);
+        if (userDetails.is_admin === true) return setLinks(adminNavLinks);
 
-            return;
-        }
+        if (userDetails.is_owner === true) return setLinks(ownerNavLinks);
         
         setLinks(userNavLinks);
     }, [userDetails])

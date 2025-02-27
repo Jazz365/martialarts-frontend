@@ -23,7 +23,7 @@ const BookingSummaryItem = ({
     return (
         <Link 
             className={styles.item__Wrap}
-            href={`${generateDashLinkForUser(userDetails?.is_owner)}/bookings/${booking.id}`}
+            href={`${generateDashLinkForUser({ isAdmin: userDetails?.is_admin, isOwner: userDetails?.is_owner })}/bookings/${booking.id}`}
             style={style}
         >
             <section className={styles.date__Wrap}>

@@ -14,7 +14,7 @@ import { AuthService } from '@/services/authService';
 import { validateEmail } from '@/helpers/helpers';
 import { toast } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { userTypes } from '../UserTypeSelect/utils';
+import { publicUserTypes } from '../UserTypeSelect/utils';
 import { AppConstants } from '@/utils/constants';
 import { useUserContext } from '@/contexts/UserContext';
 import PdfViewer from '@/components/common/PdfViewer/PdfViewer';
@@ -159,7 +159,7 @@ const AuthForm = ({
         try {
             const res = await authService.registerUser({
                 ...details,
-                is_owner: params.get('type') === userTypes.owner,
+                is_owner: params.get('type') === publicUserTypes.owner,
             });
 
             setIsLoggedIn(true);
@@ -310,9 +310,9 @@ const AuthForm = ({
                     linkLocation={
                         authInfo.isLoginForm === true ?
                             params.size > 0 ?
-                                `/auth/register?type=${userTypes.owner}&${new URLSearchParams(params?.toString())?.toString()?.split('&')?.slice(1)?.join('')}`
+                                `/auth/register?type=${publicUserTypes.owner}&${new URLSearchParams(params?.toString())?.toString()?.split('&')?.slice(1)?.join('')}`
                             :
-                            `/auth/register?type=${userTypes.owner}`
+                            `/auth/register?type=${publicUserTypes.owner}`
                         :
                         params.size > 0 ?
                             `/auth/login?${new URLSearchParams(params.toString()).toString()}` 

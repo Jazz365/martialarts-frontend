@@ -21,4 +21,8 @@ export class AppConstants {
     static get defaultPlaceYoutubeUrl () {
         return "https://www.youtube.com/embed/bxuYDT-BWaI";
     }
+
+    static get mapKey () {
+        return 'MARTIAL_MAP_KEY'
+    }
 }

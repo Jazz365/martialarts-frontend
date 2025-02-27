@@ -469,7 +469,7 @@ const BookingForm = () => {
                                     options={
                                         selectedPlace?.place_locations?.map(location => ({
                                             id: location.id,
-                                            label: `${location.address}, ${location.city}, ${location.state}`,
+                                            label: `${location.address}`,
                                             value: `${location.id}`,
                                         })) ?? []
                                     }

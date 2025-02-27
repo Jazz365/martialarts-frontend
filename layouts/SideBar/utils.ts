@@ -14,25 +14,25 @@ export interface LinkItemDetail {
 export const ownerNavLinks: LinkItemDetail[] = [
     {
         id: 1,
-        location: generateDashLinkForUser(true),
+        location: generateDashLinkForUser({ isOwner: true }),
         icon: IoHomeOutline,
         text: 'dashboard',
     },
     {
         id: 2,
-        location: `${generateDashLinkForUser(true)}/studios`,
+        location: `${generateDashLinkForUser({ isOwner: true })}/studios`,
         icon: HiOutlineBuildingOffice2,
         text: 'studios',
     },
     {
         id: 3,
-        location: `${generateDashLinkForUser(true)}/bookings`,
+        location: `${generateDashLinkForUser({ isOwner: true })}/bookings`,
         icon: IoCalendarOutline,
         text: 'students',
     },
     {
         id: 4,
-        location: `${generateDashLinkForUser(true)}/subscription`,
+        location: `${generateDashLinkForUser({ isOwner: true })}/subscription`,
         icon: MdOutlinePayment,
         text: 'subscription',
     },
@@ -41,20 +41,30 @@ export const ownerNavLinks: LinkItemDetail[] = [
 export const userNavLinks: LinkItemDetail[] = [
     {
         id: 1,
-        location: generateDashLinkForUser(false),
+        location: generateDashLinkForUser(),
         icon: IoHomeOutline,
         text: 'dashboard',
     },
     {
         id: 2,
-        location: `${generateDashLinkForUser(false)}/bookings`,
+        location: `${generateDashLinkForUser()}/bookings`,
         icon: IoCalendarOutline,
         text: 'classes',
     },
     {
         id: 3,
-        location: `${generateDashLinkForUser(false)}/saved-studios`,
+        location: `${generateDashLinkForUser()}/saved-studios`,
         icon: HiOutlineBuildingOffice2,
         text: 'saved studios',
+    },
+]
+
+
+export const adminNavLinks: LinkItemDetail[] = [
+    {
+        id: 1,
+        location: generateDashLinkForUser({ isAdmin: true }),
+        icon: IoHomeOutline,
+        text: 'dashboard',
     },
 ]

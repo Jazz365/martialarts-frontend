@@ -15,14 +15,24 @@ const ProtectedRouteWrap = ({
     const pathname = usePathname();
     
     useEffect(() => {
-        if (userDetailsLoading || userDetails || isLoggedIn) {
-            if (userDetails && userDetails.is_owner === false && pathname.includes(`/${userTypes.owner}`)) return router.replace(pathname.replace(`/${userTypes.owner}`, `/${userTypes.user}`));
-            if (userDetails && userDetails.is_owner === true && pathname.includes(`/${userTypes.user}`)) return router.replace(pathname.replace(`/${userTypes.user}`, `/${userTypes.owner}`)) 
-            
-            return;
+        if (userDetailsLoading) return;
+        
+        if (userDetails && userDetails.is_owner === true) {
+            if (pathname.includes(`/${userTypes.user}`)) return router.replace(pathname.replace(`/${userTypes.user}`, `/${userTypes.owner}`));
+            if (pathname.includes(`/${userTypes.admin}`)) return router.replace(pathname.replace(`/${userTypes.admin}`, `/${userTypes.owner}`));
         }
 
-        if (!userDetails) return router.push('/auth/login');
+        if (userDetails && userDetails.is_admin === true) {
+            if (pathname.includes(`/${userTypes.user}`)) return router.replace(pathname.replace(`/${userTypes.user}`, `/${userTypes.admin}`));
+            if (pathname.includes(`/${userTypes.owner}`)) return router.replace(pathname.replace(`/${userTypes.owner}`, `/${userTypes.admin}`));
+        }
+
+        if (userDetails && userDetails.is_owner === false && userDetails.is_admin === false) {
+            if (pathname.includes(`/${userTypes.owner}`)) return router.replace(pathname.replace(`/${userTypes.owner}`, `/${userTypes.user}`));
+            if (pathname.includes(`/${userTypes.admin}`)) return router.replace(pathname.replace(`/${userTypes.admin}`, `/${userTypes.user}`));    
+        }
+        
+        if (!userDetails && !isLoggedIn) return router.push('/auth/login');
     }, [userDetails, userDetailsLoading, isLoggedIn, pathname])
 
     return (
@@ -30,4 +40,4 @@ const ProtectedRouteWrap = ({
     )
 }
 
-export default ProtectedRouteWrap
+export default ProtectedRouteWrap;

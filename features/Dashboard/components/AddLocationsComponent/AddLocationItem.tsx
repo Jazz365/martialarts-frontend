@@ -196,24 +196,24 @@ const AddLocationItem = ({
                 //         isRequired
                 //     />
                 // </> :
-                <>
-                    <TextInputComponent 
-                        label='city'
-                        labelFontSize='0.7rem'
-                        value={item.city}
-                        // onChange={(_name, value: string) => handleUpdateItem(value, 'city')}
-                        borderRadius='12px'
-                        isRequired
-                        style={{
-                            maxWidth: isMobile ? '100%' : 'calc(calc(70% / 3) - 1rem - 1.2rem)',
-                        }}
-                        inputBackgroundColor={disabledInputColor}
-                        isDisabled
-                    />
-                </>
+                // <>
+                //     <TextInputComponent 
+                //         label='city'
+                //         labelFontSize='0.7rem'
+                //         value={item.city}
+                //         // onChange={(_name, value: string) => handleUpdateItem(value, 'city')}
+                //         borderRadius='12px'
+                //         isRequired
+                //         style={{
+                //             maxWidth: isMobile ? '100%' : 'calc(calc(70% / 3) - 1rem - 1.2rem)',
+                //         }}
+                //         inputBackgroundColor={disabledInputColor}
+                //         isDisabled
+                //     />
+                // </>
             }
 
-            <TextInputComponent 
+            {/* <TextInputComponent 
                 label='state'
                 labelFontSize='0.7rem'
                 value={item.state}
@@ -226,9 +226,9 @@ const AddLocationItem = ({
                 }}
                 inputBackgroundColor={disabledInputColor}
                 isDisabled
-            />
+            /> */}
 
-            <TextInputComponent 
+            {/* <TextInputComponent 
                 label='zip code'
                 labelFontSize='0.7rem'
                 placeholder={'10000'}
@@ -242,7 +242,7 @@ const AddLocationItem = ({
                 }}
                 inputBackgroundColor={disabledInputColor}
                 isDisabled
-            />
+            /> */}
 
             <IoTrashOutline
                 cursor={'pointer'}

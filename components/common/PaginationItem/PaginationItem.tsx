@@ -51,8 +51,9 @@ const PaginationItem = ({
             
             <section className={styles.pagination__Content}>
                 <p className={styles.pagination__Detail}>
+                    <span>Page</span>
                     <span className={styles.current__Page}>{currentPage}</span>
-                    <span>/</span>
+                    <span>of</span>
                     <span>
                         {
                             totalItems < itemsPerPage ?

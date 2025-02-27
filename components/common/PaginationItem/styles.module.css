@@ -22,7 +22,7 @@
 }
 
 .current__Page {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     transition: 0.3s all ease-in-out;
     font-family: var(--mako-font);
 }
