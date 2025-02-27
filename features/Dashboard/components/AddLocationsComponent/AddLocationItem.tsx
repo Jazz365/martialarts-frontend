@@ -9,8 +9,11 @@ import TextInputComponent from '@/components/inputs/TextInputComponent/TextInput
 import { IoTrashOutline } from 'react-icons/io5';
 import Divider from '@/features/Places/components/Divider/Divider';
 import useMobile from '@/hooks/useMobile';
-import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
+// import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { useAppContext } from '@/contexts/AppContext/AppContext';
+import { useLoadScript, Autocomplete, Libraries } from "@react-google-maps/api";
+
+const libraries: Libraries = ["places"];
 
 const customLocation = 'custom-user-location';
 const disabledInputColor = '#f2f2f2';
@@ -37,21 +40,76 @@ const AddLocationItem = ({
         mapKey,
     } = useAppContext();
 
-    const {
-        placesService,
-        placePredictions,
-        getPlacePredictions,
-        isPlacePredictionsLoading,
-    } = mapKey ? useGoogle({
-        apiKey: mapKey,
-    }) : {};
+    // const {
+    //     placesService,
+    //     placePredictions,
+    //     getPlacePredictions,
+    //     isPlacePredictionsLoading,
+    // } = mapKey ? useGoogle({
+    //     apiKey: mapKey,
+    // }) : {};
 
     const [ locationAddress, setLocationAddress ] = useState('');
     // const [ showCityCustomDropdown, setShowCityCustomDropdown ] = useState<boolean>(true);
     const isMobile = useMobile();
 
-    const addressInputRef = useRef<HTMLInputElement>(null);
+    // const addressInputRef = useRef<HTMLInputElement>(null);
 
+    const { isLoaded } = useLoadScript({ googleMapsApiKey: mapKey, libraries });
+    const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+
+    const onLoad = (autocomplete: google.maps.places.Autocomplete) => {
+        autocompleteRef.current = autocomplete;
+    };
+
+    const onPlaceChanged = () => {
+        if (autocompleteRef.current) {
+            const place = autocompleteRef.current.getPlace();
+            if (place && place.geometry) {
+                const address = place.formatted_address ?? '';
+                setLocationAddress(address);
+
+                const addressComponents = place.address_components;
+                if (!addressComponents) return;
+
+                const city = addressComponents.find((component) =>
+                    component.types.includes("locality")
+                )?.long_name ?? '';
+                
+                const state = addressComponents.find((component) =>
+                    component.types.includes("administrative_area_level_1")
+                )?.long_name ?? '';
+                
+                const zip = addressComponents.find((component) =>
+                    component.types.includes("postal_code")
+                )?.long_name ?? '';
+
+                const lat = Number(place.geometry?.location?.lat());
+                const lng = Number(place.geometry?.location?.lng());
+                
+                handleUpdateItem(city, 'city');
+                handleUpdateItem(state, 'state');
+                handleUpdateItem(zip, 'zip_code');
+
+                handleUpdateItem(
+                    isNaN(lat) ? 
+                        undefined
+                    : 
+                    lat, 
+                    'latitude',
+                );
+
+                handleUpdateItem(
+                    isNaN(lng) ? 
+                        undefined
+                    : 
+                    lng, 
+                    'longitude',
+                );
+            }
+        }
+    };
+    
     useEffect(() => {
         setLocationAddress(item.address);
     }, [])
@@ -60,7 +118,30 @@ const AddLocationItem = ({
         <li 
             className={styles.single__List__Item}
         >
-            <section 
+            
+            {
+                !isLoaded ?
+                    <p style={{ width: '100%' }}>Loading...</p>
+                :
+                <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} className={styles.new__Input__Wrap}>
+                    <input
+                        type="text"
+                        value={locationAddress}
+                        onChange={(e) => setLocationAddress(e.target.value)}
+                        placeholder="e.g 123 Test Avenue..."
+                        style={{ 
+                            width: "100%", 
+                            padding: "0.5rem 1rem", 
+                            borderRadius: '12px', 
+                            outline: 'none', 
+                            border: '1px solid #d3d3d3',
+                            fontSize: '0.8rem',
+                        }}
+                    />
+                </Autocomplete>
+            }
+
+            {/* <section 
                 className={styles.cus__Input__Wrap}
             >
                 <TextInputComponent
@@ -76,7 +157,7 @@ const AddLocationItem = ({
                     isRequired
                     ref={addressInputRef}
                 />
-                
+
                 <ul className={styles.listing}>
                     {
                         isPlacePredictionsLoading ?
@@ -152,7 +233,7 @@ const AddLocationItem = ({
                         }))
                     }
                 </ul>
-            </section>
+            </section> */}
 
             {/* <TextInputComponent
                 label='address'

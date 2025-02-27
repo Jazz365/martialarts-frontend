@@ -35,6 +35,10 @@
     display: none;
 }
 
+.new__Input__Wrap {
+    width: 100%;
+}
+
 .cus__Input__Wrap {
     display: flex;
     flex-direction: column;
