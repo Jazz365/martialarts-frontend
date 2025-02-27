@@ -5,7 +5,7 @@ import { IoIosArrowRoundForward } from 'react-icons/io'
 import astronaut from '../../../../assets/astr.webp'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
 import Button from '@/components/buttons/Button/Button'
-import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils'
+import { publicUserTypes } from '@/features/Auth/components/UserTypeSelect/utils'
 import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage'
 
 const Banner = () => {
@@ -43,7 +43,7 @@ const Banner = () => {
                                 color: '#fff'
                             }}
                             useLink={true}
-                            linkLocation={`/auth/register?type=${userTypes.owner}`}
+                            linkLocation={`/auth/register?type=${publicUserTypes.owner}`}
                         />
                     </section>
 

@@ -1,3 +1,4 @@
+import { userTypes } from "@/features/Auth/components/UserTypeSelect/utils";
 import { AppConstants } from "@/utils/constants";
 
 export const validateEmail = (email: string) => {
@@ -30,8 +31,22 @@ export const getMonthsOfTheYear = () => {
     ];
 }
 
-export const generateDashLinkForUser = (userIsOwner?: boolean) => {
-    return `/dashboard/${userIsOwner === true ? 'owner' : 'user'}`
+export const generateDashLinkForUser = ({
+    isOwner=false,
+    isAdmin=false, 
+}: {
+    isOwner?: boolean;
+    isAdmin?: boolean;
+}={}) => {
+    return `/dashboard/${
+        isAdmin === true ?
+            userTypes.admin
+        :
+        isOwner === true ? 
+            userTypes.owner 
+        : 
+        userTypes.user
+    }`;
 }
 
 export const convertFileObjectToBinaryStr = (fileObj: File): Promise<string | ArrayBuffer | null> => {

@@ -22,7 +22,9 @@ const LoginSuccess = () => {
       return router.push('/');
     }
     
-    router.push(`/dashboard/owner`);
+    if (userDetails.is_owner === true) return router.push(`/dashboard/owner`);
+
+    router.push(`/dashboard/admin`);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDetails, userDetailsLoading, isLoggedIn])

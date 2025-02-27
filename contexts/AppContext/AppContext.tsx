@@ -9,6 +9,7 @@ import { useUserContext } from "../UserContext";
 import { BlogService } from "@/services/blogService";
 import { MapService } from "@/services/mapService";
 import { initialAppContext } from "./utils";
+import { AppConstants } from "@/utils/constants";
 
 const AppContext = createContext<AppContextType>(initialAppContext);
 
@@ -65,7 +66,7 @@ const AppContextProvider = ({
     
     const [ mapKey, setMapKey ] = useState('');
     const [ mapKeyLoaded, setMapKeyLoaded ] = useState(false);
-    const [ mapKeyLoading, setMapKeyLoading ] = useState(false);
+    const [ mapKeyLoading, setMapKeyLoading ] = useState(true);
 
     const [
         placeService,
@@ -110,7 +111,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: userDetails && stylesLoaded === true,
+            dependency: userDetails !== null && stylesLoaded === true,
         },
     );
 
@@ -162,7 +163,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: userDetails && stylesLoaded === true,
+            dependency: userDetails !== null && stylesLoaded === true,
         }
     );
 
@@ -175,7 +176,7 @@ const AppContextProvider = ({
         {
             authorisationRequired: true,
             hasDependency: true,
-            dependency: userDetails && userDetails.is_owner === true && stylesLoaded === true,
+            dependency: userDetails !== null && userDetails.is_owner === true && stylesLoaded === true,
         }
     );
 
@@ -198,8 +199,8 @@ const AppContextProvider = ({
         setMapKey,
         setMapKeyLoaded,
         {
-            hasDependency: true,
-            dependency:  stylesLoaded === true
+            saveResToLocalStorage: true,
+            resKeyInlocalStorage: AppConstants.mapKey,
         },
     );
 

@@ -26,7 +26,7 @@ const PlaceCardTitle = ({
         placeName,
     ] = [
         place?.place_locations?.length > 0 ? 
-        `${place?.place_locations[0]?.address}, ${place?.place_locations[0]?.city}, ${place?.place_locations[0]?.state}`
+        `${place?.place_locations[0]?.address}`
         :
         ``,
         `${place.name}`,
@@ -60,7 +60,7 @@ const PlaceCardTitle = ({
                       color: '#fff'
                     }}
                     useLink
-                    linkLocation={`${generateDashLinkForUser(true)}/studios/add-studio?id=${place.id}`}
+                    linkLocation={`${generateDashLinkForUser({ isOwner: true })}/studios/add-studio?id=${place.id}`}
                   />
                 :
                 <></>

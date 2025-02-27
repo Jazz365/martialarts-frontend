@@ -115,7 +115,7 @@ const SingleBookingDetailContent = ({
 
             <p>
                 <span>studio location</span>
-                <span>{bookingDetail?.location?.address}, {bookingDetail?.location?.city}, {bookingDetail?.location?.state}</span>
+                <span>{bookingDetail?.location?.address}</span>
             </p>
 
             <p>

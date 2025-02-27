@@ -1,7 +1,7 @@
 'use client';
 
 import PaginationItem from '@/components/common/PaginationItem/PaginationItem';
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './styles.module.css'
 import PlaceListCard from '@/features/Search/components/PlaceListCard/PlaceListCard';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
@@ -10,6 +10,7 @@ import Image from 'next/image';
 import mascot from '../../../../assets/astr.webp'
 import { useRouter, useSearchParams } from 'next/navigation';
 import useMobile from '@/hooks/useMobile';
+import { blurFocusFromCurrentPage } from '@/helpers/helpers';
 
 const itemsPerPage = 3;
 
@@ -24,6 +25,10 @@ const AllPlacesDetails = () => {
     const isMobile = useMobile();
 
     const currentPage = !searchParams.get('page') || isNaN(Number(searchParams.get('page'))) ? 1 : Number(searchParams.get('page'));
+
+    useEffect(() => {
+        blurFocusFromCurrentPage();
+    }, [searchParams])
 
     if (userPlacesLoading) return <>
         <PageLoader />
@@ -49,7 +54,7 @@ const AllPlacesDetails = () => {
             itemsPerPage={itemsPerPage}
             totalItems={userPlaces.length}
         />
-
+    
         <section className={styles.all__places}>
             {
                 React.Children.toArray(
@@ -77,7 +82,7 @@ const AllPlacesDetails = () => {
                         />
                     }))
             }
-            <div style={{ width: '100%', height: '1rem' }}></div>
+            {/* <div style={{ width: '100%', height: '1rem' }}></div> */}
         </section>
     </>
 }

@@ -9,6 +9,8 @@ interface InfoParams {
     useAlternateResDataKey?: boolean;
     alternateResDataKey?: string;
     otherResDataKeys?: string[];
+    saveResToLocalStorage?: boolean;
+    resKeyInlocalStorage?: string;
 }
 
 export default function useLoadData(
@@ -25,13 +27,26 @@ export default function useLoadData(
         useAlternateResDataKey: false,
         alternateResDataKey: '',
         otherResDataKeys: [],
+        saveResToLocalStorage: false,
+        resKeyInlocalStorage: '',
     },
     setOtherData?: (val: any) => void,
 ) {
     useEffect(() => {
         const savedToken = AppConstants.savedToken;
+        let savedData = null;
 
         if (extraInfo.hasDependency === true && (extraInfo.dependency === null || extraInfo.dependency === false)) return;
+
+        if (extraInfo.resKeyInlocalStorage && extraInfo.resKeyInlocalStorage.length > 0) {
+            savedData = localStorage.getItem(extraInfo.resKeyInlocalStorage);
+            if (savedData) {
+                setData(savedData);
+                setDataLoading(false);
+                setDataLoaded(true);
+                return;
+            }
+        }
 
         if (dataLoaded) return setDataLoading(false);
 
@@ -60,8 +75,16 @@ export default function useLoadData(
                 setOtherData(otherDataVals);
             }
 
-            if (extraInfo.useAlternateResDataKey === true && extraInfo.alternateResDataKey) return setData(res[extraInfo.alternateResDataKey]);
-            setData(res);
+            const outputData = extraInfo.useAlternateResDataKey === true && extraInfo.alternateResDataKey ?
+                res[extraInfo.alternateResDataKey]
+            :
+            res;
+
+            setData(outputData);
+
+            if (extraInfo.saveResToLocalStorage === true && extraInfo.resKeyInlocalStorage && extraInfo.resKeyInlocalStorage?.length > 0) {
+                localStorage.setItem(extraInfo.resKeyInlocalStorage, outputData);
+            }
         }).catch(() => {
             setDataLoading(false);
         })

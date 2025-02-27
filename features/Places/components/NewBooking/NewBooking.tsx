@@ -9,7 +9,7 @@ import useMobile from '@/hooks/useMobile';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUserContext } from '@/contexts/UserContext';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
-import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
+import { publicUserTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 
 
 type ValuePiece = Date | null;
@@ -36,7 +36,7 @@ const NewBooking = ({
     const router = useRouter();
     
     const handleBookNowBtnClick = () => {
-        if (!userDetails) return router.push(`/auth/register?type=${userTypes.user}&next=${encodeURIComponent(`/places/${place.id}`)}`);
+        if (!userDetails) return router.push(`/auth/register?type=${publicUserTypes.user}&next=${encodeURIComponent(`/places/${place.id}`)}`);
 
         const newSearchParams = new URLSearchParams(searchParams.toString());
         if (value) newSearchParams.append('booking-date', value.toLocaleString());

@@ -29,7 +29,7 @@ import AlternatingDotsLoader from '@/components/loaders/AlternatingDotsLoader/Al
 import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/AddClassSchedule';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import StyleAddModal from '@/components/popups/StyleAddModal/StyleAddModal';
-
+import { FaCirclePlay } from "react-icons/fa6";
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
 const timeoutToRemoveErrHighlight = 1400;
@@ -321,7 +321,7 @@ const AddPlaceDetails = () => {
             }
         }
         
-        const uploadSpeedPerKB = 800;
+        const uploadSpeedPerKB = 650;
         const totalFilesAdded: File[] = [
             ...detailsToSubmit.images.flatMap(item => 
                 item.imageFile || item.image instanceof File 
@@ -399,14 +399,31 @@ const AddPlaceDetails = () => {
             </section>
         }
 
-        <h1 className={styles.header}>
-            {
-                isEditView ? 
-                    'Edit'
-                :
-                'Add new'
-            }{' '}studio
-        </h1>
+        <section className={styles.header__Wrap}>
+            <h1 className={styles.header}>
+                {
+                    isEditView ? 
+                        'Edit'
+                    :
+                    'Add new'
+                }{' '}studio
+            </h1>
+
+            <Button 
+                label='See how it works'
+                icon={<FaCirclePlay />}
+                style={{
+                    padding: 0,
+                    width: 'max-content',
+                    color: 'var(--primary-app-color)',
+                    backgroundColor: 'transparent',
+                    gap: '0.5rem',
+                }}
+                // useLink
+                // linkLocation='#'
+                disabled
+            />
+        </section>
     
         <AddItemWrapper
             title='basic information'

@@ -2,7 +2,7 @@
 
 import Button from '@/components/buttons/Button/Button';
 import { useUserContext } from '@/contexts/UserContext';
-import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
+import { publicUserTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import useClickOutside from '@/hooks/useClickOutside';
 import useMobile from '@/hooks/useMobile';
@@ -82,7 +82,7 @@ const NavigationBarContent = ({
                 style={{
                     display: userDetails ? 'flex' : 'none'
                 }}
-                linkLocation={generateDashLinkForUser(userDetails?.is_owner)}
+                linkLocation={generateDashLinkForUser({ isAdmin: userDetails?.is_admin, isOwner: userDetails?.is_owner })}
             />
 
             <Button 
@@ -111,7 +111,7 @@ const NavigationBarContent = ({
                 }}
                 useLink={true}
                 linkLocation={
-                    `/auth/register?type=${userTypes.owner}`
+                    `/auth/register?type=${publicUserTypes.owner}`
                 }
             />
         </section>

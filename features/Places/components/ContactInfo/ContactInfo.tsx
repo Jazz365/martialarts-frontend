@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { IoLinkOutline, IoMailOutline } from 'react-icons/io5';
+import { IoLinkOutline, IoLocationOutline, IoMailOutline } from 'react-icons/io5';
 import { HiOutlinePhone } from 'react-icons/hi2';
 import Link from 'next/link';
 
@@ -9,10 +9,12 @@ const ContactInfo = ({
     email,
     website,
     phoneNumber,
+    address,
 }: {
     email: string;
     website?: string;
     phoneNumber?: string;
+    address?: string;
 }) => {
     return (
         <section className={styles.content__Wrap}>
@@ -42,6 +44,14 @@ const ContactInfo = ({
                     <p className={styles.info__Item}>
                         <HiOutlinePhone size={'1.4rem'} />
                         <span>{phoneNumber}</span>
+                    </p>
+                }
+
+                {
+                    address &&
+                    <p className={styles.info__Item}>
+                        <IoLocationOutline size={'1.4rem'} />
+                        <span>{address}</span>
                     </p>
                 }
             </section>
