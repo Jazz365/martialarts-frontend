@@ -68,6 +68,7 @@ const AddLocationItem = ({
             if (place && place.geometry) {
                 const address = place.formatted_address ?? '';
                 setLocationAddress(address);
+                handleUpdateItem(address, 'address');
 
                 const addressComponents = place.address_components;
                 if (!addressComponents) return;
@@ -121,7 +122,7 @@ const AddLocationItem = ({
             
             {
                 !isLoaded ?
-                    <p style={{ width: '100%' }}>Loading...</p>
+                    <p style={{ width: '100%', fontSize: '0.8rem' }}>Loading...</p>
                 :
                 <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} className={styles.new__Input__Wrap}>
                     <input
