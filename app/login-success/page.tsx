@@ -3,6 +3,7 @@
 
 import Loader from '@/components/loaders/Loader/Loader';
 import { useUserContext } from '@/contexts/UserContext';
+import { generateDashLinkForUser } from '@/helpers/helpers';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
 
@@ -17,14 +18,11 @@ const LoginSuccess = () => {
 
     const nextUrl = params.get('next');
     if (nextUrl) return router.push(nextUrl);
-
-    if (userDetails?.is_owner !== true) {
-      return router.push('/');
-    }
     
-    if (userDetails.is_owner === true) return router.push(`/dashboard/owner`);
+    if (userDetails?.is_owner === true) return router.push(generateDashLinkForUser({ isOwner: true }));
+    if (userDetails?.is_admin === true) return router.push(generateDashLinkForUser({ isAdmin: true }));
 
-    router.push(`/dashboard/admin`);
+    router.push('/');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDetails, userDetailsLoading, isLoggedIn])

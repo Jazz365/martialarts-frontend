@@ -4,12 +4,12 @@ import PaginationItem from '@/components/common/PaginationItem/PaginationItem';
 import React, { useEffect } from 'react'
 import styles from './styles.module.css'
 import PlaceListCard from '@/features/Search/components/PlaceListCard/PlaceListCard';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import Image from 'next/image';
 import mascot from '../../../../assets/astr.webp'
 import { useRouter, useSearchParams } from 'next/navigation';
 import useMobile from '@/hooks/useMobile';
+import { usePlaceContext } from '@/contexts/PlaceContext';
 import { blurFocusFromCurrentPage } from '@/helpers/helpers';
 
 const itemsPerPage = 3;
@@ -18,7 +18,7 @@ const AllPlacesDetails = () => {
     const {
         userPlaces,
         userPlacesLoading,
-    } = useAppContext();
+    } = usePlaceContext();
 
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -77,7 +77,7 @@ const AllPlacesDetails = () => {
                             isInAppStudioUse={true}
                             style={{
                                 height: 'unset',
-                                maxWidth: '95%',
+                                maxWidth: '100%',
                             }}
                         />
                     }))

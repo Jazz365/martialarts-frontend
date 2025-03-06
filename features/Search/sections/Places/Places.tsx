@@ -13,8 +13,8 @@ import PlacesSectionView from '../PlacesSectionView/PlacesSectionView';
 import useMobile from '@/hooks/useMobile';
 import { toast } from 'sonner';
 import SingleResultViewOption from '../../components/ResultsViewOption/SingleResultViewOption';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { makeGetRequest } from '@/services/functions';
+import { useMapContext } from '@/contexts/MapContext';
 
 
 const SearchPlacesListing = () => {
@@ -31,7 +31,7 @@ const SearchPlacesListing = () => {
 
   const {
     showMap
-  } = useAppContext();
+  } = useMapContext();
 
   const isMobile = useMobile();
   const [ searchVal, setSearchVal ] = useState<string>('');

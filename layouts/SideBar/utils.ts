@@ -3,6 +3,8 @@ import { IconType } from "react-icons";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { IoCalendarOutline, IoHomeOutline } from "react-icons/io5";
 import { MdOutlinePayment } from "react-icons/md";
+import { TbBrandGoogleAnalytics } from "react-icons/tb";
+// import { FaUsers } from "react-icons/fa6";
 
 export interface LinkItemDetail {
     id: number;
@@ -67,4 +69,28 @@ export const adminNavLinks: LinkItemDetail[] = [
         icon: IoHomeOutline,
         text: 'dashboard',
     },
+    {
+        id: 2,
+        location: `${generateDashLinkForUser({ isAdmin: true })}/studios`,
+        icon: HiOutlineBuildingOffice2,
+        text: 'studios',
+    },
+    {
+        id: 3,
+        location: `${generateDashLinkForUser({ isAdmin: true })}/bookings`,
+        icon: IoCalendarOutline,
+        text: 'bookings',
+    },
+    // {
+    //     id: 4,
+    //     location: `${generateDashLinkForUser({ isAdmin: true })}/reports`,
+    //     icon: TbBrandGoogleAnalytics,
+    //     text: 'reports',
+    // },
+    // {
+    //     id: 5,
+    //     location: `${generateDashLinkForUser({ isAdmin: true })}/users`,
+    //     icon: FaUsers,
+    //     text: 'users',
+    // },
 ]

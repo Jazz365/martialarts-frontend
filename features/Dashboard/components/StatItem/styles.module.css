@@ -10,14 +10,28 @@
     box-shadow: var(--card-box-shadow);
 }
 
+.title,
+.extra {
+    text-transform: capitalize;
+}
+
 .title {
     font-size: 0.85rem;
-    text-transform: capitalize;
 }
 
 .stat {
     font-family: var(--mako-font);
     font-size: 1.8rem;
+}
+
+.extra {
+    font-size: 0.7rem;
+}
+
+.top__Row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 @media (min-width: 767.98px) and (max-width: 1200px) {

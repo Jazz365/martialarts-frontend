@@ -9,20 +9,30 @@ import { HiDotsHorizontal } from 'react-icons/hi';
 // import { AuthService } from '@/services/authService';
 import { AppConstants } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import useMobile from '@/hooks/useMobile';
 import useClickOutside from '@/hooks/useClickOutside';
 import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/owner/studios/add-studio/utils';
+import { useBookingContext } from '@/contexts/BookingContext';
+import { usePlaceContext } from '@/contexts/PlaceContext';
 
 
 const ProfileItem = () => {
     const { 
         userDetails, 
         setIsLoggedIn, 
-        setUserDetails
+        setUserDetails,
     } = useUserContext();
-    const { resetUserInfoInContext } = useAppContext();
+
+    const { 
+        resetBookingContext 
+    } = useBookingContext();
+    
+    const { 
+        resetPlaceContext 
+    } = usePlaceContext();
+
     const [ showProfileMenu, setShowProfileMenu ] = useState<boolean>(false);
+    
     const isMobile = useMobile();
 
     const menuRef = useRef<HTMLUListElement>(null);
@@ -43,7 +53,8 @@ const ProfileItem = () => {
         setIsLoggedIn(false);
         setUserDetails(null);
 
-        resetUserInfoInContext();
+        resetPlaceContext();
+        resetBookingContext();
         
         localStorage.removeItem(AppConstants.tokenKey);
         localStorage.removeItem(SAVED_PLACE_DETAIL_IN_STORAGE);

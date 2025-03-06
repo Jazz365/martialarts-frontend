@@ -19,39 +19,6 @@ type AppContextType = {
     setPlaceTypesLoading: (val: boolean) => void;
     placeTypesLoaded: boolean;
     setPlaceTypesLoaded: (val: boolean) => void;
-    userPlaces: IPlace[];
-    setUserPlaces: (val: IPlace[]) => void;
-    userPlacesLoading: boolean;
-    setUserPlacesLoading: (val: boolean) => void;
-    userPlacesLoaded: boolean;
-    setUserPlacesLoaded: (val: boolean) => void;
-    bookings: IBooking[];
-    setBookings: (val: IBooking[]) => void;
-    bookingsLoading: boolean;
-    setBookingsLoading: (val: boolean) => void;
-    bookingsLoaded: boolean;
-    setBookingsLoaded: (val: boolean) => void;
-    placesViewStats: IPlaceViewStat[];
-    placesViewStatLoaded: boolean,
-    placesViewStatLoading: boolean,
-    setPlacesViewStats: (val: IPlaceViewStat[]) => void;
-    setPlacesViewStatLoaded: (val: boolean) => void;
-    setPlacesViewStatLoading: (val: boolean) => void;
-    blogs: IBlog[];
-    setBlogs: (val: IBlog[]) => void;
-    blogsLoading: boolean;
-    setBlogsLoading: (val: boolean) => void;
-    blogsLoaded: boolean;
-    setBlogsLoaded: (val: boolean) => void;
-    showMap: boolean;
-    setShowMap: (val: boolean) => void;
-    userBookedPlaces: IPlace[];
-    mapKey: string;
-    setMapKey: (val: string) => void;
-    mapKeyLoading: boolean;
-    setMapKeyLoading: (val: boolean) => void;
-    mapKeyLoaded: boolean;
-    setMapKeyLoaded: (val: boolean) => void;
     ageGroups: IPlaceAgeGroups[];
     setAgeGroups: (val: IPlaceAgeGroups[]) => void;
     ageGroupsLoading: boolean;
@@ -60,5 +27,4 @@ type AppContextType = {
     setAgeGroupsLoaded: (val: boolean) => void;
     showPaymentModal: boolean;
     setShowPaymentModal: (val: boolean) => void;
-    resetUserInfoInContext: () => void;
 }

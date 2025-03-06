@@ -9,16 +9,20 @@ import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIl
 import { useAppContext } from '@/contexts/AppContext/AppContext';
 import ToggleSwitch from '@/components/inputs/ToggleSwitch/ToggleSwitch';
 import useMobile from '@/hooks/useMobile';
+import { useMapContext } from '@/contexts/MapContext';
 
 const SearchFilters = () => {
     const {
         placeTypes,
         catersTo,
         allStyles,
-        showMap,
         ageGroups,
-        setShowMap,
     } = useAppContext();
+
+    const {
+        showMap,
+        setShowMap,
+    } = useMapContext();
 
     const { activeFilters } = useSearchFilterContext();
     const isMobile = useMobile();

@@ -51,7 +51,6 @@ const UserContextProvider = ({
         
         userService.getUserDetail(savedToken).then(res => {
             setUserDetails(res);
-            // setUserDetails({...res, is_owner: false, is_admin: true});
             setUserDetailsLoading(false);
             setIsLoggedIn(true);
         }).catch(() => {

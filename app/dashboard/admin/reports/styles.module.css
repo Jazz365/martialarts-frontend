@@ -1,0 +1,15 @@
+.content__Wrap {
+    padding: 2rem 4rem;
+    width: 100%;
+    overflow-y: auto;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    font-family: var(--mako-font);
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+}

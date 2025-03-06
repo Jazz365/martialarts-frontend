@@ -2,6 +2,11 @@ import { Suspense } from "react";
 import SearchFilterContextProvider from "./SearchFilterContext/SearchFIlterContext";
 import UserContextProvider from "./UserContext";
 import AppContextProvider from "./AppContext/AppContext";
+import BlogContextProvider from "./BlogContext";
+import BookingContextProvider from "./BookingContext";
+import MapContextProvider from "./MapContext";
+import PlaceContextProvider from "./PlaceContext";
+import AdminDataContextProvider from "./AdminDataContext/AdminDataContext";
 
 const composeProviders = (...providers: ContextProvider[]): ContextProvider => {
     return ({ children }: ContextProviderProps) =>
@@ -14,9 +19,14 @@ const composeProviders = (...providers: ContextProvider[]): ContextProvider => {
 };
 
 const AppProviders = composeProviders(
-    UserContextProvider,
+    MapContextProvider,
     AppContextProvider,
+    UserContextProvider,
     SearchFilterContextProvider,
+    BlogContextProvider,
+    PlaceContextProvider,
+    BookingContextProvider,
+    AdminDataContextProvider,
 );
 
 export default AppProviders;

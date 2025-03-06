@@ -4,6 +4,7 @@ import { useUserContext } from '@/contexts/UserContext';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 import { userTypes } from '../UserTypeSelect/utils';
+import { blurFocusFromCurrentPage } from '@/helpers/helpers';
 
 const ProtectedRouteWrap = ({
     children
@@ -13,6 +14,10 @@ const ProtectedRouteWrap = ({
     const { userDetails, userDetailsLoading, isLoggedIn } = useUserContext();
     const router = useRouter();
     const pathname = usePathname();
+
+    useEffect(() => {
+        blurFocusFromCurrentPage();
+    }, [])
     
     useEffect(() => {
         if (userDetailsLoading) return;

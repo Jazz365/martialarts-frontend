@@ -14,6 +14,11 @@ const CustomBarChart = ({
     dataKeyName='',
     labelKeyName='',
     isLoading=false,
+    hasDataSelect=false,
+    dataSelectOptions=[],
+    dataSelectValue,
+    handleUpdateDataSelectValue=()=>{},
+    height=500,
 }: {
     title: string;
     subtitle: string;
@@ -21,14 +26,42 @@ const CustomBarChart = ({
     dataKeyName: string;
     labelKeyName: string;
     isLoading?: boolean;
+    hasDataSelect?: boolean;
+    dataSelectOptions?: {id: string; label: string; value: string}[];
+    dataSelectValue?: string;
+    handleUpdateDataSelectValue?: (val: string) => void;
+    height?: number;
 }) => {
     const isMobile = useMobile();
 
     return <section className={styles.content}>
-        <h3 className={styles.title}>
-            <>{title}</>
-            <span className={styles.subtitle}>{subtitle}</span>
-        </h3>
+        <section className={styles.title__Wrap}>
+            <h3 className={styles.title}>
+                <>{title}</>
+                <span className={styles.subtitle}>{subtitle}</span>
+            </h3>
+
+            {
+                hasDataSelect === true && dataSelectOptions.length > 0 &&
+                <select
+                    className={styles.data__Select}
+                    value={dataSelectValue}
+                    onChange={({ target }) => handleUpdateDataSelectValue(target.value)}
+                    disabled={isLoading}
+                >
+                    {
+                        React.Children.toArray(dataSelectOptions.map(optionItem => {
+                            return <option 
+                                key={optionItem.id}
+                                value={optionItem.value}
+                            >
+                                {optionItem.label}
+                            </option>
+                        }))
+                    }
+                </select>
+            }
+        </section>
 
         {
             isLoading ?
@@ -36,7 +69,7 @@ const CustomBarChart = ({
             :
             <ResponsiveContainer 
                 width="100%" 
-                height={500}
+                height={height}
                 style={{
                     pointerEvents: data.length < 1 ? 
                         'none' 
@@ -59,7 +92,7 @@ const CustomBarChart = ({
                             bottom: 80,
                         }
                     }
-                    barSize={30}
+                    barSize={50}
                 >   
                     <XAxis 
                         dataKey={labelKeyName} 

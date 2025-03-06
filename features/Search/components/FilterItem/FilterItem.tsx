@@ -9,6 +9,7 @@ import useClickOutside from '@/hooks/useClickOutside';
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
 import SearchBar from '@/components/inputs/SearchBar/SearchBar';
 import { cleanStringAndReturnLower } from '@/helpers/formatters';
+import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext';
 
 
 interface FilterValue {
@@ -22,16 +23,22 @@ const FilterItem = ({
     filters=[],
     currentActiveFiltersForItem=[],
     showCustomSearch=false,
+    useAdminContextFilterUpdate=false,
 }: {
     title: string;
     filterKey: string;
     filters?: FilterValue[];
     currentActiveFiltersForItem?: string[];
     showCustomSearch?: boolean;
+    useAdminContextFilterUpdate?: boolean;
 }) => {
     const {
         handleUpdateFiltersForCategory,
     } = useSearchFilterContext();
+
+    const  {
+        handleUpdatePlaceFiltersForCategory,
+    } = useAdminDataContext();
 
     const [ selectedFilters, setSelectedFilters ] = useState<string[]>([]);
     const [ showFilterListing, setShowFilterListing ] = useState<boolean>(false);
@@ -70,16 +77,29 @@ const FilterItem = ({
     }, [filters, searchValue, selectedFilters])
 
     const handleBtnClick = (value: string[]) => {
-        handleUpdateFiltersForCategory(
-            filterKey,
-            searchValue.length > 0 ?
-                [
-                    ...value,
-                    searchValue,
-                ]
-            :
-            value
-        );
+        if (useAdminContextFilterUpdate === true) {
+            handleUpdatePlaceFiltersForCategory(
+                filterKey,
+                searchValue.length > 0 ?
+                    [
+                        ...value,
+                        searchValue,
+                    ]
+                :
+                value
+            );
+        } else {
+            handleUpdateFiltersForCategory(
+                filterKey,
+                searchValue.length > 0 ?
+                    [
+                        ...value,
+                        searchValue,
+                    ]
+                :
+                value
+            );
+        }
         setShowFilterListing(false);
         setSearchValue('');
     } 

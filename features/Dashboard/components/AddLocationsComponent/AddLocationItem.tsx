@@ -10,8 +10,8 @@ import { IoTrashOutline } from 'react-icons/io5';
 import Divider from '@/features/Places/components/Divider/Divider';
 import useMobile from '@/hooks/useMobile';
 // import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { useLoadScript, Autocomplete, Libraries } from "@react-google-maps/api";
+import { useMapContext } from '@/contexts/MapContext';
 
 const libraries: Libraries = ["places"];
 
@@ -38,7 +38,7 @@ const AddLocationItem = ({
 }) => {    
     const {
         mapKey,
-    } = useAppContext();
+    } = useMapContext();
 
     // const {
     //     placesService,

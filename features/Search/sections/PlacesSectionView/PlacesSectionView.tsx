@@ -7,8 +7,8 @@ import PlaceListCard from '../../components/PlaceListCard/PlaceListCard'
 import styles from './styles.module.css';
 import { useSearchFilterContext } from '@/contexts/SearchFilterContext/SearchFIlterContext';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import useMobile from '@/hooks/useMobile';
+import { useMapContext } from '@/contexts/MapContext';
 
 const PlacesSectionView = () => {
     const {
@@ -19,7 +19,7 @@ const PlacesSectionView = () => {
 
     const {
         showMap
-    } = useAppContext();
+    } = useMapContext();
 
     const isMobile = useMobile();
     
