@@ -7,6 +7,7 @@ import { APIProvider, InfoWindow, Map, Marker} from "@vis.gl/react-google-maps";
 import { defaultMapCenter, testMapCoordinates } from './utils';
 import { IoLocationOutline } from 'react-icons/io5';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
+import { useMapContext } from '@/contexts/MapContext';
 
 interface PlaceCoordinate {
   lat: number;
@@ -32,7 +33,7 @@ const PlacesMap = ({
   loaded?: boolean;
   className?: string;
 }) => {
-  const { showMap, mapKey, mapKeyLoading } = useAppContext();
+  const { showMap, mapKey, mapKeyLoading } = useMapContext();
   const [ selectedLocation, setSelectedLocation ] = useState<PlaceCoordinate | null>(null);
   const [ showDialog, setShowDialog ] = useState(false);
 

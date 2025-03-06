@@ -7,14 +7,14 @@ import Greeting from '@/features/Dashboard/components/Greeting/Greeting'
 import CustomBarChart from '@/components/Charts/BarChart'
 import TopStatsRow from '@/features/Dashboard/sections/TopStatsRow/TopStatsRow'
 import Bookings from '@/features/Dashboard/sections/Bookings/Bookings'
-import { useAppContext } from '@/contexts/AppContext/AppContext'
+import { usePlaceContext } from '@/contexts/PlaceContext';
 
 
 const Home = () => {
     const {
         placesViewStats,
         placesViewStatLoading,
-    } = useAppContext();
+    } = usePlaceContext();
 
     return <>
         <section className={styles.page__Wrap}>

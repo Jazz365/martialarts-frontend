@@ -27,6 +27,7 @@ type IPlace = {
     documents_data: IPlaceDocuments[];
     place_age_groups: IPlaceAgeGroups[];
     class_schedules_data: IPlaceClassSchedule[];
+    type_of_place: number;
 }
 
 type IPlaceImage = {

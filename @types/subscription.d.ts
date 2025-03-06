@@ -1,4 +1,4 @@
-interface ISubscription {
+type ISubscription = {
     subscription_active: boolean;
     subscription: ISubscriptionDetail;
 }
@@ -8,7 +8,7 @@ enum SubscriptionStatus {
     ACTIVE,
 }
 
-interface ISubscriptionDetail {
+type ISubscriptionDetail = {
     status: keyof typeof SubscriptionStatus;
     start_date: string;
     next_billing_date?: string;

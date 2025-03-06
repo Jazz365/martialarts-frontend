@@ -4,18 +4,23 @@
 import React from 'react'
 import styles from './styles.module.css'
 import BookingSummaryItem from '@/features/Dashboard/components/BookingSummaryItem/BookingSummaryItem'
-import { useAppContext } from '@/contexts/AppContext/AppContext'
 import Link from 'next/link';
 import { bookingStatusList } from './utils';
 import { useSearchParams } from 'next/navigation';
 import { generateDashLinkForUser } from '@/helpers/helpers';
 import { useUserContext } from '@/contexts/UserContext';
+import { useBookingContext } from '@/contexts/BookingContext';
+import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext';
 
 
 const BookingsDetail = () => {
     const {
         bookings,
-    } = useAppContext();
+    } = useBookingContext();
+
+    const {
+        allBookings,
+    } = useAdminDataContext();
 
     const {
         userDetails
@@ -23,11 +28,22 @@ const BookingsDetail = () => {
 
     const params = useSearchParams();
 
+    const bookingsToShow = !userDetails ?
+        []
+    :
+        userDetails.is_admin === true ?
+        allBookings
+    :
+    bookings;
+
     return <>
         <h1 className={styles.header}>
             {
                 !userDetails ?
                     ''
+                :
+                userDetails.is_admin === true ?
+                    'Bookings'
                 :
                 userDetails?.is_owner === false ?
                     'Your classes'
@@ -61,7 +77,7 @@ const BookingsDetail = () => {
 
         <section className={styles.bookings}>
             {
-                React.Children.toArray(bookings
+                React.Children.toArray(bookingsToShow
                     .filter(booking => {
                         if (params.get('status')) {
                             return booking.status === params.get('status')?.toLocaleLowerCase();

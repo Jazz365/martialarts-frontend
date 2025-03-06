@@ -3,12 +3,12 @@
 import React, { CSSProperties, memo } from 'react'
 import styles from './styles.module.css';
 import useMobile from '@/hooks/useMobile';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import PlaceCardTitle from './components/PlaceCardTitle';
 import PlaceCardStyleOfferings from './components/PlaceCardStyleOfferings';
 import PlaceCardBenefits from './components/PlaceCardBenefits';
 import PlaceCardActions from './components/PlaceCardActions';
 import PlaceCardCarousel from './components/PlaceCardCarousel/PlaceCardCarousel';
+import { useMapContext } from '@/contexts/MapContext';
 
 const PlaceListCard = memo(({
   place,
@@ -29,7 +29,7 @@ const PlaceListCard = memo(({
 }) => {
   const {
     showMap,
-  } = useAppContext();
+  } = useMapContext();
   
   // const router = useRouter();
   const isMobile = useMobile();

@@ -26,9 +26,10 @@ const makeGetRequest = async (
 
 const makeAxiosGetRequest = async (
     apiRoute: string,
+    headers={},
 ) => {
     try {
-        const res = (await axios.get(apiRoute)).data;
+        const res = (await axios.get(apiRoute, { headers })).data;
         return res;
     } catch (error) {
         throw error;

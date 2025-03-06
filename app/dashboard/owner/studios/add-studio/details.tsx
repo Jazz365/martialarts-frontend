@@ -30,6 +30,7 @@ import AddClassSchedule from '@/features/Dashboard/components/AddClassSchedule/A
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import StyleAddModal from '@/components/popups/StyleAddModal/StyleAddModal';
 import { FaCirclePlay } from "react-icons/fa6";
+import { usePlaceContext } from '@/contexts/PlaceContext';
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
 const timeoutToRemoveErrHighlight = 1400;
@@ -74,10 +75,13 @@ const AddPlaceDetails = () => {
         placeTypes, 
         catersTo, 
         ageGroups,
-        userPlaces, 
-        setUserPlaces,
         setShowPaymentModal,
     } = useAppContext();
+
+    const {
+        userPlaces, 
+        setUserPlaces,
+    } = usePlaceContext();
 
     const router = useRouter();
 

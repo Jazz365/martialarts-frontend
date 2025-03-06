@@ -2,14 +2,15 @@
 
 import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
-import { useAppContext } from '@/contexts/AppContext/AppContext';
-import { formatTimeString } from '@/helpers/helpers';
 import Divider from '@/features/Places/components/Divider/Divider';
 import Button from '@/components/buttons/Button/Button';
 import { useUserContext } from '@/contexts/UserContext';
 import { BookingService } from '@/services/bookingService';
 import { AppConstants } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
+import { useBookingContext } from '@/contexts/BookingContext';
+import { formatDateV2 } from '@/helpers/helpers';
+import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext';
 
 
 const SingleBookingDetailContent = ({
@@ -20,7 +21,12 @@ const SingleBookingDetailContent = ({
     const {
         bookings,
         setBookings,
-    } = useAppContext();
+    } = useBookingContext();
+    
+    const {
+        allBookings,
+        setAllBookings,
+    } = useAdminDataContext();
 
     const {
         userDetails
@@ -32,31 +38,36 @@ const SingleBookingDetailContent = ({
     const router = useRouter();
 
     const bookingService = new BookingService();
-
-    const date = new Date(bookingDetail?.date + "T00:00:00Z"); 
-    const formattedDate = date.toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "2-digit",
-        year: "numeric",
-        timeZone: "UTC",
-    });
     
-    const bookingDateFormatted = formattedDate.replaceAll(",", "");
+    const bookingsToShow = !userDetails ?
+        []
+    :
+    userDetails.is_admin === true ?
+        allBookings
+    :
+    bookings;
+
+    const updateBookingsData = (data: IBooking[]) => {
+        if (!userDetails) return;
+
+        if (userDetails.is_admin === true) return setAllBookings(data);
+
+        setBookings(data);
+    }
 
     useEffect(() => {
         if (!bookingId) return;
 
-        setBookingDetail(bookings.find(booking => booking.id === Number(bookingId)));
-    }, [bookingId, bookings])
+        setBookingDetail(bookingsToShow.find(booking => booking.id === Number(bookingId)));
+    }, [bookingId, bookingsToShow])
 
     const updateSingleBookingDetail = (bookingId: number, status: keyof typeof BookingStatus) => {
-        const copyOfBookings = bookings.slice();
+        const copyOfBookings = bookingsToShow.slice();
         const foundBooking = copyOfBookings.find(booking => booking.id === bookingId);
         if (!foundBooking) return setLoading(false);
 
         foundBooking.status = status;
-        setBookings(copyOfBookings);
+        updateBookingsData(copyOfBookings);
         setLoading(false);
     }
 
@@ -100,7 +111,7 @@ const SingleBookingDetailContent = ({
             <p>
                 <span>date</span>
                 <span>
-                    {bookingDateFormatted}
+                    {formatDateV2(bookingDetail.date)}
                 </span>
             </p>
 
@@ -226,7 +237,7 @@ const SingleBookingDetailContent = ({
                         loading ?
                             'updating...'
                         :
-                        userDetails?.is_owner === true ?
+                        (userDetails?.is_admin === true || userDetails?.is_owner === true) ?
                             'confirm'
                         :
                         'cancel'
@@ -239,7 +250,7 @@ const SingleBookingDetailContent = ({
                         backgroundColor: 'var(--primary-app-color)',
                     }}
                     handleClick={
-                        userDetails?.is_owner === true ?
+                        (userDetails?.is_admin === true || userDetails?.is_owner === true) ?
                             () => handleConfirmBooking()
                         :
                         () => handleCancelBooking()

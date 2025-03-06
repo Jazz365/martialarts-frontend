@@ -88,6 +88,21 @@ export const formatDate = (date: Date, returnFormatAsString: boolean = false): s
     return `${year}-${monthNumber}-${day}`;
 }
 
+export const formatDateV2 = (dateStr?: string) => {
+    if (!dateStr) return '';
+
+    const date = new Date(dateStr + "T00:00:00Z");
+    const formattedDate = date.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+        timeZone: "UTC",
+    });
+    
+    return formattedDate.replaceAll(",", "");
+}
+
 export const estimateReadingTime = (textLength: number) => {
     const wordsPerMinute = 200;
     const avgWordLength = 5;

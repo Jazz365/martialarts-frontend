@@ -1,4 +1,4 @@
-interface IUser {
+type IUser = {
     id: number;
     email: string;
     is_owner: boolean;

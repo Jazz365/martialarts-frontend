@@ -4,6 +4,12 @@
     flex-direction: column;
 }
 
+.title__Wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .content {
     gap: 2rem;
     width: 100%;
@@ -25,4 +31,26 @@
     font-size: 0.75rem;
     color: #808080;
     font-weight: 500;
+}
+
+.data__Select {
+    outline: none;
+    border: none;
+    background: none;
+    background-color: #f2f2f2;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-family: var(--poppins-font);
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .subtitle {
+        display: none;
+    }
+
+    .data__Select {
+        font-size: 0.75rem;
+    }
 }

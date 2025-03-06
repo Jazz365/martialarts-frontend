@@ -9,7 +9,6 @@ import { BlogService } from '@/services/blogService';
 import facebookIcon from '../../../assets/icons/facebook.webp';
 import whatsappIcon from '../../../assets/icons/whatsapp.webp';
 import BackButton from '@/components/buttons/BackButton/BackButton';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import Link from 'next/link';
 import sampleImage1 from '../../../assets/blogSamples/blog-1.webp';
 import NavigationBar from '@/layouts/NavigationBar/NavigationBar';
@@ -18,6 +17,7 @@ import { copyToClipboard, estimateReadingTime, shareLinkToSocialMedia } from '@/
 import { IoCopyOutline } from 'react-icons/io5';
 import { toast } from 'sonner';
 import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
+import { useBlogContext } from '@/contexts/BlogContext';
 
 
 const SingleBlogDetails = ({
@@ -32,7 +32,7 @@ const SingleBlogDetails = ({
   const {
     blogs,
     blogsLoading,
-  } = useAppContext()
+  } = useBlogContext()
 
   const blogService = new BlogService();
 

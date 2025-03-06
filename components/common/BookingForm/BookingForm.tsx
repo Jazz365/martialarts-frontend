@@ -25,18 +25,22 @@ import CustomDatePickerHeader from './components/CustomDatePickerHeader';
 import useMobile from '@/hooks/useMobile';
 import { cleanStringAndReturnLower } from '@/helpers/formatters';
 import MemoizedImage from '../MemoizedImage/MemoizedImage';
+import { useBookingContext } from '@/contexts/BookingContext';
 
 const BookingForm = () => {
     const {
         selectedPlaceId,
         setSelectedPlaceId,
-        bookings,
-        setBookings,
     } = useAppContext();
 
     const {
         userDetails
     } = useUserContext();
+    
+    const {
+        bookings,
+        setBookings
+    } = useBookingContext();
 
     const [ currentPage, setCurrentPage ] = useState<number>(1);
     const [ bookingDetails, setBookingDetails ] = useState<BookingDetails>(initialBookingDetails)

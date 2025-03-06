@@ -18,7 +18,7 @@ const NavigationBarContent = ({
 }: {
     showSearchBar?: boolean;
 }) => {
-    const { userDetails, userDetailsLoading } = useUserContext();
+    const { userDetails } = useUserContext();
     const [ showMobileMenu, setShowMobileMenu ] = useState(false);
     const isMobile = useMobile();
 

@@ -7,8 +7,8 @@ import Button from '@/components/buttons/Button/Button'
 import { useUserContext } from '@/contexts/UserContext'
 import BookingSummaryItem from '../../components/BookingSummaryItem/BookingSummaryItem';
 import { generateDashLinkForUser } from '@/helpers/helpers';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
+import { useBookingContext } from '@/contexts/BookingContext';
 
 
 const Bookings = () => {
@@ -17,7 +17,7 @@ const Bookings = () => {
     const {
         bookings,
         bookingsLoading,
-    } = useAppContext();
+    } = useBookingContext();
 
     return <>
         <section className={styles.content__Wrap}>

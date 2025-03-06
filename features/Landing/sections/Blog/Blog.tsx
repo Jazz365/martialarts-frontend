@@ -4,15 +4,15 @@ import React from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import FadeInOnScroll from '@/components/wrapperComponents/FadeInOnScroll/FadeInOnScroll'
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import sampleImage1 from '../../../../assets/blogSamples/blog-1.webp';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { estimateReadingTime } from '@/helpers/helpers';
 import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
+import { useBlogContext } from '@/contexts/BlogContext';
 
 
 const Blog = () => {
-    const { blogs, blogsLoading } = useAppContext();
+    const { blogs, blogsLoading } = useBlogContext();
 
     return <>
         <section className={styles.content__Wrap}>
