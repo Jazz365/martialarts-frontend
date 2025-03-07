@@ -14,8 +14,7 @@
 
 @media screen and (max-width: 767px) {
     .content__Wrap {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding: 2rem 1rem 6rem;
     }
 
     .header {

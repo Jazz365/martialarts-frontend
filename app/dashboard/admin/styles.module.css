@@ -33,8 +33,21 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
+
     .user__Stats {
         flex-direction: column;
+    }
+
+    .user__Stats > section {
+        width: 100%;
+    }
+    
+    .user__Stats > section:first-child {
+        flex: 1;
+    }
+
+    .user__Stats > section:last-child {
+        flex: 1;
     }
 }
 
