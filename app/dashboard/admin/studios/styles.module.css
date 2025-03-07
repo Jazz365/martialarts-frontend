@@ -74,13 +74,7 @@
     .title__Wrap {
         flex-direction: column;
         width: 100%;
-        min-height: max-content;
-        gap: 1rem;
-    }
-
-    .title__Wrap > * {
-        max-width: 100%;
-        overflow-x: auto;
+        gap: 1.5rem;
     }
 }
 

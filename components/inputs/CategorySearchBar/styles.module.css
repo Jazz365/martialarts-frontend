@@ -155,6 +155,10 @@
     .search__Bar {
         width: 100%;
     }
+
+    .search__Bar input {
+        font-size: 0.78rem;
+    }
 }
 
 @media (min-width: 767.98px) and (max-width: 1200px) {

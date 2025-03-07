@@ -3,3 +3,14 @@
     align-items: center;
     gap: 1rem;
 }
+
+.filters__Wrap > section:last-of-type > section {
+    left: unset;
+    right: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .filters__Wrap {
+        flex-wrap: wrap;
+    }
+}
