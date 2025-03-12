@@ -26,16 +26,17 @@ import useMobile from '@/hooks/useMobile';
 import { cleanStringAndReturnLower } from '@/helpers/formatters';
 import MemoizedImage from '../MemoizedImage/MemoizedImage';
 import { useBookingContext } from '@/contexts/BookingContext';
+import { usePlaceContext } from '@/contexts/PlaceContext';
 
 const BookingForm = () => {
     const {
-        selectedPlaceId,
-        setSelectedPlaceId,
-    } = useAppContext();
+        userDetails,
+    } = useUserContext();
 
     const {
-        userDetails
-    } = useUserContext();
+        selectedPlaceId,
+        setSelectedPlaceId,
+    } = usePlaceContext();
     
     const {
         bookings,

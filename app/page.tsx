@@ -9,7 +9,6 @@ import Banner from "@/features/Landing/sections/Banner/Banner";
 import Blog from "@/features/Landing/sections/Blog/Blog";
 import Footer from "@/layouts/Footer/Footer";
 import IncludedGenders from "@/features/Landing/sections/IncludedGenders/IncludedGenders";
-import Faqs from "@/features/Landing/sections/Faqs/Faqs";
 // import MaintenanceScreen from "@/components/common/MaintenanceScreen/MaintenanceScreen";
 // import { tempLandingAccessVal } from "@/utils/utils";
 
@@ -25,7 +24,6 @@ export default function Home() {
       <FeaturedLocations />
       <Banner />
       <Blog />
-      <Faqs />
     </main>
 
     <Footer />

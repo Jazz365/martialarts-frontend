@@ -18,6 +18,7 @@ import PdfViewer from '@/components/common/PdfViewer/PdfViewer';
 import TermsPopup from '@/components/popups/TermsPopup/TermsPopup';
 import PrivacyPopup from '@/components/popups/PrivacyPopup/PrivacyPopup';
 import { listingSortOptions, listingViewTypes } from '@/features/Search/sections/Places/utils';
+import Faqs from '@/features/Landing/sections/Faqs/Faqs';
 
 const Footer = () => {
     const { allStyles, stylesLoading } = useAppContext();
@@ -54,6 +55,8 @@ const Footer = () => {
                         Martial Arts Classes to Build Strength and Confidence
                         {/* Bringing You the Best Martial Arts Studios and Classes Near You */}
                     </p>
+
+                    <Faqs />
                 </section>
 
                 <section className={styles.footer__Content}>

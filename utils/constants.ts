@@ -25,4 +25,8 @@ export class AppConstants {
     static get mapKey () {
         return 'MARTIAL_MAP_KEY'
     }
+
+    static get addNewPlaceTutorialVidLink () {
+        return 'https://www.youtube.com/watch?v=N7Wvp4gPGJQ';
+    }
 }

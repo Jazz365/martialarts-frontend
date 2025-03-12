@@ -1,6 +1,5 @@
 'use client';
 
-import BookingForm from "@/components/common/BookingForm/BookingForm";
 import useLoadData from "@/hooks/useLoadData";
 import { PlaceService } from "@/services/placeService";
 import { createContext, useContext, useState } from "react";
@@ -15,8 +14,6 @@ const AppContextProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [ selectedPlaceId, setSelectedPlaceId ] = useState<number | null>(null);
-
     const [ allStyles, setAllStyles ] = useState<IMartialArtStyle[]>([]);
     const [ stylesLoading, setStylesLoading ] = useState(true);
     const [ stylesLoaded, setStylesLoaded ] = useState(false);
@@ -83,8 +80,6 @@ const AppContextProvider = ({
 
     return <>
         <AppContext.Provider value={{
-            selectedPlaceId,
-            setSelectedPlaceId,
             allStyles,
             setAllStyles,
             stylesLoaded,
@@ -113,12 +108,6 @@ const AppContextProvider = ({
             setShowPaymentModal,
         }}>
             {children}
-
-            {
-                selectedPlaceId &&
-                <BookingForm />
-            }
-            
         </AppContext.Provider>
     </>
 }

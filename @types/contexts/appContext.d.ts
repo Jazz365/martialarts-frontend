@@ -1,6 +1,4 @@
 type AppContextType = {
-    selectedPlaceId: number | null; 
-    setSelectedPlaceId: (val: number | null) => void;
     allStyles: IMartialArtStyle[];
     setAllStyles: (styles: IMartialArtStyle[]) => void;
     stylesLoading: boolean;

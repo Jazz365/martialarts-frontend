@@ -325,7 +325,7 @@ const AddPlaceDetails = () => {
             }
         }
         
-        const uploadSpeedPerKB = 650;
+        const uploadSpeedPerKB = 750;
         const totalFilesAdded: File[] = [
             ...detailsToSubmit.images.flatMap(item => 
                 item.imageFile || item.image instanceof File 
@@ -423,9 +423,10 @@ const AddPlaceDetails = () => {
                     backgroundColor: 'transparent',
                     gap: '0.5rem',
                 }}
-                // useLink
-                // linkLocation='#'
-                disabled
+                useLink
+                linkLocation={AppConstants.addNewPlaceTutorialVidLink}
+                target='_blank'
+                rel='noreferrer noopener'
             />
         </section>
     

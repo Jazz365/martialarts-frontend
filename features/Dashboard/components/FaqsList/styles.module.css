@@ -16,7 +16,6 @@
     list-style: none;
     justify-content: space-between;
     cursor: pointer;
-    padding-bottom: 0.8rem;
     transition: all 0.3s ease-in-out;
 }
 
