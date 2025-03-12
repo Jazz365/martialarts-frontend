@@ -45,7 +45,7 @@ const Greeting = () => {
                 }
                 style={{
                     backgroundColor: 'var(--primary-app-color)',
-                    display: (!userDetails || userDetails?.is_admin === true) ? 'none' : 'block',
+                    display: (!userDetails || userDetails?.is_admin === true) ? 'none' : 'flex',
                 }}
             />
         </section>
