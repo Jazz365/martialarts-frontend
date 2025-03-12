@@ -9,30 +9,44 @@ const FaqsList = ({
     faqs=[],
     showDeleteIcon=false,
     handleDeleteFaq=()=>{},
+    questionClassname,
+    answerClassname,
+    iconWrapperClassname,
+    iconSize='1rem',
+    questionsGap,
+    addBottomPaddingToSummary=true,
 }: {
     faqs: IPlaceFaq[];
     showDeleteIcon?: boolean;
     handleDeleteFaq?: (val: number | string | undefined) => void;
+    questionClassname?: string;
+    answerClassname?: string;
+    iconWrapperClassname?: string;
+    iconSize?: string;
+    questionsGap?: string;
+    addBottomPaddingToSummary?: boolean;
 }) => {
 
     return <>
-        <section className={styles.list__Wrap}>
+        <section className={styles.list__Wrap} style={{ gap: questionsGap }}>
             {
                 React.Children.toArray(faqs.map(faq => {
                     return <details
                         key={faq.id}
                         className={styles.details__Wrap}
                     >
-                        <summary>
+                        <summary style={{ paddingBottom: addBottomPaddingToSummary ? '0.8rem' : '0' }}>
                             <section className={styles.question__Wrap}>
-                                <section className={styles.icon__Wrap}>
-                                    <HiOutlineChatAlt2 />
+                                <section className={`${styles.icon__Wrap} ${iconWrapperClassname ?? ''}`}>
+                                    <HiOutlineChatAlt2 size={iconSize} />
                                 </section>
-                                <span className={styles.question}>{faq.question}</span>
+                                <span className={`${styles.question} ${questionClassname ?? ''}`}>
+                                    {faq.question}
+                                </span>
                             </section>
                             
                             <section className={styles.action__Icons}>
-                                <HiOutlineChevronDown />
+                                <HiOutlineChevronDown size={iconSize} />
                                 {
                                     
                                     showDeleteIcon ?
@@ -48,7 +62,7 @@ const FaqsList = ({
                             </section>
                         </summary>
 
-                        <p className={styles.answer}>{faq.answer}</p>
+                        <p className={`${styles.answer} ${answerClassname ?? ''}`}>{faq.answer}</p>
                     </details>
                 }))
             }

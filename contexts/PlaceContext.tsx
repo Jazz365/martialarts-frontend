@@ -5,6 +5,7 @@ import { PlaceService } from "@/services/placeService";
 import { createContext, useContext, useState } from "react"
 import { useUserContext } from "./UserContext";
 import { useAppContext } from "./AppContext/AppContext";
+import BookingForm from "@/components/common/BookingForm/BookingForm";
 
 const PlaceContext = createContext<PlaceContextType>({
     userPlaces: [],
@@ -19,6 +20,8 @@ const PlaceContext = createContext<PlaceContextType>({
     setPlacesViewStats: () => {},
     setPlacesViewStatLoaded: () => {},
     setPlacesViewStatLoading: () => {},
+    selectedPlaceId: null, 
+    setSelectedPlaceId: () => {},
     resetPlaceContext: () => {},
 });
 
@@ -40,6 +43,8 @@ const PlaceContextProvider = ({
     const [ placesViewStatLoading, setPlacesViewStatLoading ] = useState(true);
     const [ placesViewStatLoaded, setPlacesViewStatLoaded ] = useState(false);
 
+    const [ selectedPlaceId, setSelectedPlaceId ] = useState<number | null>(null);
+
     const placeService = new PlaceService();
 
     const resetPlaceContext = () => {
@@ -50,6 +55,8 @@ const PlaceContextProvider = ({
         setPlacesViewStats([]);
         setPlacesViewStatLoaded(false);
         setPlacesViewStatLoading(true);
+
+        setSelectedPlaceId(null);
     }
 
     
@@ -92,9 +99,16 @@ const PlaceContextProvider = ({
         setPlacesViewStatLoaded,
         placesViewStatLoading,
         setPlacesViewStatLoading,
+        selectedPlaceId,
+        setSelectedPlaceId,
         resetPlaceContext,
     }}>
         {children}
+
+        {
+            selectedPlaceId &&
+            <BookingForm />
+        }
     </PlaceContext.Provider>
 }
 

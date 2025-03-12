@@ -8,8 +8,8 @@ import styles from './styles.module.css';
 import useMobile from '@/hooks/useMobile';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUserContext } from '@/contexts/UserContext';
-import { useAppContext } from '@/contexts/AppContext/AppContext';
 import { publicUserTypes } from '@/features/Auth/components/UserTypeSelect/utils';
+import { usePlaceContext } from '@/contexts/PlaceContext';
 
 
 type ValuePiece = Date | null;
@@ -26,8 +26,8 @@ const NewBooking = ({
     } = useUserContext();
 
     const {
-        setSelectedPlaceId
-    } = useAppContext();
+        setSelectedPlaceId,
+    } = usePlaceContext();
 
     const searchParams = useSearchParams();
 

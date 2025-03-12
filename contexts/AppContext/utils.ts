@@ -1,6 +1,4 @@
 export const initialAppContext: AppContextType = {
-    selectedPlaceId: null, 
-    setSelectedPlaceId: () => {},
     allStyles: [],
     setAllStyles: () => {},
     stylesLoading: true,
