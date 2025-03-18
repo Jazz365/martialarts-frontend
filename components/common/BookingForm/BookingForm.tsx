@@ -197,7 +197,8 @@ const BookingForm = () => {
                 setBookings([
                     {
                         ...res,
-                        status: 'pending'
+                        status: 'pending',
+                        created_at: new Date().toString(),
                     },
                     ...bookings,
                 ]);

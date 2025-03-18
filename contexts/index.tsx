@@ -24,8 +24,8 @@ const AppProviders = composeProviders(
     UserContextProvider,
     SearchFilterContextProvider,
     BlogContextProvider,
-    PlaceContextProvider,
     BookingContextProvider,
+    PlaceContextProvider,
     AdminDataContextProvider,
 );
 

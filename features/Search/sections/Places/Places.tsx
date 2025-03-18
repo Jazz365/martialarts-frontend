@@ -22,7 +22,7 @@ const SearchPlacesListing = () => {
     activeFilters,
     handleUpdateFiltersForCategory,
     allPlaces,
-    placesLoaded,
+    placesLoading,
     moreResultsLink,
     setMoreResultsLink,
     totalResults,
@@ -64,7 +64,7 @@ const SearchPlacesListing = () => {
     <section className={`${styles.listing__Wrap} ${showMap === false ? styles.full : ''}`}>
       <section className={styles.listing__Title}>
         <h1 className={styles.header}>
-          <span>{placesLoaded ? totalResults : 0} results</span>
+          <span>{!placesLoading ? totalResults : 0} results</span>
           {/* <span className={styles.subheader}>Find your perfect martial arts style place</span> */}
         </h1>
 
@@ -225,7 +225,7 @@ const SearchPlacesListing = () => {
       <PlacesSectionView />
 
       {
-        moreResultsLink && placesLoaded &&
+        moreResultsLink && !placesLoading &&
         <Button 
           label={
             moreResultsLoading ?

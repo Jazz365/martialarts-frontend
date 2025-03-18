@@ -36,26 +36,52 @@
     box-shadow: var(--card-box-shadow);
 }
 
+.actions__Wrap,
 .content__Detail p {
     display: flex;
     align-items: center;
+}
+
+.content__Detail p {
     justify-content: space-between;
 }
 
 .content__Detail p span:first-child {
-    font-size: 0.8rem;
     text-transform: capitalize;
 }
 
+.content__Detail p span:first-child,
 .content__Detail p span:last-child {
     font-size: 0.8rem;
 }
 
+.actions__Wrap {
+    gap: 1.5rem;
+}
+
 
 @media screen and (max-width: 767px) {
-    .content__Wrap {
-        padding-left: 1rem;
-        padding-right: 1rem;
+    .content__Wrap,
+    .content__Detail {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+    }
+
+    .actions__Wrap {
+        justify-content: center;
+    }
+
+    .header {
+        font-size: 1.3rem;
+    }
+
+    .header_min {
+        font-size: 1rem;
+    }
+
+    .content__Detail p span:first-child,
+    .content__Detail p span:last-child {
+        font-size: 0.65rem;
     }
 }
 

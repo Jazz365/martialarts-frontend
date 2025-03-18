@@ -1,7 +1,7 @@
 'use client';
 
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './styles.module.css'
 import BookingSummaryItem from '@/features/Dashboard/components/BookingSummaryItem/BookingSummaryItem'
 import Link from 'next/link';
@@ -28,13 +28,13 @@ const BookingsDetail = () => {
 
     const params = useSearchParams();
 
-    const bookingsToShow = !userDetails ?
-        []
-    :
-        userDetails.is_admin === true ?
-        allBookings
-    :
-    bookings;
+    const bookingsToShow = useMemo(() => {
+        if (!userDetails) return [];
+
+        if (userDetails.is_admin === true) return allBookings;
+
+        return bookings;
+    }, [userDetails, bookings, allBookings]);
 
     return <>
         <h1 className={styles.header}>

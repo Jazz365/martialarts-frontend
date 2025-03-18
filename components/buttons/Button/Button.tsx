@@ -23,8 +23,6 @@ const Button = forwardRef(({
     label: string;
     style?: CSSProperties;
     icon?: React.ReactNode;
-    iconColor?: string;
-    iconSize?: string;
     useLink?: boolean;
     linkLocation?: string;
     disabled?: boolean;
