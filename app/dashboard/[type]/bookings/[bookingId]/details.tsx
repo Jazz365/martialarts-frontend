@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './styles.module.css'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Divider from '@/features/Places/components/Divider/Divider';
 import Button from '@/components/buttons/Button/Button';
 import { useUserContext } from '@/contexts/UserContext';
@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useBookingContext } from '@/contexts/BookingContext';
 import { formatDateV2 } from '@/helpers/helpers';
 import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext';
+import { IoCheckmark, IoClose } from 'react-icons/io5';
 
 
 const SingleBookingDetailContent = ({
@@ -39,13 +40,13 @@ const SingleBookingDetailContent = ({
 
     const bookingService = new BookingService();
     
-    const bookingsToShow = !userDetails ?
-        []
-    :
-    userDetails.is_admin === true ?
-        allBookings
-    :
-    bookings;
+    const bookingsToShow = useMemo(() => {
+        if (!userDetails) return [];
+
+        if (userDetails.is_admin === true) return allBookings;
+
+        return bookings;
+    }, [userDetails, bookings, allBookings]);
 
     const updateBookingsData = (data: IBooking[]) => {
         if (!userDetails) return;
@@ -232,30 +233,52 @@ const SingleBookingDetailContent = ({
 
             {
                 bookingDetail.status === 'pending' &&
-                <Button 
-                    label={
-                        loading ?
-                            'updating...'
-                        :
-                        (userDetails?.is_admin === true || userDetails?.is_owner === true) ?
-                            'confirm'
-                        :
-                        'cancel'
+                <section className={styles.actions__Wrap}>
+                    <Button 
+                        label={
+                            loading ? 
+                                'updating...' 
+                            :
+                            'cancel'
+                        }
+                        icon={<IoClose size={'1rem'} />}
+                        style={{
+                            width: 'max-content',
+                            marginTop: '2rem',
+                            fontSize: '0.75rem',
+                            backgroundColor: 'transparent',
+                            color: 'var(--primary-app-color)',
+                            border: '1px solid var(--primary-app-color)',
+                        }}
+                        handleClick={
+                            () => handleCancelBooking()
+                        }
+                        disabled={loading}
+                    />
+
+                    {
+                        (userDetails?.is_admin === true || userDetails?.is_owner === true) &&                    
+                        <Button 
+                            label={
+                                loading ? 
+                                    'updating...' 
+                                :
+                                'confirm'
+                            }
+                            icon={<IoCheckmark size={'1rem'} />}
+                            style={{
+                                width: 'max-content',
+                                marginTop: '2rem',
+                                fontSize: '0.75rem',
+                                backgroundColor: 'var(--primary-app-color)',
+                            }}
+                            handleClick={
+                                () => handleConfirmBooking()
+                            }
+                            disabled={loading}
+                        />
                     }
-                    style={{
-                        width: 'max-content',
-                        marginTop: '2rem',
-                        marginRight: 'auto',
-                        fontSize: '0.75rem',
-                        backgroundColor: 'var(--primary-app-color)',
-                    }}
-                    handleClick={
-                        (userDetails?.is_admin === true || userDetails?.is_owner === true) ?
-                            () => handleConfirmBooking()
-                        :
-                        () => handleCancelBooking()
-                    }
-                />
+                </section>
             }
 
             {
