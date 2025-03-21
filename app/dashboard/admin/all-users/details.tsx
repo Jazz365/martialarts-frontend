@@ -12,6 +12,7 @@ import Button from '@/components/buttons/Button/Button';
 import { userTypes } from '@/features/Auth/components/UserTypeSelect/utils';
 import { v4 as uuidv4 } from 'uuid';
 import { blurFocusFromCurrentPage } from '@/helpers/helpers';
+import useMobile from '@/hooks/useMobile';
 
 const AllUsersDetails = () => {
     const {
@@ -21,6 +22,8 @@ const AllUsersDetails = () => {
 
     const [ searchValue, setSearchValue ] = useState('');
     const [ activeTypeFilter, setActiveTypeFilter ] = useState('');
+
+    const isMobile = useMobile();
 
     const usersToShow = useMemo(() => {
         return users.filter(user => {
@@ -53,7 +56,7 @@ const AllUsersDetails = () => {
                     value={searchValue}
                     onChange={(_name: string, val: string) => setSearchValue(val)}
                     style={{
-                        width: 'max-content',
+                        width: isMobile ? 'max-content' : '27%',
                         fontSize: '0.8rem',
                         padding: '0.5rem 0.8rem'
                     }}

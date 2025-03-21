@@ -37,6 +37,11 @@ const GenderImagesWrap = () => {
                             src={genderItem.imageUrl}
                             alt={`${genderItem.title} hero illustration`}
                             className={`${styles.banner__Image}`}
+                            style={{
+                                willChange: 'unset',
+                                contentVisibility: 'unset',
+                                contain: 'unset',
+                            }}
                             // priority
                         />
                         
