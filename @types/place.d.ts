@@ -28,6 +28,7 @@ type IPlace = {
     place_age_groups: IPlaceAgeGroups[];
     class_schedules_data: IPlaceClassSchedule[];
     type_of_place: number;
+    status: keyof typeof IPlaceStatus;
 }
 
 type IPlaceImage = {
@@ -127,4 +128,10 @@ type IPlaceClassSchedule = {
         day: string;
         times: string[];
     }[];
+}
+
+enum IPlaceStatus {
+    draft,
+    published,
+    archived,
 }

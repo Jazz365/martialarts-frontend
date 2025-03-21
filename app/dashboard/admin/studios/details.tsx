@@ -4,18 +4,17 @@
 import PaginationItem from '@/components/common/PaginationItem/PaginationItem';
 import PageLoader from '@/components/loaders/PageLoader/PageLoader';
 import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext'
-import useMobile from '@/hooks/useMobile';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
 import styles from './styles.module.css'
 import mascot from '../../../../assets/astr.webp'
-import PlaceListCard from '@/features/Search/components/PlaceListCard/PlaceListCard';
 import { blurFocusFromCurrentPage } from '@/helpers/helpers';
 import AdminPlaceFilters from '@/features/Dashboard/components/AdminPlaceFilters/AdminPlaceFilters';
+import AdminPlaceCard from '@/features/Dashboard/components/AdminPlaceCard/AdminPlaceCard';
 
 
-const itemsPerPage = 3;
+const itemsPerPage = 6;
 
 const AllStudiosDetail = () => {
     const {
@@ -25,7 +24,6 @@ const AllStudiosDetail = () => {
 
     const searchParams = useSearchParams();
     const router = useRouter();
-    const isMobile = useMobile();
 
     const currentPage = !searchParams.get('page') || isNaN(Number(searchParams.get('page'))) ? 1 : Number(searchParams.get('page'));
 
@@ -87,18 +85,10 @@ const AllStudiosDetail = () => {
                                 ,
                                 Number(currentPage * itemsPerPage)
                             )
-                            .map((place, index) => {
-                                return <PlaceListCard
+                            .map((place) => {
+                                return <AdminPlaceCard 
                                     place={place}
-                                    index={index}
                                     key={place.id}
-                                    isListView={!isMobile}
-                                    imageHeight={300}
-                                    isInAppStudioUse={true}
-                                    style={{
-                                        height: 'unset',
-                                        maxWidth: '100%',
-                                    }}
                                 />
                             })
                         )

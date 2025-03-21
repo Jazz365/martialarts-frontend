@@ -33,6 +33,10 @@ const AdminDataContextProvider = ({
     const [ allBookingsLoading, setAllBookingsLoading ] = useState<boolean>(true);
     const [ allBookingsLoaded, setAllBookingsLoaded ] = useState<boolean>(false);
 
+    const [ users, setUsers ] = useState<IUser[]>([]);
+    const [ usersLoading, setUsersLoading ] = useState<boolean>(true);
+    const [ usersLoaded, setUsersLoaded ] = useState<boolean>(false);
+
     const [ activePlaceFilters, setActivePlaceFilters ] = useState<AdminPlaceFilters>(initialPlaceFilters);
     
     const adminService = new AdminService();
@@ -57,6 +61,10 @@ const AdminDataContextProvider = ({
     const placesToDisplay = useMemo<IPlace[]>(() => {
         return places.filter(place => {
             const conditionsMatch =
+                (
+                    activePlaceFilters.status_type.length === 0 ||
+                    activePlaceFilters.status_type.includes(place.status)
+                ) &&
                 (
                     activePlaceFilters.style_id.length === 0 ||
                     place.place_styles.some(styleItem =>
@@ -143,6 +151,19 @@ const AdminDataContextProvider = ({
         },
     );
 
+    useLoadData(
+        usersLoaded,
+        setUsersLoading,
+        adminService.getAllUsers.bind(adminService),
+        setUsers,
+        setUsersLoaded,
+        {
+            authorisationRequired: true,
+            hasDependency: true,
+            dependency: userDetails !== null && userDetails.is_admin === true && stylesLoaded === true && dashboardDataLoading !== true, 
+        }
+    );
+
     return <>
         <AdminDataContext.Provider value={{
             dashboardData,
@@ -168,6 +189,13 @@ const AdminDataContextProvider = ({
             setAllBookingsLoaded,
             allBookingsLoading,
             setAllBookingsLoading,
+
+            users,
+            setUsers,
+            usersLoading,
+            setUsersLoading,
+            usersLoaded,
+            setUsersLoaded,
         }}>
             {children}
         </AdminDataContext.Provider>

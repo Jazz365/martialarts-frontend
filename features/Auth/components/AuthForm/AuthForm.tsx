@@ -20,7 +20,7 @@ import { useUserContext } from '@/contexts/UserContext';
 import PdfViewer from '@/components/common/PdfViewer/PdfViewer';
 import TermsPopup from '@/components/popups/TermsPopup/TermsPopup';
 import PrivacyPopup from '@/components/popups/PrivacyPopup/PrivacyPopup';
-import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/owner/studios/add-studio/utils';
+import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/[type]/studios/add-studio/utils';
 
 
 const AuthForm = ({

@@ -10,16 +10,14 @@ import CustomBarChart from '@/components/Charts/BarChart';
 import CustomPieChart from '@/components/Charts/PieChart';
 import CustomLineChart from '@/components/Charts/LineChart';
 import { formatDateV2 } from '@/helpers/helpers';
+// import FeaturedStudios from '@/features/Dashboard/sections/FeaturedStudios/FeaturedStudios';
 
 
 const Home = () => {
     const {
         dashboardData,
-        dashboardDataLoaded,
         dashboardDataLoading,
     } = useAdminDataContext();
-
-    if (dashboardDataLoaded) console.log(dashboardData);
 
     const [ currentPlaceStatId, setCurrentPlaceStatId ] = useState<string>(placesStatViewOptions[0].id);
 
@@ -52,7 +50,7 @@ const Home = () => {
                     dataSelectOptions={placesStatViewOptions.map(option => ({ id: option.id, label: option.title, value: option.id }))}
                     dataSelectValue={currentPlaceStatId}
                     handleUpdateDataSelectValue={(val) => setCurrentPlaceStatId(val)}
-                    height={580}
+                    height={620}
                 />
 
                 <section className={styles.other__Insights}>
@@ -64,7 +62,7 @@ const Home = () => {
                             { name: 'new', value: dashboardData?.subscriptions.new_30d ?? 0 },
                             { name: 'on trial', value: dashboardData?.subscriptions.trial ?? 0 },
                         ]}
-                        height={200}
+                        height={240}
                         isLoading={dashboardDataLoading}
                     />
 
@@ -85,6 +83,8 @@ const Home = () => {
                     />
                 </section>
             </section>
+
+            {/* <FeaturedStudios /> */}
         </section>
     </>
 }

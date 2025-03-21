@@ -5,6 +5,7 @@ export const availableFiltersKeys: (keyof AdminPlaceFilters)[] = [
     'type_of_place_id',
     'caters_to_id',
     'age_group_id',
+    'status_type',
 ]
 
 export const filterKeysToCombine: (keyof AdminPlaceFilters)[] = [
@@ -12,6 +13,7 @@ export const filterKeysToCombine: (keyof AdminPlaceFilters)[] = [
     'type_of_place_id',
     'caters_to_id',
     'age_group_id',
+    'status_type',
 ]
 
 export const initialPlaceFilters = availableFiltersKeys.reduce((acc, key) => {
@@ -41,4 +43,10 @@ export const initialAdminDataContext: AdminDataContextType = {
     setAllBookingsLoaded: () => {},
     allBookingsLoading: true,
     setAllBookingsLoading: () => {},
+    users: [],
+    setUsers: () => {},
+    usersLoaded: false,
+    setUsersLoaded: () => {},
+    usersLoading: true,
+    setUsersLoading: () => {},
 }

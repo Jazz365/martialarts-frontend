@@ -5,6 +5,7 @@ import FilterItem from '@/features/Search/components/FilterItem/FilterItem'
 import React from 'react'
 import styles from './styles.module.css'
 import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext';
+import { AvailablePlaceStatuses } from '@/utils/placeStatuses';
 
 
 const AdminPlaceFilters = () => {
@@ -21,6 +22,19 @@ const AdminPlaceFilters = () => {
 
     return <>
         <section className={`${styles.filters__Wrap}`}>
+            <FilterItem 
+                title='status'
+                filterKey='status_type'
+                filters={
+                    Object.values(AvailablePlaceStatuses).map(value => ({
+                        name: value as string,
+                        value: value as string,
+                    }))
+                }
+                currentActiveFiltersForItem={activePlaceFilters.status_type}
+                useAdminContextFilterUpdate
+            />
+
             <FilterItem
                 title='style'
                 filterKey='style_id'
