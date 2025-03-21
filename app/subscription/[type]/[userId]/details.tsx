@@ -1,7 +1,7 @@
 'use client';
 
 
-import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/owner/studios/add-studio/utils';
+import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/[type]/studios/add-studio/utils';
 import Loader from '@/components/loaders/Loader/Loader'
 import { useUserContext } from '@/contexts/UserContext';
 import { UserService } from '@/services/userService';

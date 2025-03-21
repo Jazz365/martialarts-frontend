@@ -5,7 +5,7 @@ import React from 'react'
 import styles from '../styles.module.css'
 import { useUserContext } from '@/contexts/UserContext';
 import Button from '@/components/buttons/Button/Button';
-import { formatPricingType } from '@/app/dashboard/owner/studios/add-studio/utils';
+import { formatPricingType } from '@/app/dashboard/[type]/studios/add-studio/utils';
 
 
 const PlaceCardActions = ({

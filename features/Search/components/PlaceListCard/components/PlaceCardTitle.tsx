@@ -1,16 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from '../styles.module.css'
 import Link from 'next/link'
 import { generateDashLinkForUser } from '@/helpers/helpers';
-import { IoLocationOutline, IoStar, IoStarOutline } from 'react-icons/io5';
+import { IoLocationOutline } from 'react-icons/io5';
 import { useUserContext } from '@/contexts/UserContext';
 import Button from '@/components/buttons/Button/Button';
-import { Tooltip } from 'react-tooltip';
-import { AdminService } from '@/services/adminService';
-import { AppConstants } from '@/utils/constants';
-import { toast } from 'sonner';
 
 
 const PlaceCardTitle = ({
@@ -34,34 +30,6 @@ const PlaceCardTitle = ({
     ``,
     `${place.name}`,
   ];
-
-  const [ featureStatus, setFeatureStatus ] = useState(false);
-  const [ featuredStatusUpdating, setFeaturedStatusUpdating ] = useState(false);
-
-  const adminService = new AdminService();
-
-  useEffect(() => {
-    setFeatureStatus(place.is_featured);
-  }, [])
-
-  const handleTogglePlaceFeatureStatus = async () => {
-    const savedToken = AppConstants.savedToken;
-    const featureUpdateType = featureStatus === true ? 'unfeature' : 'feature';
-
-    if (featuredStatusUpdating || !savedToken) return;
-
-    setFeaturedStatusUpdating(true);
-
-    try {
-      await adminService.updatePlaceFeaturedStatus(savedToken, place.id, featureUpdateType);
-      setFeaturedStatusUpdating(false);
-      setFeatureStatus(!featureStatus);
-
-      toast.success(`Successfully ${featureUpdateType}d place!`);
-    } catch (error) {
-      setFeaturedStatusUpdating(false);
-    }
-  }
 
   return <>
     <section className={styles.top__Row}>
@@ -96,39 +64,6 @@ const PlaceCardTitle = ({
                 />
               :
               <></>
-            }
-
-            {
-              userDetails && userDetails.is_admin === true && <>
-                <section
-                  data-tooltip-content={
-                    featuredStatusUpdating ? 
-                      'Updating...' 
-                    :
-                    `${featureStatus === true ? 'Unfeature' : 'Feature'} studio`
-                  }
-                  data-tooltip-id={`place-featured-${place.id}`}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => handleTogglePlaceFeatureStatus()}
-                >
-                  {
-                    featuredStatusUpdating ?
-                      <span>...</span>
-                    :
-                    featureStatus === true ?
-                      <IoStar fill='var(--primary-app-color)' size={'1.4rem'} />
-                    :
-                    <IoStarOutline size={'1.4rem'} />
-                  }
-                </section>
-
-                <Tooltip 
-                  id={`place-featured-${place.id}`}
-                  style={{
-                    fontSize: '0.75rem'
-                  }}
-                />      
-              </>
             }
           </section>
         </section>

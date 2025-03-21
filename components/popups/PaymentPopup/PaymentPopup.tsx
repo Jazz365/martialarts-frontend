@@ -11,6 +11,7 @@ import Button from '@/components/buttons/Button/Button';
 import { AppConstants } from '@/utils/constants';
 import { UserService } from '@/services/userService';
 import { useAppContext } from '@/contexts/AppContext/AppContext';
+import { useRouter } from 'next/navigation';
 
 
 const PaymentPopup = () => {
@@ -23,8 +24,12 @@ const PaymentPopup = () => {
     const [ loading, setLoading ] = useState(false);
 
     const userService = new UserService();
+    const router = useRouter();
 
-    const handleHideModal = () => setShowPaymentModal(false);
+    const handleHideModal = () => {
+        setShowPaymentModal(false);
+        router.back();
+    }
 
     const handleSubscribeToPlan = async () => {
         const authToken = AppConstants.savedToken;

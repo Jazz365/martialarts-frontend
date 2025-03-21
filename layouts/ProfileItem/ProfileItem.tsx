@@ -11,7 +11,7 @@ import { AppConstants } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
 import useMobile from '@/hooks/useMobile';
 import useClickOutside from '@/hooks/useClickOutside';
-import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/owner/studios/add-studio/utils';
+import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/[type]/studios/add-studio/utils';
 import { useBookingContext } from '@/contexts/BookingContext';
 import { usePlaceContext } from '@/contexts/PlaceContext';
 

@@ -3,6 +3,7 @@ interface AdminPlaceFilters {
     type_of_place_id: string[];
     caters_to_id: string[];
     age_group_id: string[];
+    status_type: string[];
 }
 
 type AdminDataContextType = {
@@ -26,4 +27,10 @@ type AdminDataContextType = {
     setAllBookingsLoaded: (val: boolean) => void;
     allBookingsLoading: boolean;
     setAllBookingsLoading: (val: boolean) => void;
+    users: IUser[];
+    setUsers: (val: IUser[]) => void;
+    usersLoaded: boolean;
+    setUsersLoaded: (val: boolean) => void;
+    usersLoading: boolean;
+    setUsersLoading: (val: boolean) => void;
 }

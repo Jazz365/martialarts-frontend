@@ -31,6 +31,10 @@ import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import StyleAddModal from '@/components/popups/StyleAddModal/StyleAddModal';
 import { FaCirclePlay } from "react-icons/fa6";
 import { usePlaceContext } from '@/contexts/PlaceContext';
+import useAccessGuard from '@/hooks/useAccessGuard';
+import { AdminService } from '@/services/adminService';
+import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext';
+import { useUserContext } from '@/contexts/UserContext';
 
 const daysOfTheWeek = getAllDaysOfTheWeek();
 const timeoutToRemoveErrHighlight = 1400;
@@ -83,73 +87,32 @@ const AddPlaceDetails = () => {
         setUserPlaces,
     } = usePlaceContext();
 
+    const {
+        placesToDisplay,
+        setPlaces,
+    } = useAdminDataContext();
+
+    const {
+        userDetails
+    } = useUserContext();
+
     const router = useRouter();
 
-    const placeService = new PlaceService();
+    const [
+        placeService,
+        adminService,
+    ] = [
+        new PlaceService(),
+        new AdminService(),
+    ];
+    
+    const isAdminUser = userDetails?.is_admin === true;
 
-    const handleDetailUpdate = (
-        key: string, 
-        value: string | boolean | string[] | number[] | ILocation[] | IPlaceMasterImage[] | IPlaceFaq[] | IPlaceImage[] | IPlaceDocuments[] | IPlaceClassSchedule[]
-    ) => {
-        setDetails((prevDetails) => {
-            if (key === newPlaceDetailKeysDict.place_policy) {
-                return {
-                    ...prevDetails,
-                    place_policy: {
-                        content: value as string,
-                    },
-                }
-            };
-
-            return {
-                ...prevDetails,
-                [key]: value,
-            }
-        });
-    }
-
-    const scrollToSectionAndAddErrHighlight = (sectionRef: React.RefObject<HTMLDivElement>) => {
-        sectionRef.current?.scrollIntoView({
-            behavior: 'smooth',
-        });
-        sectionRef.current?.classList.add(styles.highlight__Err);
-        setTimeout(() => sectionRef.current?.classList.remove(styles.highlight__Err), timeoutToRemoveErrHighlight);
-    }
-
-    // const handleSavePlaceToStorage = async (place: NewPlaceDetail) => {
-    //     const placeDetailToSaveToStorage = await cleanNewPlaceDetailForStorageSaveOperation(place);
-    //     localStorage.setItem(SAVED_PLACE_DETAIL_IN_STORAGE, JSON.stringify(placeDetailToSaveToStorage));
-    // }
-
-    // const loadSavedPlaceFromStorage = () => {
-    //     const savedPlace = localStorage.getItem(SAVED_PLACE_DETAIL_IN_STORAGE);
-    //     if (!savedPlace) return setDetailsLoading(false);
-
-    //     let formattedSavedPlace: NewPlaceDetail | null = null;
-
-    //     try {
-    //         const parsedSavedPlace = JSON.parse(savedPlace);
-    //         formattedSavedPlace = formatSavedNewPlaceDetailInStorage(parsedSavedPlace);
-    //         setDetails(formattedSavedPlace);
-    //     } catch (error) {
-    //         console.log('error parsing saved place -> ', error);
-    //     } finally {
-    //         if (!formattedSavedPlace) return setDetailsLoading(false);
-
-    //         handleSaveNewPlace(formattedSavedPlace);
-
-    //         blurFocusFromCurrentPage();
-
-    //         setTimeout(() => {
-    //             buttonRef.current?.scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'start'
-    //             });
-    //         }, 1800);
-    //     }
-    // }
+    useAccessGuard({ allowOwners: true });
 
     useEffect(() => {
+        blurFocusFromCurrentPage();
+
         const idPassed = searchParams.get('id');
         if (!idPassed || isNaN(Number(idPassed))) {
             // loadSavedPlaceFromStorage();
@@ -193,6 +156,35 @@ const AddPlaceDetails = () => {
             setDetailsLoading(false);
         })
     }, [searchParams])
+    
+    const handleDetailUpdate = (
+        key: string, 
+        value: string | boolean | string[] | number[] | ILocation[] | IPlaceMasterImage[] | IPlaceFaq[] | IPlaceImage[] | IPlaceDocuments[] | IPlaceClassSchedule[]
+    ) => {
+        setDetails((prevDetails) => {
+            if (key === newPlaceDetailKeysDict.place_policy) {
+                return {
+                    ...prevDetails,
+                    place_policy: {
+                        content: value as string,
+                    },
+                }
+            };
+
+            return {
+                ...prevDetails,
+                [key]: value,
+            }
+        });
+    }
+
+    const scrollToSectionAndAddErrHighlight = (sectionRef: React.RefObject<HTMLDivElement>) => {
+        sectionRef.current?.scrollIntoView({
+            behavior: 'smooth',
+        });
+        sectionRef.current?.classList.add(styles.highlight__Err);
+        setTimeout(() => sectionRef.current?.classList.remove(styles.highlight__Err), timeoutToRemoveErrHighlight);
+    }
 
     const handleUpdateArrayItem = (
         key: keyof NewPlaceDetail, 
@@ -357,16 +349,34 @@ const AddPlaceDetails = () => {
 
         if (isEditView) {
             try {
-                const res = await placeService.editPlace(savedToken, Number(searchParams.get('id')), formData);
-                
-                const copyOfPlaces = userPlaces.slice();
-                const foundEditedPlaceIndex = userPlaces.findIndex(place => place.id === res?.id);
-                if (foundEditedPlaceIndex !== -1) {
-                    userPlaces[foundEditedPlaceIndex] = res;
-                    setUserPlaces(copyOfPlaces);
-                }
+                const res = isAdminUser ?
+                    await adminService.editPlace(savedToken, Number(searchParams.get('id')), formData)
+                    : 
+                await placeService.editPlace(savedToken, Number(searchParams.get('id')), formData);
+
                 // console.log('edit res -> ', res);
-                router.push(`/places/${res.id}`);
+                
+                if (isAdminUser) {
+                    const copyOfPlaces = placesToDisplay.slice();
+                    const foundEditedPlaceIndex = placesToDisplay.findIndex(place => place.id === res?.id);
+                    if (foundEditedPlaceIndex !== -1) {
+                        placesToDisplay[foundEditedPlaceIndex] = res;
+                        setPlaces(copyOfPlaces);
+                    }
+                    
+                    if (res.status === 'published') return router.push(`/places/${res.id}`);
+                    
+                    router.back();
+                } else {
+                    const copyOfPlaces = userPlaces.slice();
+                    const foundEditedPlaceIndex = userPlaces.findIndex(place => place.id === res?.id);
+                    if (foundEditedPlaceIndex !== -1) {
+                        userPlaces[foundEditedPlaceIndex] = res;
+                        setUserPlaces(copyOfPlaces);
+                    }
+
+                    router.push(`/places/${res.id}`);
+                }
             } catch (error) {
                 setLoading(false);
             }
@@ -374,11 +384,22 @@ const AddPlaceDetails = () => {
         }
 
         try {
-            const res = await placeService.createNewPlace(savedToken, formData);
-            setUserPlaces([
-                res,
-                ...userPlaces,
-            ]);
+            const res = isAdminUser ?
+                await adminService.createNewPlace(savedToken, formData)
+            :
+            await placeService.createNewPlace(savedToken, formData);
+
+            if (isAdminUser) {
+                setPlaces([
+                    res,
+                    ...placesToDisplay,
+                ]);
+            } else {
+                setUserPlaces([
+                    res,
+                    ...userPlaces,
+                ]);
+            }
             
             // console.log('create res -> ', res);
             // setLoading(false);

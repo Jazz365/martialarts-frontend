@@ -186,8 +186,8 @@ class PlaceService {
 
     async searchPlace (queryParams?: string | undefined | null) {
         try {
-            const res = await makeGetRequest(`${this.getPlaceEndpoint('', queryParams)}`);
-            return res;
+            const res = await axios.get(`${this.getPlaceEndpoint('', queryParams)}`);
+            return res.data;
         } catch (error) {
             throw error;
         }

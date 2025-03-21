@@ -4,7 +4,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import TextInputComponent from '@/components/inputs/TextInputComponent/TextInputComponent';
-import { newPlaceDetailKeysDict } from '@/app/dashboard/owner/studios/add-studio/utils';
+import { newPlaceDetailKeysDict } from '@/app/dashboard/[type]/studios/add-studio/utils';
 import useMobile from '@/hooks/useMobile';
 
 

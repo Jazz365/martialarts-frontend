@@ -1,0 +1,68 @@
+.user__Card {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    border-radius: 8px;
+    position: relative;
+    padding: 1rem;
+    box-shadow: var(--card-box-shadow);
+}
+
+.menu__Icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.user__Detail {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.detail__Item__Wrap {
+    max-width: 70%;
+}
+
+.detail__Title {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    color: #808080;
+    letter-spacing: 0.03em;
+}
+
+.detail__Info {
+    font-weight: 500;
+    font-size: 1rem;
+    font-family: var(--mako-font);
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+}
+
+@media screen and (max-width: 767px) {
+    .user__Card {
+        flex-direction: column;
+    }
+
+    .user__Avatar {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .detail__Item__Wrap {
+        margin: 0 auto;
+        max-width: 84%;
+    }
+
+    .detail__Info,
+    .detail__Title {
+        text-align: center;
+    }
+}
