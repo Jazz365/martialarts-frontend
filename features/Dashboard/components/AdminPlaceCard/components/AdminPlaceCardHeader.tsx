@@ -2,7 +2,7 @@
 
 import MemoizedImage from '@/components/common/MemoizedImage/MemoizedImage';
 import React, { memo, useEffect, useRef, useState } from 'react'
-import { IoLocationOutline } from 'react-icons/io5';
+import { IoLocationOutline, IoStar } from 'react-icons/io5';
 import styles from '../styles.module.css'
 import { RiCheckDoubleFill, RiDraftLine } from "react-icons/ri";
 import { HiDotsVertical } from 'react-icons/hi';
@@ -76,6 +76,14 @@ const AdminPlaceCardHeader = memo(({
                         <></>
                     }
                     <p>{placeStatus}</p>
+
+                    {
+                        featureStatus === true && <>
+                            <p>{' '}|{' '}</p>
+                            <IoStar />
+                            <p>Featured</p>
+                        </>
+                    }
                 </section>
 
                 <section className={styles.action__Wrap}>
@@ -100,22 +108,26 @@ const AdminPlaceCardHeader = memo(({
             </section>
 
             <section className={styles.place__Title__Wrap}>
-                <MemoizedImage
-                    src={images[0].image as string}
-                    alt={name}
-                    width={60}
-                    height={60}
-                    unoptimized
-                    style={{
-                        objectFit: 'cover',
-                        borderRadius: '8px',
-                        willChange: 'unset',
-                        contentVisibility: 'unset',
-                        contain: 'unset',
-                    }}
-                />
+                <section className={styles.img__Wrap}>
+                    <MemoizedImage
+                        src={images[0].image as string}
+                        alt={name}
+                        width={0}
+                        height={0}
+                        unoptimized
+                        style={{
+                            objectFit: 'cover',
+                            borderRadius: '8px',
+                            willChange: 'unset',
+                            contentVisibility: 'unset',
+                            contain: 'unset',
+                            width: '100%',
+                            height: '100%',
+                        }}
+                    />
+                </section>
 
-                <section>
+                <section className={styles.title__Wrap}>
                     <h2 className={styles.place__Title}>{name}</h2>
                     <p className={styles.place__Location}>
                         <IoLocationOutline />

@@ -36,6 +36,15 @@
     width: 100%;
 }
 
+.img__Wrap {
+    width: 15%;
+    height: 50px;
+}
+
+.title__Wrap {
+    width: calc(100% - 15% - 1rem);
+}
+
 .place__Title {
     font-family: var(--mako-font);
     font-size: 1.3rem;
@@ -63,7 +72,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 68%;
+    width: 100%;
 }
 
 .admin__Place__Card__Detail,
