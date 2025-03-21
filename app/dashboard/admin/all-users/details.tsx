@@ -61,8 +61,8 @@ const AllUsersDetails = () => {
                 />
 
                 <section className={styles.filter__Wrap}>
-                    <SingleResultViewOption
-                        children={
+                    <SingleResultViewOption>
+                        {
                             React.Children.toArray(
                                 [
                                     <Button
@@ -130,7 +130,7 @@ const AllUsersDetails = () => {
                                 ]
                             )
                         }
-                    />
+                    </SingleResultViewOption>
                 </section>
             </section>
 
