@@ -7,6 +7,7 @@ interface AvailableFilters {
     name: string[];
     sort: string;
     view: string;
+    gender: string;
 }
 
 type SearchContextType = {

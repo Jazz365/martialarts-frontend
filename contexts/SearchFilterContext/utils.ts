@@ -11,6 +11,7 @@ export const availableFiltersKeys: (keyof AvailableFilters)[] = [
     'name',
     'sort',
     'view',
+    'gender',
 ]
 
 export const filterKeysToCombine: (keyof AvailableFilters)[] = [
@@ -21,7 +22,7 @@ export const filterKeysToCombine: (keyof AvailableFilters)[] = [
 ]
 
 export const initialActiveFilters = availableFiltersKeys.reduce((acc, key) => {
-    if (key === 'sort' || key === 'view') {
+    if (key === 'sort' || key === 'view' || key === 'gender') {
         acc[key] = key === 'sort' ? 
             listingSortOptions.sort_by_newest
             :

@@ -57,7 +57,7 @@ const SearchFilterContextProvider = ({
             return {
                 ...prevFilters,
                 ...availableFiltersKeys.reduce((acc, key) => {
-                    if (key === 'sort' || key === 'view') {
+                    if (key === 'sort' || key === 'view' || key === 'gender') {
                         acc[key] = searchParams.get(key) || '';
                     } else {
                         acc[key] = searchParams.getAll(key);
