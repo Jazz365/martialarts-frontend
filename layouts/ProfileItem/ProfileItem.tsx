@@ -14,6 +14,7 @@ import useClickOutside from '@/hooks/useClickOutside';
 import { SAVED_PLACE_DETAIL_IN_STORAGE } from '@/app/dashboard/[type]/studios/add-studio/utils';
 import { useBookingContext } from '@/contexts/BookingContext';
 import { usePlaceContext } from '@/contexts/PlaceContext';
+import { useAdminDataContext } from '@/contexts/AdminDataContext/AdminDataContext';
 
 
 const ProfileItem = () => {
@@ -30,6 +31,10 @@ const ProfileItem = () => {
     const { 
         resetPlaceContext 
     } = usePlaceContext();
+
+    const {
+        resetAdminDataContext,
+    } = useAdminDataContext();
 
     const [ showProfileMenu, setShowProfileMenu ] = useState<boolean>(false);
     
@@ -55,6 +60,7 @@ const ProfileItem = () => {
 
         resetPlaceContext();
         resetBookingContext();
+        resetAdminDataContext();
         
         localStorage.removeItem(AppConstants.tokenKey);
         localStorage.removeItem(SAVED_PLACE_DETAIL_IN_STORAGE);

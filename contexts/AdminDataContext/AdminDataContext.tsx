@@ -58,6 +58,33 @@ const AdminDataContextProvider = ({
         router.push(`?${newSearchParams.toString()}`);
     }
 
+    const handleTriggerContextReload = () => {
+        setDashboardDataLoaded(false);
+        setPlacesLoaded(false);
+        setAllBookingsLoaded(false);
+        setUsersLoaded(false);
+    }
+
+    const resetAdminDataContext = () => {
+        setDashboardData(null);
+        setDashboardDataLoaded(false);
+        setDashboardDataLoading(true);
+
+        setPlaces([]);
+        setPlacesLoaded(false);
+        setPlacesLoading(true);
+
+        
+        setAllBookings([]);
+        setAllBookingsLoaded(false);
+        setAllBookingsLoading(true);
+
+        
+        setUsers([]);
+        setUsersLoaded(false);
+        setUsersLoading(true);
+    }
+
     const placesToDisplay = useMemo<IPlace[]>(() => {
         return places.filter(place => {
             const conditionsMatch =
@@ -196,6 +223,9 @@ const AdminDataContextProvider = ({
             setUsersLoading,
             usersLoaded,
             setUsersLoaded,
+
+            handleTriggerContextReload,
+            resetAdminDataContext,
         }}>
             {children}
         </AdminDataContext.Provider>

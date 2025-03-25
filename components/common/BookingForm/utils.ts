@@ -24,7 +24,7 @@ export interface BookingDetails {
 export const initialBookingDetails: BookingDetails = {
     place_id: 0,
     date: formatDate(new Date()),
-    time: '09:00',
+    time: '',
     name: '',
     phone: '',
     email: '',

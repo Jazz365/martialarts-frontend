@@ -49,4 +49,6 @@ export const initialAdminDataContext: AdminDataContextType = {
     setUsersLoaded: () => {},
     usersLoading: true,
     setUsersLoading: () => {},
+    handleTriggerContextReload: () => {},
+    resetAdminDataContext: () => {},
 }
