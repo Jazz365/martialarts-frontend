@@ -13,6 +13,7 @@ const SelectItem = ({
     isDisabled=false,
     isRequired=false,
     style={},
+    hideDefaultDisabledOption=false,
 }: {
     label: string;
     labelFontSize?: string;
@@ -21,12 +22,14 @@ const SelectItem = ({
         id: string | number;
         value: string | number;
         label: string;
+        isDisabled?: boolean;
     }[];
     value?: string | number;
     handleChange?: (value: string) => void;
     isDisabled?: boolean;
     isRequired?: boolean;
     style?: CSSProperties;
+    hideDefaultDisabledOption?: boolean;
 }) => {
     return <>
         <label 
@@ -54,19 +57,25 @@ const SelectItem = ({
                 }}
                 disabled={isDisabled}
             >
-                <option 
-                    disabled 
-                    defaultChecked 
-                    value={''}
-                >
-                    Select option
-                </option>
-                
+                {
+                    hideDefaultDisabledOption ? 
+                        <></>
+                    :
+                    <option 
+                        disabled 
+                        defaultChecked 
+                        value={''}
+                    >
+                        Select option
+                    </option>
+                }
+
                 {
                     React.Children.toArray(options.map(option => {
                         return <option 
                             key={option.id}
                             value={option.value}
+                            disabled={option.isDisabled ?? false}
                         >
                             {option.label}
                         </option>

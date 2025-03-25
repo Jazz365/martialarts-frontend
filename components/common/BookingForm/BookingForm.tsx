@@ -342,7 +342,12 @@ const BookingForm = () => {
                                         })) ?? []
                                     }
                                     value={bookingDetails.class_id}
-                                    handleChange={(val) => handleDetailUpdate(bookingDetailsDict.class_id, val)}
+                                    handleChange={(val) => 
+                                        {
+                                            handleDetailUpdate(bookingDetailsDict.class_id, val);
+                                            handleDetailUpdate(bookingDetailsDict.time, '');
+                                        }
+                                    }
                                     isRequired
                                 />
 
@@ -384,19 +389,28 @@ const BookingForm = () => {
                                         isRequired
                                         value={bookingDetails.time}
                                         options={
-                                            availableTimeSlots.map(time => {
-                                                return {
-                                                    id: time,
-                                                    label: time,
-                                                    value: time,
-                                                }
-                                            })
+                                            [
+                                                {
+                                                    id: 'disabled-time-val',
+                                                    label: 'select option',
+                                                    value: '',
+                                                    isDisabled: true,
+                                                },
+                                                ...availableTimeSlots.map(time => {
+                                                    return {
+                                                        id: time,
+                                                        label: time,
+                                                        value: time,
+                                                    }
+                                                })
+                                            ]
                                         }
                                         isDisabled={bookingDetails.date.length < 1}
                                         handleChange={(val) => handleDetailUpdate(bookingDetailsDict.time, val)}
                                         style={{
                                             width: isMobile ? '100%' : 'calc(50% - 0.5rem)',
                                         }}
+                                        hideDefaultDisabledOption
                                     />
                                 </section>
                                 

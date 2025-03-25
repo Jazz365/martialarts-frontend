@@ -33,4 +33,6 @@ type AdminDataContextType = {
     setUsersLoaded: (val: boolean) => void;
     usersLoading: boolean;
     setUsersLoading: (val: boolean) => void;
+    handleTriggerContextReload: () => void;
+    resetAdminDataContext: () => void;
 }
