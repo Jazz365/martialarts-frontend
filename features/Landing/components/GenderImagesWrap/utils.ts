@@ -14,20 +14,20 @@ export const genderImgsInfo: {
     {
         id: 1,
         title: 'men',
-        location: `/search?class=adults&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`,
+        location: `/search?gender=male&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`,
         imageUrl: men,
     },
     {
         id: 2,
         title: 'women',
         isMainImage: true,
-        location: `/search?class=adults&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`,
+        location: `/search?gender=female&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`,
         imageUrl: women,
     },
     {
         id: 3,
         title: 'kids',
-        location: `/search?class=minors&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`,
+        location: `/search?gender=both&view=${listingViewTypes.listView}&sort=${listingSortOptions.sort_by_newest}`,
         imageUrl: kids,
     },
 ]
