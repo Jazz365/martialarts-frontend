@@ -16,6 +16,7 @@ const Faqs = () => {
                 answerClassname={styles.faq__Answers}
                 iconWrapperClassname={styles.faq__ICon}
                 addBottomPaddingToSummary={false}
+                showChevronIcon={false}
                 iconSize='0.8rem'
             />
         </section>

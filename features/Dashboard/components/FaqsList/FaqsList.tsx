@@ -8,6 +8,7 @@ import { HiOutlineChatAlt2 } from 'react-icons/hi';
 const FaqsList = ({
     faqs=[],
     showDeleteIcon=false,
+    showChevronIcon=true, 
     handleDeleteFaq=()=>{},
     questionClassname,
     answerClassname,
@@ -18,6 +19,7 @@ const FaqsList = ({
 }: {
     faqs: IPlaceFaq[];
     showDeleteIcon?: boolean;
+    showChevronIcon?: boolean;
     handleDeleteFaq?: (val: number | string | undefined) => void;
     questionClassname?: string;
     answerClassname?: string;
@@ -46,8 +48,7 @@ const FaqsList = ({
                             </section>
                             
                             <section className={styles.action__Icons}>
-                                <HiOutlineChevronDown size={iconSize} />
-                                {
+                            {showChevronIcon && <HiOutlineChevronDown size={iconSize} />}                                {
                                     
                                     showDeleteIcon ?
                                         <IoTrashOutline
