@@ -207,7 +207,7 @@ const DocumentsAdd = ({
             }
 
             <Button
-                label='add'
+                label='HEALTH DECLARATION'
                 style={{
                     padding: '0.5rem 1.5rem',
                     fontSize: '0.75rem',

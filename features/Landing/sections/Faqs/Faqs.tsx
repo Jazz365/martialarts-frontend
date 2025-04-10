@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 const Faqs = () => {
     return <>
         <section className={styles.content__Wrap}>
-            <h4 className={styles.header}>Frequently Asked Questions</h4>
+            <h4 className={styles.header}>FAQ</h4>
 
             <FaqsList 
                 faqs={landingFaqs}
